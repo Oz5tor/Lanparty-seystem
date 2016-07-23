@@ -248,9 +248,7 @@
 /administrator/language/en-GB/en-GB.tpl_hathor.ini
 /administrator/language/en-GB/en-GB.tpl_hathor.sys.ini
 /administrator/language/en-GB/en-GB.xml
-/administrator/language/en-GB/index.html
 /administrator/language/overrides/*
-/administrator/language/index.html
 /administrator/manifests/*
 /administrator/modules/mod_custom/*
 /administrator/modules/mod_feed/*
@@ -269,13 +267,11 @@
 /administrator/modules/mod_unread/*
 /administrator/modules/mod_version/*
 /administrator/modules/mod_stats_admin/*
-/administrator/modules/index.html
 /administrator/templates/bluestork/*
 /administrator/templates/isis/*
 /administrator/templates/hathor/*
 /administrator/templates/system/*
 /administrator/templates/index.html
-/administrator/index.php
 /cache/*
 /bin/*
 /cli/*
