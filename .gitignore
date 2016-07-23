@@ -536,7 +536,6 @@
 /templates/index.html
 /tmp/*
 /configuration.php
-/index.php
 /joomla.xml
 /*.txt
 /robots.txt.dist
