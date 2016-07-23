@@ -1,0 +1,44 @@
+body{
+    /*background-image: url(../Images/background.png);*/
+    background-color: #e8e8e8;
+    background-repeat: repeat;
+    overflow-y: scroll;
+}
+.starter-template{
+    padding:40px 15px;
+    text-align:center;
+}
+
+#hlpf_menu{
+    background-color:#2060c0;
+    border-radius: 0px;
+}
+
+.hlpf_white_text, .hlpf_white_text ul li a {
+    color: white;
+}
+
+.hlpf_white_text ul li a:hover {
+    background-color:#2a78ea;
+}
+
+.hlpf_newsborder {
+    background-color: white;
+    border: 1px solid rgba(0,0,0,0.2);
+    color: black;
+    padding-top: 10px;
+}
+
+hr {
+    
+    border: 1px solid #2060c0;
+}
+
+
+
+
+/* ========== Temp styles  =================== */
+.hlpf_min_large_height_news {
+    height: 400px;
+    max-height: 400px;
+}
