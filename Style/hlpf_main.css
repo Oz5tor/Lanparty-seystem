@@ -1,5 +1,5 @@
 body{
-    /*background-image: url(../Images/background.png);*/
+    background-image: url(../Images/background.png);
     background-color: #e8e8e8;
     background-repeat: repeat;
     overflow-y: scroll;
@@ -12,6 +12,7 @@ body{
 #hlpf_menu{
     background-color:#2060c0;
     border-radius: 0px;
+    margin-bottom: 0px;
 }
 
 .hlpf_white_text, .hlpf_white_text ul li a {
@@ -29,16 +30,22 @@ body{
     padding-top: 10px;
 }
 
-hr {
-    
+hr {   
     border: 1px solid #2060c0;
 }
 
+.hlpf_large_news_box{
+    min-height: 200px;
+    max-height: auto;
+}
 
+.hlpf_tournament_block img {
+    max-width: 100px;
+}
+
+.hlpf_no_round_border a{
+    border-radius: 0px;
+}
 
 
 /* ========== Temp styles  =================== */
-.hlpf_min_large_height_news {
-    height: 400px;
-    max-height: 400px;
-}
