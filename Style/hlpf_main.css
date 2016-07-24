@@ -10,7 +10,7 @@ body{
 }
 
 #hlpf_menu{
-    background-color:#2060c0;
+    background-color: #2060c0;
     border-radius: 0px;
     margin-bottom: 0px;
 }
@@ -20,7 +20,7 @@ body{
 }
 
 .hlpf_white_text ul li a:hover {
-    background-color:#2a78ea;
+    background-color: #2a78ea;
 }
 
 .hlpf_newsborder {
@@ -45,6 +45,37 @@ hr {
 
 .hlpf_no_round_border a{
     border-radius: 0px;
+}
+
+#hlpf_footer{
+    background-color: #2060c0;
+    color: white;
+}
+
+#hlpf_footer div div{
+  padding: 30px;  
+}
+
+#hlpf_footer h2{
+    margin-bottom: 15px;
+}
+
+#footer_contact a{
+    color: lightblue;
+}
+
+#footer_links{
+    list-style-type: none;
+    padding: 0;
+}
+
+#footer_links li a{
+    color: white
+}
+
+#social_media a{
+    color: white;
+    margin-right: 50px;
 }
 
 

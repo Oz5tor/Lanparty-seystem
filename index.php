@@ -5,8 +5,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="">
     <meta name="author" content="">
-    <title>Starter Template for Bootstrap 3.3.6</title>
+    <title>HLParty 2017 style</title>
     <link rel="shortcut icon" href="">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css">
     <link rel="stylesheet" href="Style/bootstrap.min.css">
     <link rel="stylesheet" href="Style/bootstrap-theme.min.css">
     <link rel="stylesheet" href="Style/hlpf_main.css">
@@ -206,11 +207,45 @@
             </div>
         </div>
     </div>
-    <nav class="navbar navbar-bottom" id="hlpf_menu">
-  <div class="container">
-    
-  </div>
-</nav>
+    <!-- Footer start -->
+    <footer class="container-fluid" id="hlpf_footer">
+        <div class="row">
+            <!-- Google Maps -->
+            <div class="col-sm-12 col-md-6">
+                <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2234.58538684431!2d12.287926209023182!3d55.9392252493907!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x465240852b497295%3A0x2ae4a89f1e73f438!2sHiller%C3%B8dsholmskolen!5e0!3m2!1sda!2sdk!4v1469351469692" width="650" height="400" frameborder="0" style="border:0" allowfullscreen></iframe>
+            </div>
+            <!-- Generel information, kontaktinformation og sociale medier -->
+            <div class="col-sm-12 col-md-6">
+                <!-- Adresse og kontakt -->
+                <div class="col-lg-6" id="footer_contact">
+                    <h2>Adresse</h2>
+                    <address>
+                        Hillerødsholmskolen <br>
+                        Hillerødsholmsallé 2 <br>
+                        3400 Hillerød
+                    </address>
+                    <h2>Kontakt</h2>
+                    <p>Bestyrelsen kan kontaktes på <a href="mailto:best@hlpf.dk">best@hlpf.dk</a>.<br> Ellers henviser vi til vores kontaktside.</p>
+                </div>
+                <!-- Generelle links -->
+                <div class="col-lg-6">
+                    <h2>Nyttige links</h2>
+                    <ul id="footer_links">
+                        <li><a href="#">Regler</a></li>
+                        <li><a href="#">Konkurrencer</a></li>
+                        <li><a href="#">Kantinen</a></li>
+                    </ul>
+                </div>
+                <!-- Sociale links -->
+                <div class="col-lg-12" id="social_media">
+                    <h2>Sociale medier</h2>
+                    <a href="#"><span class="fa fa-facebook fa-3x"></span></a>
+                    <a href="#"><span class="fa fa-twitter fa-3x"></span></a>
+                    <a href="#"><span class="fa fa-youtube fa-3x"></span></a>
+                </div>
+            </div>
+        </div>        
+    </footer>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
 </body>
