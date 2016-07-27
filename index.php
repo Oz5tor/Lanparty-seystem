@@ -22,13 +22,12 @@
     <!-- Facebook scocial like code prep start -->
     <div id="fb-root"></div>
     <script>(function(d, s, id) {
-          var js, fjs = d.getElementsByTagName(s)[0];
-          if (d.getElementById(id)) return;
-          js = d.createElement(s); js.id = id;
-          js.src = "//connect.facebook.net/da_DK/sdk.js#xfbml=1&version=v2.7&appId=1480239178911395";
-          fjs.parentNode.insertBefore(js, fjs);
-        }(document, 'script', 'facebook-jssdk'));
-    </script>
+      var js, fjs = d.getElementsByTagName(s)[0];
+      if (d.getElementById(id)) return;
+      js = d.createElement(s); js.id = id;
+      js.src = "//connect.facebook.net/da_DK/sdk.js#xfbml=1&version=v2.7&appId=1480239178911395";
+      fjs.parentNode.insertBefore(js, fjs);
+    }(document, 'script', 'facebook-jssdk'));</script>
     <!-- Facebook scocial like code prep end -->
     <header>
         <!-- Top start -->
@@ -88,9 +87,14 @@
                 <hr/>
             <!-- Facebook Social like thingy start -->
                 <div class="row">
-                    <div class="col-lg-12">
-                       <div class="fb-like" data-href="https://www.facebook.com/HLParty/" data-layout="standard" data-action="like" data-size="small" data-show-faces="false" data-share="true"></div>
+                    
+                    <div class="col-lg-12 col-xs-12">
+                        <center>
+                            <div class="fb-like hlpf_margin_center" data-href="https://www.facebook.com/HLParty/" data-layout="button_count" data-action="like" data-size="small" data-show-faces="false" data-share="true"></div>
+                        </center>
+                       
                     </div>
+                    
                 </div>
                 <br>
             <!-- Facebook Social like thingy end -->
