@@ -85,3 +85,18 @@ hlpf_bottom_margin{
 }
 
 /* ========== Temp styles  =================== */
+
+
+.left-side {
+    background-color: blue;
+    float: none;
+    display: table-cell;
+    border: 1px solid;
+}
+
+.right-side {
+    background-color: red;
+    float: none;
+    display: table-cell;
+    border: 1px solid;
+}

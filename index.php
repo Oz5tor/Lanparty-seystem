@@ -160,24 +160,32 @@
     <div class="container">
         <div class="row">
             <div class="col-xs-6 col-md-3">
-                <a href="#" class="thumbnail hlpf_no_round_border">
-                  <img src="Images/logo.png">
-                </a>    
+                <center>
+                    <a href="#" class="">
+                      <img src="Images/games/turneringer.jpg">
+                    </a>    
+                </center>
             </div>
             <div class="col-xs-6 col-md-3">
-                <a href="#" class="thumbnail hlpf_no_round_border">
-                  <img src="Images/logo.png">
-                </a>    
+                <center>
+                    <a href="#" class="">
+                      <img src="Images/games/turneringer.jpg">
+                    </a>    
+                </center>
             </div>
             <div class="col-xs-6 col-md-3">
-                <a href="#" class="thumbnail hlpf_no_round_border">
-                  <img src="Images/logo.png">
-                </a>    
+                <center>
+                    <a href="#" class="">
+                      <img src="Images/games/turneringer.jpg">
+                    </a>    
+                </center>
             </div>
             <div class="col-xs-6 col-md-3">
-                <a href="#" class="thumbnail hlpf_no_round_border">
-                  <img src="Images/logo.png">
-                </a>    
+                <center>
+                    <a href="#" class="">
+                      <img src="Images/games/turneringer.jpg">
+                    </a>    
+                </center>
             </div>
         </div>
     </div>
