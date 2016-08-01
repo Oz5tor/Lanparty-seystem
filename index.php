@@ -7,7 +7,7 @@
     <meta name="author" content="">
     <title>HLParty 2017 style</title>
     <link rel="shortcut icon" href="">
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css">
+    <link rel="stylesheet" href="Style/font-awesome/css/font-awesome.min.css">
     <link rel="stylesheet" href="Style/bootstrap.min.css">
     <link rel="stylesheet" href="Style/bootstrap-theme.min.css">
     <link rel="stylesheet" href="Style/hlpf_main.css">
@@ -17,7 +17,23 @@
         <script src="https://cdnjs.cloudflare.com/ajax/libs/respond.js/1.4.2/respond.min.js"></script>
     <![endif]-->
 </head>
-
+<div class="modal fade">
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+				<h4 class="modal-title">Modal title</h4>
+			</div>
+			<div class="modal-body">
+				<p>One fine body&hellip;</p>
+			</div>
+			<div class="modal-footer">
+				<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+				<button type="button" class="btn btn-primary">Save changes</button>
+			</div>
+		</div>
+	</div>
+</div>
 <body>
     <!-- Facebook scocial like code prep start -->
     <div id="fb-root"></div>
@@ -159,28 +175,28 @@
     <!-- Menu tiles start -->
     <div class="container">
         <div class="row">
-            <div class="col-xs-6 col-md-3">
+            <div class="col-xs-12 col-md-3 hlpf_margin_botom">
                 <center>
                     <a href="#" class="">
                       <img src="Images/games/turneringer.jpg">
                     </a>    
                 </center>
             </div>
-            <div class="col-xs-6 col-md-3">
+            <div class="col-xs-12 col-md-3 hlpf_margin_botom">
                 <center>
                     <a href="#" class="">
                       <img src="Images/games/turneringer.jpg">
                     </a>    
                 </center>
             </div>
-            <div class="col-xs-6 col-md-3">
+            <div class="col-xs-12 col-md-3 hlpf_margin_botom">
                 <center>
                     <a href="#" class="">
                       <img src="Images/games/turneringer.jpg">
                     </a>    
                 </center>
             </div>
-            <div class="col-xs-6 col-md-3">
+            <div class="col-xs-12 col-md-3 hlpf_margin_botom">
                 <center>
                     <a href="#" class="">
                       <img src="Images/games/turneringer.jpg">
