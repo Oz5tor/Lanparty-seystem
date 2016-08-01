@@ -86,17 +86,11 @@ hlpf_bottom_margin{
 
 /* ========== Temp styles  =================== */
 
-
-.left-side {
-    background-color: blue;
-    float: none;
-    display: table-cell;
-    border: 1px solid;
+.hlpf_margin_botom img {
+    margin-bottom: 5px;
 }
 
-.right-side {
-    background-color: red;
-    float: none;
-    display: table-cell;
-    border: 1px solid;
+.hlpf_margin_botom img:hover {
+    border-color: #337ab7;
 }
+
