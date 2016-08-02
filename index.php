@@ -17,23 +17,6 @@
         <script src="https://cdnjs.cloudflare.com/ajax/libs/respond.js/1.4.2/respond.min.js"></script>
     <![endif]-->
 </head>
-<div class="modal fade">
-	<div class="modal-dialog">
-		<div class="modal-content">
-			<div class="modal-header">
-				<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-				<h4 class="modal-title">Modal title</h4>
-			</div>
-			<div class="modal-body">
-				<p>One fine body&hellip;</p>
-			</div>
-			<div class="modal-footer">
-				<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-				<button type="button" class="btn btn-primary">Save changes</button>
-			</div>
-		</div>
-	</div>
-</div>
 <body>
     <!-- Facebook scocial like code prep start -->
     <div id="fb-root"></div>
@@ -45,14 +28,23 @@
       fjs.parentNode.insertBefore(js, fjs);
     }(document, 'script', 'facebook-jssdk'));</script>
     <!-- Facebook scocial like code prep end -->
+    <!-- Slider start -->
+    <div class="hidden-xs container-fluid">
+       <img src="Images/image-slider-5.jpg" class="img-responsive center-block" >
+    </div>
+    <!-- Slider end -->
+    <br>
     <header>
         <!-- Top start -->
         <div class="container">
             <div class="container">
                 <div class="row">
-                <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12 text-center" id="hlpf_Logo"><img src="Images/logo.png"><br>Logo</div>
-                <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12 text-center" id="hlpf_countdown"><img src="Images/logo.png"><br>Countdown</div>
-                <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12 text-center" id="hlpf_Login"><img src="Images/logo.png"><br>Login</div>
+                <div class="hidden-xs col-lg-4 col-md-4 col-sm-4 col-xs-12 text-center" id="hlpf_Logo"><img src="Images/logo.png"><br>Logo</div>
+                <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12 text-center" id="hlpf_countdown">
+                    <div class="tc_div_75237" style="width:100%;height:auto;border:1px solid #C0C0C0"><a title="HLParty #25" href="http://www.tickcounter.com/widget/countdown/1476867600000/europe-berlin/dhms/2060C0FFFFFF000000FF0000/125/C0C0C01/HLParty_%2325">Dummy count down</a><a title="Countdown" href="http://www.tickcounter.com/">Countdown</a></div><script type="text/javascript">(function(){ var s=document.createElement('script');s.src="http://www.tickcounter.com/loader.js";s.async='async';s.onload=function() { tc_widget_loader('tc_div_75237', 'Countdown', 650, ["1476867600000","europe-berlin","dhms","2060C0FFFFFF000000FF0000","0","C0C0C01","HLParty #25"]);};s.onreadystatechange=s.onload;var head=document.getElementsByTagName('head')[0];head.appendChild(s);}());</script>
+                    Dummy count down
+                </div>
+                <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12 text-center hidden-xs" id="hlpf_Login"><img src="Images/logo.png"><br>Login</div>
                 </div>
             </div>
         </div>
@@ -61,10 +53,12 @@
         <nav class="navbar navbar-fixed" id="hlpf_menu" role="navigation">
             <div class="container">
                 <div class="navbar-header">
+                    <a class="visible-xs navbar-brand hlpf_padding_none" href="#">
+                        <img alt="HLParty" class="img-responsive" src="Images/logo-brand.png">
+                    </a>
                     <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
                         <span class="sr-only">Toggle navigation</span>
                         <i class="fa fa-bars fa-2x" aria-hidden="true"></i>
-
                     </button>
                 </div>
                 <div class="collapse navbar-collapse hlpf_white_text">
@@ -78,11 +72,6 @@
         </nav>
         <!-- Nav end -->
     </header>
-    <!-- Slider start -->
-    <div class="container-fluid">
-       <img src="Images/image-slider-5.jpg" width="100%" height="400px">
-    </div>
-    <!-- Slider end -->
     <br>
     <!-- Headsponsor and Latest news start -->
     <div class="container">
@@ -92,7 +81,7 @@
                 <div class="row">
                     <div class="col-lg-12 hlpf_large_news_box">
                         
-                        <center><img src="Images/logo.png"></center><hr/> 
+                        <img class="center-block img-responsive" src="Images/Sponsore/bequiet.gif"><hr/> 
                         <p>
                         Hvad er Lorem Ipsum?
 
@@ -121,7 +110,7 @@
             <div class="col-lg-5 hlpf_newsborder">
                 <div class="row">
                     <div class="col-lg-12 hlpf_large_news_box">
-                            <center><img src="Images/logo.png"></center><hr/>
+                            <center><img class="img-responsive" src="Images/logo.png"></center><hr/>
                             <p>
                             Hvad er Lorem Ipsum?
 
@@ -148,60 +137,51 @@
     <!-- Tournaments start -->
     <hr>
     <div class="container">        
-        <div class="row hlpf_tournament_block">
-            <div class="col-lg-2 col-xs-6 col-md-2 text-center hlpf_bottom_margin">
-                <a href="#"><img src="Images/games/counter_strike__global_offensive_by_blitzk93-d6za56v.png"></a>
+        <div class="row">
+            <div class="col-lg-2 col-xs-4 col-md-2 col-sm-2 ">
+                <a href="#"><img class="img-responsive center-block" src="Images/games/counter_strike__global_offensive_by_blitzk93-d6za56v.jpg"></a>
             </div>
-            <div class="col-lg-2 col-xs-6 col-md-2 text-center hlpf_bottom_margin">
-                <a href="#"><img src="Images/games/hearthstone__heroes_of_warcraft___icon_by_blagoicons-d6tqo08.png"></a>
+            <div class="col-lg-2 col-xs-4 col-md-2 col-sm-2 ">
+                <a href="#"><img class="img-responsive center-block" src="Images/games/hearthstone__heroes_of_warcraft___icon_by_blagoicons-d6tqo08.jpg"></a>
             </div>
-            <div class="col-lg-2 col-xs-6 col-md-2 text-center hlpf_bottom_margin">
-                <a href="#"><img src="Images/games/league_of_legends___icon_by_darhymes-d4th6kj.png"></a>
+            <div class="col-lg-2 col-xs-4 col-md-2 col-sm-2 ">
+                <a href="#"><img class="img-responsive center-block" src="Images/games/league_of_legends___icon_by_darhymes-d4th6kj.jpg"></a>
             </div>
-            <div class="col-lg-2 col-xs-6 col-md-2 text-center hlpf_bottom_margin">
-                <a href="#"><img src="Images/games/ow.png"></a>
+            <div class="col-lg-2 col-xs-4 col-md-2 col-sm-2 ">
+                <a href="#"><img class="img-responsive center-block" src="Images/games/ow.jpg"></a>
             </div>
-            <div class="col-lg-2 col-xs-6 col-md-2 text-center hlpf_bottom_margin">
-                <a href="#"><img src="Images/games/Retro-Block-Question-2-icon.png"></a>
+            <div class="col-lg-2 col-xs-4 col-md-2 col-sm-2 ">
+                <a href="#"><img class="img-responsive center-block" src="Images/games/Retro-Block-Question-2-icon.jpg"></a>
             </div>
-            <div class="col-lg-2 col-xs-6 col-md-2 text-center hlpf_bottom_margin">
-                <a href="#"><img src="Images/games/rocket_league_by_pooterman-d90cnml.png"></a>
+            <div class="col-lg-2 col-xs-4 col-md-2 col-sm-2  ">
+                <a href="#"><img class="img-responsive center-block" src="Images/games/rocket_league_by_pooterman-d90cnml.jpg"></a>
             </div>
-        </div>
-        
+        </div>  
     </div>
     <!-- Tournaments end -->
     <br>
     <!-- Menu tiles start -->
     <div class="container">
         <div class="row">
-            <div class="col-xs-12 col-md-3 hlpf_margin_botom">
-                <center>
-                    <a href="#" class="">
-                      <img src="Images/games/turneringer.jpg">
-                    </a>    
-                </center>
+            <div class="col-xs-6 col-md-3 col-sm-3 hlpf_margin_botom">
+                <a href="#" class="">
+                  <img class="img-responsive img-thumbnail center-block" src="Images/games/turneringer.jpg">
+                </a>    
             </div>
-            <div class="col-xs-12 col-md-3 hlpf_margin_botom">
-                <center>
-                    <a href="#" class="">
-                      <img src="Images/games/turneringer.jpg">
-                    </a>    
-                </center>
+            <div class="col-xs-6 col-md-3 col-sm-3 hlpf_margin_botom">
+                <a href="#" class="">
+                  <img class="img-responsive img-thumbnail center-block" src="Images/games/turneringer.jpg">
+                </a>    
             </div>
-            <div class="col-xs-12 col-md-3 hlpf_margin_botom">
-                <center>
-                    <a href="#" class="">
-                      <img src="Images/games/turneringer.jpg">
-                    </a>    
-                </center>
+            <div class="col-xs-6 col-md-3 col-sm-3 hlpf_margin_botom">
+                <a href="#" class="">
+                  <img class="img-responsive img-thumbnail center-block" src="Images/games/turneringer.jpg">
+                </a>    
             </div>
-            <div class="col-xs-12 col-md-3 hlpf_margin_botom">
-                <center>
-                    <a href="#" class="">
-                      <img src="Images/games/turneringer.jpg">
-                    </a>    
-                </center>
+            <div class="col-xs-6 col-md-3 col-sm-3 hlpf_margin_botom">
+                <a href="#" class="">
+                  <img class="img-responsive img-thumbnail center-block" src="Images/games/turneringer.jpg">
+                </a>    
             </div>
         </div>
     </div>
@@ -226,19 +206,19 @@
             <div class="col-lg-12 text-center"><h3>Sponsore</h3></div>
         </div>
         <div class="row">
-            <div class="col-lg-4 col-xs-12">
-                <a href="#" class="thumbnail">
-                  <img src="Images/Sponsore/bequiet.gif">
+            <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
+                <a href="#" class="thumbnail hlpf_no_background">
+                  <img class="img-responsive" src="Images/Sponsore/bequiet.gif">
                 </a>    
             </div>
-            <div class="col-lg-4 col-xs-12">
-                <a href="#" class="thumbnail">
-                  <img src="Images/Sponsore/bequiet.gif">
+            <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
+                <a href="#" class="thumbnail hlpf_no_background">
+                  <img class="img-responsive" src="Images/Sponsore/geekunit.png">
                 </a>    
             </div>
-            <div class="col-lg-4 col-xs-12">
-                <a href="#" class="thumbnail">
-                  <img src="Images/Sponsore/bequiet.gif">
+            <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
+                <a href="#" class="thumbnail hlpf_no_background">
+                  <img class="img-responsive" src="Images/Sponsore/SSNetwork.png">
                 </a>    
             </div>
         </div>
