@@ -41,10 +41,6 @@ hr {
     max-height: auto;
 }
 
-.hlpf_tournament_block img {
-    max-width: 100px;
-}
-
 .hlpf_no_round_border a{
     border-radius: 0px;
 }
@@ -90,7 +86,16 @@ hlpf_bottom_margin{
     margin-bottom: 5px;
 }
 
-.hlpf_margin_botom img:hover {
-    border-color: #337ab7;
+.hlpf_no_background{
+    background-color: none;
 }
 
+.hlpf_margin_botom img:hover {
+    border: 1px solid #337ab7;
+}
+
+.hlpf_padding_none{
+    padding: 0px;
+    padding-left: 10px;
+    margin-top: 10px;
+}
