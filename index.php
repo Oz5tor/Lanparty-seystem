@@ -92,12 +92,12 @@
                 <hr/>
             <!-- Facebook Social like thingy start -->
                 <div class="row">
-                    
-                    <div class="col-lg-12 col-xs-12">
-                        <center>
+                    <div class="visible-xs col-lg-12 col-xs-12 text-center">
                             <div class="fb-like hlpf_margin_center" data-href="https://www.facebook.com/HLParty/" data-layout="button_count" data-action="like" data-size="small" data-show-faces="false" data-share="true"></div>
-                        </center>
-                       
+                    </div>
+                    
+                    <div class="hidden-xs col-lg-12 col-xs-12">
+                        <div class="fb-like" data-href="https://www.facebook.com/HLParty" data-layout="standard" data-action="like" data-size="small" data-show-faces="true" data-share="true"></div>
                     </div>
                     
                 </div>
@@ -110,7 +110,7 @@
             <div class="col-lg-5 hlpf_newsborder">
                 <div class="row">
                     <div class="col-lg-12 hlpf_large_news_box">
-                            <center><img class="img-responsive" src="Images/logo.png"></center><hr/>
+                            <center><img class="img-responsive" src="Images/image-slider-5.jpg"></center><hr/>
                             <p>
                             Hvad er Lorem Ipsum?
 
