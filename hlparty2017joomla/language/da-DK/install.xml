@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="utf-8"?>
+<extension version="3.6" client="site" type="language" method="upgrade">
+	<name>Danish(da-DK)</name>
+	<tag>da-DK</tag>
+	<version>3.6.0.1</version>
+	<creationDate>16-07-2016</creationDate>
+	<author>Danish Translation Team (Transl.: Mikael Winther, Ronny Buelund, Ole Bang Ottosen)</author>
+	<authorEmail>dansk@danskjoomla.dk</authorEmail>
+	<authorUrl>http://www.danskjoomla.dk</authorUrl>
+	<copyright>Copyright (C) 2005 - 2016 Open Source Matters. All rights reserved.</copyright>
+	<license>GNU General Public License version 2 or later; see LICENSE.txt</license>
+	<description>Danish language pack for Joomla! 3.3</description>
+	<files>
+		<filename>da-DK.com_ajax.ini</filename>
+		<filename>da-DK.com_config.ini</filename>
+		<filename>da-DK.com_contact.ini</filename>
+		<filename>da-DK.com_content.ini</filename>
+		<filename>da-DK.com_finder.ini</filename>
+		<filename>da-DK.com_mailto.ini</filename>
+		<filename>da-DK.com_media.ini</filename>
+		<filename>da-DK.com_messages.ini</filename>
+		<filename>da-DK.com_newsfeeds.ini</filename>
+		<filename>da-DK.com_search.ini</filename>
+		<filename>da-DK.com_tags.ini</filename>
+		<filename>da-DK.com_users.ini</filename>
+		<filename>da-DK.com_weblinks.ini</filename>
+		<filename>da-DK.com_wrapper.ini</filename>
+		<filename>da-DK.files_joomla.sys.ini</filename>
+		<filename>da-DK.finder_cli.ini</filename>
+		<filename>da-DK.ini</filename>
+		<filename>da-DK.lib_fof.ini</filename>
+		<filename>da-DK.lib_fof.sys.ini</filename>
+		<filename>da-DK.lib_idna_convert.sys.ini</filename>
+		<filename>da-DK.lib_joomla.ini</filename>
+		<filename>da-DK.lib_joomla.sys.ini</filename>
+		<filename>da-DK.lib_phpass.sys.ini</filename>
+		<filename>da-DK.lib_phputf8.sys.ini</filename>
+		<filename>da-DK.lib_simplepie.sys.ini</filename>
+		<filename>da-DK.localise.php</filename>
+		<filename>da-DK.mod_articles_archive.ini</filename>
+		<filename>da-DK.mod_articles_archive.sys.ini</filename>
+		<filename>da-DK.mod_articles_categories.ini</filename>
+		<filename>da-DK.mod_articles_categories.sys.ini</filename>
+		<filename>da-DK.mod_articles_category.ini</filename>
+		<filename>da-DK.mod_articles_category.sys.ini</filename>
+		<filename>da-DK.mod_articles_latest.ini</filename>
+		<filename>da-DK.mod_articles_latest.sys.ini</filename>
+		<filename>da-DK.mod_articles_news.ini</filename>
+		<filename>da-DK.mod_articles_news.sys.ini</filename>
+		<filename>da-DK.mod_articles_popular.ini</filename>
+		<filename>da-DK.mod_articles_popular.sys.ini</filename>
+		<filename>da-DK.mod_banners.ini</filename>
+		<filename>da-DK.mod_banners.sys.ini</filename>
+		<filename>da-DK.mod_breadcrumbs.ini</filename>
+		<filename>da-DK.mod_breadcrumbs.sys.ini</filename>
+		<filename>da-DK.mod_custom.ini</filename>
+		<filename>da-DK.mod_custom.sys.ini</filename>
+		<filename>da-DK.mod_feed.ini</filename>
+		<filename>da-DK.mod_feed.sys.ini</filename>
+		<filename>da-DK.mod_finder.ini</filename>
+		<filename>da-DK.mod_finder.sys.ini</filename>
+		<filename>da-DK.mod_footer.ini</filename>
+		<filename>da-DK.mod_footer.sys.ini</filename>
+		<filename>da-DK.mod_languages.ini</filename>
+		<filename>da-DK.mod_languages.sys.ini</filename>
+		<filename>da-DK.mod_login.ini</filename>
+		<filename>da-DK.mod_login.sys.ini</filename>
+		<filename>da-DK.mod_menu.ini</filename>
+		<filename>da-DK.mod_menu.sys.ini</filename>
+		<filename>da-DK.mod_random_image.ini</filename>
+		<filename>da-DK.mod_random_image.sys.ini</filename>
+		<filename>da-DK.mod_related_items.ini</filename>
+		<filename>da-DK.mod_related_items.sys.ini</filename>
+		<filename>da-DK.mod_search.ini</filename>
+		<filename>da-DK.mod_search.sys.ini</filename>
+		<filename>da-DK.mod_stats.ini</filename>
+		<filename>da-DK.mod_stats.sys.ini</filename>
+		<filename>da-DK.mod_syndicate.ini</filename>
+		<filename>da-DK.mod_syndicate.sys.ini</filename>
+		<filename>da-DK.mod_tags_popular.ini</filename>
+		<filename>da-DK.mod_tags_popular.sys.ini</filename>
+		<filename>da-DK.mod_tags_similar.ini</filename>
+		<filename>da-DK.mod_tags_similar.sys.ini</filename>
+		<filename>da-DK.mod_users_latest.ini</filename>
+		<filename>da-DK.mod_users_latest.sys.ini</filename>
+		<filename>da-DK.mod_weblinks.ini</filename>
+		<filename>da-DK.mod_weblinks.sys.ini</filename>
+		<filename>da-DK.mod_whosonline.ini</filename>
+		<filename>da-DK.mod_whosonline.sys.ini</filename>
+		<filename>da-DK.mod_wrapper.ini</filename>
+		<filename>da-DK.mod_wrapper.sys.ini</filename>
+		<filename>da-DK.tpl_beez3.ini</filename>
+		<filename>da-DK.tpl_beez3.sys.ini</filename>
+		<filename>da-DK.tpl_protostar.ini</filename>
+		<filename>da-DK.tpl_protostar.sys.ini</filename>
+		<filename file="meta">install.xml</filename>
+		<filename file="meta">da-DK.xml</filename>
+	</files>
+	<params />
+</extension>

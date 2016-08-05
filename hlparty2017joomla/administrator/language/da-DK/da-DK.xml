@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<metafile version="3.6" client="administrator">
+	<name>Danish (da-DK)</name>
+	<version>3.6.0.1</version>
+	<creationDate>16-07-2016</creationDate>
+	<author>Joomla! Project</author>
+	<authorEmail>dansk@danskjoomla.dk</authorEmail>
+	<authorUrl>www.danskjoomla.dk</authorUrl>
+	<copyright>Copyright (C) 2005 - 2016 Open Source Matters. All rights reserved.</copyright>
+	<license>GNU General Public License version 2 or later; see LICENSE.txt</license>
+	<description>da-DK administrator language</description>
+	<metadata>
+		<name>Danish (da-DK)</name>
+		<tag>da-DK</tag>
+		<rtl>0</rtl>
+		<locale>da_DK.utf8, da_DK.UTF-8, da_DK.UTF-8@euro, Danish_Standard,danish, da_DK, dan_DK, da</locale>
+		<firstDay>0</firstDay>
+		<weekEnd>0,6</weekEnd>
+	</metadata>
+	<params />
+</metafile>
