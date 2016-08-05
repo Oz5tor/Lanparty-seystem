@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="">
+<html lang="da">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -11,7 +11,6 @@
     <link rel="stylesheet" href="Style/bootstrap.min.css">
     <link rel="stylesheet" href="Style/bootstrap-theme.min.css">
     <link rel="stylesheet" href="Style/hlpf_main.css">
-
     <!--[if IE]>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv.min.js"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/respond.js/1.4.2/respond.min.js"></script>
@@ -95,7 +94,6 @@
                     <div class="visible-xs col-lg-12 col-xs-12 text-center">
                             <div class="fb-like hlpf_margin_center" data-href="https://www.facebook.com/HLParty/" data-layout="button_count" data-action="like" data-size="small" data-show-faces="false" data-share="true"></div>
                     </div>
-                    
                     <div class="hidden-xs col-lg-12 col-xs-12">
                         <div class="fb-like" data-href="https://www.facebook.com/HLParty" data-layout="standard" data-action="like" data-size="small" data-show-faces="true" data-share="true"></div>
                     </div>
