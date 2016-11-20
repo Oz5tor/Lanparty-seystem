@@ -79,15 +79,21 @@
             <div class="col-lg-5 hlpf_newsborder">
                 <div class="row">
                     <div class="col-lg-12 hlpf_large_news_box">
-                        <center><img class="" height="100" src="Images/Sponsore/bequiet.gif"></center>
+                        <img class="img-responsive" src="Images/image-slider-5.jpg">
                         <hr/> 
                         <div class="hlpf_flex">
                             <div class="hlpf_news">
                                 <p>
-                                Hvad er Lorem Ipsum?
-                                Lorem Ipsum er ganske enkelt fyldtekst fra print- og typografiindustrien. Lorem Ipsum har været standard fyldtekst siden 1500-tallet, hvor en ukendt trykker sammensatte en tilfældig spalte for at trykke en bog til sammenligning af forskellige skrifttyper. Lorem Ipsum har ikke alene overlevet fem århundreder, men har også vundet indpas i elektronisk typografi uden væsentlige ændringer. Sætningen blev gjordt kendt i 1960'erne med lanceringen af Letraset-ark, som indeholdt afsnit med Lorem Ipsum, og senere med layoutprogrammer som Aldus PageMaker, som også indeholdt en udgave af Lorem Ipsum.
-                                Lorem Ipsum er ganske enkelt fyldtekst fra print- og typografiindustrien. Lorem Ipsum har været standard fyldtekst siden 1500-tallet, hvor en ukendt trykker sammensatte en tilfældig spalte for at trykke en bog til sammenligning af forskellige skrifttyper. Lorem Ipsum har ikke alene overlevet fem århundreder, men har også vundet indpas i elektronisk typografi uden væsentlige ændringer. Sætningen blev gjordt kendt i 1960'erne med lanceringen af Letraset-ark, som indeholdt afsnit med Lorem Ipsum, og senere med layoutprogrammer som Aldus PageMaker, som også indeholdt en udgave af Lorem Ipsum.
-                                Lorem Ipsum er ganske enkelt fyldtekst fra print- og typografiindustrien. Lorem Ipsum har været standard fyldtekst siden 1500-tallet, hvor en ukendt trykker sammensatte en tilfældig spalte for at trykke en bog til sammenligning af forskellige skrifttyper. Lorem Ipsum har ikke alene overlevet fem århundreder, men har også vundet indpas i elektronisk typografi uden væsentlige ændringer. Sætningen blev gjordt kendt i 1960'erne med lanceringen af Letraset-ark, som indeholdt afsnit med Lorem Ipsum, og senere med layoutprogrammer som Aldus PageMaker, som også indeholdt en udgave af Lorem Ipsum.
+                                <b>Hvad er Lorem Ipsum?</b>
+                                    <br>
+                                    <br>
+                                Lorem Ipsum er ganske enkelt fyldtekst fra print- og typografiindustrien.
+                                    <br>
+                                    <br>
+                                    Lorem Ipsum har været standard fyldtekst siden 1500-tallet, hvor en ukendt trykker sammensatte en tilfældig spalte for at trykke en bog til sammenligning af forskellige skrifttyper. 
+                                    <br>
+                                    <br>Lorem Ipsum har ikke alene overlevet fem århundreder, men har også vundet indpas i elektronisk typografi uden væsentlige ændringer.<br>
+                                    Sætningen blev gjordt kendt i 1960'erne med lanceringen af Letraset-ark, som indeholdt afsnit med Lorem Ipsum, og senere med layoutprogrammer som Aldus PageMaker, som også indeholdt en udgave af Lorem Ipsum.
                                 </p>
                             </div>
                         </div>
@@ -110,14 +116,21 @@
             <div class="col-lg-5 hlpf_newsborder">
                 <div class="row">
                     <div class="col-lg-12 hlpf_large_news_box">
-                        <center><img class="" height="100" src="Images/image-slider-5.jpg"></center>
+                        <img class="img-responsive"src="Images/image-slider-5.jpg">
                         <hr/>
                         <div class="hlpf_flex">
                             <div class="hlpf_news">
                                 <p>
-                                Hvad er Lorem Ipsum?
-
-                                Lorem Ipsum er ganske enkelt fyldtekst fra print- og typografiindustrien. Lorem Ipsum har været standard fyldtekst siden 1500-tallet, hvor en ukendt trykker sammensatte en tilfældig spalte for at trykke en bog til sammenligning af forskellige skrifttyper. Lorem Ipsum har ikke alene overlevet fem århundreder, men har også vundet indpas i elektronisk typografi uden væsentlige ændringer. Sætningen blev gjordt kendt i 1960'erne med lanceringen af Letraset-ark, som indeholdt afsnit med Lorem Ipsum, og senere med layoutprogrammer som Aldus PageMaker, som også indeholdt en udgave af Lorem Ipsum.
+                                <b>HLParty takker for et vellykket event.</b>
+                                <br>
+                                    <br>
+                                Tak til alle sponsorer, samarbejdspartnere og deltagere, som var med til at gøre HLParty #25 - POWER.DK til et fedt lan!
+                                <br>
+                                    <br>
+                                Vi modtager meget gerne ris og ros fra alle vores deltagere, så brug 5 minutter på at udfylde dette spørgeskema, så udtrækker vi blandt alle besvarelser en fribillet til næste HLParty (husk at opgive dit brugernavn, hvis du ønsker at vinde).
+                                <br>
+                                    <br>
+                                Sidst men ikke mindst, sæt kryds kalenderen for påsken 2017, for dér vender vi tilbage med HLParty #26. Vi informerer jer via vores hjemmeside, nyhedsbrev, Facebook, osv.
                                 </p>
                             </div>
                         </div>
