@@ -28,7 +28,7 @@
     }(document, 'script', 'facebook-jssdk'));</script>
     <!-- Facebook scocial like code prep end -->
     <!-- Slider start -->
-    <div class="hidden-xs container-fluid">
+    <div class="hlpf_no_margin_padding hidden-xs container-fluid">
        <img src="Images/image-slider-5.jpg" class="img-responsive center-block" >
     </div>
     <!-- Slider end -->
@@ -52,7 +52,7 @@
         <nav class="navbar navbar-fixed" id="hlpf_menu" role="navigation">
             <div class="container">
                 <div class="navbar-header">
-                    <a class="visible-xs navbar-brand hlpf_padding_none" href="#">
+                    <a class="visible-xs navbar-brand" href="#">
                         <img alt="HLParty" class="img-responsive" src="Images/logo-brand.png">
                     </a>
                     <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
@@ -79,23 +79,25 @@
             <div class="col-lg-5 hlpf_newsborder">
                 <div class="row">
                     <div class="col-lg-12 hlpf_large_news_box">
-                        
-                        <img class="center-block img-responsive" src="Images/Sponsore/bequiet.gif"><hr/> 
-                        <p>
-                        Hvad er Lorem Ipsum?
-
-                        Lorem Ipsum er ganske enkelt fyldtekst fra print- og typografiindustrien. Lorem Ipsum har været standard fyldtekst siden 1500-tallet, hvor en ukendt trykker sammensatte en tilfældig spalte for at trykke en bog til sammenligning af forskellige skrifttyper. Lorem Ipsum har ikke alene overlevet fem århundreder, men har også vundet indpas i elektronisk typografi uden væsentlige ændringer. Sætningen blev gjordt kendt i 1960'erne med lanceringen af Letraset-ark, som indeholdt afsnit med Lorem Ipsum, og senere med layoutprogrammer som Aldus PageMaker, som også indeholdt en udgave af Lorem Ipsum.
-                        </p>
+                        <center><img class="" height="100" src="Images/Sponsore/bequiet.gif"></center>
+                        <hr/> 
+                        <div class="hlpf_flex">
+                            <div class="hlpf_news">
+                                <p>
+                                Hvad er Lorem Ipsum?
+                                Lorem Ipsum er ganske enkelt fyldtekst fra print- og typografiindustrien. Lorem Ipsum har været standard fyldtekst siden 1500-tallet, hvor en ukendt trykker sammensatte en tilfældig spalte for at trykke en bog til sammenligning af forskellige skrifttyper. Lorem Ipsum har ikke alene overlevet fem århundreder, men har også vundet indpas i elektronisk typografi uden væsentlige ændringer. Sætningen blev gjordt kendt i 1960'erne med lanceringen af Letraset-ark, som indeholdt afsnit med Lorem Ipsum, og senere med layoutprogrammer som Aldus PageMaker, som også indeholdt en udgave af Lorem Ipsum.
+                                Lorem Ipsum er ganske enkelt fyldtekst fra print- og typografiindustrien. Lorem Ipsum har været standard fyldtekst siden 1500-tallet, hvor en ukendt trykker sammensatte en tilfældig spalte for at trykke en bog til sammenligning af forskellige skrifttyper. Lorem Ipsum har ikke alene overlevet fem århundreder, men har også vundet indpas i elektronisk typografi uden væsentlige ændringer. Sætningen blev gjordt kendt i 1960'erne med lanceringen af Letraset-ark, som indeholdt afsnit med Lorem Ipsum, og senere med layoutprogrammer som Aldus PageMaker, som også indeholdt en udgave af Lorem Ipsum.
+                                Lorem Ipsum er ganske enkelt fyldtekst fra print- og typografiindustrien. Lorem Ipsum har været standard fyldtekst siden 1500-tallet, hvor en ukendt trykker sammensatte en tilfældig spalte for at trykke en bog til sammenligning af forskellige skrifttyper. Lorem Ipsum har ikke alene overlevet fem århundreder, men har også vundet indpas i elektronisk typografi uden væsentlige ændringer. Sætningen blev gjordt kendt i 1960'erne med lanceringen af Letraset-ark, som indeholdt afsnit med Lorem Ipsum, og senere med layoutprogrammer som Aldus PageMaker, som også indeholdt en udgave af Lorem Ipsum.
+                                </p>
+                            </div>
+                        </div>
                     </div>
                 </div>
                 <hr/>
             <!-- Facebook Social like thingy start -->
                 <div class="row">
-                    <div class="visible-xs col-lg-12 col-xs-12 text-center">
-                            <div class="fb-like hlpf_margin_center" data-href="https://www.facebook.com/HLParty/" data-layout="button_count" data-action="like" data-size="small" data-show-faces="false" data-share="true"></div>
-                    </div>
-                    <div class="hidden-xs col-lg-12 col-xs-12">
-                        <div class="fb-like" data-href="https://www.facebook.com/HLParty" data-layout="standard" data-action="like" data-size="small" data-show-faces="true" data-share="true"></div>
+                    <div class="hlpf_facebok_like col-lg-12 col-sm-12 col-md-12 col-xs-12 text-center">
+                        <div class="fb-like" data-href="https://www.facebook.com/HLParty" data-layout="button_count" data-action="like" data-size="small" data-show-faces="false" data-share="true"></div>
                     </div>
                     
                 </div>
@@ -108,12 +110,17 @@
             <div class="col-lg-5 hlpf_newsborder">
                 <div class="row">
                     <div class="col-lg-12 hlpf_large_news_box">
-                            <center><img class="img-responsive" src="Images/image-slider-5.jpg"></center><hr/>
-                            <p>
-                            Hvad er Lorem Ipsum?
+                        <center><img class="" height="100" src="Images/image-slider-5.jpg"></center>
+                        <hr/>
+                        <div class="hlpf_flex">
+                            <div class="hlpf_news">
+                                <p>
+                                Hvad er Lorem Ipsum?
 
-                            Lorem Ipsum er ganske enkelt fyldtekst fra print- og typografiindustrien. Lorem Ipsum har været standard fyldtekst siden 1500-tallet, hvor en ukendt trykker sammensatte en tilfældig spalte for at trykke en bog til sammenligning af forskellige skrifttyper. Lorem Ipsum har ikke alene overlevet fem århundreder, men har også vundet indpas i elektronisk typografi uden væsentlige ændringer. Sætningen blev gjordt kendt i 1960'erne med lanceringen af Letraset-ark, som indeholdt afsnit med Lorem Ipsum, og senere med layoutprogrammer som Aldus PageMaker, som også indeholdt en udgave af Lorem Ipsum.
-                        </p>
+                                Lorem Ipsum er ganske enkelt fyldtekst fra print- og typografiindustrien. Lorem Ipsum har været standard fyldtekst siden 1500-tallet, hvor en ukendt trykker sammensatte en tilfældig spalte for at trykke en bog til sammenligning af forskellige skrifttyper. Lorem Ipsum har ikke alene overlevet fem århundreder, men har også vundet indpas i elektronisk typografi uden væsentlige ændringer. Sætningen blev gjordt kendt i 1960'erne med lanceringen af Letraset-ark, som indeholdt afsnit med Lorem Ipsum, og senere med layoutprogrammer som Aldus PageMaker, som også indeholdt en udgave af Lorem Ipsum.
+                                </p>
+                            </div>
+                        </div>
                     </div>
                 </div>
                 <hr>
@@ -136,22 +143,22 @@
     <hr>
     <div class="container">        
         <div class="row">
-            <div class="col-lg-2 col-xs-4 col-md-2 col-sm-2 ">
+            <div class="col-lg-2 col-xs-4 col-md-2 col-sm-2 hlpf_margin_botom ">
                 <a href="#"><img class="img-responsive center-block" src="Images/games/counter_strike__global_offensive_by_blitzk93-d6za56v.jpg" width="100"></a>
             </div>
-            <div class="col-lg-2 col-xs-4 col-md-2 col-sm-2 ">
+            <div class="col-lg-2 col-xs-4 col-md-2 col-sm-2 hlpf_margin_botom ">
                 <a href="#"><img class="img-responsive center-block" src="Images/games/hearthstone__heroes_of_warcraft___icon_by_blagoicons-d6tqo08.jpg" width="100"></a>
             </div>
-            <div class="col-lg-2 col-xs-4 col-md-2 col-sm-2 ">
+            <div class="col-lg-2 col-xs-4 col-md-2 col-sm-2 hlpf_margin_botom ">
                 <a href="#"><img class="img-responsive center-block" src="Images/games/league_of_legends___icon_by_darhymes-d4th6kj.jpg" width="100"></a>
             </div>
-            <div class="col-lg-2 col-xs-4 col-md-2 col-sm-2 ">
+            <div class="col-lg-2 col-xs-4 col-md-2 col-sm-2 hlpf_margin_botom ">
                 <a href="#"><img class="img-responsive center-block" src="Images/games/ow.jpg" width="100"></a>
             </div>
-            <div class="col-lg-2 col-xs-4 col-md-2 col-sm-2 ">
+            <div class="col-lg-2 col-xs-4 col-md-2 col-sm-2 hlpf_margin_botom ">
                 <a href="#"><img class="img-responsive center-block" src="Images/games/Retro-Block-Question-2-icon.jpg" width="100"></a>
             </div>
-            <div class="col-lg-2 col-xs-4 col-md-2 col-sm-2  ">
+            <div class="col-lg-2 col-xs-4 col-md-2 col-sm-2 hlpf_margin_botom  ">
                 <a href="#"><img class="img-responsive center-block" src="Images/games/rocket_league_by_pooterman-d90cnml.jpg" width="100"></a>
             </div>
         </div>
@@ -205,17 +212,17 @@
         </div>
         <div class="row">
             <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
-                <a href="#" class="thumbnail hlpf_no_background">
+                <a href="#" class="thumbnail">
                   <img class="img-responsive" src="Images/Sponsore/bequiet.gif">
                 </a>    
             </div>
             <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
-                <a href="#" class="thumbnail hlpf_no_background">
+                <a href="#" class="thumbnail">
                   <img class="img-responsive" src="Images/Sponsore/geekunit.png">
                 </a>    
             </div>
             <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
-                <a href="#" class="thumbnail hlpf_no_background">
+                <a href="#" class="thumbnail">
                   <img class="img-responsive" src="Images/Sponsore/SSNetwork.png">
                 </a>    
             </div>
