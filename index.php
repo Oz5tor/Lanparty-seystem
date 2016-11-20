@@ -38,12 +38,11 @@
         <div class="container">
             <div class="container">
                 <div class="row">
-                <div class="hidden-xs col-lg-4 col-md-4 col-sm-4 col-xs-12 text-center" id="hlpf_Logo"><img src="Images/logo.png"><br>Logo</div>
+                <div class="hidden-xs col-lg-4 col-md-4 col-sm-4 col-xs-12 text-center" id="hlpf_Logo"><img class="img-responsive" src="http://placehold.it/390x80"></div>
                 <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12 text-center" id="hlpf_countdown">
                     <div class="tc_div_75237" style="width:100%;height:auto;border:1px solid #C0C0C0"><a title="HLParty #25" href="http://www.tickcounter.com/widget/countdown/1476867600000/europe-berlin/dhms/2060C0FFFFFF000000FF0000/125/C0C0C01/HLParty_%2325">Dummy count down</a><a title="Countdown" href="http://www.tickcounter.com/">Countdown</a></div><script type="text/javascript">(function(){ var s=document.createElement('script');s.src="http://www.tickcounter.com/loader.js";s.async='async';s.onload=function() { tc_widget_loader('tc_div_75237', 'Countdown', 650, ["1476867600000","europe-berlin","dhms","2060C0FFFFFF000000FF0000","0","C0C0C01","HLParty #25"]);};s.onreadystatechange=s.onload;var head=document.getElementsByTagName('head')[0];head.appendChild(s);}());</script>
-                    Dummy count down
                 </div>
-                <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12 text-center hidden-xs" id="hlpf_Login"><img src="Images/logo.png"><br>Login</div>
+                <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12 text-center hidden-xs" id="hlpf_Login"><img  class="img-responsive" src="http://placehold.it/390x80"></div>
                 </div>
             </div>
         </div>
@@ -247,13 +246,13 @@
         <div class="container">
             <div class="row">
             <!-- Google Maps -->
-            <div class="col-sm-12 col-md-6">
+            <div class="hidden-xs col-sm-12 col-md-6">
                 <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2234.58538684431!2d12.287926209023182!3d55.9392252493907!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x465240852b497295%3A0x2ae4a89f1e73f438!2sHiller%C3%B8dsholmskolen!5e0!3m2!1sda!2sdk!4v1469351469692" width="100%" height="400" frameborder="0" style="border:0" allowfullscreen></iframe>
             </div>
             <!-- Generel information, kontaktinformation og sociale medier -->
             <div class="col-sm-12 col-md-6">
                 <!-- Adresse og kontakt -->
-                <div class="col-lg-6" id="footer_contact">
+                <div class="col-lg-6 hidden-xs hidden-sm hidden-md" id="footer_contact">
                     <h2>Adresse</h2>
                     <address>
                         Hillerødsholmskolen <br>
