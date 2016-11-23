@@ -66,16 +66,16 @@ hlpf_bottom_margin{
     margin-bottom: 15px;
 }
 
-#footer_contact a{
+#hlpf_footer_contact a{
     color: lightblue;
 }
 
-#footer_links{
+#hlpf_footer_links{
     list-style-type: none;
     padding: 0;
 }
 
-#footer_links li a{
+#hlpf_footer_links li a{
     color: white
 }
 
@@ -100,12 +100,15 @@ hlpf_bottom_margin{
 .hlpf_facebok_like {
     min-height: 22px;
 }
+
+/* Nav drop down mouse over when on desktop  */
 @media (min-width:767px) {
     .dropdown:hover .dropdown-menu {
         display: block;
     }
 }
 
+/* Bootstrap Override   */
 .nav .open > a, .nav .open > a:hover, .nav .open > a:focus {
     background-color: #337ab7;
 }
