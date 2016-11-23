@@ -63,6 +63,20 @@
                     <ul class="nav navbar-nav ">
                         <li class="active"><a href="#">Home</a></li>
                         <li><a href="#about">About</a></li>
+                        <li class="dropdown" id="hlpf_menu">
+                          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">HLParty <span class="caret"></span></a>
+                          <ul class="dropdown-menu">
+                            <li><a href="#">Information</a></li>
+                            <li><a href="#">Regler</a></li>
+                            <li><a href="#">Crew</a></li>
+                            <li role="separator" class="divider"></li>
+                            <li><a href="#">Kantinen tilbyder</a></li>
+                            <li role="separator" class="divider"></li>
+                            <li><a href="#">Yderliger information</a></li>
+                            <li><a href="#">Find Os</a></li>
+                            <li><a href="#">Huskeliste</a></li>
+                          </ul>
+                        </li>
                         <li><a href="#contact">Contact</a></li>
                     </ul>
                 </div><!--.nav-collapse -->
@@ -82,17 +96,9 @@
                         <hr/> 
                         <div class="hlpf_flex">
                             <div class="hlpf_news">
-                                <p>
-                                <b>Hvad er Lorem Ipsum?</b>
-                                    <br>
-                                    <br>
-                                Lorem Ipsum er ganske enkelt fyldtekst fra print- og typografiindustrien.
-                                    <br>
-                                    <br>
-                                    Lorem Ipsum har været standard fyldtekst siden 1500-tallet, hvor en ukendt trykker sammensatte en tilfældig spalte for at trykke en bog til sammenligning af forskellige skrifttyper. 
-                                    <br>
-                                    <br>Lorem Ipsum har ikke alene overlevet fem århundreder, men har også vundet indpas i elektronisk typografi uden væsentlige ændringer.<br>
-                                    Sætningen blev gjordt kendt i 1960'erne med lanceringen af Letraset-ark, som indeholdt afsnit med Lorem Ipsum, og senere med layoutprogrammer som Aldus PageMaker, som også indeholdt en udgave af Lorem Ipsum.
+                                POWER er Danmarks nye elektronikkæde, og vi kommer over de næste par år til at tage Danmark med storm. Alene i 2015 åbnede vi fire spritnye, store POWER houses i hovedstadsområdet samt et i Odense. Men vi stopper ikke her. I løbet af de næste par år vil en lang række nye POWER houses skyde op over alt i landet til glæde for pris- og kvalitetsbevidste danskere.
+                                <br />
+                                Vores mission er at gøre det til en oplevelse at købe elektronik. Derfor er POWER et sted fyldt med energi, begejstring og vigtigst af alt god service. Vi har nemlig de mest engagerede sælgere, de dygtigste ledere og de mest smilende kassemedarbejdere. Vi kan nemlig lide det, vi laver.
                                 </p>
                             </div>
                         </div>
@@ -127,9 +133,7 @@
                                 <br>
                                     <br>
                                 Vi modtager meget gerne ris og ros fra alle vores deltagere, så brug 5 minutter på at udfylde dette spørgeskema, så udtrækker vi blandt alle besvarelser en fribillet til næste HLParty (husk at opgive dit brugernavn, hvis du ønsker at vinde).
-                                <br>
-                                    <br>
-                                Sidst men ikke mindst, sæt kryds kalenderen for påsken 2017, for dér vender vi tilbage med HLParty #26. Vi informerer jer via vores hjemmeside, nyhedsbrev, Facebook, osv.
+                                    
                                 </p>
                             </div>
                         </div>
@@ -223,17 +227,17 @@
             <div class="col-lg-12 text-center"><h3>Sponsore</h3></div>
         </div>
         <div class="row">
-            <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
+            <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12">
                 <a href="#" class="thumbnail">
                   <img class="img-responsive" src="Images/Sponsore/bequiet.gif">
                 </a>    
             </div>
-            <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
+            <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12">
                 <a href="#" class="thumbnail">
                   <img class="img-responsive" src="Images/Sponsore/geekunit.png">
                 </a>    
             </div>
-            <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
+            <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12">
                 <a href="#" class="thumbnail">
                   <img class="img-responsive" src="Images/Sponsore/SSNetwork.png">
                 </a>    
