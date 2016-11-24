@@ -1,0 +1,8 @@
+http://docs.oneall.com/api/resources/users/
+
+Once a user has signed in with our Social Login Plugin, shared content through
+our Social Share Plugin or linked his account with our Social Link Plugin, he
+will be tied to your Site and can be managed through the following social API
+commands.
+
+Please note that depending on the provider, some methods might not be available.

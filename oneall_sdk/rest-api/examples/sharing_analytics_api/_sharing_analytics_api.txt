@@ -1,0 +1,14 @@
+http://docs.oneall.com/api/resources/sharing-analytics/
+
+By using our Sharing Analytics API you can measure and optimise the impact of
+content shared through our sharing api. Publish your content with our Social
+Sharing API and use the Sharing Analytics API to measure it's impact.
+
+Share your content and ...
+
+- measure the resulting referral traffic: all social networks;
+- discover how many users have clicked on the embedded links: all social networks;
+- easily retrieve the comments that have been left: Facebook;
+- get a list of users that like the shared content: Facebook;
+- get a list of users that have retweeted the content: Twitter;
+- improve it's impact!

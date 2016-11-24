@@ -1,0 +1,13 @@
+Social Login
+http://docs.oneall.com/plugins/social-login/
+
+The Social Login Plugin enables users to use their existing accounts from
+over twenty different social networks and identity providers such as Facebook,
+Google, Twitter, Yahoo, Hotmail, LinkedIn and others to sign-in or sign-up on
+your site.
+
+Turnkey Plugins:
+http://docs.oneall.com/plugins/
+
+Implementation Guide:
+http://docs.oneall.com/plugins/guide/
