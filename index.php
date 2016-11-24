@@ -1,3 +1,8 @@
+<?php
+require_once("/include/DBconn.php");
+require_once("/oneall_sdk/config.php");
+
+?>
 <!DOCTYPE html>
 <html lang="da">
 <head>
