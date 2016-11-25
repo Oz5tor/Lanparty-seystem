@@ -1,6 +1,7 @@
 <?php
 require_once("/include/DBconn.php");
 require_once("/oneall_sdk/config.php");
+require_once("/include/oneall_hlpf/oneall_calls.php");
 
 ?>
 <!DOCTYPE html>
@@ -20,8 +21,34 @@ require_once("/oneall_sdk/config.php");
         <script src="https://cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv.min.js"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/respond.js/1.4.2/respond.min.js"></script>
     <![endif]-->
+    <script type="text/javascript">
+        /* Replace #your_subdomain# by the subdomain of a Site in your OneAll account */    
+        var oneall_subdomain = 'hlpartyjoomla';
+        /* The library is loaded asynchronously */
+        var oa = document.createElement('script');
+        oa.type = 'text/javascript'; oa.async = true;
+        oa.src = '//' + oneall_subdomain + '.api.oneall.com/socialize/library.js';
+        var s = document.getElementsByTagName('script')[0];
+        s.parentNode.insertBefore(oa, s);
+    </script>
 </head>
 <body>
+    
+    <!-- ===================================== -->
+    <div id="oa_social_login_container"></div>
+      <script type="text/javascript"> 
+        /* Replace #your_callback_uri# with the url to your own callback script */
+        var your_callback_script = 'http://localhost/Website2017/Include/oneall_hlpf/oneall_callback_handler.php';
+        /* Embeds the buttons into the container oa_social_login_container */
+        var _oneall = _oneall || [];
+        _oneall.push(['social_login', 'set_providers', ['facebook', 'google']]);
+        _oneall.push(['social_login', 'set_callback_uri', your_callback_script]);
+        _oneall.push(['social_login', 'do_render_ui', 'oa_social_login_container']);
+      </script>
+    
+    <!-- ===================================== -->
+    
+    
     <!-- Facebook scocial like code prep start -->
     <div id="fb-root"></div>
     <script>(function(d, s, id) {

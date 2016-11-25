@@ -6,7 +6,7 @@
  * Return the user identifier for a user_token received by OneAll. 
  * The goal is to check if there is an existing user account for a user_token received by OneAll.
  */
-require_once("../DBconn.php");
+//require_once("../DBconn.php");
 
 /*if ($db_conn->connect_errno) {
     printf("Connect failed: %s\n", $mysqli->connect_error);
@@ -25,7 +25,7 @@ function get_user_id_for_user_token ($user_token, $db_conn){
     }
     $result -> close();
 }
-echo get_user_id_for_user_token('45', $db_conn),'<br>';
+//echo get_user_id_for_user_token('45', $db_conn),'<br>';
 
 // ================================================================
 
@@ -45,7 +45,7 @@ function get_user_token_for_user_id ($user_id, $db_conn){
     $result -> close();
 }
 
-echo get_user_token_for_user_id('1',$db_conn);
+//echo get_user_token_for_user_id('1',$db_conn),'<br/>';
 // ================================================================
 
 /*
@@ -58,7 +58,7 @@ function link_user_token_to_user_id ($user_token, $user_id,$db_conn){
     
     if($result = $db_conn->query("UPDATE users SET OneallUserToken= '$user_token' WHERE UserID = '$user_id'"))
     {
-        if($result -> num_rows){
+        if(mysqli_affected_rows($db_conn) == 1){
             return true;
         }else {return false;}
     }
@@ -66,5 +66,5 @@ function link_user_token_to_user_id ($user_token, $user_id,$db_conn){
     
 }
 
-echo link_user_token_to_user_id('46','2', $db_conn);
+//echo link_user_token_to_user_id('48','2', $db_conn);
 ?>
