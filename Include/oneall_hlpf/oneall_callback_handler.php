@@ -92,6 +92,7 @@ if ( ! empty ($_POST['connection_token']))
               echo $data->user->identity->preferredUsername,'<br>';
               echo $data->user->identity->gender,'<br>';
               echo $data->user->identity->emails[0]->value,'<br>';
+              echo $data->user->identity->pictureUrl,'<br>';
               
               
               echo "<pre>";
