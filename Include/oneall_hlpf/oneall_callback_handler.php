@@ -1,4 +1,5 @@
 <?php
+session_start();
 require_once("oneall_calls.php");
 require_once("../DBconn.php");
  
@@ -84,20 +85,30 @@ if ( ! empty ($_POST['connection_token']))
             // 1a1) Create a new user account and store it in your database
             // Optionally display a form to collect  more data about the user.
             //$user_id = {The ID of the user that you have created}
+              
+              $_SESSION['UserToken'] = $user_token;
+              $_SESSION['ProfileUrl'] = $data->user->identity->profileUrl;
+              $_SESSION['Birthday'] = $data->user->identity->birthday;
+              $_SESSION['FullName'] = $data->user->identity->name->formatted;
+              $_SESSION['PreffereredUsername'] = $data->user->identity->preferredUsername;
+              $_SESSION['Gender'] = $data->user->identity->gender;
+              $_SESSION['Email'] = $data->user->identity->emails[0]->value;
+              $_SESSION['PictureUrl'] = $data->user->identity->pictureUrl;
+              
+              
               echo $user_token, '<br>';
               echo $data->user->identity->profileUrl,'<br>';
               echo $data->user->identity->birthday,'<br>';
-              echo $data->user->identity->name->givenName,'<br>';
-              echo $data->user->identity->name->familyName,'<br>';
+              echo $data->user->identity->name->formatted,'<br>';
               echo $data->user->identity->preferredUsername,'<br>';
               echo $data->user->identity->gender,'<br>';
               echo $data->user->identity->emails[0]->value,'<br>';
               echo $data->user->identity->pictureUrl,'<br>';
               
-              
-              echo "<pre>";
-              print_r($data->user);
-              echo "</pre>";
+              header("Location: http://localhost/Website-2017/index.php");
+              //echo "<pre>";
+              //print_r($data->user);
+              //echo "</pre>";
             // 1a2) Attach the user_token to the userID of the created account.
             //LinkUserTokenToUserId ($user_token, $user_id);
           }
