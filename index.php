@@ -2,9 +2,9 @@
 ob_start();
 session_start();
 date_default_timezone_set ('Europe/Copenhagen');
-require_once("/Include/DBconn.php");
-require_once("/oneall_sdk/config.php");
-require_once("/Include/oneall_hlpf/oneall_calls.php");
+require_once("Include/DBconn.php");
+require_once("oneall_sdk/config.php");
+require_once("Include/oneall_hlpf/oneall_calls.php");
 ?>
 <!DOCTYPE html>
 <html lang="da">
@@ -61,24 +61,24 @@ require_once("/Include/oneall_hlpf/oneall_calls.php");
     <br>
     <header>
         <!-- Top start -->
-        <?php require_once("/Include/TopHeader.php"); ?>
+        <?php require_once("Include/TopHeader.php"); ?>
         <!-- Top end -->
         <br>
         <!-- Nav start -->
-        <?php require_once("/Include/NavigationBar.php"); ?>
+        <?php require_once("Include/NavigationBar.php"); ?>
         <!-- Nav end -->
     </header>
     <br>
     <div class="container">
-    <?php require_once("/Include/PageCaller.php"); ?>
+    <?php require_once("Include/PageCaller.php"); ?>
     </div>
-    <?php require_once("/Include/TilesAndTournament.php"); ?>
+    <?php require_once("Include/TilesAndTournament.php"); ?>
     <!-- Sponsors start -->
     <hr>
-    <?php require_once("/Include/Sponsors.php"); ?>
+    <?php require_once("Include/Sponsors.php"); ?>
     <!-- Sponsors end -->
     <!-- Footer start -->
-    <?php require_once("/Include/Footer.php"); ?>
+    <?php require_once("Include/Footer.php"); ?>
     <!-- Footer end -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
