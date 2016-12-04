@@ -1,6 +1,7 @@
 <?php
 ob_start();
 session_start();
+//session_destroy();
 date_default_timezone_set ('Europe/Copenhagen');
 require_once("Include/DBconn.php");
 require_once("oneall_sdk/config.php");
@@ -36,12 +37,7 @@ require_once("Include/oneall_hlpf/oneall_calls.php");
 </head>
 <body>
     <?php
-    echo strtotime('05.07.1991');
-    // sessions
-    echo '<pre>';
-    echo print_r($_SESSION);
-    echo print_r($_POST);
-    echo '</pre>';
+        include_once("Include/DEBUGGIN.php");
     ?>
     <!-- Facebook scocial like code prep start -->
     <div id="fb-root"></div>
