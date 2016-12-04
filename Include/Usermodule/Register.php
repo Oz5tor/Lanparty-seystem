@@ -19,7 +19,7 @@
                                             <input type="email" class="form-control" id="Email" placeholder="Workshop@santa.chrismas" value="<?php echo $_SESSION['Email']; ?>" required name="Email">
                                         </td>
                                         <td><label for="Birthday">F&oslash;seldsdag:*</label>
-                                            <input type="date" placeholder="DD/MM/YYYY" class="form-control" id="Birthday" value="<?php echo date("d/m/Y",strtotime($_SESSION['Birthday'])); ?>" required name="Birthday">
+                                            <input type="text" placeholder="dd.mm.YYYY" class="form-control" id="Birthday" value="<?php echo date("d.m.Y",strtotime($_SESSION['Birthday'])); ?>" required name="Birthday" pattern="[0-9]{2}.[0-9]{2}.[0-9]{4}" title="dd.mm.yyyy">
                                         </td>
                                     </tr>
                                     <tr>
@@ -29,11 +29,11 @@
                                         </td>
                                         <td>
                                             <label for="Password">Kodeord:*</label>
-                                            <input type="password" class="form-control" id="Password" placeholder="Kodeord" required name="Password">
+                                            <input type="password" class="form-control" pattern=".{4,18}" title="4 til 18 karaktere" id="Password" placeholder="Kodeord" required name="Password">
                                         </td>
                                         <td>
                                             <label for="CPasswoord">Bekr&aelig;ft Kodeord:*</label>
-                                            <input type="password" class="form-control" id="CPasswoord" placeholder="Gentag Kodeord" required name="CPasswoord">
+                                            <input type="password" class="form-control" pattern=".{4,18}" title="4 til 18 karaktere" id="CPasswoord" placeholder="Gentag Kodeord" required name="CPasswoord">
                                         </td>
                                     </tr>
                                     <tr>
@@ -47,13 +47,22 @@
                                         </td>
                                         <td>
                                             <label for="Zipcode">Postnumber:*</label>
-                                            <input type="number" placeholder="1337" maxlength="4" class="form-control" id="Zipcode" value="" required name="Zipcode">
+                                            <input type="text" list="DBZipcodes" placeholder="1337 Awesome city" class="form-control" id="Zipcode" value="" required name="Zipcode">
+                                            <datalist id="DBZipcodes">
+                                                <?php
+                                                    if($result = $db_conn->query("SELECT * FROM zipcodes")){
+                                                        while($row = $result->fetch_assoc()){
+                                                            echo '<option value=',$row["zipcode"],'>',$row["zipcode"],' ',$row["city"],'</option>';   
+                                                        }   
+                                                    }
+                                                ?>
+                                            </datalist>
                                         </td>
                                     </tr>
                                     <tr>
                                         <td colspan="3">
                                             <label for="Bio">Profil tekst:</label>
-                                            <textarea id="Bio" class="form-control" rows="5" name="Bio">
+                                            <textarea id="Bio" class="form-control awesomplete" rows="5" name="Bio">
                                             </textarea>
                                         </td>
                                     </tr>
@@ -61,7 +70,7 @@
                                         <td>
                                             <div class="form-inline">
                                                 <label for="ToS">Brugerbetinelser:*</label>
-                                            <input type="checkbox" class="form-control" id="ToS" value="" required name="ToS">
+                                            <input type="checkbox" class="form-control" id="ToS" value="1" required name="ToS">
                                             </div>
                                         </td>
                                         <td>&nbsp;</td>
