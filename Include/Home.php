@@ -5,10 +5,20 @@
                 <div class="row">
                     <div class="col-lg-12 hlpf_large_news_box">
                         <img class="img-responsive" src="Images/image-slider-5.jpg">
-                        <hr/> 
+                        <hr/>
                         <div class="hlpf_flex">
                             <div class="hlpf_news">
-                                Get newest news.
+                                <p>
+                                <?php 
+                                    if( $result = $db_conn->query( "SELECT * FROM News ORDER BY NewsID DESC LIMIT 1" ) ){
+                                        if( $result -> num_rows ){
+                                            $row = $result->fetch_assoc();
+                                            echo $row[ 'Content' ];
+                                        } else { return null; }
+                                    $result -> close();
+                                    }
+                                ?>
+                                </p>
                             </div>
                         </div>
                     </div>
