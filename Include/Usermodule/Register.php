@@ -1,3 +1,16 @@
+<?php
+$RegErroMSG = array();
+if(isset($_POST['Create_user'])){
+    if($_POST['Password'] == $_POST['CPassword']){
+        $RegErroMSG[] += 'kodeord passede sammen';
+    }
+    else{
+        $RegErroMSG[] += 'Kodeord & Bekræft Kodeord passed ikke sammen';
+    }
+}
+?>
+
+
 <!-- Register Start -->
 <div class="row">
     <div class="col-lg-12 hlpf_newsborder">
@@ -18,7 +31,7 @@
                                         <td><label for="Email">Email:*</label>
                                             <input type="email" class="form-control" id="Email" placeholder="Workshop@santa.chrismas" value="<?php echo $_SESSION['Email']; ?>" required name="Email">
                                         </td>
-                                        <td><label for="Birthday">F&oslash;seldsdag:*</label>
+                                        <td><label for="Birthday">F&oslash;dselsdag:*</label>
                                             <input type="text" placeholder="dd.mm.YYYY" class="form-control" id="Birthday" value="<?php echo date("d.m.Y",strtotime($_SESSION['Birthday'])); ?>" required name="Birthday" pattern="[0-9]{2}.[0-9]{2}.[0-9]{4}" title="dd.mm.yyyy">
                                         </td>
                                     </tr>
@@ -48,6 +61,7 @@
                                         <td>
                                             <label for="Zipcode">Postnumber:*</label>
                                             <input type="text" list="DBZipcodes" placeholder="1337 Awesome city" class="form-control" id="Zipcode" value="" required name="Zipcode">
+                                            <!-- List of Zipcodes in Denmark -->
                                             <datalist id="DBZipcodes">
                                                 <?php
                                                     if($result = $db_conn->query("SELECT * FROM zipcodes")){
@@ -57,6 +71,7 @@
                                                     }
                                                 ?>
                                             </datalist>
+                                            <!-- List of Zipcodes in Denmark End -->
                                         </td>
                                     </tr>
                                     <tr>
@@ -78,6 +93,15 @@
                                             <input type="submit" class="btn btn-default" name="Create_user">
                                         </td>
                                     </tr>
+                                    <?php
+                                   /* if(isset($RegErroMSG)){
+                                        echo '<tr><td>'
+                                        foreach($i as $RegErroMSG){
+                                            echo $i;
+                                        }
+                                        echo '</td></tr>';
+                                    }*/
+                                    ?>
                                 </form>    
                             </table>
                         </div>
