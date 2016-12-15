@@ -45,7 +45,7 @@
                             <div class="hlpf_news">
                             <?php
                                 // Get latest news.
-                                if( $result = $db_conn->query( "SELECT * FROM Pages  " ) ){
+                                if( $result = $db_conn->query( "SELECT * FROM News ORDER BY NewsID DESC LIMIT 1" ) ){
                                     if( $result -> num_rows ){
                                         $row = $result->fetch_assoc();
                                         echo "<h4>" . $row[ 'Title' ] . "</h4>";
