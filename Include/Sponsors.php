@@ -1,6 +1,6 @@
 <div class="container">
         <div class="row">
-            <div class="col-lg-12 col-xs-12 text-center"><h2>Hoved Sponsor</h2></div>
+            <div class="col-lg-12 col-xs-12 text-center"><h2>Sponsorer</h2></div>
         </div>
         <div class="row">
             <div class="col-lg-12 col-xs-12 text-center">
@@ -13,7 +13,7 @@
     
     <div class="container">
         <div class="row">
-            <div class="col-lg-12 text-center"><h3>Sponsore</h3></div>
+            <!--<div class="col-lg-12 text-center"><h3>Vores andre sponsorer</h3></div> -->
         </div>
         <div class="row">
             <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12">

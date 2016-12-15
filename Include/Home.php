@@ -8,10 +8,7 @@
                         <hr/> 
                         <div class="hlpf_flex">
                             <div class="hlpf_news">
-                                POWER er Danmarks nye elektronikkæde, og vi kommer over de næste par år til at tage Danmark med storm. Alene i 2015 åbnede vi fire spritnye, store POWER houses i hovedstadsområdet samt et i Odense. Men vi stopper ikke her. I løbet af de næste par år vil en lang række nye POWER houses skyde op over alt i landet til glæde for pris- og kvalitetsbevidste danskere.
-                                <br />
-                                Vores mission er at gøre det til en oplevelse at købe elektronik. Derfor er POWER et sted fyldt med energi, begejstring og vigtigst af alt god service. Vi har nemlig de mest engagerede sælgere, de dygtigste ledere og de mest smilende kassemedarbejdere. Vi kan nemlig lide det, vi laver.
-                                </p>
+                                Get newest news.
                             </div>
                         </div>
                     </div>

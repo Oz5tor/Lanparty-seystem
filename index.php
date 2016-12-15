@@ -14,7 +14,7 @@ require_once("Include/oneall_hlpf/oneall_calls.php");
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="">
     <meta name="author" content="">
-    <title>HLParty 2017 style</title>
+    <title>HLParty 2018 style</title>
     <link rel="shortcut icon" href="">
     <link rel="stylesheet" href="Style/font-awesome/css/font-awesome.min.css">
     <link rel="stylesheet" href="Style/bootstrap.min.css">
