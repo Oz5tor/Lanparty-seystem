@@ -70,11 +70,9 @@ if ( ! empty ($_POST['connection_token']))
           // The user_token uniquely identifies the user 
           // that has connected with his social network account
           $user_token = $data->user->user_token;
-           
           // The identity_token uniquely identifies the social network account 
           // that the user has used to connect with
-          $identity_token = $data->user->identity->identity_token;       
-   
+          $identity_token = $data->user->identity->identity_token;
           // 1) Check if you have a userID for this token in your database
           $user_id = get_user_id_for_user_token($user_token, $db_conn);
    
@@ -82,33 +80,45 @@ if ( ! empty ($_POST['connection_token']))
           // has connected with a social network account on your website
           if ($user_id === null)
           {
+              switch($identity_token){
+                // Battle.net
+                case "61caf8dd-d57c-4b65-88da-27749d558150":
+                break;
+                
+                // Facebook
+                case "43ba88e7-0f99-45a7-af0e-3e40e98d2a22":
+                      /*
+                      $_SESSION['UserToken'] = $user_token;
+                      $_SESSION['ProfileUrl'] = $data->user->identity->profileUrl;
+                      $_SESSION['Birthday'] = $data->user->identity->birthday;
+                      $_SESSION['FullName'] = $data->user->identity->name->formatted;
+                      $_SESSION['PreffereredUsername'] = $data->user->identity->preferredUsername;
+                      $_SESSION['Gender'] = $data->user->identity->gender;
+                      $_SESSION['Email'] = $data->user->identity->emails[0]->value;
+                      $_SESSION['PictureUrl'] = $data->user->identity->pictureUrl;
+                      */
+                break;
+                
+                // Steam
+                case "41d57c28-be9a-4644-a30f-dbf4eaa87ff7":
+                break;
+                    
+                //Google
+                case "24628b8d-6518-4e4f-bdfd-8b0eed026fe0":
+                break;
+                
+                // Twitch TV
+                case "0aa7a99b-f91a-42c7-9dcb-5dc48defca0d":
+                break;
+            }
+              
             // 1a1) Create a new user account and store it in your database
             // Optionally display a form to collect  more data about the user.
             //$user_id = {The ID of the user that you have created}
-              
-              $_SESSION['UserToken'] = $user_token;
-              $_SESSION['ProfileUrl'] = $data->user->identity->profileUrl;
-              $_SESSION['Birthday'] = $data->user->identity->birthday;
-              $_SESSION['FullName'] = $data->user->identity->name->formatted;
-              $_SESSION['PreffereredUsername'] = $data->user->identity->preferredUsername;
-              $_SESSION['Gender'] = $data->user->identity->gender;
-              $_SESSION['Email'] = $data->user->identity->emails[0]->value;
-              $_SESSION['PictureUrl'] = $data->user->identity->pictureUrl;
-              
-              
-              echo $user_token, '<br>';
-              echo $data->user->identity->profileUrl,'<br>';
-              echo $data->user->identity->birthday,'<br>';
-              echo $data->user->identity->name->formatted,'<br>';
-              echo $data->user->identity->preferredUsername,'<br>';
-              echo $data->user->identity->gender,'<br>';
-              echo $data->user->identity->emails[0]->value,'<br>';
-              echo $data->user->identity->pictureUrl,'<br>';
-              
-              header("Location: http://localhost/Website-2017/index.php");
-              //echo "<pre>";
-              //print_r($data->user);
-              //echo "</pre>";
+              //header("Location: http://localhost/Website-2017/index.php");
+              echo "<pre>";
+              print_r($data->user);
+              echo "</pre>";
             // 1a2) Attach the user_token to the userID of the created account.
             //LinkUserTokenToUserId ($user_token, $user_id);
           }
