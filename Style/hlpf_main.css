@@ -6,6 +6,10 @@ body{
     overflow-x: none;
 }
 
+p {
+    word-wrap: break-word;
+}
+
 .starter-template{
     padding:40px 15px;
     text-align:center;
@@ -27,6 +31,10 @@ body{
 
 .hlpf_white_text ul li a:hover {
     background-color: #2a78ea;
+}
+
+.hlpf_news p {
+    word-wrap: break-word;
 }
 
 .hlpf_newsborder {

@@ -8,17 +8,17 @@
                         <hr/>
                         <div class="hlpf_flex">
                             <div class="hlpf_news">
-                                <p>
-                                <?php 
+                                <?php
+                                    // Get latest news.
                                     if( $result = $db_conn->query( "SELECT * FROM News ORDER BY NewsID DESC LIMIT 1" ) ){
                                         if( $result -> num_rows ){
                                             $row = $result->fetch_assoc();
-                                            echo $row[ 'Content' ];
+                                            echo "<h4>" . $row[ 'Title' ] . "</h4>";
+                                            echo "<p>" . $row[ 'Content' ] . "</p>";
                                         } else { return null; }
                                     $result -> close();
                                     }
                                 ?>
-                                </p>
                             </div>
                         </div>
                     </div>
@@ -29,9 +29,8 @@
                     <div class="hlpf_facebok_like col-lg-12 col-sm-12 col-md-12 col-xs-12 text-center">
                         <div class="fb-like" data-href="https://www.facebook.com/HLParty" data-layout="button_count" data-action="like" data-size="small" data-show-faces="false" data-share="true"></div>
                     </div>
-                    
                 </div>
-                <br>
+            <br>
             <!-- Facebook Social like thingy end -->
             </div>
             <!-- Main sponsor post End -->
@@ -45,14 +44,11 @@
                         <div class="hlpf_flex">
                             <div class="hlpf_news">
                                 <p>
-                                <b>HLParty takker for et vellykket event.</b>
+                                <h4>HLParty takker for et vellykket event.</h4>
+                                    Tak til alle sponsorer, samarbejdspartnere og deltagere, som var med til at gøre HLParty #25 - POWER.DK til et fedt lan!
                                 <br>
-                                    <br>
-                                Tak til alle sponsorer, samarbejdspartnere og deltagere, som var med til at gøre HLParty #25 - POWER.DK til et fedt lan!
                                 <br>
-                                    <br>
-                                Vi modtager meget gerne ris og ros fra alle vores deltagere, så brug 5 minutter på at udfylde dette spørgeskema, så udtrækker vi blandt alle besvarelser en fribillet til næste HLParty (husk at opgive dit brugernavn, hvis du ønsker at vinde).
-                                    
+                                    Vi modtager meget gerne ris og ros fra alle vores deltagere, så brug 5 minutter på at udfylde dette spørgeskema, så udtrækker vi blandt alle besvarelser en fribillet til næste HLParty (husk at opgive dit brugernavn, hvis du ønsker at vinde).
                                 </p>
                             </div>
                         </div>
