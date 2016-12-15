@@ -9,7 +9,6 @@
                         <div class="hlpf_flex">
                             <div class="hlpf_news">
                             <?php
-                                // Get latest news.
                                 if( $result = $db_conn->query( "SELECT * FROM News ORDER BY NewsID DESC LIMIT 1" ) ){
                                     if( $result -> num_rows ){
                                         $row = $result->fetch_assoc();
