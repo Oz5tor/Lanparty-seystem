@@ -11,8 +11,8 @@
                 </div>
                 <div class="collapse navbar-collapse hlpf_white_text">
                     <ul class="nav navbar-nav ">
-                        <li class="active"><a href="#">Home</a></li>
-                        <li><a href="#about">About</a></li>
+                        <li class="active"><a href="#">Forside</a></li>
+                        <li><a href="#about">Om os</a></li>
                         <li class="dropdown" id="hlpf_menu">
                           <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">HLParty <span class="caret"></span></a>
                           <ul class="dropdown-menu">
@@ -27,7 +27,7 @@
                             <li><a href="#">Huskeliste</a></li>
                           </ul>
                         </li>
-                        <li><a href="#contact">Contact</a></li>
+                        <li><a href="#contact">Kontakt os</a></li>
                     </ul>
                 </div><!--.nav-collapse -->
             </div>
