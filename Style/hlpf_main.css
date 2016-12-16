@@ -1,9 +1,13 @@
-body{
-    /*background-image: url(../Images/background.png);*/
+body {
+    background-image: url(../Images/background.png);
     background-color: #e8e8e8;
     background-repeat: repeat;
     overflow-y: scroll;
     overflow-x: none;
+}
+
+p {
+    word-wrap: break-word;
 }
 
 .starter-template{
@@ -11,13 +15,13 @@ body{
     text-align:center;
 }
 
-#hlpf_menu, #hlpf_menu ul li ul{
+#hlpf_menu, #hlpf_menu ul li ul {
     background-color: #2060c0;
     border-radius: 0px;
     margin-bottom: 0px;
 }
 
-#hlpf_menu ul li ul{
+#hlpf_menu ul li ul {
     background-color: #236ad5;
 }
 
@@ -27,6 +31,11 @@ body{
 
 .hlpf_white_text ul li a:hover {
     background-color: #2a78ea;
+}
+
+.hlpf_news {
+    overflow-y: auto;
+    max-height: 222px;
 }
 
 .hlpf_newsborder {
@@ -40,7 +49,7 @@ hr {
     border: 1px solid #2060c0;
 }
 
-.hlpf_large_news_box{
+.hlpf_large_news_box {
     min-height: 200px;
     max-height: auto;
 }
@@ -49,20 +58,20 @@ hr {
     border-radius: 0px;
 }
 
-#hlpf_footer{
+#hlpf_footer {
     background-color: #2060c0;
     color: white;
 }
 
-#hlpf_footer div div{
+#hlpf_footer div div {
   padding: 30px;  
 }
 
-#hlpf_footer h2{
+#hlpf_footer h2 {
     margin-bottom: 15px;
 }
 
-hlpf_bottom_margin{
+#hlpf_bottom_margin {
     margin-bottom: 15px;
 }
 

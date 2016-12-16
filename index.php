@@ -6,6 +6,7 @@ date_default_timezone_set ('Europe/Copenhagen');
 require_once("Include/DBconn.php");
 require_once("oneall_sdk/config.php");
 require_once("Include/oneall_hlpf/oneall_calls.php");
+include_once("Include/DEBUGGIN.php");
 ?>
 <!DOCTYPE html>
 <html lang="da">
@@ -36,9 +37,6 @@ require_once("Include/oneall_hlpf/oneall_calls.php");
     </script>
 </head>
 <body>
-    <?php
-        include_once("Include/DEBUGGIN.php");
-    ?>
     <!-- Facebook scocial like code prep start -->
     <div id="fb-root"></div>
     <script>(function(d, s, id) {

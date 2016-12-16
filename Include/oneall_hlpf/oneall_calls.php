@@ -13,17 +13,17 @@
     exit();
 }*/
 
-function get_user_id_for_user_token ($user_token, $db_conn){
+function get_user_id_for_user_token ($user_token,$tokencoll, $db_conn){
  
     // Example Query: SELECT user_id FROM user_token_link WHERE user_token = <user_token>
     // Return the user_id or null if none found.
-    if($result = $db_conn->query("SELECT UserID FROM users WHERE OneallUserToken = '$user_token'")){
+    if($result = $db_conn->query("SELECT UserID FROM users WHERE $tokencoll = '$user_token'")){
         if($result -> num_rows){
             $row = $result->fetch_assoc();
             return $row['UserID'];
         }else {return null;}
     }
-    $result -> close();
+    //$result -> close();
 }
 //echo get_user_id_for_user_token('45', $db_conn),'<br>';
 
@@ -42,7 +42,7 @@ function get_user_token_for_user_id ($user_id, $db_conn){
             return $row['OneallUserToken'];
         }else {return null;}
     }
-    $result -> close();
+    //$result -> close();
 }
 
 //echo get_user_token_for_user_id('1',$db_conn),'<br/>';
@@ -62,7 +62,7 @@ function link_user_token_to_user_id ($user_token, $user_id,$db_conn){
             return true;
         }else {return false;}
     }
-    $result -> close();
+    //$result -> close();
     
 }
 
