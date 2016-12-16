@@ -2,28 +2,29 @@
         <div class="row">
             <!-- Main sponsor post Start -->
             <div class="col-lg-5 hlpf_newsborder">
+                <?php
+                    if( $result = $db_conn->query( "SELECT * FROM Sponsors WHERE MainSponsor = 1" ) ){
+                        if( $result -> num_rows ){
+                            $row = $result->fetch_assoc();
+                        }
+                    }
+                ?>
                 <div class="row">
                     <div class="col-lg-12 hlpf_large_news_box">
-                        <img class="img-responsive" src="Images/image-slider-5.jpg">
+                        <img class="img-responsive" src="Images/Sponsore/<?php echo $row[ 'Banner' ]; ?>">
                         <hr/>
                         <div class="hlpf_flex">
                             <div class="hlpf_news">
                                 <?php
-                                    // lATEST SPONSOR NEWS
-                                    if( $result = $db_conn->query( "SELECT * FROM Sponsors WHERE MainSponsor = 1" ) ){
-                                        if( $result -> num_rows ){
-                                            $row = $result->fetch_assoc();
-                                            echo "<h4>" . $row[ 'Name' ] . "</h4>";
-                                            echo "<p>" . $row[ 'Description' ] . "</p>";
-                                        }
-                                    $result -> close();
-                                    }
+                                    echo "<h4>" . $row[ 'Name' ] . "</h4>";
+                                    echo "<p>" . $row[ 'Description' ] . "</p>";
                                 ?>
                             </div>
                         </div>
                     </div>
                 </div>
                 <hr/>
+                <?php $result -> close(); ?>
             </div>
             <!-- Main sponsor post End -->
             <div class="col-lg-2">
