@@ -83,13 +83,14 @@ if ( ! empty ($_POST['connection_token']))
               switch($identity_token){
                 // Battle.net
                 case "61caf8dd-d57c-4b65-88da-27749d558150":
+                      $_SESSION['SocialNetwork'] = 'battlenet';
                       $_SESSION['UserToken'] = $user_token;
-                      $_SESSION['ProfileUrl'] = $data->user->identity->profileUrl;
                       $_SESSION['PreffereredUsername'] = $data->user->identity->preferredUsername;  
                       $_SESSION['BattleTag'] = $data->user->identity->accounts[0]->username;
                 break;
                 // Facebook
                 case "43ba88e7-0f99-45a7-af0e-3e40e98d2a22":
+                      $_SESSION['SocialNetwork'] = 'facebook';
                       $_SESSION['UserToken'] = $user_token;
                       $_SESSION['ProfileUrl'] = $data->user->identity->profileUrl;
                       $_SESSION['Birthday'] = $data->user->identity->birthday;
@@ -100,6 +101,7 @@ if ( ! empty ($_POST['connection_token']))
                 break;
                 // Steam
                 case "41d57c28-be9a-4644-a30f-dbf4eaa87ff7":
+                      $_SESSION['SocialNetwork'] = 'steam';
                       $_SESSION['UserToken'] = $user_token;
                       $_SESSION['ProfileUrl'] = $data->user->identity->profileUrl;
                       $_SESSION['PreffereredUsername'] = $data->user->identity->preferredUsername;
@@ -107,6 +109,7 @@ if ( ! empty ($_POST['connection_token']))
                 break; 
                 //Google
                 case "24628b8d-6518-4e4f-bdfd-8b0eed026fe0":
+                      $_SESSION['SocialNetwork'] = 'google';
                       $_SESSION['UserToken'] = $user_token;
                       $_SESSION['ProfileUrl'] = $data->user->identity->profileUrl;
                       $_SESSION['FullName'] = $data->user->identity->name->formatted;
@@ -117,6 +120,7 @@ if ( ! empty ($_POST['connection_token']))
                 break;
                 // Twitch TV
                 case "0aa7a99b-f91a-42c7-9dcb-5dc48defca0d":
+                      $_SESSION['SocialNetwork'] = 'twitch';
                       $_SESSION['UserToken'] = $user_token;
                       $_SESSION['ProfileUrl'] = $data->user->identity->profileUrl;
                       $_SESSION['PreffereredUsername'] = $data->user->identity->preferredUsername;
@@ -130,9 +134,9 @@ if ( ! empty ($_POST['connection_token']))
             //$user_id = {The ID of the user that you have created}
             // 1a2) Attach the user_token to the userID of the created account.
             //LinkUserTokenToUserId ($user_token, $user_id);
-             /* echo "<pre>";
+              echo "<pre>";
               print_r($data->user);
-              echo "</pre>";*/
+              echo "</pre>";
           }
           // 1b) If you DO have an userID for the user_token then this user has
           // already connected before
