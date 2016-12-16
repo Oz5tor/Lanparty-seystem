@@ -38,14 +38,14 @@
     </div>
     <!-- Main sponsor post End -->
     <div class="col-lg-2">
-        <div class="fb-page" data-href="https://www.facebook.com/HLParty/" data-width="185" data-height="500" data-small-header="false" data-adapt-container-width="true" data-hide-cover="true" data-show-facepile="true"><blockquote cite="https://www.facebook.com/HLParty/" class="fb-xfbml-parse-ignore"><a href="https://www.facebook.com/HLParty/">HLParty</a></blockquote></div>
+        <!--<div class="fb-page" data-href="https://www.facebook.com/HLParty/" data-width="185" data-height="500" data-small-header="false" data-adapt-container-width="true" data-hide-cover="true" data-show-facepile="true"><blockquote cite="https://www.facebook.com/HLParty/" class="fb-xfbml-parse-ignore"><a href="https://www.facebook.com/HLParty/">HLParty</a></blockquote></div>-->
     </div>
     <!-- Lastest News start -->
     <div class="col-lg-5 hlpf_newsborder">
         <div class="row">
             <div class="col-lg-12 hlpf_large_news_box">
             <!-- <img class="img-responsive" src="Images/image-slider-5.jpg"> -->
-                <h2 class="text-center">Seneste nyhed</h2>
+                <h1 class="text-center">Seneste nyhed</h1>
                 <hr/>
                 <div class="hlpf_flex">
                     <div class="hlpf_news">
