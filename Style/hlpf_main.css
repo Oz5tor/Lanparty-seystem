@@ -10,11 +10,6 @@ p {
     word-wrap: break-word;
 }
 
-.starter-template{
-    padding:40px 15px;
-    text-align:center;
-}
-
 #hlpf_menu, #hlpf_menu ul li ul {
     background-color: #2060c0;
     border-radius: 0px;
