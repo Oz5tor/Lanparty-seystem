@@ -80,23 +80,23 @@ if ( ! empty ($_POST['connection_token']))
             // has connected with a social network account on your website
             switch($identity_token){
                 // Battle.net
-                case "61caf8dd-d57c-4b65-88da-27749d558150":
+                case "battlenet":
                   $user_id = get_user_id_for_user_token($user_token, 'BattlenetToken', $db_conn);
                 break;
                 // Facebook
-                case "43ba88e7-0f99-45a7-af0e-3e40e98d2a22":
+                case "facebook":
                   $user_id = get_user_id_for_user_token($user_token, 'FacebookToken', $db_conn);
                 break;
                 // Steam
-                case "41d57c28-be9a-4644-a30f-dbf4eaa87ff7":
+                case "steam":
                   $user_id = get_user_id_for_user_token($user_token, 'SteamToken', $db_conn);
                 break;
                 //Google
-                case "24628b8d-6518-4e4f-bdfd-8b0eed026fe0":
+                case "google":
                   $user_id = get_user_id_for_user_token($user_token, 'GoogleToken', $db_conn);
                 break;
                 // Twitch TV
-                case "0aa7a99b-f91a-42c7-9dcb-5dc48defca0d":
+                case "twitch":
                   $user_id = get_user_id_for_user_token($user_token, 'TwitchToken', $db_conn);
                 break;
             }
@@ -109,7 +109,6 @@ if ( ! empty ($_POST['connection_token']))
                               $_SESSION['UserToken'] = $user_token;
                               $_SESSION['PreffereredUsername'] = $data->user->identity->preferredUsername;  
                               $_SESSION['BattleTag'] = $data->user->identity->accounts[0]->username;
-                            ///header("Location: http://localhost/Website-2017/index.php");
                         break;
                         // Facebook
                         case "facebook":
@@ -121,7 +120,7 @@ if ( ! empty ($_POST['connection_token']))
                               $_SESSION['PreffereredUsername'] = $data->user->identity->preferredUsername;
                               $_SESSION['Email'] = $data->user->identity->emails[0]->value;
                               $_SESSION['PictureUrl'] = $data->user->identity->pictureUrl;                      
-                            //header("Location: http://localhost/Website-2017/index.php");
+                            
                         break;
                         // Steam
                         case "steam":
@@ -130,7 +129,7 @@ if ( ! empty ($_POST['connection_token']))
                               $_SESSION['ProfileUrl'] = $data->user->identity->profileUrl;
                               $_SESSION['PreffereredUsername'] = $data->user->identity->preferredUsername;
                               $_SESSION['PictureUrl'] = $data->user->identity->pictureUrl;
-                            //header("Location: http://localhost/Website-2017/index.php");
+                            
                         break; 
                         //Google
                         case "google":
@@ -142,7 +141,7 @@ if ( ! empty ($_POST['connection_token']))
                               $propicture = explode('50',$data->user->identity->pictureUrl);
                               // calling larger picture than what we get from 'pictureUrl'^
                               $_SESSION['PictureUrl'] = $propicture[0].'250';   
-                            header("Location: http://localhost/Website-2017/index.php");
+                            
                         break;
                         // Twitch TV
                         case "twitch":
@@ -152,10 +151,9 @@ if ( ! empty ($_POST['connection_token']))
                               $_SESSION['PreffereredUsername'] = $data->user->identity->preferredUsername;
                               $_SESSION['Email'] = $data->user->identity->emails[0]->value;
                               $_SESSION['PictureUrl'] = $data->user->identity->pictureUrl;
-                              //header("Location: http://localhost/Website-2017/index.php");
                         break;
                     }
-                    
+                    header("Location: http://localhost/Website-2017/index.php");
                     // 1a1) Create a new user account and store it in your database
                     // Optionally display a form to collect  more data about the user.
                     //$user_id = {The ID of the user that you have created}
