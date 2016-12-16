@@ -10,11 +10,11 @@
                             <div class="hlpf_news">
                                 <?php
                                     // lATEST SPONSOR NEWS
-                                    if( $result = $db_conn->query( "SELECT * FROM Sponsors ORDER BY NewsID DESC LIMIT 1" ) ){
+                                    if( $result = $db_conn->query( "SELECT * FROM Sponsors WHERE MainSponsor = 1" ) ){
                                         if( $result -> num_rows ){
                                             $row = $result->fetch_assoc();
-                                            echo "<h4>" . $row[ 'Title' ] . "</h4>";
-                                            echo "<p>" . $row[ 'Content' ] . "</p>";
+                                            echo "<h4>" . $row[ 'Name' ] . "</h4>";
+                                            echo "<p>" . $row[ 'Description' ] . "</p>";
                                         }
                                     $result -> close();
                                     }
@@ -24,17 +24,11 @@
                     </div>
                 </div>
                 <hr/>
-            <!-- Facebook Social like thingy start -->
-                <div class="row">
-                    <div class="hlpf_facebok_like col-lg-12 col-sm-12 col-md-12 col-xs-12 text-center">
-                        <div class="fb-like" data-href="https://www.facebook.com/HLParty" data-layout="button_count" data-action="like" data-size="small" data-show-faces="false" data-share="true"></div>
-                    </div>
-                </div>
-            <br>
-            <!-- Facebook Social like thingy end -->
             </div>
             <!-- Main sponsor post End -->
-            <div class="col-lg-2"></div>
+            <div class="col-lg-2">
+                <div class="fb-page" data-href="https://www.facebook.com/HLParty/" data-width="185" data-height="500" data-small-header="false" data-adapt-container-width="true" data-hide-cover="true" data-show-facepile="true"><blockquote cite="https://www.facebook.com/HLParty/" class="fb-xfbml-parse-ignore"><a href="https://www.facebook.com/HLParty/">HLParty</a></blockquote></div>
+            </div>
             <!-- Lastest News start -->
             <div class="col-lg-5 hlpf_newsborder">
                 <div class="row">
