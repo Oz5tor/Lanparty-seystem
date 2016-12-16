@@ -1,12 +1,74 @@
 <?php
-//$RegErroMSG = array();
 if(isset($_POST['Create_user'])){
-    if($_POST['Password'] == $_POST['CPassword']){
-        $RegErroMSG[] += 'kodeord passede sammen';
-    }
-    else{
-        $RegErroMSG[] += 'Kodeord & Bekræft Kodeord passed ikke sammen';
-        $RegErroMSG[] +=
+    $RegErroMSG = array();
+    
+    if($_POST['FullName'] == '')  {$RegErroMSG[] .='Fulde Navn';}
+    if($_POST['Email'] == '')     {$RegErroMSG[] .='Email';}
+    if($_POST['Birthday'] == '')  {$RegErroMSG[] .='Fødselsdag';}
+    if($_POST['Username'] == '')  {$RegErroMSG[] .='Brugernavn';}
+    if($_POST['Password'] == '')  {$RegErroMSG[] .='Kodeord';}
+    if($_POST['CPassword'] == '') {$RegErroMSG[] .='Bekræft kodeord';}
+    if($_POST['Phone'] == '')     {$RegErroMSG[] .='Telefonnummer';}
+    if($_POST['Address'] == '')   {$RegErroMSG[] .='Adresse';}
+    if($_POST['Zipcode'] == '')   {$RegErroMSG[] .='Postnummer';}
+    if(!isset($_POST['ToS']))     {$RegErroMSG[] .='Bekræfte betingelserne';}
+    
+    if($_POST['Password'] != $_POST['CPassword']){
+    unset($RegErroMSG);    
+    $RegErroMSG = array();
+    $RegErroMSG[] .= 'Kodeord & Bekræft Kodeord passed ikke sammen';
+    }else
+    {
+        // For sucessfull filled
+        // injection prevention
+        $FullName   = $db_conn->real_escape_string($_POST['FullName']);
+        $Email      = $db_conn->real_escape_string($_POST['Email']);
+        $Birthday   = $db_conn->real_escape_string($_POST['Birthday']);
+        $Username   = $db_conn->real_escape_string($_POST['Username']);
+        $Password   = $db_conn->real_escape_string($_POST['Password']);
+        $CPassword  = $db_conn->real_escape_string($_POST['CPassword']);
+        $Phone      = $db_conn->real_escape_string($_POST['Phone']);
+        $Address    = $db_conn->real_escape_string($_POST['Address']);
+        $Zipcode    = $db_conn->real_escape_string($_POST['Zipcode']);
+        $ToS        = $db_conn->real_escape_string($_POST['ToS']);
+        $Bio        = $db_conn->real_escape_string($_POST['Bio']);
+        
+        $PW = hash('sha512', $Password);
+        
+        switch($_SESSION['SocialNetwork']){
+            case 'steam':
+                $TokenRow      = 'SteamToken';
+                $profileURLCol = 'SteamURL';
+            break;
+            case 'facebook':
+                $TokenRow      = 'FacebookToken';
+                $profileURLCol = 'FacebookURL';
+            break;
+            case 'twitch':
+                $TokenRow      = 'TwitchToken';
+                $profileURLCol = 'TwitchURL';
+            break;
+            case 'google':
+                $TokenRow      = 'GoogleToken';
+                $profileURLCol = 'GoogleURL';
+            break;
+            case 'battlenet':
+                $TokenRow      = 'BattlenetToken';
+                $profileURLCol = 'BattlenetID';
+            break;
+        }
+        $CreateTime = time();
+        $profileURL = $_SESSION['ProfileUrl'];
+        $token = $_SESSION['UserToken'];
+        if($db_conn->query("INSERT INTO `Users`(Username, FullName, ZipCode, Birthdate, Created, Email, Bio, UserStatus,
+                             Address, PW, Phone, $TokenRow, $profileURLCol)
+                             VALUES 
+                             ('$Username','$FullName','$Zipcode', '$Birthday','$CreateTime','$Email', '$Bio','1',
+                              '$Address','$PW','$Phone','$token','$profileURL')"))   
+        {
+            // stuff
+            echo 'opret lykkedes';
+        }else {echo 'opret fejled';}
     }
 }
 ?>
@@ -18,98 +80,97 @@ if(isset($_POST['Create_user'])){
                 <img class="img-responsive" src="Images/image-slider-5.jpg">
                 <hr/> 
                 <div class="hlpf_flex">
-                        <div class="table-responsive">
-                            <table class="table">
-                                <form action="" method="post">
-                                    <tr>
-                                        <td>
-                                            <label for="FullName">Fulde Navn:*</label>
-                                            <input type="text" class="form-control" placeholder="Santa Claus" id="FullName" 
-                                                   value="<?php if(isset($_SESSION['FullName'])){ echo $_SESSION['FullName'];} ?>" required name="FullName">
-                                        </td>
-                                        <td><label for="Email">Email:*</label>
-                                            <input type="email" class="form-control" id="Email" placeholder="Workshop@santa.chrismas" 
-                                                   value="<?php if(isset($_SESSION['Email'])){ echo $_SESSION['Email'];} ?>" required name="Email">
-                                        </td>
-                                        <td><label for="Birthday">F&oslash;dselsdag:*</label>
-                                            <input type="text" placeholder="dd.mm.YYYY" class="form-control" id="Birthday" 
-                                                   value="<?php if(isset($_SESSION['Birthday'])){
-                                                                    echo date("d.m.Y",strtotime($_SESSION['Birthday']));} ?>"
-                                                   required name="Birthday" pattern="[0-9]{2}.[0-9]{2}.[0-9]{4}" title="dd.mm.yyyy">
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td>
-                                            <label for="Username">Brugernavn:*</label>
-                                            <input type="text" placeholder="ImNotSanta" class="form-control" id="FullName"
-                                                   value="<?php if(isset($_SESSION['PreffereredUsername'])){echo $_SESSION['PreffereredUsername']; } ?>" required name="Username">
-                                        </td>
-                                        <td>
-                                            <label for="Password">Kodeord:*</label>
-                                            <input type="password" class="form-control" pattern=".{4,18}" title="4 til 18 karaktere" id="Password" placeholder="Kodeord" required name="Password">
-                                        </td>
-                                        <td>
-                                            <label for="CPassword">Bekr&aelig;ft Kodeord:*</label>
-                                            <input type="password" class="form-control" pattern=".{4,18}" title="4 til 18 karaktere" id="CPassword" placeholder="Gentag Kodeord" required name="CPassword">
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td>
-                                            <label for="Phone">Telefon:*</label>
-                                            <input type="text" class="form-control" id="Phone" value=""  placeholder="feks: 11223344 eller +4511223344" required name="Phone">
-                                        </td>
-                                        <td>
-                                            <label for="Address">Adresse:*</label>
-                                            <input type="text" placeholder="feks Norpolen 42, 6.sal tv" class="form-control" id="FullName" value="" required name="Address">
-                                        </td>
-                                        <td>
-                                            <label for="Zipcode">Postnumber:*</label>
-                                            <input type="text" list="DBZipcodes" placeholder="1337 Awesome city" class="form-control" id="Zipcode" value="" required name="Zipcode">
-                                            <!-- List of Zipcodes in Denmark -->
-                                            <datalist id="DBZipcodes">
-                                                <?php
-                                                    if($result = $db_conn->query("SELECT * FROM zipcodes")){
-                                                        while($row = $result->fetch_assoc()){
-                                                            echo '<option value=',$row["zipcode"],'>',$row["zipcode"],' ',$row["city"],'</option>';   
-                                                        }   
-                                                    }
-                                                ?>
-                                            </datalist>
-                                            <!-- List of Zipcodes in Denmark End -->
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td colspan="3">
-                                            <label for="Bio">Profil tekst:</label>
-                                            <textarea id="Bio" class="form-control awesomplete" rows="5" name="Bio">
-                                            </textarea>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td>
-                                            <div class="form-inline">
-                                                <label for="ToS">Brugerbetinelser:*</label>
-                                            <input type="checkbox" class="form-control" id="ToS" value="1" required name="ToS">
-                                            </div>
-                                        </td>
-                                        <td>&nbsp;</td>
-                                        <td class="text-center">
-                                            <input type="submit" class="btn btn-default" name="Create_user">
-                                        </td>
-                                    </tr>
-                                    <?php
-                                    if(isset($RegErroMSG)){
-                                        echo '<tr><td>';
-                                        var_dump($RegErroMSG);
-                                        /*foreach($RegErroMSG as $i){
-                                            echo $i;
-                                        }*/
-                                        echo '</td></tr>';
+                    <div class="table-responsive">
+                        <table class="table">
+                            <form action="" method="post">
+                                <tr>
+                                    <td>
+                                        <label for="FullName">Fulde Navn:*</label>
+                                        <input type="text" class="form-control" placeholder="Santa Claus" id="FullName" 
+                                               value="<?php if(isset($_SESSION['FullName'])){ echo $_SESSION['FullName'];} ?>"  name="FullName">
+                                    </td>
+                                    <td><label for="Email">Email:*</label>
+                                        <input type="email" class="form-control" id="Email" placeholder="Workshop@santa.chrismas" 
+                                               value="<?php if(isset($_SESSION['Email'])){ echo $_SESSION['Email'];} ?>"  name="Email">
+                                    </td>
+                                    <td><label for="Birthday">F&oslash;dselsdag:*</label>
+                                        <input type="text" placeholder="dd.mm.YYYY" class="form-control" id="Birthday" 
+                                               value="<?php if(isset($_SESSION['Birthday'])){
+                                                                echo date("d.m.Y",strtotime($_SESSION['Birthday']));} ?>"
+                                                name="Birthday" pattern="[0-9]{2}.[0-9]{2}.[0-9]{4}" title="dd.mm.yyyy">
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <label for="Username">Brugernavn:*</label>
+                                        <input type="text" placeholder="ImNotSanta" class="form-control" id="FullName"
+                                               value="<?php if(isset($_SESSION['PreffereredUsername'])){echo $_SESSION['PreffereredUsername']; } ?>"  name="Username">
+                                    </td>
+                                    <td>
+                                        <label for="Password">Kodeord:*</label>
+                                        <input type="password" class="form-control" pattern=".{4,18}" title="4 til 18 karaktere" id="Password" placeholder="Kodeord"  name="Password">
+                                    </td>
+                                    <td>
+                                        <label for="CPassword">Bekr&aelig;ft Kodeord:*</label>
+                                        <input type="password" class="form-control" pattern=".{4,18}" title="4 til 18 karaktere" id="CPassword" placeholder="Gentag Kodeord"  name="CPassword">
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <label for="Phone">Telefon:*</label>
+                                        <input type="text" class="form-control" id="Phone" value=""  placeholder="feks: 11223344 eller +4511223344"  name="Phone">
+                                    </td>
+                                    <td>
+                                        <label for="Address">Adresse:*</label>
+                                        <input type="text" placeholder="feks Norpolen 42, 6.sal tv" class="form-control" id="FullName" value=""  name="Address">
+                                    </td>
+                                    <td>
+                                        <label for="Zipcode">Postnumber:*</label>
+                                        <input type="text" list="DBZipcodes" placeholder="1337 Awesome city" class="form-control" id="Zipcode" value=""  name="Zipcode">
+                                        <!-- List of Zipcodes in Denmark -->
+                                        <datalist id="DBZipcodes">
+                                            <?php
+                                                if($result = $db_conn->query("SELECT * FROM ZipCodes")){
+                                                    while($row = $result->fetch_assoc()){
+                                                        echo '<option value=',$row["Zipcode"],'>',$row["Zipcode"],' ',$row["City"],'</option>';   
+                                                    }   
+                                                }
+                                            ?>
+                                        </datalist>
+                                        <!-- List of Zipcodes in Denmark End -->
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td colspan="3">
+                                        <label for="Bio">Profil tekst:</label>
+                                        <textarea id="Bio" class="form-control awesomplete" rows="5" name="Bio">
+                                        </textarea>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <div class="form-inline">
+                                            <label for="ToS">Brugerbetinelser:*</label>
+                                        <input type="checkbox" class="form-control" id="ToS" value="1"  name="ToS">
+                                        </div>
+                                    </td>
+                                    <td>&nbsp;</td>
+                                    <td class="text-center">
+                                        <input type="submit" class="btn btn-default" name="Create_user">
+                                    </td>
+                                </tr>
+                                <?php
+                                if(isset($RegErroMSG)){
+                                    echo '<tr><td><ul class="alert alert-danger" role="alert"><b>Husk at udfylde:</b>';
+                                    foreach($RegErroMSG as $i){
+                                        echo '<li>'.$i.'</li>';
                                     }
-                                    ?>
-                                </form>    
-                            </table>
-                        </div>
+                                    echo '</li></ul></td></tr>';
+                                }unset($RegErroMSG)
+                                ?>
+                            </form>    
+                        </table>
+                    </div>
                 </div>
             </div>
         </div>

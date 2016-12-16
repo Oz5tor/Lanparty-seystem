@@ -13,11 +13,11 @@
     exit();
 }*/
 
-function get_user_id_for_user_token ($user_token, $db_conn){
+function get_user_id_for_user_token ($user_token,$tokencoll, $db_conn){
  
     // Example Query: SELECT user_id FROM user_token_link WHERE user_token = <user_token>
     // Return the user_id or null if none found.
-    if($result = $db_conn->query("SELECT UserID FROM users WHERE OneallUserToken = '$user_token'")){
+    if($result = $db_conn->query("SELECT UserID FROM users WHERE $tokencoll = '$user_token'")){
         if($result -> num_rows){
             $row = $result->fetch_assoc();
             return $row['UserID'];

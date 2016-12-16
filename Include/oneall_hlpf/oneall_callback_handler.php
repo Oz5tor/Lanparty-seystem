@@ -78,6 +78,28 @@ if ( ! empty ($_POST['connection_token']))
    
           // 1a) If the userID is empty then this is the first time that this user 
           // has connected with a social network account on your website
+          switch($identity_token){
+            // Battle.net
+                case "61caf8dd-d57c-4b65-88da-27749d558150":
+                  $user_id = get_user_id_for_user_token($user_token, 'BattlenetToken', $db_conn);
+                break;
+            // Facebook
+                case "43ba88e7-0f99-45a7-af0e-3e40e98d2a22":
+                  $user_id = get_user_id_for_user_token($user_token, 'FacebookToken', $db_conn);
+                break;
+            // Steam
+                case "41d57c28-be9a-4644-a30f-dbf4eaa87ff7":
+                  $user_id = get_user_id_for_user_token($user_token, 'SteamToken', $db_conn);
+                break;
+            //Google
+                case "24628b8d-6518-4e4f-bdfd-8b0eed026fe0":
+                  $user_id = get_user_id_for_user_token($user_token, 'GoogleToken', $db_conn);
+                break;
+            // Twitch TV
+                case "0aa7a99b-f91a-42c7-9dcb-5dc48defca0d":
+                  $user_id = get_user_id_for_user_token($user_token, 'TwitchToken', $db_conn);
+                break;
+            
           if ($user_id === null)
           {   
               switch($identity_token){
@@ -127,8 +149,8 @@ if ( ! empty ($_POST['connection_token']))
                       $_SESSION['Email'] = $data->user->identity->emails[0]->value;
                       $_SESSION['PictureUrl'] = $data->user->identity->pictureUrl;
                 break;
-                header("Location: http://localhost/Website-2017/index.php");
             }
+              header("Location: http://localhost/Website-2017/index.php");
             // 1a1) Create a new user account and store it in your database
             // Optionally display a form to collect  more data about the user.
             //$user_id = {The ID of the user that you have created}
@@ -142,6 +164,7 @@ if ( ! empty ($_POST['connection_token']))
           // already connected before
           else
           {
+              echo 'brugeren findes';
             // 1b1) The account already exists
           }
           // 2) You have either created a new user or read the details of an existing
