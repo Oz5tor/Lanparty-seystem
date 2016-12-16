@@ -8,17 +8,17 @@
                         <hr/>
                         <div class="hlpf_flex">
                             <div class="hlpf_news">
-                            <?php
-                                // Get latest news.
-                                if( $result = $db_conn->query( "SELECT * FROM News ORDER BY NewsID DESC LIMIT 1" ) ){
-                                    if( $result -> num_rows ){
-                                        $row = $result->fetch_assoc();
-                                        echo "<h4>" . $row[ 'Title' ] . "</h4>";
-                                        echo "<p>" . $row[ 'Content' ] . "</p>";
-                                    } else { return null; }
-                                $result -> close();
-                                }
-                            ?>
+                                <?php
+                                    // lATEST SPONSOR NEWS
+                                    if( $result = $db_conn->query( "SELECT * FROM Sponsors ORDER BY NewsID DESC LIMIT 1" ) ){
+                                        if( $result -> num_rows ){
+                                            $row = $result->fetch_assoc();
+                                            echo "<h4>" . $row[ 'Title' ] . "</h4>";
+                                            echo "<p>" . $row[ 'Content' ] . "</p>";
+                                        }
+                                    $result -> close();
+                                    }
+                                ?>
                             </div>
                         </div>
                     </div>
@@ -39,21 +39,21 @@
             <div class="col-lg-5 hlpf_newsborder">
                 <div class="row">
                     <div class="col-lg-12 hlpf_large_news_box">
-                        <img class="img-responsive"src="Images/image-slider-5.jpg">
+                        <img class="img-responsive" src="Images/image-slider-5.jpg">
                         <hr/>
                         <div class="hlpf_flex">
                             <div class="hlpf_news">
-                            <?php
-                                // Get latest news.
-                                if( $result = $db_conn->query( "SELECT * FROM News ORDER BY NewsID DESC LIMIT 1" ) ){
-                                    if( $result -> num_rows ){
-                                        $row = $result->fetch_assoc();
-                                        echo "<h4>" . $row[ 'Title' ] . "</h4>";
-                                        echo "<p>" . $row[ 'Content' ] . "</p>";
-                                    } else { return null; }
-                                $result -> close();
-                                }
-                            ?>
+                                <?php
+                                    // Get latest news.
+                                    if( $result = $db_conn->query( "SELECT * FROM News ORDER BY NewsID DESC LIMIT 1" ) ){
+                                        if( $result -> num_rows ){
+                                            $row = $result->fetch_assoc();
+                                            echo "<h4>" . $row[ 'Title' ] . "</h4>";
+                                            echo "<p>" . $row[ 'Content' ] . "</p>";
+                                        }
+                                    $result -> close();
+                                    }
+                                ?>
                             </div>
                         </div>
                     </div>
