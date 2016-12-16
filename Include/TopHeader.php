@@ -3,7 +3,7 @@
         <div class="row">
         <div class="hidden-xs col-lg-4 col-md-4 col-sm-4 col-xs-12 text-center" id="hlpf_Logo"><img class="img-responsive" src="http://placehold.it/390x80"></div>
         <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12 text-center" id="hlpf_countdown">
-            <h3>Middle tekst</h3>
+
         </div>
         <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12 text-center hidden-xs" id="hlpf_Login">
             <!-- ===================================== -->
