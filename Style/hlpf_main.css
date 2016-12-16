@@ -30,7 +30,9 @@ p {
 
 .hlpf_news {
     overflow-y: auto;
+    overflow-x: none;
     max-height: 222px;
+    word-wrap: break-word;
 }
 
 .hlpf_newsborder {
