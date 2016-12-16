@@ -1,16 +1,15 @@
 <?php
-$RegErroMSG = array();
+//$RegErroMSG = array();
 if(isset($_POST['Create_user'])){
     if($_POST['Password'] == $_POST['CPassword']){
         $RegErroMSG[] += 'kodeord passede sammen';
     }
     else{
         $RegErroMSG[] += 'Kodeord & Bekræft Kodeord passed ikke sammen';
+        $RegErroMSG[] +=
     }
 }
 ?>
-
-
 <!-- Register Start -->
 <div class="row">
     <div class="col-lg-12 hlpf_newsborder">
@@ -19,34 +18,39 @@ if(isset($_POST['Create_user'])){
                 <img class="img-responsive" src="Images/image-slider-5.jpg">
                 <hr/> 
                 <div class="hlpf_flex">
-                    <div class="hlpf_news">
                         <div class="table-responsive">
                             <table class="table">
                                 <form action="" method="post">
                                     <tr>
                                         <td>
                                             <label for="FullName">Fulde Navn:*</label>
-                                            <input type="text" class="form-control" placeholder="Santa Claus" id="FullName" value="<?php echo $_SESSION['FullName']; ?>" required name="FullName">
+                                            <input type="text" class="form-control" placeholder="Santa Claus" id="FullName" 
+                                                   value="<?php if(isset($_SESSION['FullName'])){ echo $_SESSION['FullName'];} ?>" required name="FullName">
                                         </td>
                                         <td><label for="Email">Email:*</label>
-                                            <input type="email" class="form-control" id="Email" placeholder="Workshop@santa.chrismas" value="<?php echo $_SESSION['Email']; ?>" required name="Email">
+                                            <input type="email" class="form-control" id="Email" placeholder="Workshop@santa.chrismas" 
+                                                   value="<?php if(isset($_SESSION['Email'])){ echo $_SESSION['Email'];} ?>" required name="Email">
                                         </td>
                                         <td><label for="Birthday">F&oslash;dselsdag:*</label>
-                                            <input type="text" placeholder="dd.mm.YYYY" class="form-control" id="Birthday" value="<?php echo date("d.m.Y",strtotime($_SESSION['Birthday'])); ?>" required name="Birthday" pattern="[0-9]{2}.[0-9]{2}.[0-9]{4}" title="dd.mm.yyyy">
+                                            <input type="text" placeholder="dd.mm.YYYY" class="form-control" id="Birthday" 
+                                                   value="<?php if(isset($_SESSION['Birthday'])){
+                                                                    echo date("d.m.Y",strtotime($_SESSION['Birthday']));} ?>"
+                                                   required name="Birthday" pattern="[0-9]{2}.[0-9]{2}.[0-9]{4}" title="dd.mm.yyyy">
                                         </td>
                                     </tr>
                                     <tr>
                                         <td>
                                             <label for="Username">Brugernavn:*</label>
-                                            <input type="text" placeholder="ImNotSanta" class="form-control" id="FullName" value="<?php echo $_SESSION['PreffereredUsername']; ?>" required name="Username">
+                                            <input type="text" placeholder="ImNotSanta" class="form-control" id="FullName"
+                                                   value="<?php if(isset($_SESSION['PreffereredUsername'])){echo $_SESSION['PreffereredUsername']; } ?>" required name="Username">
                                         </td>
                                         <td>
                                             <label for="Password">Kodeord:*</label>
                                             <input type="password" class="form-control" pattern=".{4,18}" title="4 til 18 karaktere" id="Password" placeholder="Kodeord" required name="Password">
                                         </td>
                                         <td>
-                                            <label for="CPasswoord">Bekr&aelig;ft Kodeord:*</label>
-                                            <input type="password" class="form-control" pattern=".{4,18}" title="4 til 18 karaktere" id="CPasswoord" placeholder="Gentag Kodeord" required name="CPasswoord">
+                                            <label for="CPassword">Bekr&aelig;ft Kodeord:*</label>
+                                            <input type="password" class="form-control" pattern=".{4,18}" title="4 til 18 karaktere" id="CPassword" placeholder="Gentag Kodeord" required name="CPassword">
                                         </td>
                                     </tr>
                                     <tr>
@@ -94,18 +98,18 @@ if(isset($_POST['Create_user'])){
                                         </td>
                                     </tr>
                                     <?php
-                                   /* if(isset($RegErroMSG)){
-                                        echo '<tr><td>'
-                                        foreach($i as $RegErroMSG){
+                                    if(isset($RegErroMSG)){
+                                        echo '<tr><td>';
+                                        var_dump($RegErroMSG);
+                                        /*foreach($RegErroMSG as $i){
                                             echo $i;
-                                        }
+                                        }*/
                                         echo '</td></tr>';
-                                    }*/
+                                    }
                                     ?>
                                 </form>    
                             </table>
                         </div>
-                    </div>
                 </div>
             </div>
         </div>
