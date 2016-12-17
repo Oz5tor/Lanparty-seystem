@@ -159,15 +159,16 @@ if ( ! empty ($_POST['connection_token']))
                     //$user_id = {The ID of the user that you have created}
                     // 1a2) Attach the user_token to the userID of the created account.
                     //LinkUserTokenToUserId ($user_token, $user_id);
-                    echo "<pre>";
+                    /*echo "<pre>";
                     print_r($data->user);
-                    echo "</pre>";
+                    echo "</pre>";*/
                     }
                 // 1b) If you DO have an userID for the user_token then this user has
                 // already connected before
                 else
                 {
-                    echo 'brugeren findes';
+                    $_SESSION['UserID'] = $user_id;
+                    header("Location: http://localhost/Website-2017/index.php");
                     // 1b1) The account already exists
                 }
                 // 2) You have either created a new user or read the details of an existing

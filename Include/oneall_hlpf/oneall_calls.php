@@ -17,7 +17,7 @@ function get_user_id_for_user_token ($user_token,$tokencoll, $db_conn){
  
     // Example Query: SELECT user_id FROM user_token_link WHERE user_token = <user_token>
     // Return the user_id or null if none found.
-    if($result = $db_conn->query("SELECT UserID FROM users WHERE $tokencoll = '$user_token'")){
+    if($result = $db_conn->query("SELECT UserID FROM Users WHERE $tokencoll = '$user_token'")){
         if($result -> num_rows){
             $row = $result->fetch_assoc();
             return $row['UserID'];
@@ -36,7 +36,7 @@ function get_user_id_for_user_token ($user_token,$tokencoll, $db_conn){
 function get_user_token_for_user_id ($user_id, $db_conn){
   // Example Query: SELECT user_token FROM user_token_link WHERE user_id = <user_id>
   // Return the user_token or null if none found.  
-    if($result = $db_conn->query("SELECT OneallUserToken FROM users WHERE UserID = '$user_id'")){
+    if($result = $db_conn->query("SELECT OneallUserToken FROM Users WHERE UserID = '$user_id'")){
         if($result -> num_rows){
             $row = $result->fetch_assoc();
             return $row['OneallUserToken'];
@@ -56,7 +56,7 @@ function link_user_token_to_user_id ($user_token, $user_id,$db_conn){
   // Example: INSERT INTO user_token_link SET user_token = <user_token>, user_id = <user_id>
   // Return true
     
-    if($result = $db_conn->query("UPDATE users SET OneallUserToken= '$user_token' WHERE UserID = '$user_id'"))
+    if($result = $db_conn->query("UPDATE Users SET OneallUserToken= '$user_token' WHERE UserID = '$user_id'"))
     {
         if(mysqli_affected_rows($db_conn) == 1){
             return true;
