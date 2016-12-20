@@ -6,6 +6,7 @@ date_default_timezone_set ('Europe/Copenhagen');
 require_once("Include/DBconn.php");
 require_once("oneall_sdk/config.php");
 require_once("Include/oneall_hlpf/oneall_calls.php");
+require_once("Include/UrlContoller.php");
 include_once("Include/DEBUGGIN.php");
 ?>
 <!DOCTYPE html>
@@ -15,7 +16,7 @@ include_once("Include/DEBUGGIN.php");
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="">
     <meta name="author" content="">
-    <title>HLParty 2018 style</title>
+    <title>HLParty <?php if(isset($html_headder_title)){echo '- '.$html_headder_title;} ?></title>
     <link rel="shortcut icon" href="">
     <link rel="stylesheet" href="Style/font-awesome/css/font-awesome.min.css">
     <link rel="stylesheet" href="Style/bootstrap.min.css">
