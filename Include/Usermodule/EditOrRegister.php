@@ -1,5 +1,6 @@
 <?php
-if(isset($_POST['Create_user'])){
+if(isset($_POST['Create_user']))
+{
     $RegErroMSG = array();
     
     if($_POST['FullName'] == '')  {$RegErroMSG[] .='Fulde Navn';}
@@ -57,18 +58,26 @@ if(isset($_POST['Create_user'])){
                 $profileURLCol = 'BattlenetID';
             break;
         }
-        $CreateTime = time();
-        $profileURL = $_SESSION['ProfileUrl'];
-        $token = $_SESSION['UserToken'];
-        if($db_conn->query("INSERT INTO `Users`(Username, FullName, ZipCode, Birthdate, Created, Email, Bio, UserStatus,
-                             Address, PW, Phone, $TokenRow, $profileURLCol)
-                             VALUES 
-                             ('$Username','$FullName','$Zipcode', '$Birthday','$CreateTime','$Email', '$Bio','1',
-                              '$Address','$PW','$Phone','$token','$profileURL')"))   
+        
+        if($page == 'EditMyProfile'){
+            
+        }else
         {
-            // stuff
-            echo 'opret lykkedes';
-        }else {echo 'opret fejled';}
+            $CreateTime = time();
+            $profileURL = $_SESSION['ProfileUrl'];
+            $token = $_SESSION['UserToken'];
+            if($db_conn->query("INSERT INTO `Users`(Username, FullName, ZipCode, Birthdate, Created, Email, Bio, UserStatus,
+                                 Address, PW, Phone, $TokenRow, $profileURLCol)
+                                 VALUES 
+                                 ('$Username','$FullName','$Zipcode', '$Birthday','$CreateTime','$Email', '$Bio','1',
+                                  '$Address','$PW','$Phone','$token','$profileURL')"))   
+            {
+                // stuff
+                //unset $_SESSION['UserToken'];
+                header("Location: index.php?page=EditMyProfile");
+            }else {echo 'opret fejled';}
+            
+        }
     }
 }
 ?>
