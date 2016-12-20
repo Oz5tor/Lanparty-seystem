@@ -28,6 +28,13 @@
                   </ul>
                 </li>
                 <li><a href="#contact">Kontakt os</a></li>
+                <li class="dropdown" id="hlpf_menu">
+                  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Min profil <span class="caret"></span></a>
+                  <ul class="dropdown-menu">
+                      <li><a href="?page=EditMyProfile">Ret min profil</a></li>
+                  </ul>
+                </li>
+                      
             </ul>
         </div><!--.nav-collapse -->
     </div>
