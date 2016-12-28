@@ -16,7 +16,7 @@
                   Users U2
                     ON P.LastEditedID = U2.UserID
                 WHERE
-                  P.PageID = 1
+                  P.PageID = $page
             " ) ){
                 if( $result -> num_rows ){
                     $row = $result->fetch_assoc();
@@ -25,11 +25,26 @@
         ?>
         <div class="row">
             <div class="col-lg-12 hlpf_large_news_box">
-                <?php echo "<h4>" . $row[ 'PageTitle' ] . "</h4>"; ?>
+                <h3>
+                    <?php 
+                        if( $result -> num_rows ) {
+                            echo $row[ 'PageTitle' ];
+                        } else {
+                            echo "Error - 404";
+                        }
+                    ?>
+                </h3>
                 <hr/>
                 <div class="hlpf_flex">
                     <div class="hlpf_news">
-                        <?php echo "<p>" . $row[ 'Content' ] . "</p>"; ?>
+                        <!-- Content -->
+                        <?php 
+                            if( $result -> num_rows ) {
+                                echo "<p>" . $row[ 'Content' ] . "</p>";
+                            } else {
+                                echo "<h4>Page not found...</h4>";
+                            }
+                        ?>
                     </div>
                 </div>
             </div>
