@@ -20,31 +20,21 @@
             " ) ){
                 if( $result -> num_rows ){
                     $row = $result->fetch_assoc();
+                } else {
+                    // GOTO 404 PAGE
                 }
             }
         ?>
         <div class="row">
             <div class="col-lg-12 hlpf_large_news_box">
                 <h3>
-                    <?php 
-                        if( $result -> num_rows ) {
-                            echo $row[ 'PageTitle' ];
-                        } else {
-                            echo "Error - 404";
-                        }
-                    ?>
+                    <?php echo $row[ 'PageTitle' ]; ?>
                 </h3>
                 <hr/>
                 <div class="hlpf_flex">
                     <div class="hlpf_news">
                         <!-- Content -->
-                        <?php 
-                            if( $result -> num_rows ) {
-                                echo "<p>" . $row[ 'Content' ] . "</p>";
-                            } else {
-                                echo "<h4>Page not found...</h4>";
-                            }
-                        ?>
+                        <?php echo "<p>" . $row[ 'Content' ] . "</p>"; ?>
                     </div>
                 </div>
             </div>
