@@ -9,4 +9,4 @@ $request = new FacebookRequest(
 $response = $request->execute();
 $graphObject = $response->getGraphObject();
 /* handle the result */
->
+?>

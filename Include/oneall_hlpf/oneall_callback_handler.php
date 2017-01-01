@@ -115,7 +115,7 @@ if ( ! empty ($_POST['connection_token']))
                               $_SESSION['SocialNetwork'] = 'facebook';
                               $_SESSION['UserToken'] = $user_token;
                               $_SESSION['ProfileUrl'] = $data->user->identity->profileUrl;
-                              $_SESSION['Birthday'] = $data->user->identity->birthday;
+                              //$_SESSION['Birthday'] = $data->user->identity->birthday; // no longer requestin birthday from facebook
                               $_SESSION['FullName'] = $data->user->identity->name->formatted;
                               $_SESSION['PreffereredUsername'] = $data->user->identity->preferredUsername;
                               $_SESSION['Email'] = $data->user->identity->emails[0]->value;
@@ -163,9 +163,7 @@ if ( ! empty ($_POST['connection_token']))
                     print_r($data->user);
                     echo "</pre>";*/
                     }
-                // 1b) If you DO have an userID for the user_token then this user has
-                // already connected before
-                else
+                else // if user exxist.
                 {
                     $_SESSION['UserID'] = $user_id;
                     header("Location: http://localhost/Website-2017/index.php");

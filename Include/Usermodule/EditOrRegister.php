@@ -1,24 +1,53 @@
 <?php
-if(isset($_POST['Create_user']))
+if(isset($_SESSION['UserToken'])){
+    if(isset($_SESSION['FullName'])){ $FullName               = $_SESSION['FullName'];}
+    if(isset($_SESSION['Email'])){ $Email                  = $_SESSION['Email'];}
+    if(isset($_SESSION['PreffereredUsername'])){ $PreffereredUsername    = $_SESSION['PreffereredUsername'];}
+}
+if(isset($_SESSION['UserID'])){
+    
+    $UserID = $_SESSION['UserID'];
+    if($result = $db_conn->query("SELECT * FROM Users WHERE UserID = '$UserID'")){
+        if($result -> num_rows){
+            $row = $result->fetch_assoc();
+            $FullName               = $row['FullName'];
+            $Email                  = $row['Email'];
+            $PreffereredUsername    = $row['Username'];
+            $Birthday               = $row['Birthdate'];
+            $Phone                  = $row['Phone'];
+            $Address                = $row['Address'];
+            $Zipcode                = $row['ZipCode'];
+            $Bio                    = $row['Bio'];
+        }
+    }
+}
+
+if(isset($_POST['Send_form'])) // Submit form start
 {
     $RegErroMSG = array();
+    $FormAOKAY = 0;
+    if($_POST['FullName'] == '')  {$RegErroMSG[] .='Fulde Navn'; $FormAOKAY = 1;}
+    if($_POST['Email'] == '')     {$RegErroMSG[] .='Email'; $FormAOKAY = 1;}
+    if($_POST['Birthday'] == '')  {$RegErroMSG[] .='Fødselsdag'; $FormAOKAY = 1;}
+    if($_POST['Username'] == '')  {$RegErroMSG[] .='Brugernavn'; $FormAOKAY = 1;}
     
-    if($_POST['FullName'] == '')  {$RegErroMSG[] .='Fulde Navn';}
-    if($_POST['Email'] == '')     {$RegErroMSG[] .='Email';}
-    if($_POST['Birthday'] == '')  {$RegErroMSG[] .='Fødselsdag';}
-    if($_POST['Username'] == '')  {$RegErroMSG[] .='Brugernavn';}
-    if($_POST['Password'] == '')  {$RegErroMSG[] .='Kodeord';}
-    if($_POST['CPassword'] == '') {$RegErroMSG[] .='Bekræft kodeord';}
-    if($_POST['Phone'] == '')     {$RegErroMSG[] .='Telefonnummer';}
-    if($_POST['Address'] == '')   {$RegErroMSG[] .='Adresse';}
-    if($_POST['Zipcode'] == '')   {$RegErroMSG[] .='Postnummer';}
-    if(!isset($_POST['ToS']))     {$RegErroMSG[] .='Bekræfte betingelserne';}
-    
-    if($_POST['Password'] != $_POST['CPassword']){
-    unset($RegErroMSG);    
-    $RegErroMSG = array();
-    $RegErroMSG[] .= 'Kodeord & Bekræft Kodeord passed ikke sammen';
-    }else
+    if($page != 'EditMyProfile'){
+        
+        if($_POST['Password'] == '')  {$RegErroMSG[] .='Kodeord'; $FormAOKAY = 1;}
+        if($_POST['CPassword'] == '') {$RegErroMSG[] .='Bekræft kodeord'; $FormAOKAY = 1;}
+        if(!isset($_POST['ToS']))     {$RegErroMSG[] .='Bekræfte betingelserne'; $FormAOKAY = 1;}
+    }
+    if($_POST['Phone'] == '')     {$RegErroMSG[] .='Telefonnummer'; $FormAOKAY = 1;}
+    if($_POST['Address'] == '')   {$RegErroMSG[] .='Adresse'; $FormAOKAY = 1;}
+    if($_POST['Zipcode'] == '')   {$RegErroMSG[] .='Postnummer'; $FormAOKAY = 1;}
+    if($page != 'EditMyProfile')
+    {
+        if($_POST['Password'] != $_POST['CPassword']){
+            $FormAOKAY = 1;
+        $RegErroMSG[] .= 'Kodeord & Bekræft Kodeord passed ikke sammen';
+        }
+    }
+   if($FormAOKAY == 0)
     {
         // For sucessfull filled
         // injection prevention
@@ -26,42 +55,56 @@ if(isset($_POST['Create_user']))
         $Email      = $db_conn->real_escape_string($_POST['Email']);
         $Birthday   = $db_conn->real_escape_string($_POST['Birthday']);
         $Username   = $db_conn->real_escape_string($_POST['Username']);
-        $Password   = $db_conn->real_escape_string($_POST['Password']);
-        $CPassword  = $db_conn->real_escape_string($_POST['CPassword']);
+        if($page != 'EditMyProfile'){
+            $Password   = $db_conn->real_escape_string($_POST['Password']);
+            $CPassword  = $db_conn->real_escape_string($_POST['CPassword']);    
+            $ToS        = $db_conn->real_escape_string($_POST['ToS']);
+            $PW = hash('sha512', $Password);
+        }
         $Phone      = $db_conn->real_escape_string($_POST['Phone']);
         $Address    = $db_conn->real_escape_string($_POST['Address']);
         $Zipcode    = $db_conn->real_escape_string($_POST['Zipcode']);
-        $ToS        = $db_conn->real_escape_string($_POST['ToS']);
+        
         $Bio        = $db_conn->real_escape_string($_POST['Bio']);
         
-        $PW = hash('sha512', $Password);
-        
-        switch($_SESSION['SocialNetwork']){
-            case 'steam':
-                $TokenRow      = 'SteamToken';
-                $profileURLCol = 'SteamURL';
-            break;
-            case 'facebook':
-                $TokenRow      = 'FacebookToken';
-                $profileURLCol = 'FacebookURL';
-            break;
-            case 'twitch':
-                $TokenRow      = 'TwitchToken';
-                $profileURLCol = 'TwitchURL';
-            break;
-            case 'google':
-                $TokenRow      = 'GoogleToken';
-                $profileURLCol = 'GoogleURL';
-            break;
-            case 'battlenet':
-                $TokenRow      = 'BattlenetToken';
-                $profileURLCol = 'BattlenetID';
-            break;
+        $Birthday = strtotime($Birthday);
+    
+        if(isset($_SESSION['SocialNetwork'])){
+            switch($_SESSION['SocialNetwork']){
+                case 'steam':
+                    $TokenRow      = 'SteamToken';
+                    $profileURLCol = 'SteamURL';
+                break;
+                case 'facebook':
+                    $TokenRow      = 'FacebookToken';
+                    $profileURLCol = 'FacebookURL';
+                break;
+                case 'twitch':
+                    $TokenRow      = 'TwitchToken';
+                    $profileURLCol = 'TwitchURL';
+                break;
+                case 'google':
+                    $TokenRow      = 'GoogleToken';
+                    $profileURLCol = 'GoogleURL';
+                break;
+                case 'battlenet':
+                    $TokenRow      = 'BattlenetToken';
+                    $profileURLCol = 'BattlenetID';
+                break;
+            }  
         }
-        
-        if($page == 'EditMyProfile'){
+        if($page == 'EditMyProfile'){ // user edits own informations
             
-        }else
+            if($db_conn->query("UPDATE Users SET Username = '$Username', FullName = '$FullName', ZipCode = '$Zipcode',
+                                                Birthdate = '$Birthday', Email = '$Email', Bio = '$Bio',
+                                                Address = '$Address', Phone = '$Phone'
+                                WHERE UserID = '$UserID'"))
+            {   
+                
+            }
+                header("Location: index.php?page=EditMyProfile");
+        }
+        else // user creation
         {
             $CreateTime = time();
             $profileURL = $_SESSION['ProfileUrl'];
@@ -72,16 +115,14 @@ if(isset($_POST['Create_user']))
                                  ('$Username','$FullName','$Zipcode', '$Birthday','$CreateTime','$Email', '$Bio','1',
                                   '$Address','$PW','$Phone','$token','$profileURL')"))   
             {
-                // stuff
-                //unset $_SESSION['UserToken'];
                 header("Location: index.php?page=EditMyProfile");
             }else {echo 'opret fejled';}
-            
+
         }
-    }
-}
+    } 
+}// Form submit end
 ?>
-<!-- Register Start -->
+<!-- Form Start -->
 <div class="row">
     <div class="col-lg-12 hlpf_newsborder">
         <div class="row">
@@ -96,16 +137,15 @@ if(isset($_POST['Create_user']))
                                     <td>
                                         <label for="FullName">Fulde Navn:*</label>
                                         <input type="text" class="form-control" placeholder="Santa Claus" id="FullName" 
-                                               value="<?php if(isset($_SESSION['FullName'])){ echo $_SESSION['FullName'];} ?>"  name="FullName">
+                                               value="<?php if(isset($FullName)){ echo $FullName;} ?>"  name="FullName">
                                     </td>
                                     <td><label for="Email">Email:*</label>
                                         <input type="email" class="form-control" id="Email" placeholder="Workshop@santa.chrismas" 
-                                               value="<?php if(isset($_SESSION['Email'])){ echo $_SESSION['Email'];} ?>"  name="Email">
+                                               value="<?php if(isset($Email)){ echo $Email;} ?>"  name="Email">
                                     </td>
                                     <td><label for="Birthday">F&oslash;dselsdag:*</label>
                                         <input type="text" placeholder="dd.mm.YYYY" class="form-control" id="Birthday" 
-                                               value="<?php if(isset($_SESSION['Birthday'])){
-                                                                echo date("d.m.Y",strtotime($_SESSION['Birthday']));} ?>"
+                                               value="<?php if(isset($Birthday)){ echo date("d.m.Y",$Birthday);} ?>"
                                                 name="Birthday" pattern="[0-9]{2}.[0-9]{2}.[0-9]{4}" title="dd.mm.yyyy">
                                     </td>
                                 </tr>
@@ -113,8 +153,20 @@ if(isset($_POST['Create_user']))
                                     <td>
                                         <label for="Username">Brugernavn:*</label>
                                         <input type="text" placeholder="ImNotSanta" class="form-control" id="FullName"
-                                               value="<?php if(isset($_SESSION['PreffereredUsername'])){echo $_SESSION['PreffereredUsername']; } ?>"  name="Username">
+                                               value="<?php if(isset($PreffereredUsername)){echo $PreffereredUsername; } ?>"  name="Username">
                                     </td>
+                                    <?php
+                                    if($page == 'EditMyProfile'){
+                                    ?>
+                                    <td>
+                                        &nbsp;
+                                    </td>
+                                    <td>
+                                        &nbsp;
+                                    </td>
+                                    <?php  
+                                    }else{
+                                    ?>
                                     <td>
                                         <label for="Password">Kodeord:*</label>
                                         <input type="password" class="form-control" pattern=".{4,18}" title="4 til 18 karaktere" id="Password" placeholder="Kodeord"  name="Password">
@@ -123,19 +175,22 @@ if(isset($_POST['Create_user']))
                                         <label for="CPassword">Bekr&aelig;ft Kodeord:*</label>
                                         <input type="password" class="form-control" pattern=".{4,18}" title="4 til 18 karaktere" id="CPassword" placeholder="Gentag Kodeord"  name="CPassword">
                                     </td>
+                                    <?php
+                                    }
+                                    ?>
                                 </tr>
                                 <tr>
                                     <td>
                                         <label for="Phone">Telefon:*</label>
-                                        <input type="text" class="form-control" id="Phone" value=""  placeholder="feks: 11223344 eller +4511223344"  name="Phone">
+                                        <input type="text" class="form-control" id="Phone" value="<?php if(isset($Phone)){echo $Phone;} ?>"  placeholder="feks: 11223344 eller +4511223344"  name="Phone">
                                     </td>
                                     <td>
                                         <label for="Address">Adresse:*</label>
-                                        <input type="text" placeholder="feks Norpolen 42, 6.sal tv" class="form-control" id="FullName" value=""  name="Address">
+                                        <input type="text" placeholder="feks Norpolen 42, 6.sal tv" class="form-control" id="FullName" value="<?php if(isset($Address)){echo $Address;} ?>"  name="Address">
                                     </td>
                                     <td>
                                         <label for="Zipcode">Postnumber:*</label>
-                                        <input type="text" list="DBZipcodes" placeholder="1337 Awesome city" class="form-control" id="Zipcode" value=""  name="Zipcode">
+                                        <input type="text" list="DBZipcodes" placeholder="1337 Awesome city" class="form-control" id="Zipcode" value="<?php if(isset($Zipcode)){echo $Zipcode;} ?>"  name="Zipcode">
                                         <!-- List of Zipcodes in Denmark -->
                                         <datalist id="DBZipcodes">
                                             <?php
@@ -152,20 +207,21 @@ if(isset($_POST['Create_user']))
                                 <tr>
                                     <td colspan="3">
                                         <label for="Bio">Profil tekst:</label>
-                                        <textarea id="Bio" class="form-control awesomplete" rows="5" name="Bio">
-                                        </textarea>
+                                        <textarea id="Bio" class="form-control awesomplete" rows="5" name="Bio"><?php if(isset($Bio)){echo $Bio;} ?></textarea>
                                     </td>
                                 </tr>
                                 <tr>
                                     <td>
+                                        <?php if($page != 'EditMyProfile'){ ?>
                                         <div class="form-inline">
                                             <label for="ToS">Brugerbetinelser:*</label>
                                         <input type="checkbox" class="form-control" id="ToS" value="1"  name="ToS">
                                         </div>
+                                        <?php } ?>
                                     </td>
                                     <td>&nbsp;</td>
                                     <td class="text-center">
-                                        <input type="submit" class="btn btn-default" name="Create_user">
+                                        <input type="submit" value="Send" class="btn btn-default" name="Send_form">
                                     </td>
                                 </tr>
                                 <?php
@@ -175,7 +231,8 @@ if(isset($_POST['Create_user']))
                                         echo '<li>'.$i.'</li>';
                                     }
                                     echo '</li></ul></td></tr>';
-                                }unset($RegErroMSG)
+                                }
+                                unset($RegErroMSG);
                                 ?>
                             </form>    
                         </table>
@@ -186,4 +243,4 @@ if(isset($_POST['Create_user']))
         <hr/>
     </div>
 </div>
-<!-- Register end -->
+<!-- Form end -->
