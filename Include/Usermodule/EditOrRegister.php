@@ -51,6 +51,21 @@ if(!isset($_SESSION['UserToken']) && !isset($_SESSION['UserID'])){
             $RegErroMSG[] .= 'Kodeord & Bekræft Kodeord passed ikke sammen';
             }
         }
+        $tempUsername = $_POST['Username'];
+        if($result = $db_conn ->query("SELECT Username FROM Users Where Username = '$tempUsername'")){
+            if($result -> num_rows){
+                $RegErroMSG[] .='Brugernavnet findes, beklager'; 
+                $FormAOKAY = 1;
+            }
+        }
+                $FullName               = $_POST['FullName'];
+                $Email                  = $_POST['Email'];
+                $PreffereredUsername    = $_POST['Username'];
+                $Birthday               = $_POST['Birthday'];
+                $Phone                  = $_POST['Phone'];
+                $Address                = $_POST['Address'];
+                $Zipcode                = $_POST['Zipcode'];
+                $Bio                    = $_POST['Bio'];
        if($FormAOKAY == 0)
         {
             // For sucessfull filled
@@ -113,13 +128,21 @@ if(!isset($_SESSION['UserToken']) && !isset($_SESSION['UserID'])){
                 $CreateTime = time();
                 $profileURL = $_SESSION['ProfileUrl'];
                 $token = $_SESSION['UserToken'];
-                if($db_conn->query("INSERT INTO `Users`(Username, FullName, ZipCode, Birthdate, Created, Email, Bio, UserStatus,
+                if($db_conn->query("INSERT INTO `Users`(Username, FullName, ZipCode, Birthdate, Created, Email, Bio, Admin,
                                      Address, PW, Phone, $TokenRow, $profileURLCol)
                                      VALUES 
-                                     ('$Username','$FullName','$Zipcode', '$Birthday','$CreateTime','$Email', '$Bio','1',
+                                     ('$Username','$FullName','$Zipcode', '$Birthday','$CreateTime','$Email', '$Bio','0',
                                       '$Address','$PW','$Phone','$token','$profileURL')"))   
                 {
-                    header("Location: index.php?page=EditMyProfile");
+                    session_destroy();
+                    if($result = $db_conn ->query("Select UserID FROM Users WHERE Username = '$Username'")){
+                        $row = $result->fetch_assoc();
+                        $tempUserID = $row['Username'];
+                     $_SESSION['UserID'] = $tempUserID;
+                     $LastLogin = time();
+                     if($db_conn->query("UPDATE Users SET LastLogin = '$LastLogin' WHERE UserID = '$tempUserID'")){}
+                     header("Location: index.php?page=EditMyProfile");   
+                    }
                 }else {echo 'opret fejled';}
 
             }
@@ -148,7 +171,7 @@ if(!isset($_SESSION['UserToken']) && !isset($_SESSION['UserID'])){
                                                    value="<?php if(isset($Email)){ echo $Email;} ?>"  name="Email">
                                         </td>
                                         <td><label for="Birthday">F&oslash;dselsdag:*</label>
-                                            <input type="text" placeholder="dd.mm.YYYY" class="form-control" id="Birthday" 
+                                            <input type="date" placeholder="dd.mm.YYYY" class="form-control" id="Birthday" 
                                                    value="<?php if(isset($Birthday)){ echo date("d.m.Y",$Birthday);} ?>"
                                                     name="Birthday" pattern="[0-9]{2}.[0-9]{2}.[0-9]{4}" title="dd.mm.yyyy">
                                         </td>
@@ -230,7 +253,7 @@ if(!isset($_SESSION['UserToken']) && !isset($_SESSION['UserID'])){
                                     </tr>
                                     <?php
                                     if(isset($RegErroMSG)){
-                                        echo '<tr><td><ul class="alert alert-danger" role="alert"><b>Husk at udfylde:</b>';
+                                        echo '<tr><td><ul class="alert alert-danger" role="alert"><b>Feltkravene er ikke opfyldt:</b>';
                                         foreach($RegErroMSG as $i){
                                             echo '<li>'.$i.'</li>';
                                         }
