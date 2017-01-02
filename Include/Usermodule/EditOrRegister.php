@@ -51,11 +51,13 @@ if(!isset($_SESSION['UserToken']) && !isset($_SESSION['UserID'])){
             $RegErroMSG[] .= 'Kodeord & Bekræft Kodeord passed ikke sammen';
             }
         }
-        $tempUsername = $_POST['Username'];
-        if($result = $db_conn ->query("SELECT Username FROM Users Where Username = '$tempUsername'")){
-            if($result -> num_rows){
-                $RegErroMSG[] .='Brugernavnet findes, beklager'; 
-                $FormAOKAY = 1;
+        if($page != 'EditMyProfile'){
+            $tempUsername = $_POST['Username'];
+            if($result = $db_conn ->query("SELECT Username FROM Users Where Username = '$tempUsername'")){
+                if($result -> num_rows){
+                    $RegErroMSG[] .='Brugernavnet findes, beklager'; 
+                    $FormAOKAY = 1;
+                }
             }
         }
                 $FullName               = $_POST['FullName'];
