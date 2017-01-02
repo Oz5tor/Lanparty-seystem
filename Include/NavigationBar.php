@@ -34,7 +34,7 @@
                   <ul class="dropdown-menu">
                       <li><a href="?page=EditMyProfile">Ret min profil</a></li>
                       <?php if($_SESSION['Admin'] == 1){ ?> 
-                        <li><a href="?page=Administration">Administration</a></li>
+                        <li><a href="?page=Admin">Administration</a></li>
                       <?php } ?>
                   </ul>
                 </li>
