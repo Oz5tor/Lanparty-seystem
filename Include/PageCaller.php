@@ -11,7 +11,7 @@ elseif (! empty( $page ) ) {
             include_once("Include/Home.php");
             break;
         default:
-            include_once("Include/Home.php");
+            include_once("Include/Page.php");
             break;
         }
 }
