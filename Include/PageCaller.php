@@ -10,9 +10,16 @@ elseif (! empty( $page ) ) {
         case "Forside":
             include_once("Include/Home.php");
             break;
+        case "Admin":
+            if($_SESSION['Admin'] == 1) {
+                include_once("Include/Admin/index.php");
+            } else {
+                header("Location: index.php");
+            }
+            break;
         default:
             include_once("Include/Page.php");
             break;
-        }
+    }
 }
 ?>

@@ -1,3 +1,4 @@
+<!--
 <?php
 /* PHP SDK v5.0.0 */
 use Facebook\FacebookRequest;
@@ -18,7 +19,7 @@ $response = $request->execute();
 $graphObject = $response->getGraphObject();
 /* handle the result */
 ?>
-<!--
+-->
 <?php
    $url = "http://graph.facebook.com/125002990909766/albums?fields=id,name&limit=500";
    $obj = json_decode(file_get_contents($url));
@@ -26,4 +27,3 @@ $graphObject = $response->getGraphObject();
     echo "<p>". $item->id . "</p>";
    }
 ?>
--->
