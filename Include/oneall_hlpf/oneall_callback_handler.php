@@ -115,7 +115,7 @@ if ( ! empty ($_POST['connection_token']))
                               $_SESSION['SocialNetwork'] = 'facebook';
                               $_SESSION['UserToken'] = $user_token;
                               $_SESSION['ProfileUrl'] = $data->user->identity->profileUrl;
-                              $_SESSION['Birthday'] = $data->user->identity->birthday;
+                              //$_SESSION['Birthday'] = $data->user->identity->birthday; // no longer requestin birthday from facebook
                               $_SESSION['FullName'] = $data->user->identity->name->formatted;
                               $_SESSION['PreffereredUsername'] = $data->user->identity->preferredUsername;
                               $_SESSION['Email'] = $data->user->identity->emails[0]->value;
@@ -153,7 +153,7 @@ if ( ! empty ($_POST['connection_token']))
                               $_SESSION['PictureUrl'] = $data->user->identity->pictureUrl;
                         break;
                     }
-                    header("Location: http://localhost/Website-2017/index.php");
+                    header("Location: /Website-2017/index.php");
                     // 1a1) Create a new user account and store it in your database
                     // Optionally display a form to collect  more data about the user.
                     //$user_id = {The ID of the user that you have created}
@@ -163,12 +163,17 @@ if ( ! empty ($_POST['connection_token']))
                     print_r($data->user);
                     echo "</pre>";*/
                     }
-                // 1b) If you DO have an userID for the user_token then this user has
-                // already connected before
-                else
+                else // if user exxist.
                 {
                     $_SESSION['UserID'] = $user_id;
-                    header("Location: http://localhost/Website-2017/index.php");
+                    if($Result = $db_conn ->query("Select Admin From Users Where UserID = '$user_id'")){
+                        $row = $Result->fetch_assoc();
+                        $_SESSION['Admin'] = $row['Admin'];
+                    }
+                    $LastLogin = time();
+                    if($db_conn->query("UPDATE Users SET LastLogin = '$LastLogin' WHERE UserID = '$user_id'")){}  
+                    
+                    header("Location: /Website-2017/index.php");
                     // 1b1) The account already exists
                 }
                 // 2) You have either created a new user or read the details of an existing
