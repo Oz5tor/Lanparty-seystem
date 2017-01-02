@@ -153,7 +153,7 @@ if ( ! empty ($_POST['connection_token']))
                               $_SESSION['PictureUrl'] = $data->user->identity->pictureUrl;
                         break;
                     }
-                    header("Location: http://localhost/Website-2017/index.php");
+                    header("Location: /Website-2017/index.php");
                     // 1a1) Create a new user account and store it in your database
                     // Optionally display a form to collect  more data about the user.
                     //$user_id = {The ID of the user that you have created}
@@ -166,7 +166,10 @@ if ( ! empty ($_POST['connection_token']))
                 else // if user exxist.
                 {
                     $_SESSION['UserID'] = $user_id;
-                    header("Location: http://localhost/Website-2017/index.php");
+                    $LastLogin = time();
+                    if($db_conn->query("UPDATE Users SET LastLogin = '$LastLogin' WHERE UserID = '$user_id'")){}  
+                    
+                    header("Location: /Website-2017/index.php");
                     // 1b1) The account already exists
                 }
                 // 2) You have either created a new user or read the details of an existing
