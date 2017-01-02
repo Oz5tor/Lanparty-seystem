@@ -13,5 +13,6 @@ elseif (! empty( $page ) ) {
         default:
             include_once("Include/Home.php");
             break;
+        }
 }
 ?>
