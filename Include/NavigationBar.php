@@ -14,7 +14,7 @@
                 <li class="active"><a href="index.php">Forside</a></li>
                 <li><a href="?page=Om_Os">Om os</a></li>
                 <li class="dropdown" id="hlpf_menu">
-                  <a class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">HLParty <span class="caret"></span></a>
+                  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">HLParty <span class="caret"></span></a>
                   <ul class="dropdown-menu">
                     <li><a href="?page=Information">Information</a></li>
                     <li><a href="?page=Regler">Regler</a></li>
