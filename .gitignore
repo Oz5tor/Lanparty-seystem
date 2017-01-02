@@ -146,3 +146,4 @@ Temporary Items
 #[Ii]nclude/[Dd][Bb]conn.php
 *.rar
 *[Kk]opi.*
+Include/DBconn.php
