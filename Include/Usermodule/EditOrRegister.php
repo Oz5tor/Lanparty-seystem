@@ -146,7 +146,6 @@ if(!isset($_SESSION['UserToken']) && !isset($_SESSION['UserID'])){
                      header("Location: index.php?page=EditMyProfile");   
                     }
                 }else {echo 'opret fejled';}
-
             }
         } 
     }// Form submit end
