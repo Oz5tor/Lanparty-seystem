@@ -1,5 +1,4 @@
 <?php
-
 if(!isset($_SESSION['UserToken']) && !isset($_SESSION['UserID'])){
     header("Location: /Website-2017/index.php");
 }else{
@@ -9,7 +8,6 @@ if(!isset($_SESSION['UserToken']) && !isset($_SESSION['UserID'])){
         if(isset($_SESSION['PreffereredUsername'])){ $PreffereredUsername    = $_SESSION['PreffereredUsername'];}
     }
     if(isset($_SESSION['UserID'])){
-
         $UserID = $_SESSION['UserID'];
         if($result = $db_conn->query("SELECT * FROM Users WHERE UserID = '$UserID'")){
             if($result -> num_rows){
@@ -25,7 +23,6 @@ if(!isset($_SESSION['UserToken']) && !isset($_SESSION['UserID'])){
             }
         }
     }
-
     if(isset($_POST['Send_form'])) // Submit form start
     {
         $RegErroMSG = array();
@@ -34,9 +31,7 @@ if(!isset($_SESSION['UserToken']) && !isset($_SESSION['UserID'])){
         if($_POST['Email'] == '')     {$RegErroMSG[] .='Email'; $FormAOKAY = 1;}
         if($_POST['Birthday'] == '')  {$RegErroMSG[] .='Fødselsdag'; $FormAOKAY = 1;}
         if($_POST['Username'] == '')  {$RegErroMSG[] .='Brugernavn'; $FormAOKAY = 1;}
-
         if($page != 'EditMyProfile'){
-
             if($_POST['Password'] == '')  {$RegErroMSG[] .='Kodeord'; $FormAOKAY = 1;}
             if($_POST['CPassword'] == '') {$RegErroMSG[] .='Bekræft kodeord'; $FormAOKAY = 1;}
             if(!isset($_POST['ToS']))     {$RegErroMSG[] .='Bekræfte betingelserne'; $FormAOKAY = 1;}
@@ -85,11 +80,8 @@ if(!isset($_SESSION['UserToken']) && !isset($_SESSION['UserID'])){
             $Phone      = $db_conn->real_escape_string($_POST['Phone']);
             $Address    = $db_conn->real_escape_string($_POST['Address']);
             $Zipcode    = $db_conn->real_escape_string($_POST['Zipcode']);
-
             $Bio        = $db_conn->real_escape_string($_POST['Bio']);
-
             $Birthday = strtotime($Birthday);
-
             if(isset($_SESSION['SocialNetwork'])){
                 switch($_SESSION['SocialNetwork']){
                     case 'steam':
@@ -115,13 +107,11 @@ if(!isset($_SESSION['UserToken']) && !isset($_SESSION['UserID'])){
                 }  
             }
             if($page == 'EditMyProfile'){ // user edits own informations
-
                 if($db_conn->query("UPDATE Users SET Username = '$Username', FullName = '$FullName', ZipCode = '$Zipcode',
                                                     Birthdate = '$Birthday', Email = '$Email', Bio = '$Bio',
                                                     Address = '$Address', Phone = '$Phone'
                                     WHERE UserID = '$UserID'"))
                 {   
-
                 }
                     header("Location: index.php?page=EditMyProfile");
             }
