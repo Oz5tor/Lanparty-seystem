@@ -1,3 +1,0 @@
-<p>
-    Page site
-</p>
