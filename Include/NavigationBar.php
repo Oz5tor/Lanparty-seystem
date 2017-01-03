@@ -38,6 +38,7 @@
                       <?php } ?>
                   </ul>
                 </li>
+                <li><a href="?page=Nyhedsarkiv">Nyhedsarkiv</a></li>
                 <?php } ?>
             </ul>
         </div><!--.nav-collapse -->
