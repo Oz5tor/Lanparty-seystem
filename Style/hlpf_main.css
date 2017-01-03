@@ -40,9 +40,18 @@ p {
     border: 1px solid rgba(0,0,0,0.2);
     color: black;
     padding-top: 10px;
+    padding-bottom: 10px;
 }
 
-.hlpf_newsborder .hlpf_adminmenu li {
+.hlpf_adminmenu {
+    overflow-y: auto;
+}
+
+.hlpf_adminmenu ul {
+    list-style: none;
+}
+.hlpf_adminmenu ul li {
+    float: left;
 }
 
 hr {   
@@ -121,6 +130,17 @@ hr {
 .nav .open > a, .nav .open > a:hover, .nav .open > a:focus {
     background-color: #337ab7;
 }
+
+/* Til admin side. Se menuen.*/
+.list-group .list-group-item {
+    color: #000;
+    margin-bottom: 4px;
+}
+
+.list-group a:hover {
+    text-decoration: none;
+}
+
 
 /* ========== Temp styles  =============== */
 @-moz-document url-prefix() {
