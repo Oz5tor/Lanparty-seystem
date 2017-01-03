@@ -7,7 +7,11 @@
         $result = $db_conn->query( "SELECT
           (SELECT COUNT(*) FROM Users) as Users, 
           (SELECT COUNT(*) FROM News) as News,
-          (SELECT COUNT(*) FROM Pages) as Pages
+          (SELECT COUNT(*) FROM Pages) as Pages,
+          (SELECT COUNT(*) FROM NewsLetter) as NewsLetter,
+          (SELECT COUNT(*) FROM Event) as Event,
+          (SELECT COUNT(*) FROM Sponsors) as Sponsors,
+          (SELECT COUNT(*) FROM Competitions) as Competitions
         ");
         if( $result -> num_rows ) {
             $row = $result->fetch_assoc();
@@ -24,6 +28,22 @@
       <a href=""><li class="list-group-item col-lg-2">
         <span class="badge"><?php echo $row['Pages']?></span>
           Sider
+      </li></a>
+      <a href=""><li class="list-group-item col-lg-2">
+        <span class="badge"><?php echo $row['NewsLetter']?></span>
+          Nyheds Breve
+      </li></a>
+      <a href=""><li class="list-group-item col-lg-2">
+        <span class="badge"><?php echo $row['Event']?></span>
+          Arrangemnter
+      </li></a>
+      <a href=""><li class="list-group-item col-lg-2">
+        <span class="badge"><?php echo $row['Sponsors']?></span>
+          Sponsore
+      </li></a>
+      <a href=""><li class="list-group-item col-lg-2">
+        <span class="badge"><?php echo $row['Competitions']?></span>
+          Konkurrencer
       </li></a>
     </ul>
   </div>

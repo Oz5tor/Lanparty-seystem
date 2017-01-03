@@ -22,6 +22,23 @@ include_once("Include/DEBUGGIN.php");
     <link rel="stylesheet" href="Style/bootstrap.min.css">
     <link rel="stylesheet" href="Style/bootstrap-theme.min.css">
     <link rel="stylesheet" href="Style/hlpf_main.css">
+    <script type="text/javascript" src="JS/tinymce/tinymce.min.js"></script>
+    <script>
+        // Public Editor for use at places like Forum, Profile text and so on.
+      tinymce.init({
+        selector: '#PublicTinyMCE',
+        menubar: '',
+        toolbar: 'undo redo | bold | blod italic | underline |',
+        browser_spellcheck: true
+      });
+        // Administration Editor for use at places like news, pages, event and so on.
+      tinymce.init({
+        selector: '#AdminTinyMCE',
+        menubar: '',
+        toolbar: 'undo redo | bold | blod italic | underline |',
+        browser_spellcheck: true
+      });
+    </script>
     <!--[if IE]>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv.min.js"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/respond.js/1.4.2/respond.min.js"></script>
