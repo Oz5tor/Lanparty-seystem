@@ -3,8 +3,8 @@ if(!isset($_SESSION['UserToken']) && !isset($_SESSION['UserID'])){
     header("Location: /Website-2017/index.php");
 }else{
     if(isset($_SESSION['UserToken'])){
-        if(isset($_SESSION['FullName'])){ $FullName               = $_SESSION['FullName'];}
-        if(isset($_SESSION['Email'])){ $Email                  = $_SESSION['Email'];}
+        if(isset($_SESSION['FullName'])){ $FullName = $_SESSION['FullName'];}
+        if(isset($_SESSION['Email'])){ $Email       = $_SESSION['Email'];}
         if(isset($_SESSION['PreffereredUsername'])){ $PreffereredUsername    = $_SESSION['PreffereredUsername'];}
     }
     if(isset($_SESSION['UserID'])){
@@ -31,6 +31,7 @@ if(!isset($_SESSION['UserToken']) && !isset($_SESSION['UserID'])){
         if($_POST['Email'] == '')     {$RegErroMSG[] .='Email'; $FormAOKAY = 1;}
         if($_POST['Birthday'] == '')  {$RegErroMSG[] .='Fødselsdag'; $FormAOKAY = 1;}
         if($_POST['Username'] == '')  {$RegErroMSG[] .='Brugernavn'; $FormAOKAY = 1;}
+
         if($page != 'EditMyProfile'){
             if($_POST['Password'] == '')  {$RegErroMSG[] .='Kodeord'; $FormAOKAY = 1;}
             if($_POST['CPassword'] == '') {$RegErroMSG[] .='Bekræft kodeord'; $FormAOKAY = 1;}
@@ -63,8 +64,7 @@ if(!isset($_SESSION['UserToken']) && !isset($_SESSION['UserID'])){
                 $Address                = $_POST['Address'];
                 $Zipcode                = $_POST['Zipcode'];
                 $Bio                    = $_POST['Bio'];
-       if($FormAOKAY == 0)
-        {
+       if($FormAOKAY == 0){
             // For sucessfull filled
             // injection prevention
             $FullName   = $db_conn->real_escape_string($_POST['FullName']);
@@ -82,6 +82,7 @@ if(!isset($_SESSION['UserToken']) && !isset($_SESSION['UserID'])){
             $Zipcode    = $db_conn->real_escape_string($_POST['Zipcode']);
             $Bio        = $db_conn->real_escape_string($_POST['Bio']);
             $Birthday = strtotime($Birthday);
+
             if(isset($_SESSION['SocialNetwork'])){
                 switch($_SESSION['SocialNetwork']){
                     case 'steam':
@@ -110,9 +111,7 @@ if(!isset($_SESSION['UserToken']) && !isset($_SESSION['UserID'])){
                 if($db_conn->query("UPDATE Users SET Username = '$Username', FullName = '$FullName', ZipCode = '$Zipcode',
                                                     Birthdate = '$Birthday', Email = '$Email', Bio = '$Bio',
                                                     Address = '$Address', Phone = '$Phone'
-                                    WHERE UserID = '$UserID'"))
-                {   
-                }
+                                    WHERE UserID = '$UserID'")){}
                     header("Location: index.php?page=EditMyProfile");
             }
             else // user creation
@@ -137,7 +136,7 @@ if(!isset($_SESSION['UserToken']) && !isset($_SESSION['UserID'])){
                     }
                 }else {echo 'opret fejled';}
             }
-        } 
+        } // if formOKAY end 
     }// Form submit end
     ?>
     <!-- Form Start -->
