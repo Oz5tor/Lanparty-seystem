@@ -37,5 +37,5 @@ else
 if(isset($_GET['action']))
 {
 	$action = mysqli_real_escape_string($db_conn,strip_tags($_GET['action']));
-}
+}else {$action = '';}
 ?>
