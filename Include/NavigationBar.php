@@ -33,6 +33,9 @@
                   <a class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Min profil <span class="caret"></span></a>
                   <ul class="dropdown-menu">
                       <li><a href="?page=EditMyProfile">Ret min profil</a></li>
+                      <?php if($_SESSION['Admin'] == 1){ ?> 
+                        <li><a href="?page=Admin">Administration</a></li>
+                      <?php } ?>
                   </ul>
                 </li>
                 <?php } ?>
