@@ -147,3 +147,6 @@ Temporary Items
 *.rar
 *[Kk]opi.*
 Include/DBconn.php
+*.less
+JS/tinymce/langs/readme.md
+JS/tinymce/license.txt
