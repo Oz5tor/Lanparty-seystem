@@ -15,7 +15,7 @@
                   ON P.AuthorID = U1.UserID
                 INNER JOIN Users U2
                   ON P.LastEditedID = U2.UserID
-                WHERE P.PageID = $page
+                WHERE P.PageID = $page AND Online = '1'
               " ); // End query.
           } elseif (! ctype_digit( strval( $page ) )) {
             $result = $db_conn->query( "
@@ -31,7 +31,7 @@
                   ON P.AuthorID = U1.UserID
                 INNER JOIN Users U2
                   ON P.LastEditedID = U2.UserID
-                WHERE P.PageTitle = '$page'
+                WHERE P.PageTitle = '$page' AND Online = '1'
             " ); // End query.
           }
 
