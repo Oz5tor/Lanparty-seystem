@@ -37,7 +37,7 @@
         <span class="badge"><?php echo $row['Event']?></span>
           Arrangemnter
       </li></a>
-      <a href="?page=Admin&subpage=Sponsors"><li class="list-group-item col-lg-2">
+      <a href="?page=Admin&subpage=Sponsors"><li class="active list-group-item col-lg-2">
         <span class="badge"><?php echo $row['Sponsors']?></span>
           Sponsore
       </li></a>
