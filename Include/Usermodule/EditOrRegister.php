@@ -224,7 +224,7 @@ if(!isset($_SESSION['UserToken']) && !isset($_SESSION['UserID'])){
                                     <tr>
                                         <td colspan="3">
                                             <label for="Bio">Profil tekst:</label>
-                                            <textarea id="Bio" class="form-control awesomplete" rows="5" name="Bio"><?php if(isset($Bio)){echo $Bio;} ?></textarea>
+                                            <textarea id="PublicTinyMCE" class="form-control awesomplete" rows="5" name="Bio"><?php if(isset($Bio)){echo $Bio;} ?></textarea>
                                         </td>
                                     </tr>
                                     <tr>
