@@ -6,7 +6,7 @@
             </a>
             <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
                 <span class="sr-only">Toggle navigation</span>
-                <i class="fa fa-bars fa-2x" aria-hidden="true"></i>
+                <i class="fa fa-bars fa-2x" aria-hidden="true" style="color: white;"></i>
             </button>
         </div>
         <div class="collapse navbar-collapse hlpf_white_text">
@@ -39,6 +39,7 @@
                       <li><a href="?action=LogOut">Logud</a></li>
                   </ul>
                 </li>
+                <li><a href="?page=Nyhedsarkiv">Nyhedsarkiv</a></li>
                 <?php } ?>
             </ul>
         </div><!--.nav-collapse -->
