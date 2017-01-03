@@ -3,6 +3,7 @@ if(! empty($_SESSION['UserToken']) ){
     include_once("Include/Usermodule/EditOrRegister.php");
 }
 elseif (! empty( $page ) ) {
+    // Pages
     switch($page){
         case "EditMyProfile":
             include_once("Include/Usermodule/EditOrRegister.php");
@@ -20,6 +21,13 @@ elseif (! empty( $page ) ) {
         default:
             include_once("Include/Page.php");
             break;
+    }
+    // Actions
+    switch($action){
+        case "LogOut":
+            session_destroy();
+            header("Location: index.php");
+        break;
     }
 }
 ?>
