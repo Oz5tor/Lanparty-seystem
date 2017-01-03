@@ -18,6 +18,9 @@ elseif (! empty( $page ) ) {
                 header("Location: index.php");
             }
             break;
+        case "Nyhedsarkiv":
+            include_once("Include/Nyhedsarkiv/Nyhedsarkiv.php");
+            break;
         default:
             include_once("Include/Page.php");
             break;
