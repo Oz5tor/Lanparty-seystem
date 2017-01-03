@@ -72,7 +72,6 @@ include_once("Include/DEBUGGIN.php");
     <hr>
     <?php require_once("Include/Sponsors.php"); ?>
     <!-- Sponsors end -->
-    <?php require_once("Include/FBAlbumAPI.php"); ?>
     <!-- Footer start -->
     <?php require_once("Include/Footer.php"); ?>
     <!-- Footer end -->
