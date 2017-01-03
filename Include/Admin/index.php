@@ -17,31 +17,31 @@
             $row = $result->fetch_assoc();
         }
       ?>
-      <a href="?page=Admin&subpage=Users"><li class="list-group-item col-lg-2">
+      <a href="?page=Admin&subpage=Users"><li class="<?php if($subpage == "Users") echo "active "; ?>list-group-item col-lg-2">
         <span class="badge"><?php echo $row['Users']?></span>
           Brugere
       </li></a>
-      <a href="?page=Admin&subpage=News"><li class="list-group-item col-lg-2">
+      <a href="?page=Admin&subpage=News"><li class="<?php if($subpage == "News") echo "active "; ?>list-group-item col-lg-2">
         <span class="badge"><?php echo $row['News']?></span>
           Nyheder
       </li></a>
-      <a href="?page=Admin&subpage=Pages"><li class="list-group-item col-lg-2">
+      <a href="?page=Admin&subpage=Pages"><li class="<?php if($subpage == "Pages") echo "active "; ?>list-group-item col-lg-2">
         <span class="badge"><?php echo $row['Pages']?></span>
           Sider
       </li></a>
-      <a href="?page=Admin&subpage=NewsLetters"><li class="list-group-item col-lg-2">
+      <a href="?page=Admin&subpage=NewsLetters"><li class="<?php if($subpage == "NewsLetters") echo "active "; ?>list-group-item col-lg-2">
         <span class="badge"><?php echo $row['NewsLetter']?></span>
           Nyheds Breve
       </li></a>
-      <a href="?page=Admin&subpage=Events"><li class="list-group-item col-lg-2">
+      <a href="?page=Admin&subpage=Events"><li class="<?php if($subpage == "Events") echo "active "; ?>list-group-item col-lg-2">
         <span class="badge"><?php echo $row['Event']?></span>
           Arrangemnter
       </li></a>
-      <a href="?page=Admin&subpage=Sponsors"><li class="active list-group-item col-lg-2">
+      <a href="?page=Admin&subpage=Sponsors"><li class="<?php if($subpage == "Sponsors") echo "active "; ?>list-group-item col-lg-2">
         <span class="badge"><?php echo $row['Sponsors']?></span>
           Sponsore
       </li></a>
-      <a href="?page=Admin&subpage=Competitions"><li class="list-group-item col-lg-2">
+      <a href="?page=Admin&subpage=Competitions"><li class="<?php if($subpage == "Competitions") echo "active "; ?>list-group-item col-lg-2">
         <span class="badge"><?php echo $row['Competitions']?></span>
           Konkurrencer
       </li></a>
