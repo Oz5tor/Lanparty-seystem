@@ -166,6 +166,12 @@ if ( ! empty ($_POST['connection_token']))
                 else // if user exxist.
                 {
                     $_SESSION['UserID'] = $user_id;
+                    if($Result = $db_conn ->query("Select Admin From Users Where UserID = '$user_id'")){
+                        $row = $Result->fetch_assoc();
+                        $_SESSION['Admin'] = $row['Admin'];
+                    }
+                     $LastLogin = time();
+                     if($db_conn->query("UPDATE Users SET LastLogin = '$LastLogin' WHERE UserID = '$user_id'")){}  
                     header("Location: http://localhost/Website-2017/index.php");
                     // 1b1) The account already exists
                 }
