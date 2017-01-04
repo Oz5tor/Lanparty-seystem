@@ -29,7 +29,7 @@ $result = $db_conn->query("
     <tr>
       <th class="text-center">ID</th>
       <th class="text-center">Event navn</th>
-      <th class="text-center">Plakat</th>
+      <th class="text-center" style="width: 10%">Plakat</th>
       <th class="text-center">Åbnings dato</th>
       <th class="text-center">Slut dato</th>
       <th class="text-center">Lokation</th>
@@ -41,7 +41,7 @@ $result = $db_conn->query("
       <tr>
         <td class="text-center"><?php echo $row['ID'] ?></td>
         <td class="text-center"><?php echo $row['Title'] ?></td>
-        <td class="text-center"><?php echo $row['Poster'] ?></td>
+        <td class="text-center"><img class="img-responsive" src="Images/Sponsore/<?php echo $row['Poster'] ?>"></td>
         <td class="text-center"><?php echo date("d M Y - H:i:s", $row['StartDate']); ?></td>
         <td class="text-center"><?php echo date("d M Y - H:i:s", $row['EndDate']); ?></td>
         <td class="text-center"><?php echo $row['Location'] ?></td>
