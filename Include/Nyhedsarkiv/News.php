@@ -30,8 +30,7 @@
 <?php
 	while ($news_row = mysqli_fetch_assoc($albums_result))
 	{
-?>   
-    
+?>
     <div class="drop_shadow" id="news_text">
 		<?php echo '<h2>'.$news_row['Title'].' </h2>'; ?>
 		<?php echo '<p>'.$news_row['Content'].'</p>'; ?>
@@ -39,30 +38,24 @@
     </div>
     <?php }
 
-	echo '<center><div style="clear:both; height:15px; width:700px;">';
+	echo '<ul class="pagination pagination-lg">';
 	
 
-      if($current_page > 1)
-	  {
-		  echo '<p style="display:inline; ">'.$kgPagerOBJ -> first_page.'</p>' ;
-		  echo '<p style="display:inline; ">'.$kgPagerOBJ -> previous_page.'</p>' ;
+    if($current_page > 1) {
+		  echo '<li>'.$kgPagerOBJ -> first_page.'</li>' ;
+		  echo '<li>'.$kgPagerOBJ -> previous_page.'</li>' ;
+	  } else {
+		  echo '<li class="disabled"><a><<</a></li>';
+		  echo '<li class="disabled"><a><</a></li>';
 	  }
-	  else
-	  {
-		  echo '<p style="display:inline;">&nbsp;<<&nbsp;</p>';
-		  echo '<p style="display:inline;"><&nbsp;</p>';
+	  echo '<li class="active">'.$kgPagerOBJ -> page_links.'</li>' ;
+	  if($current_page >= $kgPagerOBJ -> total_pages) {
+		  echo '<li class="disabled"><a>></a></li>';
+		  echo '<li class="disabled"><a>>></a></li>';
+	  } else {
+		  echo '<li>'.$kgPagerOBJ -> next_page.'</li>' ;
+		  echo '<li>'.$kgPagerOBJ -> last_page.'</li>' ;
 	  }
-	  echo '<p style="display:inline; line-height: 22px; ">'.$kgPagerOBJ -> page_links.'</p>' ;
-	  if($current_page >= $kgPagerOBJ -> total_pages)
-	  {
-		  echo '<p style="display:inline;">&nbsp;>&nbsp;</p>';
-		  echo '<p style="display:inline;">>>&nbsp;</p>';
-	  }
-	  else
-	  {
-		  echo '<p style="display:inline;">'.$kgPagerOBJ -> next_page.'</p>' ;
-		  echo '<p style="display:inline;">'.$kgPagerOBJ -> last_page.'</p>' ;
-	  }
-      echo '</div></center>';
+      echo '</div>';
 	 ?>
 	 </div>
