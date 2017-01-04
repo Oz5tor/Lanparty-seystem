@@ -35,7 +35,6 @@ include_once("Include/DEBUGGIN.php");
       tinymce.init({
         selector: '#AdminTinyMCE',
         menubar: '',
-        toolbar: 'undo redo | bold | blod italic | underline |',
         browser_spellcheck: true
       });
     </script>

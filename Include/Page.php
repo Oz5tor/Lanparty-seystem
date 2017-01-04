@@ -15,7 +15,7 @@
                   ON P.AuthorID = U1.UserID
                 INNER JOIN Users U2
                   ON P.LastEditedID = U2.UserID
-                WHERE P.PageID = $page
+                WHERE P.PageID = $page AND Online = '1'
               " ); // End query.
           } elseif (! ctype_digit( strval( $page ) )) {
             $result = $db_conn->query( "
@@ -31,7 +31,7 @@
                   ON P.AuthorID = U1.UserID
                 INNER JOIN Users U2
                   ON P.LastEditedID = U2.UserID
-                WHERE P.PageTitle = '$page'
+                WHERE P.PageTitle = '$page' AND Online = '1'
             " ); // End query.
           }
 
@@ -45,14 +45,12 @@
         <div class="row">
             <div class="col-lg-12 hlpf_large_news_box">
                 <h3>
-                    <?php echo $row[ 'PageTitle' ]; ?>
+                    <?php echo str_replace('_',' ',$row[ 'PageTitle' ]); ?>
                 </h3>
                 <hr/>
                 <div class="hlpf_flex">
-                    <div class="hlpf_news">
                         <!-- Content -->
                         <?php echo "<p>" . $row[ 'Content' ] . "</p>"; ?>
-                    </div>
                 </div>
             </div>
         </div>
