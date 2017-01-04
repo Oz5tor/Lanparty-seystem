@@ -58,6 +58,5 @@
         </div>
         <hr/>
         <?php $result -> close(); ?>
-        
     </div>
 </div>
