@@ -49,10 +49,8 @@
                 </h3>
                 <hr/>
                 <div class="hlpf_flex">
-                    <div class="hlpf_news">
                         <!-- Content -->
                         <?php echo "<p>" . $row[ 'Content' ] . "</p>"; ?>
-                    </div>
                 </div>
             </div>
         </div>
