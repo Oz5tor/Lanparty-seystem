@@ -60,12 +60,12 @@ if($action != ''){
         break;
     }// switch end
 } // Action end
-if(isset($NewOrEditPage) && $NewOrEditPage != false){
+if(isset($NewOrEditSponsor) && $NewOrEditSponsor != false){
   include_once("Include/Admin/NewOrEditSponsor.php");
 }else{
   $result = $db_conn->query("Select * from Sponsors ORDER BY Sponsors.`Order` ASC");
   ?>
-  <a href="?page=Admin&subpage=Pages&action=New" alt="Ny Side" type="button" class="text-center btn btn-info">Opret Ny Sponsor</a>
+  <a href="?page=Admin&subpage=Sponsors&action=New" alt="Ny Side" type="button" class="text-center btn btn-info">Opret Ny Sponsor</a>
   <hr>
   <table class="table table-striped table-condensed table-hover hlpf_adminmenu">
     <thead>
