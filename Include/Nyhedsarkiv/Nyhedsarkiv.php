@@ -1,41 +1,56 @@
-<div class="col-lg-12 hlpf_newsborder">
+<!-- THIS FILE IS SUPPOSEDLY OUTDATED NOW -->
+<!--<div class="col-lg-12 hlpf_newsborder">
 	<div class="row col-lg-12">
 		<p>
 			Nyhedsarkiv
 		</p>
 	</div>
+	<?php
+		
+		/*
+		
+		$result1 = $db_conn->query(
+        	"SELECT COUNT(*) as News FROM News"
+        );
+        if( $result1 -> num_rows ) {
+            $row1 = $result1->fetch_assoc();
+            $cpp = ($row1["News"] / 20); //Rename CPP, it was to be count per page, but it is actually page count.
+        }else{
+        	$cpp = 0;
+        }
+	?>
 	<div class="row col-lg-12">
-		<ul class="pagination pagination-sm">
+		<ul class="pagination">
 			<li><a href="#">&laquo;</a></li>
-			<li><a href="#">1</a></li>
-			<li><a href="#">2</a></li>
-			<li><a href="#">3</a></li>
-			<li><a href="#">4</a></li>
-			<li><a href="#">5</a></li>
-			<li><a href="#">6</a></li>
+
+			<?php for($p = 0; $p < $cpp; $p++) {?>
+				<li><a href="#"><?php echo $p + 1?></a></li>
+			<?php } ?>
+
 			<li><a href="#">&raquo;</a></li>
 		</ul>
 	</div>
 	<div class="row">
 		<p>
 			<?php
-			$result = $db_conn->query( "
+			$result2 = $db_conn->query( "
 			    SELECT
 			      News.Title, News.Content
-			    FROM News ORDER BY CreatedDate DESC
+			    FROM News ORDER BY CreatedDate DESC LIMIT 0, 20
 			");
 			?>
-			<?php while ($row = $result->fetch_assoc()) { ?>
+			<?php while ($row2 = $result2->fetch_assoc()) { ?>
 				<div class="col-lg-12">
 					<div class="col-lg-12">
-						<h2><?php echo $row['Title']?></h2>
+						<h2><?php echo $row2['Title']?></h2>
 					</div>
 					<div class="col-lg-12">
-						<?php echo $row['Content']?>
+						<?php echo $row2['Content']?>
 					</div>
 					<hr>
 				</div>
 			<?php } ?>
+			<?php $result2 -> close(); ?>
 		</p>
 	</div>
-</div>
+</div>-->
