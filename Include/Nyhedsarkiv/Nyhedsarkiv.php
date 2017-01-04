@@ -1,16 +1,20 @@
-<div class="col-lg-12 hlpf_newsborder">
+<!-- THIS FILE IS SUPPOSEDLY OUTDATED NOW -->
+<!--<div class="col-lg-12 hlpf_newsborder">
 	<div class="row col-lg-12">
 		<p>
 			Nyhedsarkiv
 		</p>
 	</div>
 	<?php
+		
+		/*
+		
 		$result1 = $db_conn->query(
         	"SELECT COUNT(*) as News FROM News"
         );
         if( $result1 -> num_rows ) {
             $row1 = $result1->fetch_assoc();
-            $cpp = ($row1["News"] / 20);
+            $cpp = ($row1["News"] / 20); //Rename CPP, it was to be count per page, but it is actually page count.
         }else{
         	$cpp = 0;
         }
@@ -49,4 +53,4 @@
 			<?php $result2 -> close(); ?>
 		</p>
 	</div>
-</div>
+</div>-->
