@@ -26,17 +26,17 @@ $result = $db_conn->query( "
   </thead>
   <tbody>
   <?php while ($row = $result->fetch_assoc()) { ?>
-    <tr>
+    <tr <?php if ($row['Admin'] == 1) echo "class='warning'"; ?>>
       <td><?php echo $row['UserID'] ?></td>
       <td><?php echo $row['Username'] ?></td>
       <td><?php echo $row['FullName'] ?></td>
       <td><?php echo $row['Address'] ?></td>
       <td><?php echo $row['ZipCode'] ?></td>
-      <td><?php echo $row['Birthdate'] ?></td>
+      <td><?php echo date("d M Y", $row['Birthdate']); ?></td>
       <td><?php echo $row['Email'] ?></td>
       <td><?php echo $row['Phone'] ?></td>
-      <td><?php echo $row['Created'] ?></td>
-      <td><?php echo $row['LastLogin'] ?></td>
+      <td><?php echo date("d M Y", $row['Created']); ?></td>
+      <td><?php echo date("d M Y", $row['LastLogin']); ?></td>
       <td><?php echo $row['Admin'] ?></td>
     </tr>
   <?php } ?>
