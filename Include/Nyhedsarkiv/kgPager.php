@@ -67,34 +67,34 @@ class kgPager {
         }
         for ($i = $loop_start; $i <= $loop_finish; $i++) {
             if ($i == $this -> current_page) {
-                $this -> page_links .= '&nbsp;<span '.$inactive_page_tag.'><b>'.$i.'</b></span>&nbsp;&nbsp;';
+                $this -> page_links .= '<a>'.$i.'</a>';
             }else{
-                $this -> page_links .= '<span><a href="'.$this -> url.$i.$pager_url_last.'">'.$i.'</a></span>&nbsp;';
+                $this -> page_links .= '<a href="'.$this -> url.$i.$pager_url_last.'">'.$i.'</a>';
             }
         }
     }
     // previous page
     function previous_page ($previous_page_text, $pager_url_last) {
         if ($this -> current_page > 1) {
-            $this -> previous_page = '<span><a href="'.$this -> url.($this -> current_page - 1).$pager_url_last.'">'.$previous_page_text.'</a></span>&nbsp;';
+            $this -> previous_page = '<a href="'.$this -> url.($this -> current_page - 1).$pager_url_last.'">'.$previous_page_text.'</a>';
         }
     }
     // next page
     function next_page ($next_page_text, $pager_url_last) {
         if ($this -> current_page < $this -> total_pages) {
-            $this -> next_page = '&nbsp;<span><a href="'.$this -> url.($this -> current_page + 1).$pager_url_last.'">'.$next_page_text.'</a></span>';
+            $this -> next_page = '<a href="'.$this -> url.($this -> current_page + 1).$pager_url_last.'">'.$next_page_text.'</a>';
         }
     }
     // first page
     function first_page ($first_page_text, $pager_url_last) {
         if ($this -> current_page > 1) {
-            $this -> first_page = '<span><a href="'.$this -> url.'1'.$pager_url_last.'">'.$first_page_text.'</a></span>'; // :)
+            $this -> first_page = '<a href="'.$this -> url.'1'.$pager_url_last.'">'.$first_page_text.'</a>'; // :)
         }
     }
     // last page
     function last_page ($last_page_text, $pager_url_last) {
         if ($this -> current_page < $this -> total_pages) {
-            $this -> last_page = '<span><a href="'.$this -> url.$this -> total_pages.$pager_url_last.'">'.$last_page_text.'</a></span>';
+            $this -> last_page = '<a href="'.$this -> url.$this -> total_pages.$pager_url_last.'">'.$last_page_text.'</a>';
         }
     }
     // pages functions set
