@@ -19,7 +19,7 @@ elseif (! empty( $page ) ) {
             }
             break;
         case "Nyhedsarkiv":
-            include_once("Include/Nyhedsarkiv/Nyhedsarkiv.php");
+            include_once("Include/Nyhedsarkiv/News.php");
             break;
         default:
             include_once("Include/Page.php");
