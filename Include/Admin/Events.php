@@ -2,16 +2,15 @@
 if($action != ''){
   if(isset($_GET['id']) && $_GET['id'] != ''){
     $URLPageID = $db_conn->real_escape_string($_GET['id']);
-  }// get id end
+  }
   switch($action){
     case 'Action':
       $db_conn->query("UPDATE query");
       header("Location: index.php?page=Admin&subpage=Event");
       break;
-  } // switch end
-} // Action end
+  }
+}
 
-// create the Lsit over pages
 $result = $db_conn->query("
   SELECT
     Event.EventID AS ID,
