@@ -42,7 +42,7 @@ if(isset($_POST['Save'])){
     </tr>
     <tr>
       <td colspan="3">
-        <textarea id="AdminTinyMCE" name="AdminTinyMCE"><?php if(isset($pageExist)){echo $row['Content'];} ?></textarea>
+        <textarea rows="25" id="AdminTinyMCE" name="AdminTinyMCE"><?php if(isset($pageExist)){echo $row['Content'];} ?></textarea>
       </td>
     </tr>
     <tr>
