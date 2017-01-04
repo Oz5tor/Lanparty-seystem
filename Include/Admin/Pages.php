@@ -39,7 +39,7 @@ if(isset($NewOrEditPage) && $NewOrEditPage != false){
   include_once("Include/Admin/NewOrEditPage.php");
 }else{
  // create the Lsit over pages
-$result = $db_conn->query("Select * from Pages ORDER BY PageTitle ASC, Online DESC, AdminOnly ASC");
+$result = $db_conn->query("Select * from Pages ORDER BY AdminOnly ASC, Online DESC, PageTitle ASC");
 ?>
 <a href="?page=Admin&subpage=Pages&action=New" alt="Ny Side" type="button" class="text-center btn btn-info">Opret Ny Side</a>
 <hr>
