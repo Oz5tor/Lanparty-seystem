@@ -27,7 +27,7 @@
       </li></a>
       <a href="?page=Admin&subpage=Pages#admin_menu"><li class="<?php if($subpage == "Pages") echo "active "; ?>list-group-item col-lg-2">
         <span class="badge"><?php echo $row['Pages']?></span>
-          Sider
+          Side Redigering
       </li></a>
       <a href="?page=Admin&subpage=NewsLetters#admin_menu"><li class="<?php if($subpage == "NewsLetters") echo "active "; ?>list-group-item col-lg-2">
         <span class="badge"><?php echo $row['NewsLetter']?></span>
