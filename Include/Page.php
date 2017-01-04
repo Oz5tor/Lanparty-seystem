@@ -45,7 +45,7 @@
         <div class="row">
             <div class="col-lg-12 hlpf_large_news_box">
                 <h3>
-                    <?php echo $row[ 'PageTitle' ]; ?>
+                    <?php echo str_replace('_',' ',$row[ 'PageTitle' ]); ?>
                 </h3>
                 <hr/>
                 <div class="hlpf_flex">
