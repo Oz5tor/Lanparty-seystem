@@ -13,27 +13,43 @@ if(isset($_POST['Save'])){
   $Title    = $db_conn->real_escape_string($_POST['Title']);  
   $Context  = $db_conn->real_escape_string($_POST['AdminTinyMCE']);
   if(isset($_POST['MainSponsor'])) { $MainSponsor = $db_conn->real_escape_string($_POST['MainSponsor']);}else{$MainSponsor = 0;}
-  if(isset($_POST['Online'])){ $Online      = $db_conn->real_escape_string($_POST['Online']);}else{$Online = 0;}
+  if(isset($_POST['Online'])){ $Online = $db_conn->real_escape_string($_POST['Online']);}else{$Online = 0;}
   $URL  = $db_conn->real_escape_string($_POST['URL']);
-  $Page  = $db_conn->real_escape_string($_POST['Page']);
-  if(isset($_POST['Banner'])){$Banner  = $db_conn->real_escape_string($_POST['Banner']);}else{$Banner = $row['Banner'];}
+  $Page = $db_conn->real_escape_string($_POST['Page']);
+  
+  if(isset($_POST['Banner'])){
+    
+  }
+  
+  if($action == 'Edit'){
+    if(isset($_POST['Baner'])){
+      $Banner = $db_conn->real_escape_string($_POST['Page']);
+    }else{
+    $Banner = $row['Banner'];
+    }
+  }else{ 
+    if(isset($_POST['Baner'])){
+      $Banner = $db_conn->real_escape_string($_POST['Page']);
+    }else{
+      $Banner = 'NoBanner.png';
+    }
+  } 
   
   
   
   if($action == 'Edit'){
     // edit Query
-    
     /* Do stuff with upload banner */
-    
     if($db_conn->query("UPDATE Sponsors SET Name = '$Title', Description = '$Context', Url = '$URL',
-                                         Online = '$Online', MainSponsor = '$MainSponsor', Banner = '$Banner', PageID = '$Page' WHERE Entry = '$tempID'")){
+                                         Online = '$Online', MainSponsor = '$MainSponsor', Banner = '$Banner', PageID = '$Page' WHERE SponsorID = '$tempID'")){
       //header("Location: index.php?page=Admin&subpage=Sponsors");
     }
   }else{
     // Create Query
-    if($db_conn->query("INSERT INTO Sponsors (Name, Description, Url, Online, MainSponsor, Banner, PageID, Sponsors.`Order` )
+    /* Do stuff with upload banner */
+    if($db_conn->query("INSERT INTO Sponsors (Name, Description, Url, Online, MainSponsor, Banner, PageID, Sort )
                                    VALUES ('$Title', '$Context', '$URL', '$Online', '$MainSponsor', '$Banner', '$Page', '50')")){
-     header("Location: index.php?page=Admin&subpage=Sponsors"); 
+     //header("Location: index.php?page=Admin&subpage=Sponsors"); 
     }
   }
 }
@@ -55,14 +71,15 @@ if(isset($_POST['Save'])){
     <tr>
       <td>
         <?php
-          if($action = 'Edit'){$PID = $row['PageID'];}
+          if($action == 'Edit'){$PID = $row['PageID'];}
           $PageResult = $db_conn->query("Select Pages.PageID, Pages.PageTitle From Pages");
         ?>
         <label for="Page">Side: </label>
         <select name="Page" id="Page">
+          <option value="0">Skal der være en side tekst</option>
           <?php while($pageRow = $PageResult->fetch_assoc()){
           ?>
-          <option <?php if($PID == $pageRow['PageID']){echo 'selected';} ?> value="<?php echo $pageRow['PageID']; ?>">
+          <option <?php if($action == 'Edit'){if($PID == $pageRow['PageID']){echo 'selected';}} ?> value="<?php echo $pageRow['PageID']; ?>">
             <?php echo $pageRow['PageTitle']; ?>
           </option>
           <?php
@@ -72,10 +89,15 @@ if(isset($_POST['Save'])){
         </select>
       </td>
       <td>
-        <label for="URL">Banner: </label><input type="file" name="Banner" id="Banner" value="">
+        <label for="Banner">Banner: </label><input type="file" name="Banner" id="Banner" value="">
       </td>
       <td colspan="2">
+        <?php if($action == 'Edit'){
+        ?>
         <img class="image-responsive center-text" src="Images/Sponsore/<?php if(isset($SponsorExist)){echo $row['Banner'];} ?>">
+        <?php
+        }
+        ?>
       </td>
     </tr>
     <tr>
