@@ -77,7 +77,7 @@
         <!-- News archive button start -->
         <div class="row">
             <div class="col-lg-12">
-                <a href="?page=Nyhedsarkiv" class="btn btn-primary btn-xs btn-block">Nyhedsarkiv</a>
+                <a href="?page=Newsarchive" class="btn btn-primary btn-xs btn-block">Nyhedsarkiv</a>
             </div>
         </div>
         <br>
