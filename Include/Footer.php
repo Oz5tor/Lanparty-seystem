@@ -16,7 +16,7 @@
                         3400 Hillerød
                     </address>
                     <h2>Kontakt</h2>
-                    <p>Bestyrelsen kan kontaktes på <a href="mailto:best@hlpf.dk">best@hlpf.dk</a>.<br> Ellers henviser vi til vores kontaktside.</p>
+                    <p>Bestyrelsen kan kontaktes på <a href="mailto:best@hlpf.dk">best@hlpf.dk</a>.<br> Ellers henviser vi til vores <a href="?page=Kontakt">kontaktside</a>.</p>
                 </div>
                 <!-- Generelle links -->
                 <div class="col-lg-6">
