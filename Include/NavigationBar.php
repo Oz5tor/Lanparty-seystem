@@ -41,7 +41,7 @@
                 </li>
                 <?php } ?>
                 <li><a href="?page=Newsarchive">Nyhedsarkiv</a></li>
-                <li><a href="?page=Events">Arrangementer</a></li>
+                <li><a href="?page=Event">Arrangement</a></li>
             </ul>
         </div><!--.nav-collapse -->
     </div>
