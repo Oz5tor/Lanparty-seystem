@@ -38,9 +38,7 @@ if($action != ''){
       case 'Down': // Give sponsor Lower Listing
         // Find Curren Order int
         $result = $db_conn->query("Select Sponsors.`Order` From Sponsors WHERE Sponsors.SponsorID = '$URLPageID'");
-        $newOrder = 'kage';
         $currentOrderID = $result->fetch_assoc();
-        
         $currentOrderID = $currentOrderID['Order'];
         // Finde lower Order int
         $result = $db_conn->query("Select Sponsors.`Order` From Sponsors WHERE Sponsors.`Order` >= '$currentOrderID' ORDER BY Sponsors.`Order` ASC LIMIT 1");
