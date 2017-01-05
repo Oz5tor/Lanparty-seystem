@@ -35,7 +35,7 @@
       </li></a>
       <a href="?page=Admin&subpage=Events#admin_menu"><li class="<?php if($subpage == "Events") echo "active "; ?>list-group-item col-lg-2 col-xs-6 col-md col-xl-2 col-sm-4">
         <span class="badge"><?php echo $row['Event']?></span>
-          Arrangemnter
+          Arrangementer
       </li></a>
       <a href="?page=Admin&subpage=Sponsors#admin_menu"><li class="<?php if($subpage == "Sponsors") echo "active "; ?>list-group-item col-lg-2 col-xs-6 col-md col-xl-2 col-sm-4">
         <span class="badge"><?php echo $row['Sponsors']?></span>
