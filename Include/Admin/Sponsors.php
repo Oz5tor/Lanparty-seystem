@@ -22,31 +22,31 @@ if($action != ''){
         break;
       case 'Up': // Give sponsor Higher Listing
         // Find Curren Order int
-        $result = $db_conn->query("Select Sponsors.`Order` From Sponsors WHERE Sponsors.SponsorID = '$URLPageID'");
+        $result = $db_conn->query("Select Sort From Sponsors WHERE Sponsors.SponsorID = '$URLPageID'");
         $currentOrderID = $result->fetch_assoc();
         $currentOrderID = $currentOrderID['Order'];
         // Finde lower Order int
-        $result = $db_conn->query("Select Sponsors.`Order` From Sponsors WHERE Sponsors.`Order` <= '$currentOrderID' ORDER BY Sponsors.`Order` DESC LIMIT 1");
+        $result = $db_conn->query("Select Sort From Sponsors WHERE Sort <= '$currentOrderID' ORDER BY Sort DESC LIMIT 1");
         if($newOrder = $result->fetch_assoc()){
           if($newOrder['Order'] <= 1){
             $newOrder = $newOrder['Order'];
           }else{$newOrder = $newOrder['Order'] -1;}
         }
-        $db_conn->query("Update Sponsors SET Sponsors.`Order` = '$newOrder' Where SponsorID = '$URLPageID' ");
+        $db_conn->query("Update Sponsors SET Sort = '$newOrder' Where SponsorID = '$URLPageID' ");
         header("Location: index.php?page=Admin&subpage=Sponsors");
         break;
       case 'Down': // Give sponsor Lower Listing
         // Find Curren Order int
-        $result = $db_conn->query("Select Sponsors.`Order` From Sponsors WHERE Sponsors.SponsorID = '$URLPageID'");
+        $result = $db_conn->query("Select Sort From Sponsors WHERE Sponsors.SponsorID = '$URLPageID'");
         $currentOrderID = $result->fetch_assoc();
         $currentOrderID = $currentOrderID['Order'];
         // Finde lower Order int
-        $result = $db_conn->query("Select Sponsors.`Order` From Sponsors WHERE Sponsors.`Order` >= '$currentOrderID' ORDER BY Sponsors.`Order` ASC LIMIT 1");
+        $result = $db_conn->query("Select Sort From Sponsors WHERE Sort >= '$currentOrderID' ORDER BY Sort ASC LIMIT 1");
         if($newOrder = $result->fetch_assoc()){
           if($newOrder['Order'] >= 100){
             $newOrder = $newOrder['Order'];
           }else{$newOrder = $newOrder['Order'] +1;}
-          $db_conn->query("Update Sponsors SET Sponsors.`Order` = '$newOrder' Where SponsorID = '$URLPageID' ");
+          $db_conn->query("Update Sponsors SET Sort = '$newOrder' Where SponsorID = '$URLPageID' ");
         header("Location: index.php?page=Admin&subpage=Sponsors");
         }
         break;  
@@ -61,7 +61,7 @@ if($action != ''){
 if(isset($NewOrEditSponsor) && $NewOrEditSponsor != false){
   include_once("Include/Admin/NewOrEditSponsor.php");
 }else{
-  $result = $db_conn->query("Select * from Sponsors ORDER BY Sponsors.`Order` ASC");
+  $result = $db_conn->query("Select * from Sponsors ORDER BY Sort ASC");
   ?>
   <a href="?page=Admin&subpage=Sponsors&action=New" alt="Ny Side" type="button" class="text-center btn btn-info">Opret Ny Sponsor</a>
   <hr>
@@ -72,7 +72,7 @@ if(isset($NewOrEditSponsor) && $NewOrEditSponsor != false){
         <th class="text-center">ID</th>
         <th class="text-center">Navn</th>
         <th class="text-center">Link</th>
-        <th class="text-center">Side</th>
+        <th class="text-center">Side ID</th>
         <th class="text-center">Hoved Sponsor</th>
         <th class="text-center">Online</th>
         <th class="text-center">Order</th>
