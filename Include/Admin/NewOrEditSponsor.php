@@ -55,7 +55,7 @@ if(isset($_POST['Save'])){
     <tr>
       <td>
         <?php
-          $PID = $row['PageID'];
+          if($action = 'Edit'){$PID = $row['PageID'];}
           $PageResult = $db_conn->query("Select Pages.PageID, Pages.PageTitle From Pages");
         ?>
         <label for="Page">Side: </label>
