@@ -39,8 +39,9 @@
                       <li><a href="?action=LogOut">Logud</a></li>
                   </ul>
                 </li>
-                <li><a href="?page=Nyhedsarkiv">Nyhedsarkiv</a></li>
                 <?php } ?>
+                <li><a href="?page=Newsarchive">Nyhedsarkiv</a></li>
+                <li><a href="?page=Events">Arrangementer</a></li>
             </ul>
         </div><!--.nav-collapse -->
     </div>
