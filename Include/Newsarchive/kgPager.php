@@ -67,7 +67,7 @@ class kgPager {
         }
         for ($i = $loop_start; $i <= $loop_finish; $i++) {
             if ($i == $this -> current_page) {
-                $this -> page_links .= '<a>'.$i.'</a>';
+                $this -> page_links .= '<a><b style="color:Black">'.$i.'</b></a>';
             }else{
                 $this -> page_links .= '<a href="'.$this -> url.$i.$pager_url_last.'">'.$i.'</a>';
             }
