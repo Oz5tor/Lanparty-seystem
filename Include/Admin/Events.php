@@ -23,6 +23,8 @@ if (isset($newOrEdit) && $newOrEdit != '') {
       Event.SeatsOpen AS SeatsOpenDate
     FROM
       Event
+    ORDER BY 
+      Event.StartDate DESC
   ");
   ?>
   <a href="?page=Admin&subpage=Events&action=New" alt="Ny Side" type="button" class="text-center btn btn-info">Opret ny event</a>
