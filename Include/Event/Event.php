@@ -220,18 +220,16 @@
 		<div class="row col-lg-12">
 			<p><h4>Netværk:</h4></p>
 		</div>
-		<div class="row col-lg-4">
-			<p>Lokalnetværk:</p>
-		</div>
-		<div class="row col-lg-8">
-			<p><?php echo $row['Network'] ?></p>
-		</div>
-		<div class="row col-lg-4">
-			<p>Internet:</p>
-		</div>
-		<div class="row col-lg-8">
-			<p>100 Mbit / 100 Mbit</p>
-		</div>
+    <table class="table table-striped">
+      <tr>
+        <td width="40%">Lokalnetværk:</td>
+        <td><?php echo $row['Network'] ?></td>
+      </tr>
+      <tr>
+        <td width="40%">Internet:</td>
+        <td>100 Mbit / 100 Mbit</td>
+      </tr>
+    </table>
 
 		<!-- Faciliteter -->
 		<!--
@@ -276,12 +274,12 @@
 			<p>On the way ...<?php //echo $row['Location'] ?></p>
 		</div>
 		-->
-		<div class="row col-lg-4">
-			<p>Se regelset:</p>
-		</div>
-		<div class="row col-lg-8">
-			<p><?php echo $row['Rules'] ?></p>
-		</div>
+    <table class="table table-striped">
+      <tr>
+        <td width="40%">Se regelset:</td>
+        <td><?php echo $row['Rules'] ?></td>
+      </tr>
+    </table>
 
 		<!-- Arrangør -->
 		<div class="row col-lg-12">
