@@ -17,19 +17,17 @@ if(isset($_POST['Save'])){
   $URL  = $db_conn->real_escape_string($_POST['URL']);
   $Page = $db_conn->real_escape_string($_POST['Page']);
   
-  if(isset($_POST['Banner'])){
-    
-  }
+  
   
   if($action == 'Edit'){
     if(isset($_POST['Baner'])){
-      $Banner = $db_conn->real_escape_string($_POST['Page']);
+      $Banner = $db_conn->real_escape_string($_POST['Banner']);
     }else{
     $Banner = $row['Banner'];
     }
   }else{ 
     if(isset($_POST['Baner'])){
-      $Banner = $db_conn->real_escape_string($_POST['Page']);
+      $Banner = $db_conn->real_escape_string($_POST['Banner']);
     }else{
       $Banner = 'NoBanner.png';
     }
@@ -41,15 +39,19 @@ if(isset($_POST['Save'])){
     // edit Query
     /* Do stuff with upload banner */
     if($db_conn->query("UPDATE Sponsors SET Name = '$Title', Description = '$Context', Url = '$URL',
-                                         Online = '$Online', MainSponsor = '$MainSponsor', Banner = '$Banner', PageID = '$Page' WHERE SponsorID = '$tempID'")){
-      //header("Location: index.php?page=Admin&subpage=Sponsors");
+                                         Online = '$Online', MainSponsor = '$MainSponsor', Banner = '$Banner' WHERE SponsorID = '$tempID'")){
+      header("Location: index.php?page=Admin&subpage=Sponsors");
     }
   }else{
     // Create Query
     /* Do stuff with upload banner */
-    if($db_conn->query("INSERT INTO Sponsors (Name, Description, Url, Online, MainSponsor, Banner, PageID, Sort )
-                                   VALUES ('$Title', '$Context', '$URL', '$Online', '$MainSponsor', '$Banner', '$Page', '50')")){
-     //header("Location: index.php?page=Admin&subpage=Sponsors"); 
+    $LastSortresult = $db_conn->query("SELECT Sort FROM Sponsors ORDER BY Sort DESC LIMIT 1");
+    $LastSortRow = $LastSortresult->fetch_assoc();
+    $LastSortID = $LastSortRow['Sort'];
+    $LastSortID ++;
+    if($db_conn->query("INSERT INTO Sponsors (Name, Description, Url, Online, MainSponsor, Banner, Sort )
+                                   VALUES ('$Title', '$Context', '$URL', '$Online', '$MainSponsor', '$Banner', '$LastSortID')")){
+     header("Location: index.php?page=Admin&subpage=Sponsors"); 
     }
   }
 }
@@ -69,25 +71,6 @@ if(isset($_POST['Save'])){
       </td>
     </tr>
     <tr>
-      <td>
-        <?php
-          if($action == 'Edit'){$PID = $row['PageID'];}
-          $PageResult = $db_conn->query("Select Pages.PageID, Pages.PageTitle From Pages");
-        ?>
-        <label for="Page">Side: </label>
-        <select name="Page" id="Page">
-          <option value="0">Skal der være en side tekst</option>
-          <?php while($pageRow = $PageResult->fetch_assoc()){
-          ?>
-          <option <?php if($action == 'Edit'){if($PID == $pageRow['PageID']){echo 'selected';}} ?> value="<?php echo $pageRow['PageID']; ?>">
-            <?php echo $pageRow['PageTitle']; ?>
-          </option>
-          <?php
-          }
-          ?>
-          
-        </select>
-      </td>
       <td>
         <label for="Banner">Banner: </label><input type="file" name="Banner" id="Banner" value="">
       </td>
