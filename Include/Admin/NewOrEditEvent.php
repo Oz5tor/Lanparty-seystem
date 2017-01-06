@@ -8,19 +8,23 @@ if(isset($_GET['id'])){
   }
 }
 
-if(isset($_POST['Save'])){
-
+if(isset($_POST['Save'])) {
+  # PREF_SPLIT   0:YEAR, 1:MONTH, 2:DAY, 3:HOUR, 4:MINUTE.
+  $StartDate = preg_split("/([-T:])/", $db_conn->real_escape_string($_POST['StartDate']));
+  $EndDate   = preg_split("/([-T:])/", $db_conn->real_escape_string($_POST['EndDate']));
+  $SeatsOpen = preg_split("/([-T:])/", $db_conn->real_escape_string($_POST['SeatsOpen']));
   $Title            = $db_conn->real_escape_string($_POST['Title']);
   # Uncomment for poster
   #$Poster           = $db_conn->real_escape_string($_POST['Poster']);
-  $Unix_StartDate   = time($db_conn->real_escape_string($_POST['Unix_StartDate']));
-  $Unix_EndDate     = time($db_conn->real_escape_string($_POST['Unix_EndDate']));
+  # MKTIME(HOUR, MINUTE, SECOND, MONTH, DAY, YEAR)
+  $Unix_StartDate   = mktime($StartDate[3], $StartDate[4], 0, $StartDate[1], $StartDate[2], $StartDate[0]);
+  $Unix_EndDate     = mktime($EndDate[3], $EndDate[4], 0, $EndDate[1], $EndDate[2], $EndDate[0]);
   $Location         = $db_conn->real_escape_string($_POST['Location']);
-  $Unix_SeatsOpen   = time($db_conn->real_escape_string($_POST['Unix_SeatsOpen']));
+  $Unix_SeatsOpen   = mktime($SeatsOpen[3], $SeatsOpen[4], 0, $SeatsOpen[1], $SeatsOpen[2], $SeatsOpen[0]);
   $Rules_ID         = $db_conn->real_escape_string($_POST['Rules']);
-  if($action == 'Edit'){
+  if($action == 'Edit') {
     // edit Query
-    if($db_conn->query("
+    if( $db_conn->query( "
         UPDATE Event
         SET Title = '$Title',
             StartDate = '$Unix_StartDate',
@@ -29,13 +33,13 @@ if(isset($_POST['Save'])){
             Network = '$Network',
             SeatsOpen = '$Unix_SeatsOpen',
             Rules = '$Rules_ID'
-        WHERE PageID = '$tempID'")){
-      header("Location: index.php?page=Admin&subpage=Events#faggot=1");
+        WHERE PageID = '$tempID'" ) ) {
+      header("Location: index.php?page=Admin&subpage=Events");
     }
   } else {
     // Create Query
     if($db_conn->query("INSERT INTO Event (Title,StartDate,EndDate,Location,SeatsOpen,Rules)
-                       VALUES ('$Title', '$Unix_StartDate', '$Unix_EndDate', '$Location', '$Unix_SeatsOpen', '$Rules_ID')")){
+                        VALUES ('$Title', '$Unix_StartDate', '$Unix_EndDate', '$Location', '$Unix_SeatsOpen', '$Rules_ID')")){
       header("Location: index.php?page=Admin&subpage=Events");
     }
   }
@@ -51,20 +55,20 @@ if(isset($_POST['Save'])){
     <input class="form-control" type="file" id="Poster">
   </div>
   <div class="form-group col-lg-3">
-    <label class="control-label" for="Unix_StartDate">Start Dato</label>
-    <input class="form-control" required type="date" name="Unix_StartDate" id="Unix_StartDate" value="<?php if(isset($EventExist)){echo $row['StartDate'];} ?>" />
+    <label class="control-label" for="StartDate">Start Dato</label>
+    <input class="form-control" required type="datetime-local" name="StartDate" id="StartDate" value="<?php if(isset($EventExist)){echo $row['StartDate'];} ?>" />
   </div>
   <div class="form-group col-lg-3">
-    <label class="control-label" for="Unix_EndDate">Slut Dato</label>
-    <input class="form-control" required type="date" name="Unix_EndDate" id="Unix_EndDate" value="<?php if(isset($EventExist)){echo $row['EndDate'];} ?>" />
+    <label class="control-label" for="EndDate">Slut Dato</label>
+    <input class="form-control" required type="datetime-local" name="EndDate" id="EndDate" value="<?php if(isset($EventExist)){echo $row['EndDate'];} ?>" />
   </div>
   <div class="form-group col-lg-6">
     <label class="control-label" for="Location">Lokation</label>
     <input class="form-control" required type="text" name="Location" id="Location" value="<?php if(isset($EventExist)){echo $row['Location'];} ?>" />
   </div>
   <div class="form-group col-lg-6">
-    <label class="control-label" for="Unix_SeatsOpen">SeatsOpen</label>
-    <input class="form-control" required type="date" name="Unix_SeatsOpen" id="Unix_SeatsOpen" value="<?php if(isset($EventExist)){echo $row['SeatsOpen'];} ?>" />
+    <label class="control-label" for="SeatsOpen">SeatsOpen</label>
+    <input class="form-control" required type="datetime-local" name="SeatsOpen" id="SeatsOpen" value="<?php if(isset($EventExist)){echo $row['SeatsOpen'];} ?>" />
   </div>
   <div class="form-group col-lg-6">
     <label for="RuleSetSelect">Regelsæt (Vælg en)</label>
