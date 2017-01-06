@@ -1,7 +1,6 @@
 <?php
 if(!empty($_SESSION['UserToken'])){
     include_once("Include/Usermodule/EditOrRegister.php");
-    session_destroy();
 }
 elseif (! empty( $page ) ) {
     // Pages
