@@ -56,7 +56,11 @@
 			<p>Pladser:</p>
 		</div>
 		<div class="row col-lg-8">
-			<p>On the way ...<?php //echo $row['Location'] ?></p>
+			<?php if ($row['Seatmap'] == null || $row['Seatmap'] == "") { ?>
+				<p>Ingen information tilgængelig.</p>
+			<?php }else{
+				echo $row['Seatmap'];
+			} ?>
 		</div>
 		<div class="row col-lg-4">
 			<p>Information om billetpriser er på vej ...</p>
@@ -69,17 +73,19 @@
 		<div class="row col-lg-12">
 			<p><h4>Tilmelding åbner:</h4></p>
 		</div>
+		<!--
 		<div class="row col-lg-4">
 			<p>For medlemmer:</p>
 		</div>
 		<div class="row col-lg-8">
-			<p>Unfinished .. <?php echo date("d M Y - H:i:s", $row['SeatsOpen']) ?></p>
+			<p>Unfinished .. <?php //echo date("d M Y - H:i:s", $row['SeatsOpen']) ?></p>
 		</div>
+		-->
 		<div class="row col-lg-4">
 			<p>For alle:</p>
 		</div>
 		<div class="row col-lg-8">
-			<p>Unfinished .. <?php echo date("d M Y - H:i:s", $row['SeatsOpen']) ?></p>
+			<p><?php echo date("d M Y - H:i:s", $row['SeatsOpen']) ?></p>
 		</div>
 		<div class="row col-lg-4">
 			<p>Husk! Tilmelding skal ske senest ...</p>
@@ -106,6 +112,7 @@
 		</div>
 
 		<!-- Faciliteter -->
+		<!--
 		<div class="row col-lg-12">
 			<p><h4>Faciliteter:</h4></p>
 		</div>
@@ -127,11 +134,13 @@
 		<div class="row col-lg-8">
 			<p>On the way ...<?php //echo $row['Location'] ?></p>
 		</div>
+		-->
 
 		<!-- Regler -->
 		<div class="row col-lg-12">
 			<p><h4>Regler:</h4></p>
 		</div>
+		<!--
 		<div class="row col-lg-4">
 			<p>Rygning tilladt:</p>
 		</div>
@@ -144,11 +153,12 @@
 		<div class="row col-lg-8">
 			<p>On the way ...<?php //echo $row['Location'] ?></p>
 		</div>
+		-->
 		<div class="row col-lg-4">
-			<p>Se desuden:</p>
+			<p>Se regelset:</p>
 		</div>
 		<div class="row col-lg-8">
-			<p>Unfinished .. <?php echo $row['Rules'] ?></p>
+			<p><?php echo $row['Rules'] ?></p>
 		</div>
 
 		<!-- Arrangør -->
