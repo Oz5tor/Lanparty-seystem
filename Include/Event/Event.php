@@ -66,7 +66,7 @@
 			<p>Information om billetpriser er på vej ...</p>
 		</div>
 		<div class="row col-lg-8">
-			<p>On the way ...<?php //echo $row['Location'] ?></p>
+			<p>Ikke tilgængelig endnu.<?php //echo $row['Location'] ?></p>
 		</div>
 
 		<!-- Tilmelding åbner -->
@@ -91,7 +91,7 @@
 			<p>Husk! Tilmelding skal ske senest ...</p>
 		</div>
 		<div class="row col-lg-8">
-			<p>On the way ...<?php //echo $row['Location'] ?></p>
+			<p>Ikke tilgængelig endnu.<?php //echo $row['Location'] ?></p>
 		</div>
 
 		<!-- Netværk -->
