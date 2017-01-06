@@ -139,6 +139,7 @@ if(!isset($_SESSION['UserToken']) && !isset($_SESSION['UserID'])){
                 }else {echo 'opret fejled';}
             }
         } // if formOKAY end 
+      session_destroy();
     }// Form submit end
     ?>
     <!-- Form Start -->
@@ -237,7 +238,7 @@ if(!isset($_SESSION['UserToken']) && !isset($_SESSION['UserID'])){
                                           <input type="checkbox" class="form-control" id="ToS" value="1"  name="ToS">&nbsp; |&nbsp;
                                   <?php } ?>
                                           <label for="ToS">Nyhedbrev:</label>
-                                          <input type="checkbox" <?php if($NewsLetter == 1){ echo 'checked';} ?> class="form-control" id="NewsLetter" value="1"  name="NewsLetter">
+                                          <input type="checkbox" <?php if(isset($NewsLetter) && $NewsLetter == 1){ echo 'checked';} ?> class="form-control" id="NewsLetter" value="1"  name="NewsLetter">
                                           </div>
                                           </td>
                                         <td>&nbsp;</td>
