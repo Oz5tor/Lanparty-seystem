@@ -16,7 +16,7 @@
                 <li class="dropdown" id="hlpf_menu">
                   <a class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">HLParty <span class="caret"></span></a>
                   <ul class="dropdown-menu">
-                    <li><a href="?page=Information">Information</a></li>
+                    <li><a href="?page=Event">Information</a></li>
                     <li><a href="?page=Regler">Regler</a></li>
                     <li><a href="?page=Crew">Crew</a></li>
                     <li role="separator" class="divider"></li>
