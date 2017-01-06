@@ -1,6 +1,7 @@
 <?php
-if(! empty($_SESSION['UserToken']) ){
+if(!empty($_SESSION['UserToken'])){
     include_once("Include/Usermodule/EditOrRegister.php");
+    session_destroy();
 }
 elseif (! empty( $page ) ) {
     // Pages
@@ -22,7 +23,7 @@ elseif (! empty( $page ) ) {
             include_once("Include/Newsarchive/News.php");
             break;
         case "Event":
-            include_once("Include/Events/Events.php");
+            include_once("Include/Event/Event.php");
             break;
         default:
             include_once("Include/Page.php");

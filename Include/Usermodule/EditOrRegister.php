@@ -20,6 +20,7 @@ if(!isset($_SESSION['UserToken']) && !isset($_SESSION['UserID'])){
                 $Address                = $row['Address'];
                 $Zipcode                = $row['ZipCode'];
                 $Bio                    = $row['Bio'];
+                $NewsLetter             = $row['NewsLetter'];
             }
         }
     }
@@ -81,6 +82,7 @@ if(!isset($_SESSION['UserToken']) && !isset($_SESSION['UserID'])){
             $Address    = $db_conn->real_escape_string($_POST['Address']);
             $Zipcode    = $db_conn->real_escape_string($_POST['Zipcode']);
             $Bio        = $db_conn->real_escape_string($_POST['Bio']);
+            if(isset($_POST['NewsLetter'])){ $NewsLetter = $_POST['NewsLetter'];} else{$NewsLetter = 0;}
             $Birthday = strtotime($Birthday);
 
             if(isset($_SESSION['SocialNetwork'])){
@@ -110,7 +112,7 @@ if(!isset($_SESSION['UserToken']) && !isset($_SESSION['UserID'])){
             if($page == 'EditMyProfile'){ // user edits own informations
                 if($db_conn->query("UPDATE Users SET Username = '$Username', FullName = '$FullName', ZipCode = '$Zipcode',
                                                     Birthdate = '$Birthday', Email = '$Email', Bio = '$Bio',
-                                                    Address = '$Address', Phone = '$Phone'
+                                                    Address = '$Address', Phone = '$Phone', NewsLetter = '$NewsLetter'
                                     WHERE UserID = '$UserID'")){}
                     header("Location: index.php?page=EditMyProfile");
             }
@@ -120,10 +122,10 @@ if(!isset($_SESSION['UserToken']) && !isset($_SESSION['UserID'])){
                 $profileURL = $_SESSION['ProfileUrl'];
                 $token = $_SESSION['UserToken'];
                 if($db_conn->query("INSERT INTO `Users`(Username, FullName, ZipCode, Birthdate, Created, Email, Bio, Admin,
-                                     Address, PW, Phone, $TokenRow, $profileURLCol)
+                                     Address, PW, Phone, $TokenRow, $profileURLCol, NewsLetter)
                                      VALUES 
                                      ('$Username','$FullName','$Zipcode', '$Birthday','$CreateTime','$Email', '$Bio','0',
-                                      '$Address','$PW','$Phone','$token','$profileURL')"))   
+                                      '$Address','$PW','$Phone','$token','$profileURL', '$NewsLetter')"))   
                 {
                     session_destroy();
                     if($result = $db_conn ->query("Select UserID FROM Users WHERE Username = '$Username'")){
@@ -228,14 +230,16 @@ if(!isset($_SESSION['UserToken']) && !isset($_SESSION['UserID'])){
                                         </td>
                                     </tr>
                                     <tr>
-                                        <td>
-                                            <?php if($page != 'EditMyProfile'){ ?>
-                                            <div class="form-inline">
-                                                <label for="ToS">Brugerbetinelser:*</label>
-                                            <input type="checkbox" class="form-control" id="ToS" value="1"  name="ToS">
-                                            </div>
-                                            <?php } ?>
-                                        </td>
+                                      <td>
+                                        <div class="form-inline">
+                                  <?php if($page != 'EditMyProfile'){ ?>  
+                                          <label for="ToS">*Brugerbetinelser:</label>
+                                          <input type="checkbox" class="form-control" id="ToS" value="1"  name="ToS">&nbsp; |&nbsp;
+                                  <?php } ?>
+                                          <label for="ToS">Nyhedbrev:</label>
+                                          <input type="checkbox" <?php if($NewsLetter == 1){ echo 'checked';} ?> class="form-control" id="NewsLetter" value="1"  name="NewsLetter">
+                                          </div>
+                                          </td>
                                         <td>&nbsp;</td>
                                         <td class="text-center">
                                             <input type="submit" value="Send" class="btn btn-default" name="Send_form">

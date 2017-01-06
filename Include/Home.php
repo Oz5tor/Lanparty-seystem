@@ -4,16 +4,7 @@
     <div class="col-lg-5 hlpf_newsborder">
         <?php
             // Don't you just love SQL?
-            if( $result = $db_conn->query( "SELECT
-                                              Pages.Content,
-                                              Pages.PageTitle,
-                                              Sponsors.Banner
-                                            FROM
-                                              Pages INNER JOIN
-                                              Sponsors
-                                                ON Sponsors.PageID = Pages.PageID
-                                            WHERE
-                                              Sponsors.MainSponsor = 1" ) ){
+            if( $result = $db_conn->query( "SELECT Description, Banner FROM Sponsors WHERE Sponsors.MainSponsor = 1" ) ){
                 if( $result -> num_rows ){
                     $row = $result->fetch_assoc();
                 }
@@ -26,8 +17,7 @@
                 <div class="hlpf_flex">
                     <div class="hlpf_news">
                         <?php
-                            echo "<h4>" . $row[ 'PageTitle' ] . "</h4>";
-                            echo "<p>" . $row[ 'Content' ] . "</p>";
+                            echo "<p>" . $row[ 'Description' ] . "</p>";
                         ?>
                     </div>
                 </div>
@@ -77,7 +67,7 @@
         <!-- News archive button start -->
         <div class="row">
             <div class="col-lg-12">
-                <a href="?page=Nyhedsarkiv" class="btn btn-primary btn-xs btn-block">Nyhedsarkiv</a>
+                <a href="?page=Newsarchive" class="btn btn-primary btn-xs btn-block">Nyhedsarkiv</a>
             </div>
         </div>
         <br>
