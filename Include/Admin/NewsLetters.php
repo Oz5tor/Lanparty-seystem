@@ -13,16 +13,21 @@ if($action != '') {
       case 'Edit':
         $NewOrEditNewsLetter = true;
         break;
+      case 'New':
+        $NewOrEditNewsLetter = true;
+      break;
     }// switch end
 } // Action end
 
 if(isset($NewOrEditNewsLetter) && $NewOrEditNewsLetter != false){
-  //include_once("Include/Admin/NewOrEditNewsLetter.php");
+  include_once("Include/Admin/NewOrEditNewsLetter.php");
 }else{
  // create the Lsit over pages
 $result = $db_conn->query("Select * from NewsLetter ORDER BY LetterID DESC");
 ?>
-<a href="?page=Admin&subpage=Pages&action=New" alt="Ny Side" type="button" class="text-center btn btn-info">Opret Ny Side</a>
+<a href="?page=Admin&subpage=NewsLetters&action=New" alt="Nyt Nyhedsbrev" type="button" class="text-center btn btn-info">
+  Nyt Nyhedsbrev
+</a>
 <hr>
 <table class="table table-striped table-condensed table-hover hlpf_adminmenu">
   <thead>
@@ -42,7 +47,7 @@ $result = $db_conn->query("Select * from NewsLetter ORDER BY LetterID DESC");
       <td class="text-center"><?php echo $row['LetterID'] ?></td>
       <td class="text-center"><?php echo $row['Subject'] ?></td>
       <td class="text-center"><?php echo TorGetUserName($row['Author'], $db_conn); ?></td>
-      <?php if($row['SentDate'] == '0'){echo '<td class="text-center">Ikke Udsent</td>';}else{
+      <?php if($row['SentDate'] == '0'){echo '<td class="text-center">Udsend</td>';}else{
       ?>
       <td class="text-center"><?php echo date('d.m.Y',$row['SentDate']); ?></td>
       <?php
