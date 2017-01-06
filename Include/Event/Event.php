@@ -1,45 +1,122 @@
 <?php
 	$result = $db_conn->query(
-    	//"SELECT e.Title, e.Poster, e.StartDate, e.EndDate, e.Location, e.Network, e.SeatsOpen, e.Seatmap, e.Rules, tp.EndTime, tp.Price FROM Event as e INNER JOIN TicketPrices as tp ON e.EventID = tp.EventID ORDER BY StartDate DESC LIMIT 0, 1" // This should be used when website is done. NOT UPDATED YET.
+	  ## This should be used when website is done. NOT UPDATED YET.       
+	  #"SELECT e.Title, e.Poster, e.StartDate, e.EndDate, e.Location, e.Network, e.SeatsOpen, e.Seatmap, e.Rules,
+	  #        tp.EndTime, tp.Price
+	  #FROM Event as e
+	  #INNER JOIN TicketPrices as tp
+	  #  ON e.EventID = tp.EventID
+	  #ORDER BY
+	  #  StartDate DESC
+	  #LIMIT 0, 1"
 
-      "SELECT e.Title, e.Poster, e.StartDate,
-              e.EndDate, e.Location, e.Network,
-              e.SeatsOpen, e.Seatmap, e.Rules,
-              tp.StartTime, tp.EndTime, tp.Price 
-      FROM Event as e
-      INNER JOIN TicketPrices as tp
-        ON e.EventID = tp.EventID
-      WHERE e.EventID = 2 AND tp.Type = 'Member'
-      ORDER BY
-        tp.EndTime ASC LIMIT 0, 1" // Use this while project is being tested.
-    );
-    if( $result -> num_rows ) {
-        $row = $result->fetch_assoc();
-    }
-    $result2 = $db_conn->query(
-      ## This should be used when website is done. NOT UPDATED YET.       
-    	#"SELECT e.Title, e.Poster, e.StartDate, e.EndDate, e.Location, e.Network, e.SeatsOpen, e.Seatmap, e.Rules,
-      #        tp.EndTime, tp.Price
-      #FROM Event as e
-      #INNER JOIN TicketPrices as tp
-      #  ON e.EventID = tp.EventID
-      #ORDER BY
-      #  StartDate DESC
-      #LIMIT 0, 1"
-    	"SELECT e.Title, e.Poster, e.StartDate,
-              e.EndDate, e.Location, e.Network,
-              e.SeatsOpen, e.Seatmap, e.Rules,
-              tp.StartTime, tp.EndTime, tp.Price 
-      FROM Event as e
-      INNER JOIN TicketPrices as tp
-        ON e.EventID = tp.EventID
-      WHERE e.EventID = 2 AND tp.Type = 'Nonmember'
-      ORDER BY
-        tp.StartTime ASC LIMIT 0, 1" // Use this while project is being tested.
-    );
-    if( $result2 -> num_rows ) {
-        $row2 = $result2->fetch_assoc();
-    }
+	  "SELECT e.Title, e.Poster, e.StartDate,
+			  e.EndDate, e.Location, e.Network,
+			  e.SeatsOpen, e.Seatmap, e.Rules,
+			  tp.StartTime, tp.EndTime, tp.Price 
+	  FROM Event as e
+	  INNER JOIN TicketPrices as tp
+		ON e.EventID = tp.EventID
+	  WHERE e.EventID = 2 AND tp.Type = 'Member'
+	  ORDER BY
+		tp.EndTime ASC LIMIT 0, 1" // Use this while project is being tested.
+	);
+	if( $result -> num_rows ) {
+		$row = $result->fetch_assoc();
+	}
+	$result2 = $db_conn->query(
+	  ## This should be used when website is done. NOT UPDATED YET.       
+	  #"SELECT e.Title, e.Poster, e.StartDate, e.EndDate, e.Location, e.Network, e.SeatsOpen, e.Seatmap, e.Rules,
+	  #        tp.EndTime, tp.Price
+	  #FROM Event as e
+	  #INNER JOIN TicketPrices as tp
+	  #  ON e.EventID = tp.EventID
+	  #ORDER BY
+	  #  StartDate DESC
+	  #LIMIT 0, 1"
+	  "SELECT e.Title, e.Poster, e.StartDate,
+			  e.EndDate, e.Location, e.Network,
+			  e.SeatsOpen, e.Seatmap, e.Rules,
+			  tp.StartTime, tp.EndTime, tp.Price 
+	  FROM Event as e
+	  INNER JOIN TicketPrices as tp
+		ON e.EventID = tp.EventID
+	  WHERE e.EventID = 2 AND tp.Type = 'Nonmember'
+	  ORDER BY
+		tp.StartTime ASC LIMIT 0, 1" // Use this while project is being tested.
+	);
+	if( $result2 -> num_rows ) {
+		$row2 = $result2->fetch_assoc();
+	}
+	$result3 = $db_conn->query(
+	  ## This should be used when website is done. NOT UPDATED YET.       
+	  #"SELECT e.Title, e.Poster, e.StartDate, e.EndDate, e.Location, e.Network, e.SeatsOpen, e.Seatmap, e.Rules,
+	  #        tp.EndTime, tp.Price
+	  #FROM Event as e
+	  #INNER JOIN TicketPrices as tp
+	  #  ON e.EventID = tp.EventID
+	  #ORDER BY
+	  #  StartDate DESC
+	  #LIMIT 0, 1"
+	  "SELECT e.Title, e.Poster, e.StartDate,
+			  e.EndDate, e.Location, e.Network,
+			  e.SeatsOpen, e.Seatmap, e.Rules,
+			  tp.StartTime, tp.EndTime, tp.Price 
+	  FROM Event as e
+	  INNER JOIN TicketPrices as tp
+		ON e.EventID = tp.EventID
+	  WHERE e.EventID = 2 AND tp.Type = 'Member'
+	  ORDER BY
+		tp.EndTime DESC LIMIT 0, 1" // Use this while project is being tested.
+	);
+	if( $result3 -> num_rows ) {
+		$row3 = $result3->fetch_assoc();
+	}
+	$result4 = $db_conn->query(
+	  ## This should be used when website is done. NOT UPDATED YET.       
+	  #"SELECT e.Title, e.Poster, e.StartDate, e.EndDate, e.Location, e.Network, e.SeatsOpen, e.Seatmap, e.Rules,
+	  #        tp.EndTime, tp.Price
+	  #FROM Event as e
+	  #INNER JOIN TicketPrices as tp
+	  #  ON e.EventID = tp.EventID
+	  #ORDER BY
+	  #  StartDate DESC
+	  #LIMIT 0, 1"
+	  "SELECT e.Title, e.Poster, e.StartDate,
+			  e.EndDate, e.Location, e.Network,
+			  e.SeatsOpen, e.Seatmap, e.Rules,
+			  tp.StartTime, tp.EndTime, tp.Price 
+	  FROM Event as e
+	  INNER JOIN TicketPrices as tp
+		ON e.EventID = tp.EventID
+	  WHERE e.EventID = 2 AND tp.Type = 'Nonmember'
+	  ORDER BY
+		tp.EndTime DESC LIMIT 0, 1" // Use this while project is being tested.
+	);
+	if( $result4 -> num_rows ) {
+		$row4 = $result4->fetch_assoc();
+	}
+	$result5 = $db_conn->query(
+	  ## This should be used when website is done. NOT UPDATED YET.       
+	  #"SELECT e.Title, e.Poster, e.StartDate, e.EndDate, e.Location, e.Network, e.SeatsOpen, e.Seatmap, e.Rules,
+	  #        tp.EndTime, tp.Price
+	  #FROM Event as e
+	  #INNER JOIN TicketPrices as tp
+	  #  ON e.EventID = tp.EventID
+	  #ORDER BY
+	  #  StartDate DESC
+	  #LIMIT 0, 1"
+	  "SELECT tp.StartTime, tp.EndTime, tp.Price 
+	  FROM Event as e
+	  INNER JOIN TicketPrices as tp
+		ON e.EventID = tp.EventID
+	  WHERE e.EventID = 2 AND tp.Type = 'Supplement'
+	  ORDER BY
+		tp.StartTime ASC LIMIT 0, 1" // Use this while project is being tested.
+	);
+	if( $result5 -> num_rows ) {
+		$row5 = $result5->fetch_assoc();
+	}
 ?>
 
 <div class="col-lg-12 hlpf_newsborder"> <!-- Ret class til-->
@@ -52,89 +129,92 @@
 		<div class="row col-lg-12">
 			<p><h4>Tid og sted</h4></p>
 		</div>
-    <table class="table table-striped">
-      <tr>
-        <td width="40%">Navn</td>
-        <td><?php echo $row['Title'] ?></td>
-      </tr>
-      <tr>
-        <td width="40%">Dato</td>
-        <td><?php echo date("d", $row['StartDate']) ?> - <?php echo date("d M Y", $row['EndDate']) ?></td>
-      </tr>
-      <tr>
-        <td width="40%">Start</td>
-        <td><?php echo date("d M Y - H:i:s", $row['StartDate']) ?></td>
-      </tr>
-      <tr>
-        <td width="40%">Slut</td>
-        <td><?php echo date("d M Y - H:i:s", $row['EndDate']) ?></td>
-      </tr>
-      <tr>
-        <td width="40%">Adresse</td>
-        <td><?php echo $row['Location'] ?></td>
-      </tr>
-    </table>
-		<!-- Pladser og priser -->
-		<div class="row col-lg-12">
-			<p><h4>Pladser og priser</h4></p>
-		</div>
-		<div class="row col-lg-4">
-			<p>Pladser</p>
-		</div>
-		<div class="row col-lg-8">
-			<?php if ($row['Seatmap'] == null || $row['Seatmap'] == "") { ?>
-				<p>Ingen information tilgængelig.</p>
-			<?php }else{
-				echo $row['Seatmap'];
-			} ?>
-		</div>
-		<div class="row col-lg-4">
-			<p>Billetpris for medlemmer:</p>
-		</div>
-		<div class="row col-lg-8">
-			<p><?php echo $row['Price'] ?></p>
-		</div>
-		<div class="row col-lg-9">
-			<br> <!-- SPACE -->
-		</div>
-		<div class="row col-lg-4">
-			<p>Billetpris for alle:</p>
-		</div>
-		<div class="row col-lg-8">
-			<p><?php echo $row2['Price'] ?></p>
-		</div>
+  	<table class="table table-striped">
+  	  <tr>
+    		<td width="40%">Navn</td>
+    		<td><?php echo $row['Title'] ?></td>
+  	  </tr>
+  	  <tr>
+    		<td width="40%">Dato</td>
+    		<td><?php echo date("d", $row['StartDate']) ?> - <?php echo date("d M Y", $row['EndDate']) ?></td>
+  	  </tr>
+  	  <tr>
+    		<td width="40%">Start</td>
+    		<td><?php echo date("d M Y - H:i:s", $row['StartDate']) ?></td>
+  	  </tr>
+  	  <tr>
+    		<td width="40%">Slut</td>
+    		<td><?php echo date("d M Y - H:i:s", $row['EndDate']) ?></td>
+  	  </tr>
+  	  <tr>
+    	  <td width="10%">Adresse</td>
+    		<td><?php echo $row['Location'] ?></td>
+  	  </tr>
+  	</table>
 
-		<!-- Tilmelding åbner -->
+		<!-- Pladser-->
 		<div class="row col-lg-12">
-			<p><h4>Tilmelding åbner</h4></p>
+			<p><h4>Pladser</h4></p>
 		</div>
-		<div class="row col-lg-4">
-			<p>For medlemmer:</p>
+    <table class="table table-striped">
+    <tr>
+		  <td width="40%">Pladser</td>
+      <td>
+        <?php if ($row['Seatmap'] == null || $row['Seatmap'] == "") { ?>
+          Ingen information tilgængelig.
+        <?php }else{
+          echo $row['Seatmap'];
+        } ?>
+      </td>
+    </tr>
+    </table>
+
+		<!-- Tilmelding og priser -->
+		<div class="row col-lg-12">
+			<p><h4>Tilmelding og priser</h4></p>
 		</div>
-		<div class="row col-lg-8">
-			<p><?php echo date("d M Y - H:i:s", $row['StartTime']) ?></p>
-		</div>
-		<div class="row col-lg-4">
-			<p>For alle:</p>
-		</div>
-		<div class="row col-lg-8">
-			<p><?php echo date("d M Y - H:i:s", $row2['StartTime']) ?></p>
-		</div>
-		<div class="row col-lg-4">
-			<p>Senest tilmelding for medlemmer:</p>
-		</div>
-		<div class="row col-lg-8">
-			<p><?php echo date("d M Y - H:i:s", $row['EndTime']) ?></p>
-		</div>
-		<div class="row col-lg-9">
-			<br> <!-- SPACE -->
-		</div>
-		<div class="row col-lg-4">
-			<p>Senest tilmelding for alle:</p>
-		</div>
-		<div class="row col-lg-8">
-			<p><?php echo date("d M Y - H:i:s", $row2['EndTime']) ?></p>
-		</div>
+		<table class="table table-striped">
+      <tr>
+  			<td width="70%">Tilmelding for medlemmer før prisstigning:</td><td></td>
+      </tr>
+      <tr>
+  			<td width="40%"><?php echo date("d M Y - H:i:s", $row['StartTime']) ?></td>
+        <td>Pris: <?php echo $row['Price'] ?></td>
+      </tr>
+      <tr>
+  			<td width="70%">Tilmelding for alle før prisstigning:</td><td></td>
+      </tr>
+      <tr>
+        <td width="40%"><?php echo date("d M Y - H:i:s", $row2['StartTime']) ?></td>
+        <td>Pris: <?php echo $row2['Price'] ?></td>
+      </tr>
+      <tr>
+        <td width="70%">Tilmelding for medlemmer efter prisstigning:</td><td></td>
+      </tr>
+      <tr>
+        <td width="40%"><?php echo date("d M Y - H:i:s", $row3['StartTime']) ?></td>
+        <td>Pris: <?php echo $row3['Price'] ?></td>
+      </tr>
+      <tr>
+        <td width="70%">Tilmelding for alle efter prisstigning:</td><td></td>
+      </tr>
+      <tr>
+        <td width="40%"><?php echo date("d M Y - H:i:s", $row4['StartTime']) ?></td>
+        <td>Pris: <?php echo $row4['Price'] ?></td>
+      </tr>
+      <tr>
+  			<td width="70%">Senest tilmelding for medlemmer:</td><td></td>
+      </tr>
+      <tr>
+  			<td width="70%"><?php echo date("d M Y - H:i:s", $row3['EndTime']) ?></td><td></td>
+      </tr>
+      <tr>
+  			<td width="70%">Senest tilmelding for alle:</td><td></td>
+      </tr>
+      <tr>
+  			<td width="70%"><?php echo date("d M Y - H:i:s", $row4['EndTime']) ?></td><td></td>
+      </tr>
+		</table>
 
 		<!-- Netværk -->
 		<div class="row col-lg-12">
