@@ -167,7 +167,7 @@
 			</p>
 		</div>
 		<div class="row col-lg-12">
-			<p>Læs mere om foreningen bag HLParty på adressen <a href="https://hlpf.dk">https://hlpf.dk</a>.</p>
+			<p>Læs mere om foreningen bag HLParty på adressen <a href="https://hlpf.dk" target="_blank">https://hlpf.dk</a>.</p>
 		</div>
 	</div>
 
