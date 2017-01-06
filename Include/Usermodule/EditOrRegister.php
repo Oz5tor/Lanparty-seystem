@@ -127,19 +127,28 @@ if(!isset($_SESSION['UserToken']) && !isset($_SESSION['UserID'])){
                                      ('$Username','$FullName','$Zipcode', '$Birthday','$CreateTime','$Email', '$Bio','0',
                                       '$Address','$PW','$Phone','$token','$profileURL', '$NewsLetter')"))   
                 {
-                    session_destroy();
-                    if($result = $db_conn ->query("Select UserID FROM Users WHERE Username = '$Username'")){
-                        $row = $result->fetch_assoc();
-                        $tempUserID = $row['Username'];
-                     $_SESSION['UserID'] = $tempUserID;
-                     $LastLogin = time();
-                     if($db_conn->query("UPDATE Users SET LastLogin = '$LastLogin' WHERE UserID = '$tempUserID'")){}
-                     header("Location: index.php?page=EditMyProfile");   
-                    }
+                    
+                    if($result = $db_conn ->query("Select Users.UserID, Users.Admin From Users Where Users.Username = '$Username'")){
+                      $row = $result->fetch_assoc();
+                      $tempUserID = $row['UserID'];
+                      if(isset($_SESSION['SocialNetwork'])){unset($_SESSION['SocialNetwork']);}
+                      if(isset($_SESSION['UserToken'])){unset($_SESSION['UserToken']);}
+                      if(isset($_SESSION['ProfileUrl'])){unset($_SESSION['ProfileUrl']);}
+                      if(isset($_SESSION['FullName'])){unset($_SESSION['FullName']);}
+                      if(isset($_SESSION['Email'])){unset($_SESSION['Email']);}
+                      if(isset($_SESSION['PictureUrl'])){unset($_SESSION['PictureUrl']);}
+                      if(isset($_SESSION['BattleTag'])){unset($_SESSION['BattleTag']);}
+                      if(isset($_SESSION['PreffereredUsername'])){unset($_SESSION['PreffereredUsername']);}
+                      
+                      echo $_SESSION['UserID'] = $tempUserID;
+                      echo $_SESSION['Admin'] = $row['Admin'];
+                      $LastLogin = time();
+                      if($db_conn->query("UPDATE Users SET LastLogin = '$LastLogin' WHERE UserID = '$tempUserID'")){ echo 'Senest login opdatert';}else{echo 'Senest login Ikke opdatert';}
+                      header("Location: index.php?page=EditMyProfile");   
+                    }else{echo 'find ny bruger fejled';}
                 }else {echo 'opret fejled';}
             }
         } // if formOKAY end 
-      session_destroy();
     }// Form submit end
     ?>
     <!-- Form Start -->
