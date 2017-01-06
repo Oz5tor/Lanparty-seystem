@@ -2,16 +2,40 @@
 	$result = $db_conn->query(
     	//"SELECT e.Title, e.Poster, e.StartDate, e.EndDate, e.Location, e.Network, e.SeatsOpen, e.Seatmap, e.Rules, tp.EndTime, tp.Price FROM Event as e INNER JOIN TicketPrices as tp ON e.EventID = tp.EventID ORDER BY StartDate DESC LIMIT 0, 1" // This should be used when website is done. NOT UPDATED YET.
 
-    	"SELECT e.Title, e.Poster, e.StartDate, e.EndDate, e.Location, e.Network, e.SeatsOpen, e.Seatmap, e.Rules, tp.StartTime, tp.EndTime, tp.Price FROM Event as e INNER JOIN TicketPrices as tp ON e.EventID = tp.EventID WHERE e.EventID = 2 AND tp.Type = 'Member' ORDER BY tp.StartTime ASC LIMIT 0, 1" // Use this while project is being tested.
+      "SELECT e.Title, e.Poster, e.StartDate,
+              e.EndDate, e.Location, e.Network,
+              e.SeatsOpen, e.Seatmap, e.Rules,
+              tp.StartTime, tp.EndTime, tp.Price 
+      FROM Event as e
+      INNER JOIN TicketPrices as tp
+        ON e.EventID = tp.EventID
+      WHERE e.EventID = 2 AND tp.Type = 'Member'
+      ORDER BY
+        tp.EndTime ASC LIMIT 0, 1" // Use this while project is being tested.
     );
     if( $result -> num_rows ) {
         $row = $result->fetch_assoc();
     }
-
     $result2 = $db_conn->query(
-    	//"SELECT e.Title, e.Poster, e.StartDate, e.EndDate, e.Location, e.Network, e.SeatsOpen, e.Seatmap, e.Rules, tp.EndTime, tp.Price FROM Event as e INNER JOIN TicketPrices as tp ON e.EventID = tp.EventID ORDER BY StartDate DESC LIMIT 0, 1" // This should be used when website is done. NOT UPDATED YET.
-
-    	"SELECT e.Title, e.Poster, e.StartDate, e.EndDate, e.Location, e.Network, e.SeatsOpen, e.Seatmap, e.Rules, tp.StartTime, tp.EndTime, tp.Price FROM Event as e INNER JOIN TicketPrices as tp ON e.EventID = tp.EventID WHERE e.EventID = 2 AND tp.Type = 'Nonmember' ORDER BY tp.StartTime ASC LIMIT 0, 1" // Use this while project is being tested.
+      ## This should be used when website is done. NOT UPDATED YET.       
+    	#"SELECT e.Title, e.Poster, e.StartDate, e.EndDate, e.Location, e.Network, e.SeatsOpen, e.Seatmap, e.Rules,
+      #        tp.EndTime, tp.Price
+      #FROM Event as e
+      #INNER JOIN TicketPrices as tp
+      #  ON e.EventID = tp.EventID
+      #ORDER BY
+      #  StartDate DESC
+      #LIMIT 0, 1"
+    	"SELECT e.Title, e.Poster, e.StartDate,
+              e.EndDate, e.Location, e.Network,
+              e.SeatsOpen, e.Seatmap, e.Rules,
+              tp.StartTime, tp.EndTime, tp.Price 
+      FROM Event as e
+      INNER JOIN TicketPrices as tp
+        ON e.EventID = tp.EventID
+      WHERE e.EventID = 2 AND tp.Type = 'Nonmember'
+      ORDER BY
+        tp.StartTime ASC LIMIT 0, 1" // Use this while project is being tested.
     );
     if( $result2 -> num_rows ) {
         $row2 = $result2->fetch_assoc();
