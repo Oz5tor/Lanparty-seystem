@@ -67,7 +67,7 @@ if(isset($_POST['Save'])){
         <label for="Online">Online:</label> <input <?php if(isset($Online)){echo 'checked';} ?> type="checkbox" name="Online" id="Online" value="1"/>
       </td>
       <td>
-        <label for="URL">Link: </label> <input type="text" name="URL" size="40" id="URL" value="<?php if(isset($SponsorExist)){echo $row['Url'];} ?>">
+        <label for="URL">Link: </label> <input type="text" required name="URL" size="40" id="URL" value="<?php if(isset($SponsorExist)){echo $row['Url'];} ?>">
       </td>
     </tr>
     <tr>
