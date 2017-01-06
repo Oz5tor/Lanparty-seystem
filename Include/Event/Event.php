@@ -74,10 +74,19 @@
 			} ?>
 		</div>
 		<div class="row col-lg-4">
-			<p>Information om billetpriser er på vej ...</p>
+			<p>Billetpris for medlemmer:</p>
 		</div>
 		<div class="row col-lg-8">
-			<p>Ikke tilgængelig endnu.<?php //echo $row['Location'] ?></p>
+			<p><?php echo $row['Price'] ?></p>
+		</div>
+		<div class="row col-lg-9">
+			<br> <!-- SPACE -->
+		</div>
+		<div class="row col-lg-4">
+			<p>Billetpris for alle:</p>
+		</div>
+		<div class="row col-lg-8">
+			<p><?php echo $row2['Price'] ?></p>
 		</div>
 
 		<!-- Tilmelding åbner -->
@@ -97,13 +106,16 @@
 			<p><?php echo date("d M Y - H:i:s", $row2['StartTime']) ?></p>
 		</div>
 		<div class="row col-lg-4">
-			<p>Senest tilmelding for medlemmer</p>
+			<p>Senest tilmelding for medlemmer:</p>
 		</div>
 		<div class="row col-lg-8">
 			<p><?php echo date("d M Y - H:i:s", $row['EndTime']) ?></p>
 		</div>
+		<div class="row col-lg-9">
+			<br> <!-- SPACE -->
+		</div>
 		<div class="row col-lg-4">
-			<p>Senest tilmelding for alle</p>
+			<p>Senest tilmelding for alle:</p>
 		</div>
 		<div class="row col-lg-8">
 			<p><?php echo date("d M Y - H:i:s", $row2['EndTime']) ?></p>
