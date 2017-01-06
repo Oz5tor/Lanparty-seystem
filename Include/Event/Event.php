@@ -1,9 +1,20 @@
 <?php
 	$result = $db_conn->query(
-    	"SELECT Event.EventID, Event.Title, Event.Poster, Event.StartDate, Event.EndDate, Event.Location, Event.Network, Event.SeatsOpen, Event.Seatmap, Event.Rules FROM Event ORDER BY StartDate DESC LIMIT 0, 1" // Not using * as I want to be able to see here which columns exist in database
+    	//"SELECT e.Title, e.Poster, e.StartDate, e.EndDate, e.Location, e.Network, e.SeatsOpen, e.Seatmap, e.Rules, tp.EndTime, tp.Price FROM Event as e INNER JOIN TicketPrices as tp ON e.EventID = tp.EventID ORDER BY StartDate DESC LIMIT 0, 1" // This should be used when website is done. NOT UPDATED YET.
+
+    	"SELECT e.Title, e.Poster, e.StartDate, e.EndDate, e.Location, e.Network, e.SeatsOpen, e.Seatmap, e.Rules, tp.StartTime, tp.EndTime, tp.Price FROM Event as e INNER JOIN TicketPrices as tp ON e.EventID = tp.EventID WHERE e.EventID = 2 AND tp.Type = 'Member' ORDER BY tp.StartTime ASC LIMIT 0, 1" // Use this while project is being tested.
     );
     if( $result -> num_rows ) {
         $row = $result->fetch_assoc();
+    }
+
+    $result2 = $db_conn->query(
+    	//"SELECT e.Title, e.Poster, e.StartDate, e.EndDate, e.Location, e.Network, e.SeatsOpen, e.Seatmap, e.Rules, tp.EndTime, tp.Price FROM Event as e INNER JOIN TicketPrices as tp ON e.EventID = tp.EventID ORDER BY StartDate DESC LIMIT 0, 1" // This should be used when website is done. NOT UPDATED YET.
+
+    	"SELECT e.Title, e.Poster, e.StartDate, e.EndDate, e.Location, e.Network, e.SeatsOpen, e.Seatmap, e.Rules, tp.StartTime, tp.EndTime, tp.Price FROM Event as e INNER JOIN TicketPrices as tp ON e.EventID = tp.EventID WHERE e.EventID = 2 AND tp.Type = 'Nonmember' ORDER BY tp.StartTime ASC LIMIT 0, 1" // Use this while project is being tested.
+    );
+    if( $result2 -> num_rows ) {
+        $row2 = $result2->fetch_assoc();
     }
 ?>
 
@@ -73,25 +84,29 @@
 		<div class="row col-lg-12">
 			<p><h4>Tilmelding åbner:</h4></p>
 		</div>
-		<!--
 		<div class="row col-lg-4">
 			<p>For medlemmer:</p>
 		</div>
 		<div class="row col-lg-8">
-			<p>Unfinished .. <?php //echo date("d M Y - H:i:s", $row['SeatsOpen']) ?></p>
+			<p><?php echo date("d M Y - H:i:s", $row['StartTime']) ?></p>
 		</div>
-		-->
 		<div class="row col-lg-4">
 			<p>For alle:</p>
 		</div>
 		<div class="row col-lg-8">
-			<p><?php echo date("d M Y - H:i:s", $row['SeatsOpen']) ?></p>
+			<p><?php echo date("d M Y - H:i:s", $row2['StartTime']) ?></p>
 		</div>
 		<div class="row col-lg-4">
-			<p>Husk! Tilmelding skal ske senest ...</p>
+			<p>Senest tilmelding for medlemmer</p>
 		</div>
 		<div class="row col-lg-8">
-			<p>Ikke tilgængelig endnu.<?php //echo $row['Location'] ?></p>
+			<p><?php echo date("d M Y - H:i:s", $row['EndTime']) ?></p>
+		</div>
+		<div class="row col-lg-4">
+			<p>Senest tilmelding for alle</p>
+		</div>
+		<div class="row col-lg-8">
+			<p><?php echo date("d M Y - H:i:s", $row2['EndTime']) ?></p>
 		</div>
 
 		<!-- Netværk -->
