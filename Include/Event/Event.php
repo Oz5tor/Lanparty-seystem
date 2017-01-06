@@ -21,50 +21,41 @@
 <div class="col-lg-12 hlpf_newsborder"> <!-- Ret class til-->
 	<div class="col-lg-6 row">
 		<div class="row col-lg-12">
-			<p><h2>Information:</h2></p>
+			<p><h2>Information</h2></p>
 		</div>
 
 		<!-- Tid og sted -->
 		<div class="row col-lg-12">
-			<p><h4>Tid og sted:</h4></p>
+			<p><h4>Tid og sted</h4></p>
 		</div>
-		<div class="row col-lg-4">
-			<p>Navn:</p>
-		</div>
-		<div class="row col-lg-8">
-			<p><?php echo $row['Title'] ?></p>
-		</div>
-		<div class="row col-lg-4">
-			<p>Dato:</p>
-		</div>
-		<div class="row col-lg-8">
-			<p><?php echo date("d", $row['StartDate']) ?> - <?php echo date("d M Y", $row['EndDate']) ?></p>
-		</div>
-		<div class="row col-lg-4">
-			<p>Start:</p>
-		</div>
-		<div class="row col-lg-8">
-			<p><?php echo date("d M Y - H:i:s", $row['StartDate']) ?></p>
-		</div>
-		<div class="row col-lg-4">
-			<p>Slut:</p>
-		</div>
-		<div class="row col-lg-8">
-			<p><?php echo date("d M Y - H:i:s", $row['EndDate']) ?></p>
-		</div>
-		<div class="row col-lg-4">
-			<p>Adresse:</p>
-		</div>
-		<div class="row col-lg-8">
-			<p><?php echo $row['Location'] ?></p>
-		</div>
-
+    <table class="table table-striped">
+      <tr>
+        <td width="40%">Navn</td>
+        <td><?php echo $row['Title'] ?></td>
+      </tr>
+      <tr>
+        <td width="40%">Dato</td>
+        <td><?php echo date("d", $row['StartDate']) ?> - <?php echo date("d M Y", $row['EndDate']) ?></td>
+      </tr>
+      <tr>
+        <td width="40%">Start</td>
+        <td><?php echo date("d M Y - H:i:s", $row['StartDate']) ?></td>
+      </tr>
+      <tr>
+        <td width="40%">Slut</td>
+        <td><?php echo date("d M Y - H:i:s", $row['EndDate']) ?></td>
+      </tr>
+      <tr>
+        <td width="40%">Adresse</td>
+        <td><?php echo $row['Location'] ?></td>
+      </tr>
+    </table>
 		<!-- Pladser og priser -->
 		<div class="row col-lg-12">
-			<p><h4>Pladser og priser:</h4></p>
+			<p><h4>Pladser og priser</h4></p>
 		</div>
 		<div class="row col-lg-4">
-			<p>Pladser:</p>
+			<p>Pladser</p>
 		</div>
 		<div class="row col-lg-8">
 			<?php if ($row['Seatmap'] == null || $row['Seatmap'] == "") { ?>
@@ -91,7 +82,7 @@
 
 		<!-- Tilmelding åbner -->
 		<div class="row col-lg-12">
-			<p><h4>Tilmelding åbner:</h4></p>
+			<p><h4>Tilmelding åbner</h4></p>
 		</div>
 		<div class="row col-lg-4">
 			<p>For medlemmer:</p>
