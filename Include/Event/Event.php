@@ -64,6 +64,111 @@
 		<div class="row col-lg-8">
 			<p>On the way ...<?php //echo $row['Location'] ?></p>
 		</div>
+
+		<!-- Tilmelding åbner -->
+		<div class="row col-lg-12">
+			<p><h4>Tilmelding åbner:</h4></p>
+		</div>
+		<div class="row col-lg-4">
+			<p>For medlemmer:</p>
+		</div>
+		<div class="row col-lg-8">
+			<p>Unfinished .. <?php echo date("d M Y - H:i:s", $row['SeatsOpen']) ?></p>
+		</div>
+		<div class="row col-lg-4">
+			<p>For alle:</p>
+		</div>
+		<div class="row col-lg-8">
+			<p>Unfinished .. <?php echo date("d M Y - H:i:s", $row['SeatsOpen']) ?></p>
+		</div>
+		<div class="row col-lg-4">
+			<p>Husk! Tilmelding skal ske senest ...</p>
+		</div>
+		<div class="row col-lg-8">
+			<p>On the way ...<?php //echo $row['Location'] ?></p>
+		</div>
+
+		<!-- Netværk -->
+		<div class="row col-lg-12">
+			<p><h4>Netværk:</h4></p>
+		</div>
+		<div class="row col-lg-4">
+			<p>Lokalnetværk:</p>
+		</div>
+		<div class="row col-lg-8">
+			<p><?php echo $row['Network'] ?></p>
+		</div>
+		<div class="row col-lg-4">
+			<p>Internet:</p>
+		</div>
+		<div class="row col-lg-8">
+			<p>100 Mbit / 100 Mbit</p>
+		</div>
+
+		<!-- Faciliteter -->
+		<div class="row col-lg-12">
+			<p><h4>Faciliteter:</h4></p>
+		</div>
+		<div class="row col-lg-4">
+			<p>Soverum:</p>
+		</div>
+		<div class="row col-lg-8">
+			<p>On the way ...<?php //echo $row['Location'] ?></p>
+		</div>
+		<div class="row col-lg-4">
+			<p>Bad:</p>
+		</div>
+		<div class="row col-lg-8">
+			<p>On the way ...<?php //echo $row['Location'] ?></p>
+		</div>
+		<div class="row col-lg-4">
+			<p>Kiosk:</p>
+		</div>
+		<div class="row col-lg-8">
+			<p>On the way ...<?php //echo $row['Location'] ?></p>
+		</div>
+
+		<!-- Regler -->
+		<div class="row col-lg-12">
+			<p><h4>Regler:</h4></p>
+		</div>
+		<div class="row col-lg-4">
+			<p>Rygning tilladt:</p>
+		</div>
+		<div class="row col-lg-8">
+			<p>On the way ...<?php //echo $row['Location'] ?></p>
+		</div>
+		<div class="row col-lg-4">
+			<p>Alkohol tilladt:</p>
+		</div>
+		<div class="row col-lg-8">
+			<p>On the way ...<?php //echo $row['Location'] ?></p>
+		</div>
+		<div class="row col-lg-4">
+			<p>Se desuden:</p>
+		</div>
+		<div class="row col-lg-8">
+			<p>Unfinished .. <?php echo $row['Rules'] ?></p>
+		</div>
+
+		<!-- Arrangør -->
+		<div class="row col-lg-12">
+			<p><h4>Arrangør:</h4></p>
+		</div>
+		<div class="row col-lg-12">
+			<p>
+				HLParty arrangeres af foreningen Hovedstadens LanParty Forening. Foreningen er en folkeoplysende forening, godkendt i Hillerød kommune. Foreningens formål er (uddrag af vedtægter): 
+				<br>
+				<br>
+				"Foreningens formål er at samle unge mennesker, primært i hovedstadsområdet, med interesse for computere og IT, for derved at medvirke til at styrke medlemmernes sociale kompetencer, skabe kontakt på tværs af kommunegrænser, etnicitet, køn og alder og styrke medlemmernes almennyttige IT kundskaber til glæde for den enkelte, såvel som for samfundet." 
+				<br>
+				<br>
+				Overskud fra et arrangement går til drift af foreningen (f.eks. webhotel, vedligeholdelse og nyinkøb af servere, switche, netværkskabler mv.), samt til at sikre fremtidige arrangementer. 
+			</p>
+		</div>
+		<div class="row col-lg-12">
+			<p>Læs mere om foreningen bag HLParty på adressen <a href="https://hlpf.dk">https://hlpf.dk</a>.</p>
+		</div>
 	</div>
 
 	<div class="col-lg-6 row">
