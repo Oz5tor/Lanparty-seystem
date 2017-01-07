@@ -3,7 +3,7 @@
 	$news_result = mysqli_query($db_conn, $news_sql) or die (mysqli_error($db_conn));
 	$total_records = mysqli_num_rows($news_result); // Total number of data
 	$scroll_page = 5; // Number of pages to be scrolled
-	$per_page = 20; // Number of pages to display each page
+	$per_page = 5; // Number of pages to display each page
 	
 	if(isset($_GET['npage']))
 	{
@@ -37,10 +37,10 @@
 		<?php echo '<p>'.$news_row['Content'].'</p>'; ?>
         <hr style="clear:both;"/>
     </div>
-    <?php }
-
-	echo '<ul class="pagination pagination-lg">';
-	
+    <?php } ?>
+    <div class="text-center">
+    <?php
+    		echo '<ul class="pagination pagination-lg">';
 
     if($current_page > 1) {
 		  echo '<li>'.$kgPagerOBJ -> first_page.'</li>' ;
@@ -49,7 +49,7 @@
 		  echo '<li class="disabled"><a><<</a></li>';
 		  echo '<li class="disabled"><a><</a></li>';
 	  }
-	  echo '<li class="active">'.$kgPagerOBJ -> page_links.'</li>' ;
+	  echo '<li>'.$kgPagerOBJ -> page_links.'</li>' ;
 	  if($current_page >= $kgPagerOBJ -> total_pages) {
 		  echo '<li class="disabled"><a>></a></li>';
 		  echo '<li class="disabled"><a>>></a></li>';
@@ -57,6 +57,6 @@
 		  echo '<li>'.$kgPagerOBJ -> next_page.'</li>' ;
 		  echo '<li>'.$kgPagerOBJ -> last_page.'</li>' ;
 	  }
-      echo '</div>';
-	 ?>
-	 </div>
+    ?>
+    </div>
+</div>

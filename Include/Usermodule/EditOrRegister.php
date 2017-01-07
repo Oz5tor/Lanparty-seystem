@@ -173,9 +173,9 @@ if(!isset($_SESSION['UserToken']) && !isset($_SESSION['UserID'])){
                                                    value="<?php if(isset($Email)){ echo $Email;} ?>"  name="Email">
                                         </td>
                                         <td><label for="Birthday">F&oslash;dselsdag:*</label>
-                                            <input type="date" placeholder="dd.mm.YYYY" class="form-control" id="Birthday" 
+                                            <input type="date" class="form-control" id="Birthday" 
                                                    value="<?php if(isset($Birthday)){ echo date("d.m.Y",$Birthday);} ?>"
-                                                    name="Birthday" pattern="[0-9]{2}.[0-9]{2}.[0-9]{4}" title="dd.mm.yyyy">
+                                                    name="Birthday" title="dd.mm.yyyy">
                                         </td>
                                     </tr>
                                     <tr>
