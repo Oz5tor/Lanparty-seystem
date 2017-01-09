@@ -1,15 +1,5 @@
 <?php
 // ======================================================================
-// adminnistration // hvilken admin side er man på
-if(isset($_GET['administration']))
-{
-	$admin = mysqli_real_escape_string($db_conn,strip_tags($_GET['administration']));
-    $html_headder_title = $admin;
-}
-else {
-    $admin = '';
-}
-// ======================================================================
 // page // hvilken side er det man står på
 if(isset($_GET['page']))
 {
