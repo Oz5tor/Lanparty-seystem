@@ -5,7 +5,6 @@ if($action != ''){
   }// get id end
   
   function Sorter($Opreator,$DBCON,$ID){
-    // $URLID Sponsor ID there is working on.
         // Find Curren Sort int
         $CurrentResult = $DBCON->query("SELECT SponsorID, Sort FROM Sponsors WHERE SponsorID = '$ID'");
         if($CurrentRow = $CurrentResult->fetch_assoc()){
@@ -25,12 +24,11 @@ if($action != ''){
           $SwapSort = $SwapRow['Sort'];
         }
         // Update the sort ints
-        //$newCurrent = $CurrentSortID +1;
-        //$NewSwap = $SwapID -1;
         $DBCON->query("Update Sponsors SET Sort = '$SwapSort' Where SponsorID = '$CurrentSposID' ");
         $DBCON->query("Update Sponsors SET Sort = '$CurrentSort' Where SponsorID = '$SwapSposID' ");
     return true;
-  }
+  }// sponsor sort function end
+  
     switch($action){
       case 'Offline': // set sponsor to be ofline
         $db_conn->query("Update Sponsors SET Online = '0' Where SponsorID = '$URLID' ");
@@ -51,6 +49,7 @@ if($action != ''){
         
       case 'Up': // Give sponsor Higher Listing
         Sorter('-',$db_conn,$URLID);
+        header("Location: index.php?page=Admin&subpage=Sponsors");
         break;
         
       case 'Down': // Give sponsor Lower Listing
