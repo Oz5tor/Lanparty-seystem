@@ -1,5 +1,5 @@
 <?php
-if(! empty($_SESSION['UserToken']) ){
+if(!empty($_SESSION['UserToken'])){
     include_once("Include/Usermodule/EditOrRegister.php");
 }
 elseif (! empty( $page ) ) {
@@ -23,6 +23,9 @@ elseif (! empty( $page ) ) {
             break;
         case "Event":
             include_once("Include/Event/Event.php");
+            break;
+        case "Gallery":
+            include_once("Include/FBAlbumAPI.php");
             break;
         default:
             include_once("Include/Page.php");
