@@ -6,7 +6,7 @@ if(isset($_GET['page']))
 	$page = mysqli_real_escape_string($db_conn,strip_tags($_GET['page']));
     $html_headder_title = $page;
 }
-else if($admin == '')
+else
 {
 	$page = 'Forside';
     $html_headder_title = $page;
