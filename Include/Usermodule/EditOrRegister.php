@@ -131,6 +131,7 @@ if(!isset($_SESSION['UserToken']) && !isset($_SESSION['UserID'])){
                     if($result = $db_conn ->query("Select Users.UserID, Users.Admin From Users Where Users.Username = '$Username'")){
                       $row = $result->fetch_assoc();
                       $tempUserID = $row['UserID'];
+                      // unset SESSION there was sat by the Scocial login in Oneall_callback_handler.php since the will not be used any more after cration of the user.
                       if(isset($_SESSION['SocialNetwork'])){unset($_SESSION['SocialNetwork']);}
                       if(isset($_SESSION['UserToken'])){unset($_SESSION['UserToken']);}
                       if(isset($_SESSION['ProfileUrl'])){unset($_SESSION['ProfileUrl']);}
