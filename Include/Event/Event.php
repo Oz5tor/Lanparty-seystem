@@ -32,10 +32,6 @@ if( $result5 -> num_rows ) { $row5 = $result5->fetch_assoc(); }
     		<td><?php echo $row['Title'] ?></td>
   	  </tr>
   	  <tr>
-    		<td width="40%">Dato</td>
-    		<td><?php echo date("d", $row['StartDate']) ?> - <?php echo date("d M Y", $row['EndDate']) ?></td>
-  	  </tr>
-  	  <tr>
     		<td width="40%">Start</td>
     		<td><?php echo date("d M Y - H:i:s", $row['StartDate']) ?></td>
   	  </tr>
