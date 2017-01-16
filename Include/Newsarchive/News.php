@@ -1,10 +1,10 @@
-<?php 
+<?php
 	$news_sql = "SELECT News.Title, News.Content FROM News";
 	$news_result = mysqli_query($db_conn, $news_sql) or die (mysqli_error($db_conn));
 	$total_records = mysqli_num_rows($news_result); // Total number of data
 	$scroll_page = 5; // Number of pages to be scrolled
 	$per_page = 5; // Number of pages to display each page
-	
+
 	if(isset($_GET['npage']))
 	{
 		$current_page = strip_tags($_GET['npage']); // Found page
@@ -20,18 +20,18 @@
 	$first_page_text = '<<'; // First page text (such as <img src = "...)
 	$last_page_text = '>>'; // Last page text (such as <img src = "...)
 	$pager_url_last = ' ';
-	
+
 	include("Include/Newsarchive/kgPager.php");
 	$kgPagerOBJ = new kgPager();
 	$kgPagerOBJ -> pager_set($pager_url , $total_records , $scroll_page , $per_page , $current_page , $inactive_page_tag , $previous_page_text , $next_page_text , $first_page_text , $last_page_text , $pager_url_last);
 	$albums_result = mysqli_query($db_conn,$news_sql." ORDER BY CreatedDate DESC LIMIT ".$kgPagerOBJ -> start.", ".$kgPagerOBJ -> per_page."");
 ?>
-	<div class="col-lg-12 hlpf_newsborder">
+	<div class="col-lg-12 hlpf_contentbox">
 <?php
 	while ($news_row = mysqli_fetch_assoc($albums_result))
 	{
-?>   
-    
+?>
+
     <div>
 		<?php echo '<h2>'.$news_row['Title'].' </h2>'; ?>
 		<?php echo '<p>'.$news_row['Content'].'</p>'; ?>

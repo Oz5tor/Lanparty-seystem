@@ -1,14 +1,14 @@
 <!-- THIS FILE IS SUPPOSEDLY OUTDATED NOW -->
-<!--<div class="col-lg-12 hlpf_newsborder">
+<!--<div class="col-lg-12 hlpf_contentbox">
 	<div class="row col-lg-12">
 		<p>
 			Nyhedsarkiv
 		</p>
 	</div>
 	<?php
-		
+
 		/*
-		
+
 		$result1 = $db_conn->query(
         	"SELECT COUNT(*) as News FROM News"
         );
