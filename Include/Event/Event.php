@@ -1,125 +1,22 @@
 <?php
-	$result = $db_conn->query(
-	  ## This should be used when website is done. NOT UPDATED YET.       
-	  #"SELECT e.Title, e.Poster, e.StartDate, e.EndDate, e.Location, e.Network, e.SeatsOpen, e.Seatmap, e.Rules,
-	  #        tp.EndTime, tp.Price
-	  #FROM Event as e
-	  #INNER JOIN TicketPrices as tp
-	  #  ON e.EventID = tp.EventID
-	  #ORDER BY
-	  #  StartDate DESC
-	  #LIMIT 0, 1"
-
-	  "SELECT e.Title, e.Poster, e.StartDate,
-			  e.EndDate, e.Location, e.Network,
-			  e.SeatsOpen, e.Seatmap, e.Rules,
-			  tp.StartTime, tp.EndTime, tp.Price 
-	  FROM Event as e
-	  INNER JOIN TicketPrices as tp
-		ON e.EventID = tp.EventID
-	  WHERE e.EventID = 2 AND tp.Type = 'Member'
-	  ORDER BY
-		tp.EndTime ASC LIMIT 0, 1" // Use this while project is being tested.
-	);
-	if( $result -> num_rows ) {
-		$row = $result->fetch_assoc();
-	}
-	$result2 = $db_conn->query(
-	  ## This should be used when website is done. NOT UPDATED YET.       
-	  #"SELECT e.Title, e.Poster, e.StartDate, e.EndDate, e.Location, e.Network, e.SeatsOpen, e.Seatmap, e.Rules,
-	  #        tp.EndTime, tp.Price
-	  #FROM Event as e
-	  #INNER JOIN TicketPrices as tp
-	  #  ON e.EventID = tp.EventID
-	  #ORDER BY
-	  #  StartDate DESC
-	  #LIMIT 0, 1"
-	  "SELECT e.Title, e.Poster, e.StartDate,
-			  e.EndDate, e.Location, e.Network,
-			  e.SeatsOpen, e.Seatmap, e.Rules,
-			  tp.StartTime, tp.EndTime, tp.Price 
-	  FROM Event as e
-	  INNER JOIN TicketPrices as tp
-		ON e.EventID = tp.EventID
-	  WHERE e.EventID = 2 AND tp.Type = 'Nonmember'
-	  ORDER BY
-		tp.StartTime ASC LIMIT 0, 1" // Use this while project is being tested.
-	);
-	if( $result2 -> num_rows ) {
-		$row2 = $result2->fetch_assoc();
-	}
-	$result3 = $db_conn->query(
-	  ## This should be used when website is done. NOT UPDATED YET.       
-	  #"SELECT e.Title, e.Poster, e.StartDate, e.EndDate, e.Location, e.Network, e.SeatsOpen, e.Seatmap, e.Rules,
-	  #        tp.EndTime, tp.Price
-	  #FROM Event as e
-	  #INNER JOIN TicketPrices as tp
-	  #  ON e.EventID = tp.EventID
-	  #ORDER BY
-	  #  StartDate DESC
-	  #LIMIT 0, 1"
-	  "SELECT e.Title, e.Poster, e.StartDate,
-			  e.EndDate, e.Location, e.Network,
-			  e.SeatsOpen, e.Seatmap, e.Rules,
-			  tp.StartTime, tp.EndTime, tp.Price 
-	  FROM Event as e
-	  INNER JOIN TicketPrices as tp
-		ON e.EventID = tp.EventID
-	  WHERE e.EventID = 2 AND tp.Type = 'Member'
-	  ORDER BY
-		tp.EndTime DESC LIMIT 0, 1" // Use this while project is being tested.
-	);
-	if( $result3 -> num_rows ) {
-		$row3 = $result3->fetch_assoc();
-	}
-	$result4 = $db_conn->query(
-	  ## This should be used when website is done. NOT UPDATED YET.       
-	  #"SELECT e.Title, e.Poster, e.StartDate, e.EndDate, e.Location, e.Network, e.SeatsOpen, e.Seatmap, e.Rules,
-	  #        tp.EndTime, tp.Price
-	  #FROM Event as e
-	  #INNER JOIN TicketPrices as tp
-	  #  ON e.EventID = tp.EventID
-	  #ORDER BY
-	  #  StartDate DESC
-	  #LIMIT 0, 1"
-	  "SELECT e.Title, e.Poster, e.StartDate,
-			  e.EndDate, e.Location, e.Network,
-			  e.SeatsOpen, e.Seatmap, e.Rules,
-			  tp.StartTime, tp.EndTime, tp.Price 
-	  FROM Event as e
-	  INNER JOIN TicketPrices as tp
-		ON e.EventID = tp.EventID
-	  WHERE e.EventID = 2 AND tp.Type = 'Nonmember'
-	  ORDER BY
-		tp.EndTime DESC LIMIT 0, 1" // Use this while project is being tested.
-	);
-	if( $result4 -> num_rows ) {
-		$row4 = $result4->fetch_assoc();
-	}
-	$result5 = $db_conn->query(
-	  ## This should be used when website is done. NOT UPDATED YET.       
-	  #"SELECT e.Title, e.Poster, e.StartDate, e.EndDate, e.Location, e.Network, e.SeatsOpen, e.Seatmap, e.Rules,
-	  #        tp.EndTime, tp.Price
-	  #FROM Event as e
-	  #INNER JOIN TicketPrices as tp
-	  #  ON e.EventID = tp.EventID
-	  #ORDER BY
-	  #  StartDate DESC
-	  #LIMIT 0, 1"
-	  "SELECT tp.StartTime, tp.EndTime, tp.Price 
-	  FROM Event as e
-	  INNER JOIN TicketPrices as tp
-		ON e.EventID = tp.EventID
-	  WHERE e.EventID = 2 AND tp.Type = 'Supplement'
-	  ORDER BY
-		tp.StartTime ASC LIMIT 0, 1" // Use this while project is being tested.
-	);
-	if( $result5 -> num_rows ) {
-		$row5 = $result5->fetch_assoc();
-	}
+    # Member price info ASC
+    $result = $db_conn->query("SELECT e.Title, e.Poster, e.StartDate, e.EndDate, e.Location, e.Network, e.SeatsOpen, e.Seatmap, e.Rules, tp.StartTime, tp.EndTime, tp.Price FROM Event as e INNER JOIN TicketPrices as tp ON e.EventID = tp.EventID WHERE e.EventID = 2 AND tp.Type = 'Member' ORDER BY tp.EndTime ASC LIMIT 0, 1" );
+    if( $result -> num_rows ) { $row = $result->fetch_assoc(); }
+    # Nonmamber price info ASC
+    $result2 = $db_conn->query("SELECT e.Title, e.Poster, e.StartDate, e.EndDate, e.Location, e.Network, e.SeatsOpen, e.Seatmap, e.Rules, tp.StartTime, tp.EndTime, tp.Price FROM Event as e INNER JOIN TicketPrices as tp ON e.EventID = tp.EventID WHERE e.EventID = 2 AND tp.Type = 'Nonmember' ORDER BY tp.StartTime ASC LIMIT 0, 1");
+    if( $result2 -> num_rows ) { $row2 = $result2->fetch_assoc(); }
+    # Member price info DESC
+    $result3 = $db_conn->query("SELECT e.Title, e.Poster, e.StartDate, e.EndDate, e.Location, e.Network, e.SeatsOpen, e.Seatmap, e.Rules, tp.StartTime, tp.EndTime, tp.Price FROM Event as e INNER JOIN TicketPrices as tp ON e.EventID = tp.EventID WHERE e.EventID = 2 AND tp.Type = 'Member' ORDER BY tp.EndTime DESC LIMIT 0, 1");
+    if( $result3 -> num_rows ) { $row3 = $result3->fetch_assoc(); }
+    # Nonmamber price info DESC
+    $result4 = $db_conn->query("SELECT e.Title, e.Poster, e.StartDate, e.EndDate, e.Location, e.Network, e.SeatsOpen, e.Seatmap, e.Rules, tp.StartTime, tp.EndTime, tp.Price FROM Event as e INNER JOIN TicketPrices as tp ON e.EventID = tp.EventID WHERE e.EventID = 2 AND tp.Type = 'Nonmember' ORDER BY tp.EndTime DESC LIMIT 0, 1");
+    if( $result4 -> num_rows ) { $row4 = $result4->fetch_assoc(); }
+    # Supplement price info ASC
+    $result5 = $db_conn->query("SELECT tp.StartTime, tp.EndTime, tp.Price FROM Event as e INNER JOIN TicketPrices as tp	ON e.EventID = tp.EventID WHERE e.EventID = 2 AND tp.Type = 'Supplement' ORDER BY tp.StartTime ASC LIMIT 0, 1");
+if( $result5 -> num_rows ) { $row5 = $result5->fetch_assoc(); }
 ?>
 
-<div class="col-lg-12 hlpf_newsborder"> <!-- Ret class til-->
+<div class="col-lg-12 hlpf_contentbox"> <!-- Ret class til-->
 	<div class="col-lg-6 row">
 		<div class="row col-lg-12">
 			<p><h2>Information</h2></p>
@@ -287,13 +184,13 @@
 		</div>
 		<div class="row col-lg-12">
 			<p>
-				HLParty arrangeres af foreningen Hovedstadens LanParty Forening. Foreningen er en folkeoplysende forening, godkendt i Hillerød kommune. Foreningens formål er (uddrag af vedtægter): 
+				HLParty arrangeres af foreningen Hovedstadens LanParty Forening. Foreningen er en folkeoplysende forening, godkendt i Hillerød kommune. Foreningens formål er (uddrag af vedtægter):
 				<br>
 				<br>
-				"Foreningens formål er at samle unge mennesker, primært i hovedstadsområdet, med interesse for computere og IT, for derved at medvirke til at styrke medlemmernes sociale kompetencer, skabe kontakt på tværs af kommunegrænser, etnicitet, køn og alder og styrke medlemmernes almennyttige IT kundskaber til glæde for den enkelte, såvel som for samfundet." 
+				"Foreningens formål er at samle unge mennesker, primært i hovedstadsområdet, med interesse for computere og IT, for derved at medvirke til at styrke medlemmernes sociale kompetencer, skabe kontakt på tværs af kommunegrænser, etnicitet, køn og alder og styrke medlemmernes almennyttige IT kundskaber til glæde for den enkelte, såvel som for samfundet."
 				<br>
 				<br>
-				Overskud fra et arrangement går til drift af foreningen (f.eks. webhotel, vedligeholdelse og nyinkøb af servere, switche, netværkskabler mv.), samt til at sikre fremtidige arrangementer. 
+				Overskud fra et arrangement går til drift af foreningen (f.eks. webhotel, vedligeholdelse og nyinkøb af servere, switche, netværkskabler mv.), samt til at sikre fremtidige arrangementer.
 			</p>
 		</div>
 		<div class="row col-lg-12">
