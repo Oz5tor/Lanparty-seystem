@@ -1,19 +1,22 @@
 <?php
-    # Member price info ASC
-    $result = $db_conn->query("SELECT e.Title, e.Poster, e.StartDate, e.EndDate, e.Location, e.Network, e.SeatsOpen, e.Seatmap, e.Rules, tp.StartTime, tp.EndTime, tp.Price FROM Event as e INNER JOIN TicketPrices as tp ON e.EventID = tp.EventID WHERE e.EventID = 2 AND tp.Type = 'Member' ORDER BY tp.EndTime ASC LIMIT 0, 1" );
-    if( $result -> num_rows ) { $row = $result->fetch_assoc(); }
-    # Nonmamber price info ASC
-    $result2 = $db_conn->query("SELECT e.Title, e.Poster, e.StartDate, e.EndDate, e.Location, e.Network, e.SeatsOpen, e.Seatmap, e.Rules, tp.StartTime, tp.EndTime, tp.Price FROM Event as e INNER JOIN TicketPrices as tp ON e.EventID = tp.EventID WHERE e.EventID = 2 AND tp.Type = 'Nonmember' ORDER BY tp.StartTime ASC LIMIT 0, 1");
-    if( $result2 -> num_rows ) { $row2 = $result2->fetch_assoc(); }
-    # Member price info DESC
-    $result3 = $db_conn->query("SELECT e.Title, e.Poster, e.StartDate, e.EndDate, e.Location, e.Network, e.SeatsOpen, e.Seatmap, e.Rules, tp.StartTime, tp.EndTime, tp.Price FROM Event as e INNER JOIN TicketPrices as tp ON e.EventID = tp.EventID WHERE e.EventID = 2 AND tp.Type = 'Member' ORDER BY tp.EndTime DESC LIMIT 0, 1");
-    if( $result3 -> num_rows ) { $row3 = $result3->fetch_assoc(); }
-    # Nonmamber price info DESC
-    $result4 = $db_conn->query("SELECT e.Title, e.Poster, e.StartDate, e.EndDate, e.Location, e.Network, e.SeatsOpen, e.Seatmap, e.Rules, tp.StartTime, tp.EndTime, tp.Price FROM Event as e INNER JOIN TicketPrices as tp ON e.EventID = tp.EventID WHERE e.EventID = 2 AND tp.Type = 'Nonmember' ORDER BY tp.EndTime DESC LIMIT 0, 1");
-    if( $result4 -> num_rows ) { $row4 = $result4->fetch_assoc(); }
-    # Supplement price info ASC
-    $result5 = $db_conn->query("SELECT tp.StartTime, tp.EndTime, tp.Price FROM Event as e INNER JOIN TicketPrices as tp	ON e.EventID = tp.EventID WHERE e.EventID = 2 AND tp.Type = 'Supplement' ORDER BY tp.StartTime ASC LIMIT 0, 1");
-if( $result5 -> num_rows ) { $row5 = $result5->fetch_assoc(); }
+  # Latest event - Get the ID.
+  $event = $db_conn->query("SELECT Event.EventID FROM Event ORDER BY EventID DESC LIMIT 1");
+  if( $event -> num_rows ) { $eventrows = $event->fetch_assoc(); }
+  # Member price info ASC
+  $result = $db_conn->query("SELECT e.Title, e.Poster, e.StartDate, e.EndDate, e.Location, e.Network, e.SeatsOpen, e.Seatmap, e.Rules, tp.StartTime, tp.EndTime, tp.Price FROM Event as e INNER JOIN TicketPrices as tp ON e.EventID = tp.EventID WHERE e.EventID = " . $eventrows["EventID"] . " AND tp.Type = 'Member' ORDER BY tp.EndTime ASC LIMIT 0, 1" );
+  if( $result -> num_rows ) { $row = $result->fetch_assoc(); }
+  # Nonmamber price info ASC
+  $result2 = $db_conn->query("SELECT e.Title, e.Poster, e.StartDate, e.EndDate, e.Location, e.Network, e.SeatsOpen, e.Seatmap, e.Rules, tp.StartTime, tp.EndTime, tp.Price FROM Event as e INNER JOIN TicketPrices as tp ON e.EventID = tp.EventID WHERE e.EventID = " . $eventrows["EventID"] . " AND tp.Type = 'Nonmember' ORDER BY tp.StartTime ASC LIMIT 0, 1");
+  if( $result2 -> num_rows ) { $row2 = $result2->fetch_assoc(); }
+  # Member price info DESC
+  $result3 = $db_conn->query("SELECT e.Title, e.Poster, e.StartDate, e.EndDate, e.Location, e.Network, e.SeatsOpen, e.Seatmap, e.Rules, tp.StartTime, tp.EndTime, tp.Price FROM Event as e INNER JOIN TicketPrices as tp ON e.EventID = tp.EventID WHERE e.EventID = " . $eventrows["EventID"] . " AND tp.Type = 'Member' ORDER BY tp.EndTime DESC LIMIT 0, 1");
+  if( $result3 -> num_rows ) { $row3 = $result3->fetch_assoc(); }
+  # Nonmamber price info DESC
+  $result4 = $db_conn->query("SELECT e.Title, e.Poster, e.StartDate, e.EndDate, e.Location, e.Network, e.SeatsOpen, e.Seatmap, e.Rules, tp.StartTime, tp.EndTime, tp.Price FROM Event as e INNER JOIN TicketPrices as tp ON e.EventID = tp.EventID WHERE e.EventID = " . $eventrows["EventID"] . " AND tp.Type = 'Nonmember' ORDER BY tp.EndTime DESC LIMIT 0, 1");
+  if( $result4 -> num_rows ) { $row4 = $result4->fetch_assoc(); }
+  # Supplement price info ASC
+  $result5 = $db_conn->query("SELECT tp.StartTime, tp.EndTime, tp.Price FROM Event as e INNER JOIN TicketPrices as tp	ON e.EventID = tp.EventID WHERE e.EventID = " . $eventrows["EventID"] . " AND tp.Type = 'Supplement' ORDER BY tp.StartTime ASC LIMIT 0, 1");
+  if( $result5 -> num_rows ) { $row5 = $result5->fetch_assoc(); }
 ?>
 
 <div class="col-lg-12 hlpf_contentbox"> <!-- Ret class til-->
