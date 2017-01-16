@@ -17,14 +17,14 @@ if( $result5 -> num_rows ) { $row5 = $result5->fetch_assoc(); }
 ?>
 
 <div class="col-lg-12 hlpf_contentbox"> <!-- Ret class til-->
-	<div class="col-lg-6 row">
+	<div class="col-lg-8 row">
 		<div class="row col-lg-12">
 			<p><h2>Information</h2></p>
 		</div>
 
 		<!-- Tid og sted -->
 		<div class="row col-lg-12">
-			<p><h4>Tid og sted</h4></p>
+			<h4>Tid og sted</h4>
 		</div>
   	<table class="table table-striped">
   	  <tr>
@@ -47,7 +47,7 @@ if( $result5 -> num_rows ) { $row5 = $result5->fetch_assoc(); }
 
 		<!-- Pladser-->
 		<div class="row col-lg-12">
-			<p><h4>Pladser</h4></p>
+			<h4>Pladser</h4>
 		</div>
     <table class="table table-striped">
     <tr>
@@ -64,7 +64,7 @@ if( $result5 -> num_rows ) { $row5 = $result5->fetch_assoc(); }
 
 		<!-- Tilmelding og priser -->
 		<div class="row col-lg-12">
-			<p><h4>Tilmelding og priser</h4></p>
+			<h4>Tilmelding og priser</h4>
 		</div>
 		<table class="table table-striped">
       <tr>
@@ -111,7 +111,7 @@ if( $result5 -> num_rows ) { $row5 = $result5->fetch_assoc(); }
 
 		<!-- Netværk -->
 		<div class="row col-lg-12">
-			<p><h4>Netværk:</h4></p>
+			<h4>Netværk:</h4>
 		</div>
     <table class="table table-striped">
       <tr>
@@ -151,7 +151,7 @@ if( $result5 -> num_rows ) { $row5 = $result5->fetch_assoc(); }
 
 		<!-- Regler -->
 		<div class="row col-lg-12">
-			<p><h4>Regler:</h4></p>
+			<h4>Regler for arrangementet kan ses <a href="?page=<?php echo $row['Rules'] ?>"><i>her</i></a></h4>
 		</div>
 		<!--
 		<div class="row col-lg-4">
@@ -167,16 +167,10 @@ if( $result5 -> num_rows ) { $row5 = $result5->fetch_assoc(); }
 			<p>On the way ...<?php //echo $row['Location'] ?></p>
 		</div>
 		-->
-    <table class="table table-striped">
-      <tr>
-        <td width="40%">Se regelset:</td>
-        <td><?php echo $row['Rules'] ?></td>
-      </tr>
-    </table>
 
 		<!-- Arrangør -->
 		<div class="row col-lg-12">
-			<p><h4>Arrangør:</h4></p>
+			<h4>Arrangør</h4>
 		</div>
 		<div class="row col-lg-12">
 			<p>
@@ -194,8 +188,8 @@ if( $result5 -> num_rows ) { $row5 = $result5->fetch_assoc(); }
 		</div>
 	</div>
 
-	<div class="col-lg-6 row">
-		<div class="row col-lg-12">
+	<div class="col-lg-4">
+		<div class="col-lg-12">
 			<?php if ($row['Poster'] == null || $row['Poster'] == "") {
 				echo '<img class="img-responsive" src="Images/EventPoster/noposter.png">';
 			}else{
