@@ -1,11 +1,11 @@
 <!-- Last edit: Rosenheim - 03-01-2017: 10:00 -->
 <?php if($_SESSION['Admin'] != 1) { header("Location: index.php"); } /* Fuck off... */ ?>
 <div class="row">
-  <div id="admin_menu" class="col-lg-12 col-sm-12 hlpf_newsborder hlpf_adminmenu">
+  <div id="admin_menu" class="col-lg-12 col-sm-12 hlpf_contentbox hlpf_adminmenu">
     <ul class="list-group">
       <?php
         $result = $db_conn->query( "SELECT
-          ( SELECT COUNT(*) FROM Users ) as Users, 
+          ( SELECT COUNT(*) FROM Users ) as Users,
           ( SELECT COUNT(*) FROM News ) as News,
           ( SELECT COUNT(*) FROM Pages ) as Pages,
           ( SELECT COUNT(*) FROM NewsLetter ) as NewsLetter,
@@ -47,7 +47,7 @@
       </li></a>
     </ul>
   </div>
-  <div class="col-lg-12 col-sm-12 hlpf_newsborder">
+  <div class="col-lg-12 col-sm-12 hlpf_contentbox">
   <div id="admin_panel" class="table-responsive">
     <!-- Load pages here... -->
     <?php
@@ -55,7 +55,7 @@
       include("Include/Admin/" . $subpage . ".php");
     }else{
       echo "<h3 class='text-center'>Velkommen til administrationen, Sir. Admin</h3>";
-    }     
+    }
     ?>
   </div>
   </div>

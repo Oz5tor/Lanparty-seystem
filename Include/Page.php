@@ -1,5 +1,5 @@
 <div class="row">
-    <div class="col-lg-12 hlpf_newsborder">
+    <div class="col-lg-12 hlpf_contentbox">
         <?php
           if( ctype_digit( strval( $page ) ) ) {
             $result = $db_conn->query( "
