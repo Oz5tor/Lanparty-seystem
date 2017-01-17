@@ -1,7 +1,7 @@
-<?php 
+<?php
 if(isset($_GET['id'])){
   $tempID = $db_conn->real_escape_string($_GET['id']);
-  
+
   if($result = $db_conn->query("Select * From Event Where EventID = '$tempID'")){
     $row = $result->fetch_assoc();
     $EventExist = true;
@@ -34,13 +34,13 @@ if(isset($_POST['Save'])) {
             SeatsOpen = '$Unix_SeatsOpen',
             Rules = '$Rules_ID'
         WHERE PageID = '$tempID'" ) ) {
-      header("Location: index.php?page=Admin&subpage=Events");
+      header("Location: index.php?page=Admin&subpage=Events#admin_menu");
     }
   } else {
     // Create Query
     if($db_conn->query("INSERT INTO Event (Title,StartDate,EndDate,Location,SeatsOpen,Rules)
                         VALUES ('$Title', '$Unix_StartDate', '$Unix_EndDate', '$Location', '$Unix_SeatsOpen', '$Rules_ID')")){
-      header("Location: index.php?page=Admin&subpage=Events");
+      header("Location: index.php?page=Admin&subpage=Events#admin_menu");
     }
   }
 }

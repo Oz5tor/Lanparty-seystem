@@ -10,37 +10,37 @@ if(isset($_GET['id'])){
 }
 
 if(isset($_POST['Save'])){
-  $Title    = $db_conn->real_escape_string($_POST['Title']);  
+  $Title    = $db_conn->real_escape_string($_POST['Title']);
   $Context  = $db_conn->real_escape_string($_POST['AdminTinyMCE']);
   if(isset($_POST['MainSponsor'])) { $MainSponsor = $db_conn->real_escape_string($_POST['MainSponsor']);}else{$MainSponsor = 0;}
   if(isset($_POST['Online'])){ $Online = $db_conn->real_escape_string($_POST['Online']);}else{$Online = 0;}
   $URL  = $db_conn->real_escape_string($_POST['URL']);
   $Page = $db_conn->real_escape_string($_POST['Page']);
-  
-  
-  
+
+
+
   if($action == 'Edit'){
     if(isset($_POST['Baner'])){
       $Banner = $db_conn->real_escape_string($_POST['Banner']);
     }else{
     $Banner = $row['Banner'];
     }
-  }else{ 
+  }else{
     if(isset($_POST['Baner'])){
       $Banner = $db_conn->real_escape_string($_POST['Banner']);
     }else{
       $Banner = 'NoBanner.png';
     }
-  } 
-  
-  
-  
+  }
+
+
+
   if($action == 'Edit'){
     // edit Query
     /* Do stuff with upload banner */
     if($db_conn->query("UPDATE Sponsors SET Name = '$Title', Description = '$Context', Url = '$URL',
                                          Online = '$Online', MainSponsor = '$MainSponsor', Banner = '$Banner' WHERE SponsorID = '$tempID'")){
-      header("Location: index.php?page=Admin&subpage=Sponsors");
+      header("Location: index.php?page=Admin&subpage=Sponsors#admin_menu");
     }
   }else{
     // Create Query
@@ -51,7 +51,7 @@ if(isset($_POST['Save'])){
     $LastSortID ++;
     if($db_conn->query("INSERT INTO Sponsors (Name, Description, Url, Online, MainSponsor, Banner, Sort )
                                    VALUES ('$Title', '$Context', '$URL', '$Online', '$MainSponsor', '$Banner', '$LastSortID')")){
-     header("Location: index.php?page=Admin&subpage=Sponsors"); 
+     header("Location: index.php?page=Admin&subpage=Sponsors#admin_menu");
     }
   }
 }
