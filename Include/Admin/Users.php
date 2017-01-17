@@ -54,9 +54,9 @@ $result = $db_conn->query("
       <td class="text-center"><?php echo $row['Phone']; ?></td>
       <td class="text-center"><?php
           if($row['Admin'] == '1') {
-            echo '<a href="?page=Admin&subpage=Users&action=NonAdmin&id='.$row['UserID'].'" alt="Fjern admin" type="button" class="btn btn-success">Admin</a>';
+            echo '<a href="?page=Admin&subpage=Users&action=NonAdmin&id='.$row['UserID'].'#admin_menu" alt="Fjern admin" type="button" class="btn btn-success">Admin</a>';
           } else {
-            echo '<a href="?page=Admin&subpage=Users&action=SetAdmin&id='.$row['UserID'].'" alt="Set som admin" type="button" class="btn btn-danger">Bruger</a>';
+            echo '<a href="?page=Admin&subpage=Users&action=SetAdmin&id='.$row['UserID'].'#admin_menu" alt="Set som admin" type="button" class="btn btn-danger">Bruger</a>';
           } ?>
       </td>
     </tr>

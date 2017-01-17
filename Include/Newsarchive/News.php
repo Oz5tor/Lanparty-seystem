@@ -5,12 +5,9 @@
 	$scroll_page = 5; // Number of pages to be scrolled
 	$per_page = 5; // Number of pages to display each page
 
-	if(isset($_GET['npage']))
-	{
+	if(isset($_GET['npage'])) {
 		$current_page = strip_tags($_GET['npage']); // Found page
-	}
-	else
-	{
+	} else {
 		$current_page = 1;
 	}
 	$pager_url = "index.php?page=$page&npage="; // The address where the paging is done
