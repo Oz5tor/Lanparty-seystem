@@ -1,4 +1,4 @@
-<?php 
+<?php
 if(isset($_POST['Save'])){
   $Title = $db_conn->real_escape_string($_POST['Title']);
   if(isset($_POST['Send'])){$Send = $db_conn->real_escape_string($_POST['Send']);}else {$Send = '0';}
@@ -10,11 +10,11 @@ if(isset($_POST['Save'])){
     header("Location: index.php?page=Admin&subpage=NewsLetters");*/
   }else{
     if($Send == 1){
-      
+
       // call all users signed for news letters
       $NewsResult = $db_conn->query("Select Users.FullName, Users.Email, Users.NewsLetter From Users Where Users.NewsLetter = 1");
       while($NewsRow = $NewsResult->fetch_assoc()){
-      
+
       // To send HTML mail, the Content-type header must be set
       $headers[] = 'MIME-Version: 1.0';
       $headers[] = 'Content-type: text/html; charset=UTF-8';
@@ -31,7 +31,7 @@ if(isset($_POST['Save'])){
     $db_conn->query("INSERT INTO NewsLetter (Subject, Body, SentDate, Author)
                                      VALUES ('$Title','$Body','$Send','$Aurthor')");
     }// if $Send = 1
-    header("Location: index.php?page=Admin&subpage=NewsLetters");
+    header("Location: index.php?page=Admin&subpage=NewsLetters#admin_menu");
   }// if action is not Edit
 }// if submmit send
 ?>

@@ -35,7 +35,7 @@ p {
     word-wrap: break-word;
 }
 
-.hlpf_newsborder {
+.hlpf_contentbox {
     background-color: white;
     border: 1px solid rgba(0,0,0,0.2);
     color: black;
@@ -54,7 +54,7 @@ p {
     float: left;
 }
 
-hr {   
+hr {
     border: 1px solid #2060c0;
 }
 
@@ -73,7 +73,7 @@ hr {
 }
 
 #hlpf_footer div div {
-  padding: 30px;  
+  padding: 30px;
 }
 
 #hlpf_footer h2 {

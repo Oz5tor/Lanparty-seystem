@@ -1,7 +1,7 @@
-<?php 
+<?php
 if(isset($_GET['id'])){
   $tempID = $db_conn->real_escape_string($_GET['id']);
-  
+
   if($result = $db_conn->query("Select * From Pages Where PageID = '$tempID'")){
     $row = $result->fetch_assoc();
     if($row['AdminOnly'] == '1'){$adminOnly = true;}
@@ -20,13 +20,13 @@ if(isset($_POST['Save'])){
   if($action == 'Edit'){
     // edit Query
     if($db_conn->query("UPDATE Pages SET LastEditedID = '$user', LastEditedDate = '$Time', Content = '$Context', PageTitle = '$Title', Online = '$Online', AdminOnly = '$Admin' WHERE PageID = '$tempID'")){
-      header("Location: index.php?page=Admin&subpage=Pages");
+      header("Location: index.php?page=Admin&subpage=Pages#admin_menu");
     }
   }else{
     // Create Query
     if($db_conn->query("INSERT INTO Pages (AuthorID, LastEditedID,CreatedDate,LastEditedDate,Content,PageTitle,Online,AdminOnly)
                                    VALUES ('$user', '$user', '$Time', '$Time', '$Context', '$Title', '$Online', '$Admin')")){
-     header("Location: index.php?page=Admin&subpage=Pages"); 
+     header("Location: index.php?page=Admin&subpage=Pages#admin_menu");
     }
   }
 }
@@ -50,4 +50,4 @@ if(isset($_POST['Save'])){
     </tr>
   </form>
 </table>
-  
+

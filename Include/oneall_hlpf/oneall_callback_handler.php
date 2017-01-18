@@ -59,11 +59,10 @@ if ( ! empty ($_POST['connection_token']))
     switch ($data->plugin->key)
     {
         // Social Login
-        case 'social_login':
-
+        case 'social_login': // not in use
+        
         // Single Sign On
         case 'single_sign_on':
-
         // Operation successful
         if ($data->plugin->data->status == 'success')
             {
@@ -72,12 +71,9 @@ if ( ! empty ($_POST['connection_token']))
             $user_token = $data->user->user_token;
             // The identity_token uniquely identifies the social network account 
             // that the user has used to connect with
-            echo $identity_token = $data->user->identity->source->key;
-            // 1) Check if you have a userID for this token in your database
-            //$user_id = get_user_id_for_user_token($user_token, 'FacebookToken', $db_conn);
-
-            // 1a) If the userID is empty then this is the first time that this user 
-            // has connected with a social network account on your website
+            $identity_token = $data->user->identity->source->key;
+            
+            // check of does the user exist in the database vv
             switch($identity_token){
                 // Battle.net
                 case "battlenet":
@@ -115,7 +111,6 @@ if ( ! empty ($_POST['connection_token']))
                               $_SESSION['SocialNetwork'] = 'facebook';
                               $_SESSION['UserToken'] = $user_token;
                               $_SESSION['ProfileUrl'] = $data->user->identity->profileUrl;
-                              //$_SESSION['Birthday'] = $data->user->identity->birthday; // no longer requestin birthday from facebook
                               $_SESSION['FullName'] = $data->user->identity->name->formatted;
                               $_SESSION['PreffereredUsername'] = $data->user->identity->preferredUsername;
                               $_SESSION['Email'] = $data->user->identity->emails[0]->value;
@@ -154,16 +149,11 @@ if ( ! empty ($_POST['connection_token']))
                         break;
                     }
                     header("Location: /Website-2017/index.php");
-                    // 1a1) Create a new user account and store it in your database
-                    // Optionally display a form to collect  more data about the user.
-                    //$user_id = {The ID of the user that you have created}
-                    // 1a2) Attach the user_token to the userID of the created account.
-                    //LinkUserTokenToUserId ($user_token, $user_id);
                     /*echo "<pre>";
                     print_r($data->user);
                     echo "</pre>";*/
-                    }
-                else // if user exxist.
+                }
+                else // if user exist.
                 {
                     $_SESSION['UserID'] = $user_id;
                     if($Result = $db_conn ->query("Select Admin From Users Where UserID = '$user_id'")){
@@ -175,21 +165,8 @@ if ( ! empty ($_POST['connection_token']))
                     if($db_conn->query("UPDATE Users SET LastLogin = '$LastLogin' WHERE UserID = '$user_id'")){}  
                     
                     header("Location: /Website-2017/index.php");
-                    // 1b1) The account already exists
-                }
-                // 2) You have either created a new user or read the details of an existing
-                // user from your database. In both cases you should now have a $user_id 
-
-                // 2a) Create a Single Sign On session
-                // $sso_session_token = GenerateSSOSessionToken ($user_token, $identity_token); 
-                // If you would like to use Single Sign on then you should now call our API
-                // to generate a new SSO Session: http://docs.oneall.com/api/resources/sso/
-
-                // 2b) Login this user
-                // You now need to login this user, exactly like you would login a user
-                // after a traditional (username/password) login (i.e. set cookies, setup 
-                // the session) and forward him to another page (i.e. his account dashboard)    
-                }
+                }   
+            }
             break;
             }
         }
