@@ -1,4 +1,5 @@
 <?php
+require_once("class/FileUpload.php");
 if(isset($_GET['id'])){
   $tempID = $db_conn->real_escape_string($_GET['id']);
   if($result = $db_conn->query("Select * From Sponsors Where SponsorID = '$tempID'")){
@@ -15,40 +16,48 @@ if(isset($_POST['Save'])){
   if(isset($_POST['MainSponsor'])) { $MainSponsor = $db_conn->real_escape_string($_POST['MainSponsor']);}else{$MainSponsor = 0;}
   if(isset($_POST['Online'])){ $Online = $db_conn->real_escape_string($_POST['Online']);}else{$Online = 0;}
   $URL  = $db_conn->real_escape_string($_POST['URL']);
-  $Page = $db_conn->real_escape_string($_POST['Page']);
-
+  $AllowedFileTypeArray = array('jpg','png');
 
 
   if($action == 'Edit'){
-    if(isset($_POST['Baner'])){
-      $Banner = $db_conn->real_escape_string($_POST['Banner']);
+    if(isset($_FILES['Banner'])){
+      $tempBanner = $_FILES['Banner'];
+      $Banner = ImageUploade('Banner','Images/Sponsore',$AllowedFileTypeArray);
+      
+      // removal of old image
+      $result = $db_conn->query("SELECT Banner FROM Sponsors WHERE SponsorID = '$tempID'");
+      $removerow = $result->fetch_assoc();
+      unlink('Images/Sponsore/'.$removerow['Banner']);
+      
     }else{
     $Banner = $row['Banner'];
     }
   }else{
-    if(isset($_POST['Baner'])){
-      $Banner = $db_conn->real_escape_string($_POST['Banner']);
+    if(isset($_FILES['Banner'])){
+      $tempBanner = $_FILES['Banner'];
+      $Banner = ImageUploade('Banner','Images/Sponsore',$AllowedFileTypeArray);
     }else{
       $Banner = 'NoBanner.png';
     }
   }
 
-
-
   if($action == 'Edit'){
     // edit Query
-    /* Do stuff with upload banner */
     if($db_conn->query("UPDATE Sponsors SET Name = '$Title', Description = '$Context', Url = '$URL',
                                          Online = '$Online', MainSponsor = '$MainSponsor', Banner = '$Banner' WHERE SponsorID = '$tempID'")){
-      header("Location: index.php?page=Admin&subpage=Sponsors#admin_menu");
+      //header("Location: index.php?page=Admin&subpage=Sponsors#admin_menu");
     }
   }else{
     // Create Query
     /* Do stuff with upload banner */
     $LastSortresult = $db_conn->query("SELECT Sort FROM Sponsors ORDER BY Sort DESC LIMIT 1");
-    $LastSortRow = $LastSortresult->fetch_assoc();
-    $LastSortID = $LastSortRow['Sort'];
-    $LastSortID ++;
+    if($LastSortresult->num_rows == 0){
+      $LastSortID = 1;
+    }else{
+      $LastSortRow = $LastSortresult->fetch_assoc();
+      $LastSortID = $LastSortRow['Sort']; 
+      $LastSortID ++;
+    }
     if($db_conn->query("INSERT INTO Sponsors (Name, Description, Url, Online, MainSponsor, Banner, Sort )
                                    VALUES ('$Title', '$Context', '$URL', '$Online', '$MainSponsor', '$Banner', '$LastSortID')")){
      header("Location: index.php?page=Admin&subpage=Sponsors#admin_menu");
