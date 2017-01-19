@@ -16,25 +16,25 @@ if(isset($_POST['Save'])){
   if(isset($_POST['MainSponsor'])) { $MainSponsor = $db_conn->real_escape_string($_POST['MainSponsor']);}else{$MainSponsor = 0;}
   if(isset($_POST['Online'])){ $Online = $db_conn->real_escape_string($_POST['Online']);}else{$Online = 0;}
   $URL  = $db_conn->real_escape_string($_POST['URL']);
-  $AllowedFileTypeArray = array('jpg','png');
+  $AllowedFileTypeArray = array('jpg','png','gif');
 
 
   if($action == 'Edit'){
-    if(isset($_FILES['Banner'])){
+    if($_FILES['Banner']['error'] != 4){
       $tempBanner = $_FILES['Banner'];
       $Banner = ImageUploade('Banner','Images/Sponsore',$AllowedFileTypeArray);
-      
+
       // removal of old image
       $result = $db_conn->query("SELECT Banner FROM Sponsors WHERE SponsorID = '$tempID'");
       $removerow = $result->fetch_assoc();
       unlink('Images/Sponsore/'.$removerow['Banner']);
-      
     }else{
-    $Banner = $row['Banner'];
+      $Banner = $row['Banner'];
     }
-  }else{
-    if(isset($_FILES['Banner'])){
-      $tempBanner = $_FILES['Banner'];
+  }
+  
+  if($action == 'New'){
+    if($_FILES['Banner']['error'] != 4){
       $Banner = ImageUploade('Banner','Images/Sponsore',$AllowedFileTypeArray);
     }else{
       $Banner = 'NoBanner.png';
@@ -45,7 +45,7 @@ if(isset($_POST['Save'])){
     // edit Query
     if($db_conn->query("UPDATE Sponsors SET Name = '$Title', Description = '$Context', Url = '$URL',
                                          Online = '$Online', MainSponsor = '$MainSponsor', Banner = '$Banner' WHERE SponsorID = '$tempID'")){
-      header("Location: index.php?page=Admin&subpage=Sponsors#admin_menu");
+      //header("Location: index.php?page=Admin&subpage=Sponsors#admin_menu");
     }
   }else{
     // Create Query
