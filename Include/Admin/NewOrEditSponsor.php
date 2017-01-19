@@ -45,7 +45,7 @@ if(isset($_POST['Save'])){
     // edit Query
     if($db_conn->query("UPDATE Sponsors SET Name = '$Title', Description = '$Context', Url = '$URL',
                                          Online = '$Online', MainSponsor = '$MainSponsor', Banner = '$Banner' WHERE SponsorID = '$tempID'")){
-      //header("Location: index.php?page=Admin&subpage=Sponsors#admin_menu");
+      header("Location: index.php?page=Admin&subpage=Sponsors#admin_menu");
     }
   }else{
     // Create Query
