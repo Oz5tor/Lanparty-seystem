@@ -76,7 +76,6 @@ if(isset($NewOrEditSponsor) && $NewOrEditSponsor != false){
     <thead>
       <tr>
         <th width="15%" class="text-center">Image</th>
-        <th class="text-center">ID</th>
         <th class="text-center">Navn</th>
         <th class="text-center">Link</th>
         <th class="text-center">Hoved Sponsor</th>
@@ -94,7 +93,6 @@ if(isset($NewOrEditSponsor) && $NewOrEditSponsor != false){
       ?>
       <tr>
         <td class="text-center"><?php echo '<img class="img-responsive" src="Images/Sponsore/'.$row['Banner'].'">'; ?></td>
-        <td class="text-center"><?php echo $row['SponsorID']; ?></td>
         <td class="text-center"><?php echo $row['Name']; ?></td>
         <td class="text-center"><?php echo '<a href="'.$row['Url'].'">'.$row['Url'].'</a>'; ?></td>
         <td class="text-center">
