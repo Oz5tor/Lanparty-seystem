@@ -67,7 +67,7 @@ if($action != ''){
 if(isset($NewOrEditSponsor) && $NewOrEditSponsor != false){
   include_once("Include/Admin/NewOrEditSponsor.php");
 }else{
-  $result = $db_conn->query("Select  * from Sponsors ORDER BY Sort ASC");
+  $result = $db_conn->query("Select  * from Sponsors ORDER BY Online DESC, Sort ASC");
   $NumRows = $result->num_rows;
   ?>
   <a href="?page=Admin&subpage=Sponsors&action=New" alt="Ny Side" type="button" class="text-center btn btn-info">Opret Ny Sponsor</a>
