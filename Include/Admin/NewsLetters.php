@@ -17,6 +17,33 @@ if($action != '') {
         $NewOrEditNewsLetter = true;
         break;
       case 'Send':
+        
+        $LetterResult = $db_conn->query("SELECT * FROM NewsLetter WHERE LetterID = '$URLPageID'");
+        $Lettercount = $LetterResult->num_rows;
+        if($Lettercount == 1){
+          $LetterRow = $LetterResult->fetch_assoc();
+          $Title = $LetterRow['Subject'];
+          $Body = $LetterRow['Body'];
+          $NewsResult = $db_conn->query("Select Users.FullName, Users.Email, Users.NewsLetter From Users Where Users.NewsLetter = 1");
+          while($NewsRow = $NewsResult->fetch_assoc()){
+
+          // To send HTML mail, the Content-type header must be set
+          $headers[] = 'MIME-Version: 1.0';
+          $headers[] = 'Content-type: text/html; charset=UTF-8';
+
+          // Additional headers
+                                // Visual name          // recivers email 
+          $headers[] = 'To: '.$NewsRow['FullName'].' <'.$NewsRow['Email'].'>';
+          $headers[] = 'From: HLParty Testin <noreply@hlparty.dk>';
+
+          // Mail it
+          mail($NewsRow['Email'], $Title, $Body, implode("\r\n", $headers));
+          }// End of Users tehre want news
+          // update news letter to be sent querry
+          $sentTime = time();
+          $statement = $db_conn->prepare("UPDATE NewsLetter SET SentDate = '$sentTime' WHERE LetterID = '$URLPageID'"); // not working
+          //header("Location: index.php?page=Admin&subpage=NewsLetters#admin_menu");
+        }// letter count end
         break;
       case 'Template':
       break;
@@ -53,7 +80,7 @@ $result = $db_conn->query("Select * from NewsLetter ORDER BY SentDate DESC, Lett
       <td class="text-center"><?php echo $row['Subject'] ?></td>
       <td class="text-center"><?php echo TorGetUserName($row['Author'], $db_conn); ?></td>
       <?php if($row['SentDate'] == '0'){?>
-      <td class="text-center"><a href="?page=Admin&subpage=NewsLetters&action=Send" class="btn btn-success"onclick="confirm('Er du sikker på du vil sende nyhedbrevet')" style="display:block;">Udsend</a></td>
+      <td class="text-center"><a href="?page=Admin&subpage=NewsLetters&action=Send&id=<?php echo $row['LetterID']; ?>" class="btn btn-success"onclick="confirm('Er du sikker på du vil sende nyhedbrevet')" style="display:block;">Udsend</a></td>
       <?php }else{
       ?>
       <td class="text-center">
@@ -73,7 +100,7 @@ $result = $db_conn->query("Select * from NewsLetter ORDER BY SentDate DESC, Lett
       </td>
       <td class="text-center">
         <?php
-          echo '<a style="display:block;" href="?page=NewsLetter&id='.$row['LetterID'].'" alt="Rediger Sponsor" target="blank" type="button" class="btn btn-default">show</a>';                                     
+          echo '<a style="display:block;" href="?page=NewsLetter&id='.$row['LetterID'].'" alt="Rediger Sponsor" target="blank" type="button" class="btn btn-default">Vis</a>';                                     
         ?>
       </td>
     </tr>
