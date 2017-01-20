@@ -20,8 +20,8 @@ if(isset($_POST['Save'])){
       $headers[] = 'Content-type: text/html; charset=UTF-8';
 
       // Additional headers
-      $headers[] = 'To: '.$NewsRow['FullName'].' <'.$NewsRow['FullName'].'>';
-      $headers[] = 'From: HLParty Testin <noreply@hlpf.dk>';
+      $headers[] = 'To: '.$NewsRow['FullName'].' <'.$NewsRow['Email'].'>';
+      $headers[] = 'From: HLParty Testin <noreply@hlparty.dk>';
 
       // Mail it
       mail($NewsRow['Email'], $Title, $Body, implode("\r\n", $headers));
