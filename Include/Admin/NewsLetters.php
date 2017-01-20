@@ -15,6 +15,10 @@ if($action != '') {
         break;
       case 'New':
         $NewOrEditNewsLetter = true;
+        break;
+      case 'Send':
+        break;
+      case 'Template':
       break;
     }// switch end
 } // Action end
@@ -23,9 +27,9 @@ if(isset($NewOrEditNewsLetter) && $NewOrEditNewsLetter != false){
   include_once("Include/Admin/NewOrEditNewsLetter.php");
 }else{
  // create the Lsit over pages
-$result = $db_conn->query("Select * from NewsLetter ORDER BY LetterID DESC");
+$result = $db_conn->query("Select * from NewsLetter ORDER BY SentDate DESC, LetterID DESC");
 ?>
-<a href="?page=Admin&subpage=NewsLetters&action=New" alt="Nyt Nyhedsbrev" type="button" class="text-center btn btn-info">
+<a style="display:block;" href="?page=Admin&subpage=NewsLetters&action=New" alt="Nyt Nyhedsbrev" type="button" class="text-center btn btn-info">
   Nyt Nyhedsbrev
 </a>
 <hr>
@@ -38,6 +42,7 @@ $result = $db_conn->query("Select * from NewsLetter ORDER BY LetterID DESC");
       <th class="text-center">Udsent Dato</th>
       <th class="text-center">Brug Som skabelon</th>
       <th class="text-center">Rediger</th>
+      <th class="text-center">Se</th>
       
     </tr>
   </thead>
@@ -47,13 +52,30 @@ $result = $db_conn->query("Select * from NewsLetter ORDER BY LetterID DESC");
       <td class="text-center"><?php echo $row['LetterID'] ?></td>
       <td class="text-center"><?php echo $row['Subject'] ?></td>
       <td class="text-center"><?php echo TorGetUserName($row['Author'], $db_conn); ?></td>
-      <?php if($row['SentDate'] == '0'){echo '<td class="text-center">Udsend</td>';}else{
+      <?php if($row['SentDate'] == '0'){?>
+      <td class="text-center"><a href="?page=Admin&subpage=NewsLetters&action=Send" class="btn btn-success"onclick="confirm('Er du sikker på du vil sende nyhedbrevet')" style="display:block;">Udsend</a></td>
+      <?php }else{
       ?>
-      <td class="text-center"><?php echo date('d.m.Y',$row['SentDate']); ?></td>
+      <td class="text-center">
+        <?php echo '<span style="display:block;" class="btn btn-danger">'.date('d.m.Y',$row['SentDate']).'</span>'; ?>
+      </td>
       <?php
       } ?>
-      <td class="text-center">Brug Som skabelon</td>
-      <td class="text-center">Rediger</td>
+      <td class="text-center">
+        <?php
+          echo '<a style="display:block;" href="?page=Admin&subpage=NewsLetters&action=Template&id='.$row['LetterID'].'" alt="Rediger Sponsor" type="button" class="btn btn-primary">Brug Som skabelon</a>';
+        ?>
+      </td>
+      <td class="text-center">
+        <?php
+          echo '<a style="display:block;" href="?page=Admin&subpage=NewsLetters&action=Edit&id='.$row['LetterID'].'" alt="Rediger Sponsor" type="button" class="btn btn-warning">Rediger</a>';                                     
+        ?>
+      </td>
+      <td class="text-center">
+        <?php
+          echo '<a style="display:block;" href="?page=NewsLetter&id='.$row['LetterID'].'" alt="Rediger Sponsor" target="blank" type="button" class="btn btn-default">show</a>';                                     
+        ?>
+      </td>
     </tr>
   <?php } ?>
   </tbody>
