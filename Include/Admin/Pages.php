@@ -41,7 +41,7 @@ if(isset($NewOrEditPage) && $NewOrEditPage != false){
  // create the Lsit over pages
 $result = $db_conn->query("Select * from Pages ORDER BY AdminOnly ASC, Online DESC, PageTitle ASC");
 ?>
-<a href="?page=Admin&subpage=Pages&action=New" alt="Ny Side" type="button" class="text-center btn btn-info">Opret Ny Side</a>
+<a style="display:block;" href="?page=Admin&subpage=Pages&action=New" alt="Ny Side" type="button" class="text-center btn btn-info">Opret Ny Side</a>
 <hr>
 <table class="table table-striped table-condensed table-hover hlpf_adminmenu">
   <thead>
@@ -68,20 +68,20 @@ $result = $db_conn->query("Select * from Pages ORDER BY AdminOnly ASC, Online DE
       <td class="text-center"><?php echo date('d.m.Y',$row['LastEditedDate']); ?></td>
       <td class="text-center"><?php
           if($row['Online'] == '1'){
-            echo '<a href="?page=Admin&subpage=Pages&action=Offline&id='.$row['PageID'].'" alt="Set Offline" type="button" class="btn btn-success">Online</a>';
+            echo '<a style="display:block;" href="?page=Admin&subpage=Pages&action=Offline&id='.$row['PageID'].'" alt="Set Offline" type="button" class="btn btn-success">Online</a>';
           }else{
-            echo '<a href="?page=Admin&subpage=Pages&action=Online&id='.$row['PageID'].'" alt="Set Online" type="button" class="btn btn-danger">Offline</a>';
+            echo '<a style="display:block;" href="?page=Admin&subpage=Pages&action=Online&id='.$row['PageID'].'" alt="Set Online" type="button" class="btn btn-danger">Offline</a>';
           }?>
       </td>
       <td class="text-center"><?php if($row['AdminOnly'] == '1'){
-            echo '<a href="?page=Admin&subpage=Pages&action=Forall&id='.$row['PageID'].'" alt="For Alle" type="button" class="btn btn-success">Ja</a>';
+            echo '<a style="display:block;" href="?page=Admin&subpage=Pages&action=Forall&id='.$row['PageID'].'" alt="For Alle" type="button" class="btn btn-success">Ja</a>';
           }else{
-            echo '<a href="?page=Admin&subpage=Pages&action=Foradmin&id='.$row['PageID'].'" alt="For Admin" type="button" class="btn btn-danger">Nej</a>';
+            echo '<a style="display:block;" href="?page=Admin&subpage=Pages&action=Foradmin&id='.$row['PageID'].'" alt="For Admin" type="button" class="btn btn-danger">Nej</a>';
           } ?>
       </td>
       <td class="text-center">
         <?php
-        echo '<a href="?page=Admin&subpage=Pages&action=Edit&id='.$row['PageID'].'" alt="Rediger Side" type="button" class="btn btn-warning">Rediger</a>';
+        echo '<a style="display:block;" href="?page=Admin&subpage=Pages&action=Edit&id='.$row['PageID'].'" alt="Rediger Side" type="button" class="btn btn-warning">Rediger</a>';
         ?>
       </td>
     </tr>

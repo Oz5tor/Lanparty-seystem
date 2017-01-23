@@ -70,7 +70,7 @@ if(isset($NewOrEditSponsor) && $NewOrEditSponsor != false){
   $result = $db_conn->query("Select  * from Sponsors ORDER BY Online DESC, Sort ASC");
   $NumRows = $result->num_rows;
   ?>
-  <a href="?page=Admin&subpage=Sponsors&action=New" alt="Ny Side" type="button" class="text-center btn btn-info">Opret Ny Sponsor</a>
+  <a style="display:block;" href="?page=Admin&subpage=Sponsors&action=New" alt="Ny Side" type="button" class="text-center btn btn-info">Opret Ny Sponsor</a>
   <hr>
   <table class="table table-striped table-condensed table-hover hlpf_adminmenu">
     <thead>

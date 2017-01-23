@@ -1,4 +1,3 @@
-<a href="#DoSomethingSomehow" class="btn btn-primary">Opret nyhed</a>
 <?php
 function TorGetUserName($TempUserID, $DBCONN){
   $Func_result = $DBCONN->query("SELECT Username from Users Where UserID = '$TempUserID'");
@@ -8,6 +7,7 @@ function TorGetUserName($TempUserID, $DBCONN){
 
 $result = $db_conn->query( "SELECT * FROM News");
 ?>
+<a style="display:block;" href="#DoSomethingSomehow" class="btn btn-info">Opret nyhed</a>
 <table class="table table-striped table-hover hlpf_adminmenu">
   <thead>
     <tr>
