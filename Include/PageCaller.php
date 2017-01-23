@@ -24,8 +24,11 @@ elseif (! empty( $page ) ) {
         case "Event":
             include_once("Include/Event/Event.php");
             break;
-        case "Gallery":
+        /*case "Gallery": // not in use yet
             include_once("Include/FBAlbumAPI.php");
+            break;*/
+        case "NewsLetter":
+            include_once("ShowNewsLetter.php");
             break;
         default:
             include_once("Include/Page.php");
