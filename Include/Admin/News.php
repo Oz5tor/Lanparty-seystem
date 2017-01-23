@@ -3,7 +3,22 @@ function TorGetUserName($TempUserID, $DBCONN){
   $Func_result = $DBCONN->query("SELECT Username from Users Where UserID = '$TempUserID'");
   $Func_row = $Func_result->fetch_assoc();
   return $Func_row['Username'];
+}// function end
+if($action != ''){
+  if(isset($_GET['id']) && $_GET['id'] != ''){
+    $URLID = $db_conn->real_escape_string($_GET['id']);
+  }// get id end
+  
+  switch($action){
+    case 'Edit':
+      $NewOrEditNews = true;
+      break;
+  }
 }
+
+if(isset($NewOrEditNews) && $NewOrEditNews != false){
+  include_once("Include/Admin/NewOrEditNews.php");
+}else{
 ?>
 <a style="display:block;" href="#DoSomethingSomehow" class="btn btn-info">Opret nyhed</a>
 <hr>
@@ -13,8 +28,8 @@ function TorGetUserName($TempUserID, $DBCONN){
       <th class="text-center">ID</th>
       <th class="text-center">Title</th>
       <th class="text-center">Lavet af</th>
-      <th class="text-center">Sidst ændret af</th>
       <th class="text-center">Lavet den</th>
+      <th class="text-center">Sidst ændret af</th>
       <th class="text-center">Sidst ændret den</th>
       <th class="text-center">Online</th>
       <th class="text-center">Rediger</th>
@@ -22,9 +37,10 @@ function TorGetUserName($TempUserID, $DBCONN){
   </thead>
   <tbody>
 <?php
-    $result = $db_conn->query("SELECT * FROM News");
+    $result = $db_conn->query("SELECT * FROM News order by PublishDate DESC");
     while ($row = $result->fetch_assoc()) 
-{ ?>
+    {
+?>
     <tr>
       <td class="text-center">
         <?php echo $row['NewsID']; ?>
@@ -36,10 +52,10 @@ function TorGetUserName($TempUserID, $DBCONN){
         <?php echo TorGetUserName($row['AuthorID'], $db_conn); ?>
       </td>
       <td class="text-center">
-        <?php echo TorGetUserName($row['LastEditedID'], $db_conn); ?>
+        <?php echo date("d M Y", $row['CreatedDate']); ?>
       </td>
       <td class="text-center">
-        <?php echo date("d M Y", $row['CreatedDate']); ?>
+        <?php echo TorGetUserName($row['LastEditedID'], $db_conn); ?>
       </td>
       <td class="text-center">
         <?php echo date("d M Y", $row['LastEditedDate']); ?>
@@ -54,11 +70,14 @@ function TorGetUserName($TempUserID, $DBCONN){
         ?>
       </td>
       <td class="text-center">
-        <a href="" style="display:block;" class="btn btn-warning">Rediger</a>
+        <a href="index.php?page=Admin&subpage=News&action=Edit&id=<?php echo $row['NewsID']; ?>#admin_menu" style="display:block;" class="btn btn-warning">Rediger</a>
       </td>
     </tr>
 <?php 
-} 
+  } 
 ?>
   </tbody>
 </table>
+<?php 
+}
+?>
