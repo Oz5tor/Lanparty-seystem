@@ -76,7 +76,6 @@ if(isset($NewOrEditSponsor) && $NewOrEditSponsor != false){
     <thead>
       <tr>
         <th width="15%" class="text-center">Image</th>
-        <th class="text-center">ID</th>
         <th class="text-center">Navn</th>
         <th class="text-center">Link</th>
         <th class="text-center">Hoved Sponsor</th>
@@ -94,24 +93,23 @@ if(isset($NewOrEditSponsor) && $NewOrEditSponsor != false){
       ?>
       <tr>
         <td class="text-center"><?php echo '<img class="img-responsive" src="Images/Sponsore/'.$row['Banner'].'">'; ?></td>
-        <td class="text-center"><?php echo $row['SponsorID']; ?></td>
         <td class="text-center"><?php echo $row['Name']; ?></td>
         <td class="text-center"><?php echo '<a href="'.$row['Url'].'">'.$row['Url'].'</a>'; ?></td>
         <td class="text-center">
           <?php 
             if($row['MainSponsor'] == '1'){ // Is Sponsor Main sponsor or not
-              echo '<a href="?page=Admin&subpage=Sponsors&action=NotMainSponsor&id='.$row['SponsorID'].'" alt="Set Normal Sponsor" type="button" class="btn btn-success">Ja</a>';
+              echo '<a style="display:block;" href="?page=Admin&subpage=Sponsors&action=NotMainSponsor&id='.$row['SponsorID'].'" alt="Set Normal Sponsor" type="button" class="btn btn-success">Ja</a>';
             }else{
-              echo '<a href="?page=Admin&subpage=Sponsors&action=MainSponsor&id='.$row['SponsorID'].'" alt="Set Main Sponsor" type="button" class="btn btn-danger">Nej</a>';
+              echo '<a style="display:block;" href="?page=Admin&subpage=Sponsors&action=MainSponsor&id='.$row['SponsorID'].'" alt="Set Main Sponsor" type="button" class="btn btn-danger">Nej</a>';
             }
           ?>
         </td>
         <td class="text-center">
           <?php // IS the Sponsor onlinen? Button
             if($row['Online'] == '1'){
-              echo '<a href="?page=Admin&subpage=Sponsors&action=Offline&id='.$row['SponsorID'].'" alt="Set Offline" type="button" class="btn btn-success">Online</a>';
+              echo '<a style="display:block;" href="?page=Admin&subpage=Sponsors&action=Offline&id='.$row['SponsorID'].'" alt="Set Offline" type="button" class="btn btn-success">Online</a>';
             }else{
-              echo '<a href="?page=Admin&subpage=Sponsors&action=Online&id='.$row['SponsorID'].'" alt="Set Online" type="button" class="btn btn-danger">Offline</a>';
+              echo '<a style="display:block;" href="?page=Admin&subpage=Sponsors&action=Online&id='.$row['SponsorID'].'" alt="Set Online" type="button" class="btn btn-danger">Offline</a>';
             }
           ?>
         </td>
@@ -128,7 +126,7 @@ if(isset($NewOrEditSponsor) && $NewOrEditSponsor != false){
         </td>
         <td class="text-center">
           <?php // Edit Button
-          echo '<a href="?page=Admin&subpage=Sponsors&action=Edit&id='.$row['SponsorID'].'" alt="Rediger Sponsor" type="button" class="btn btn-warning">Rediger</a>';
+          echo '<a style="display:block;" href="?page=Admin&subpage=Sponsors&action=Edit&id='.$row['SponsorID'].'" alt="Rediger Sponsor" type="button" class="btn btn-warning">Rediger</a>';
           ?>
         </td>
       </tr>
