@@ -7,7 +7,7 @@ function TorGetUserName($TempUserID, $DBCONN){
 }
 if($action != '') {
   if(isset($_GET['id']) && $_GET['id'] != ''){
-    $URLPageID = $db_conn->real_escape_string($_GET['id']);
+    $URLID = $db_conn->real_escape_string($_GET['id']);
   }// get id end
     switch($action){
       case 'Edit':
@@ -17,8 +17,7 @@ if($action != '') {
         $NewOrEditNewsLetter = true;
         break;
       case 'Send':
-        
-        $LetterResult = $db_conn->query("SELECT * FROM NewsLetter WHERE LetterID = '$URLPageID'");
+        $LetterResult = $db_conn->query("SELECT * FROM NewsLetter WHERE LetterID = '$URLID'");
         $Lettercount = $LetterResult->num_rows;
         if($Lettercount == 1){
           $LetterRow = $LetterResult->fetch_assoc();
@@ -35,17 +34,17 @@ if($action != '') {
                                 // Visual name          // recivers email 
           $headers[] = 'To: '.$NewsRow['FullName'].' <'.$NewsRow['Email'].'>';
           $headers[] = 'From: HLParty Testin <noreply@hlparty.dk>';
-
           // Mail it
           mail($NewsRow['Email'], $Title, $Body, implode("\r\n", $headers));
           }// End of Users tehre want news
           // update news letter to be sent querry
           $sentTime = time();
-          $statement = $db_conn->prepare("UPDATE NewsLetter SET SentDate = '$sentTime' WHERE LetterID = '$URLPageID'"); // not working
-          //header("Location: index.php?page=Admin&subpage=NewsLetters#admin_menu");
+          $statement = $db_conn->query("UPDATE NewsLetter SET SentDate = '$sentTime' WHERE LetterID = '$URLID'");
+          header("Location: index.php?page=Admin&subpage=NewsLetters#admin_menu");
         }// letter count end
         break;
       case 'Template':
+        $NewOrEditNewsLetter = true;
       break;
     }// switch end
 } // Action end
@@ -63,7 +62,6 @@ $result = $db_conn->query("Select * from NewsLetter ORDER BY SentDate DESC, Lett
 <table class="table table-striped table-condensed table-hover hlpf_adminmenu">
   <thead>
     <tr>
-      <th class="text-center">ID</th>
       <th class="text-center">Title</th>
       <th class="text-center">Forfatter</th>
       <th class="text-center">Udsent Dato</th>
@@ -76,7 +74,6 @@ $result = $db_conn->query("Select * from NewsLetter ORDER BY SentDate DESC, Lett
   <tbody>
   <?php while ($row = $result->fetch_assoc()) { ?>
     <tr>
-      <td class="text-center"><?php echo $row['LetterID'] ?></td>
       <td class="text-center"><?php echo $row['Subject'] ?></td>
       <td class="text-center"><?php echo TorGetUserName($row['Author'], $db_conn); ?></td>
       <?php if($row['SentDate'] == '0'){?>
@@ -84,18 +81,22 @@ $result = $db_conn->query("Select * from NewsLetter ORDER BY SentDate DESC, Lett
       <?php }else{
       ?>
       <td class="text-center">
-        <?php echo '<span style="display:block;" class="btn btn-danger">'.date('d.m.Y',$row['SentDate']).'</span>'; ?>
+        <?php echo '<span style="display:block;" class="btn disabled btn-danger">'.date('d.m.Y',$row['SentDate']).'</span>'; ?>
       </td>
       <?php
       } ?>
       <td class="text-center">
         <?php
-          echo '<a style="display:block;" href="?page=Admin&subpage=NewsLetters&action=Template&id='.$row['LetterID'].'" alt="Rediger Sponsor" type="button" class="btn btn-primary">Brug Som skabelon</a>';
+          echo '<a style="display:block;" href="?page=Admin&subpage=NewsLetters&action=Template&id='.$row['LetterID'].'" alt="Brug som skabelon Sponsor" type="button" class="btn btn-primary">Brug Som skabelon</a>';
         ?>
       </td>
       <td class="text-center">
         <?php
-          echo '<a style="display:block;" href="?page=Admin&subpage=NewsLetters&action=Edit&id='.$row['LetterID'].'" alt="Rediger Sponsor" type="button" class="btn btn-warning">Rediger</a>';                                     
+          if($row['SentDate'] != 0){
+            echo '<span style="display:block;" class="btn disabled btn-warning">Rediger</span>';                                     
+          }else{
+           echo '<a style="display:block;" href="?page=Admin&subpage=NewsLetters&action=Edit&id='.$row['LetterID'].'" alt="Rediger Sponsor" type="button" class="btn btn-warning">Rediger</a>';                                      
+          }
         ?>
       </td>
       <td class="text-center">
