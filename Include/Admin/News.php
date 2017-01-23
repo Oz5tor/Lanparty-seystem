@@ -1,22 +1,12 @@
 <a href="#DoSomethingSomehow" class="btn btn-primary">Opret nyhed</a>
 <?php
-$result = $db_conn->query( "
-    SELECT
-      ( SELECT COUNT(*) FROM NEWS ) AS News,
-      N.NewsID AS ID,
-      N.Title AS Title,
-      U1.Username AS Creator,
-      U2.Username AS Editor,
-      N.CreatedDate AS CreatedDate,
-      N.LastEditedDate AS LastEditDate,
-      N.Online AS Online
-    FROM News N
-      INNER JOIN Users U1
-        ON N.AuthorID = U1.UserID
-      INNER JOIN Users U2
-        ON N.LastEditedID = U2.UserID
-    LIMIT 20
-");
+function TorGetUserName($TempUserID, $DBCONN){
+  $Func_result = $DBCONN->query("SELECT Username from Users Where UserID = '$TempUserID'");
+  $Func_row = $Func_result->fetch_assoc();
+  return $Func_row['Username'];
+}
+
+$result = $db_conn->query( "SELECT * FROM News");
 ?>
 <table class="table table-striped table-hover hlpf_adminmenu">
   <thead>
@@ -33,23 +23,14 @@ $result = $db_conn->query( "
   <tbody>
   <?php while ($row = $result->fetch_assoc()) { ?>
     <tr>
-      <td><?php echo $row['ID'] ?></td>
-      <td><?php echo $row['Title'] ?></td>
-      <td><?php echo $row['Creator'] ?></td>
-      <td><?php echo $row['Editor'] ?></td>
+      <td><?php echo $row['NewsID']; ?></td>
+      <td><?php echo $row['Title']; ?></td>
+      <td><?php echo TorGetUserName($row['AuthorID'], $db_conn); ?></td>
+      <td><?php echo TorGetUserName($row['LastEditedID'], $db_conn); ?></td>
       <td><?php echo date("d M Y", $row['CreatedDate']); ?></td>
-      <td><?php echo date("d M Y", $row['LastEditDate']); ?></td>
-      <td><?php echo $row['Online'] ?></td>
+      <td><?php echo date("d M Y", $row['LastEditedDate']); ?></td>
+      <td><?php echo $row['Online']; ?></td>
     </tr>
   <?php } ?>
   </tbody>
 </table>
-<?php
-  if ($row['News'] > 20) { ?>
-    <ul class="pagination">
-      <li <?php if ($p = 1) { echo "class='disable'" } ?>><a href="#">&laquo;</a></li>
-      <li <?php if ($p = 1) { echo "class='active'" } ?>>1</li>
-      <li><a href="#">2</a></li>
-      <li ><a href="#">&raquo;</a></li>
-    </ul>
-<?php } ?>
