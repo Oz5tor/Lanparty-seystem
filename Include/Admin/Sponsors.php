@@ -115,11 +115,19 @@ if(isset($NewOrEditSponsor) && $NewOrEditSponsor != false){
         </td>
         <td class="text-center">
           <?php // Sort Up/Down  buttons 
-          if($Counter != 1){
-           echo '<a href="?page=Admin&subpage=Sponsors&action=Up&id='.$row['SponsorID'].'" class="btn btn-success">&uArr;</a> '; 
+          if($Counter != 1){// arrow up
+            if($Counter == $NumRows){
+              echo '<a style="display:block;" href="?page=Admin&subpage=Sponsors&action=Up&id='.$row['SponsorID'].'" class="btn btn-success">&uArr;</a> '; 
+            }else{
+              echo '<a href="?page=Admin&subpage=Sponsors&action=Up&id='.$row['SponsorID'].'" class="btn btn-success">&uArr;</a> '; 
+            }
           }
-          if($Counter != $NumRows){
-           echo '<a href="?page=Admin&subpage=Sponsors&action=Down&id='.$row['SponsorID'].'" class="btn btn-danger">&dArr;</a>'; 
+          if($Counter != $NumRows){ // arrow down
+            if($Counter == 1){
+              echo '<a style="display:block;" href="?page=Admin&subpage=Sponsors&action=Down&id='.$row['SponsorID'].'" class="btn btn-danger">&dArr;</a>'; 
+            }else{
+              echo '<a href="?page=Admin&subpage=Sponsors&action=Down&id='.$row['SponsorID'].'" class="btn btn-danger">&dArr;</a>'; 
+            }
           } 
            
           ?>
