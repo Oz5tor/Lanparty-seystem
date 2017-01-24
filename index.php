@@ -21,6 +21,13 @@ include_once("Include/DEBUGGIN.php");
     <link rel="stylesheet" href="Style/font-awesome/css/font-awesome.min.css">
     <link rel="stylesheet" href="Style/bootstrap.min.css">
     <link rel="stylesheet" href="Style/bootstrap-theme.min.css">
+    <?php
+      if($page == 'Admin'){
+        ?>
+    <link rel="stylesheet" href="Style/bootstrap-datetimepicker.min.css">
+        <?php
+      }
+    ?>
     <link rel="stylesheet" href="Style/hlpf_main.css">
     <script type="text/javascript" src="JS/tinymce/tinymce.min.js"></script>
     <script>
@@ -99,5 +106,25 @@ include_once("Include/DEBUGGIN.php");
     <!-- Footer end -->
     <script src="JS/Jquery/jquery.min.js"></script>
     <script src="JS/Bootstrap/bootstrap.min.js"></script>
+    <?php 
+      if($page == 'Admin'){
+        ?>
+    <script src="JS/Bootstrap/bootstrap-datetimepicker.js"></script>
+    <script src="JS/Bootstrap/bootstrap-datetimepicker.da.js"></script>
+     <script type="text/javascript">
+      $('.form_datetime').datetimepicker({
+          language:  'da',
+          weekStart: 1,
+          todayBtn:  1,
+          autoclose: 1,
+          todayHighlight: 1,
+          startView: 2,
+          forceParse: 0,
+          showMeridian: 0
+      });
+    </script>
+      <?php
+      }
+    ?>
 </body>
 </html>
