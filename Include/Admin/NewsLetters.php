@@ -24,19 +24,17 @@ if($action != '') {
           $Title = $LetterRow['Subject'];
           $Body = $LetterRow['Body'];
           $NewsResult = $db_conn->query("Select Users.FullName, Users.Email, Users.NewsLetter From Users Where Users.NewsLetter = 1");
-          while($NewsRow = $NewsResult->fetch_assoc()){
-
-          // To send HTML mail, the Content-type header must be set
-          $headers[] = 'MIME-Version: 1.0';
-          $headers[] = 'Content-type: text/html; charset=UTF-8';
-
-          // Additional headers
-                                // Visual name          // recivers email 
-          $headers[] = 'To: '.$NewsRow['FullName'].' <'.$NewsRow['Email'].'>';
-          $headers[] = 'From: HLParty Testin <noreply@hlparty.dk>';
-          // Mail it
-          mail($NewsRow['Email'], $Title, $Body, implode("\r\n", $headers));
-          }// End of Users tehre want news
+          while($NewsRow = $NewsResult->fetch_assoc()) {
+            // To send HTML mail, the Content-type header must be set
+            $headers[] = 'MIME-Version: 1.0';
+            $headers[] = 'Content-type: text/html; charset=UTF-8';
+            // Additional headers
+                                  // Visual name          // recivers email
+            $headers[] = 'To: '.$NewsRow['FullName'].' <'.$NewsRow['Email'].'>';
+            $headers[] = 'From: HLParty Testin <noreply@hlparty.dk>';
+            // Mailed it!
+            mail($NewsRow['Email'], $Title, $Body, implode("\r\n", $headers));
+          }// End of Users that want news
           // update news letter to be sent querry
           $sentTime = time();
           $statement = $db_conn->query("UPDATE NewsLetter SET SentDate = '$sentTime' WHERE LetterID = '$URLID'");
@@ -68,7 +66,6 @@ $result = $db_conn->query("Select * from NewsLetter ORDER BY SentDate DESC, Lett
       <th class="text-center">Brug Som skabelon</th>
       <th class="text-center">Rediger</th>
       <th class="text-center">Se</th>
-      
     </tr>
   </thead>
   <tbody>
@@ -93,21 +90,21 @@ $result = $db_conn->query("Select * from NewsLetter ORDER BY SentDate DESC, Lett
       <td class="text-center">
         <?php
           if($row['SentDate'] != 0){
-            echo '<span style="display:block;" class="btn disabled btn-warning">Rediger</span>';                                     
+            echo '<span style="display:block;" class="btn disabled btn-warning">Rediger</span>';
           }else{
-           echo '<a style="display:block;" href="?page=Admin&subpage=NewsLetters&action=Edit&id='.$row['LetterID'].'" alt="Rediger Sponsor" type="button" class="btn btn-warning">Rediger</a>';                                      
+           echo '<a style="display:block;" href="?page=Admin&subpage=NewsLetters&action=Edit&id='.$row['LetterID'].'" alt="Rediger Sponsor" type="button" class="btn btn-warning">Rediger</a>';
           }
         ?>
       </td>
       <td class="text-center">
         <?php
-          echo '<a style="display:block;" href="?page=NewsLetter&id='.$row['LetterID'].'" alt="Rediger Sponsor" target="blank" type="button" class="btn btn-default">Vis</a>';                                     
+          echo '<a style="display:block;" href="?page=NewsLetter&id='.$row['LetterID'].'" alt="Rediger Sponsor" target="blank" type="button" class="btn btn-default">Vis</a>';
         ?>
       </td>
     </tr>
   <?php } ?>
   </tbody>
 </table>
-<?php 
+<?php
 }
 ?>

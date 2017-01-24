@@ -1,4 +1,4 @@
-Hovedstadens Lanparty Forening
+#Hovedstadens Lanparty Forening
 
-Hjemmeside for sat til launch 1.januar 2018.
-Sammelet project ofr udviklingen af Hjemmesiden.
+Hjemmeside sat til udgivelse d. 1. januar 2018.
+Samlet projekt for udviklingen af hjemmesiden.
