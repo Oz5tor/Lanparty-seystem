@@ -32,7 +32,7 @@ if($action == 'Edit'){
   $row = $result->fetch_assoc();
   $OutTitle       = $row['Title'];
   $OutContent     = $row['Content'];
-  $OutPuplishDate = date("d.m.Y", $row['PublishDate']);
+  $OutPuplishDate = date("d-m-Y G:i", $row['PublishDate']);
   if($row['Online'] == '1'){$OutOnline = $row['Online'];}
 }
 ?>
@@ -46,7 +46,9 @@ if($action == 'Edit'){
       </td>
       <td>
         <label>Offenligørelses dato:</label>
-        <input type="datetime" name="publishdate" value="<?php if(isset($OutPuplishDate)){echo $OutPuplishDate;} ?>">
+        <input type="datetime" data-date="12-02-2012 23:59" data-date-format="dd-mm-yyyy hh:ii" class="form_datetime" name="publishdate" value="<?php if(isset($OutPuplishDate)){echo $OutPuplishDate;} ?>">
+        <span class="add-on"><i class="icon-remove"></i></span>
+        <span class="add-on"><i class="icon-th"></i></span>
       </td>
       <td>
         <label>Online</label>
