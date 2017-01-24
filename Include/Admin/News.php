@@ -34,6 +34,7 @@ if(isset($NewOrEditNews) && $NewOrEditNews != false){
       <th class="text-center">Lavet den</th>
       <th class="text-center">Sidst ændret af</th>
       <th class="text-center">Sidst ændret den</th>
+      <th class="text-center">Offenlig</th>
       <th class="text-center">Online</th>
       <th class="text-center">Rediger</th>
     </tr>
@@ -70,6 +71,12 @@ if(isset($NewOrEditNews) && $NewOrEditNews != false){
           }else{
             echo '<span style="display:block;" class="btn disabled btn-danger">'.date("d M Y", $row['PublishDate']).'</span>';
           }
+        ?>
+      </td>
+      <td class="text-center">
+        <?php
+          if($row['Online'] == 0){ echo '<span style="display:block;" class="btn disabled btn-danger">Offline</span';}
+          else{ echo '<span style="display:block;" class="btn disabled btn-success">Online</span>';}
         ?>
       </td>
       <td class="text-center">
