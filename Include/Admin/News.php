@@ -13,6 +13,9 @@ if($action != ''){
     case 'Edit':
       $NewOrEditNews = true;
       break;
+    case 'New':
+      $NewOrEditNews = true;
+      break;
   }
 }
 
@@ -20,7 +23,7 @@ if(isset($NewOrEditNews) && $NewOrEditNews != false){
   include_once("Include/Admin/NewOrEditNews.php");
 }else{
 ?>
-<a style="display:block;" href="#DoSomethingSomehow" class="btn btn-info">Opret nyhed</a>
+<a style="display:block;" href="?page=Admin&subpage=News&action=New#admin_menu" class="btn btn-info">Opret nyhed</a>
 <hr>
 <table class="table table-striped table-hover hlpf_adminmenu">
   <thead>
