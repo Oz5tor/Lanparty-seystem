@@ -67,9 +67,9 @@ if(isset($NewOrEditNews) && $NewOrEditNews != false){
       <td class="text-center">
         <?php
           if($row['PublishDate'] <= time()){
-           echo '<span style="display:block;" class="btn disabled btn-success">'.date("d M Y", $row['PublishDate']).'</span>';
+           echo '<span style="display:block;" class="btn disabled btn-success">'.date("d.M.Y - G:i", $row['PublishDate']).'</span>';
           }else{
-            echo '<span style="display:block;" class="btn disabled btn-danger">'.date("d M Y", $row['PublishDate']).'</span>';
+            echo '<span style="display:block;" class="btn disabled btn-danger">'.date("d.M.Y - G:i", $row['PublishDate']).'</span>';
           }
         ?>
       </td>
