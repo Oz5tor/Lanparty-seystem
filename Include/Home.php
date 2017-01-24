@@ -41,7 +41,7 @@
                     <div class="hlpf_news">
                         <?php
                             // Get the latest news that is online.
-                            if( $result = $db_conn->query( "SELECT News.Content, News.Title From News Where News.Online = 1 order by News.NewsID desc limit 1" ) ){
+                            if( $result = $db_conn->query( "SELECT News.Content, News.Title From News order by PublishDate DESC limit 1" ) ){
                                 if( $result -> num_rows ){
                                     $row = $result->fetch_assoc();
                                     echo "<h4>" . $row[ 'Title' ] . "</h4>";
