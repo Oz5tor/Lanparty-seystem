@@ -64,4 +64,3 @@
   </div>
   </div>
 </div>
-<?php $result -> close(); ?>

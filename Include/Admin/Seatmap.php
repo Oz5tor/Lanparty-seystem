@@ -1,3 +1,7 @@
+<?php
+if(isset($_GET['id']) && $_GET['id'] != ''){
+  $SeatmapID = $db_conn->real_escape_string($_GET['id']);
+} ?>
 <div class="col-lg-5">
   <!-- Instructions - How to make a seatmap. -->
   <h3>Instruktioner</h3>
@@ -14,10 +18,17 @@
   <h3>Lav seatmap her</h3>
   <textarea name="generate-seat-map" rows="8" cols="50"><?php // Keep this tag close to the textarea!
     if (!empty($action)) {
-      $result = $db_conn->query( "SELECT * FROM Seatmap WHERE ID = $id");
-      if ($result -> num_rows) {
+      $result = $db_conn->query("SELECT * FROM Seatmap WHERE SeatmapID = $SeatmapID");
+      if (!empty($result)) {
         $row = $result->fetch_assoc();
-        echo $row['SeatString'];
+        $actualSeatString = $row['SeatString'];
+        $correction = 0;
+        for ($i=$row['Width']; $i < strlen($actualSeatString); $i += $row['Width']) {
+          $actualSeatString = substr_replace($actualSeatString, "\n", $i+$correction, 0);
+          $correction += 1;
+        }
+        echo $actualSeatString;
+        unset($correction, $actualSeatString, $result, $row); // Quick garbage colletion...
       }
     }
     ?></textarea>
