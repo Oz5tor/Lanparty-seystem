@@ -13,7 +13,6 @@
 <div class="form-group col-lg-5">
   <h3>Lav seatmap her</h3>
   <textarea name="generate-seat-map" rows="4" cols="60"><?php // Keep this tag close to the textarea!
-    unset($action);
     if (!empty($action)) {
       echo "INSERT SOME MAP HERE";
     }
