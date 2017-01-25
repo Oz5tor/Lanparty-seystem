@@ -1,4 +1,12 @@
 <?php
+// This should be the absolute first thing.
+// If logging out... LOG OUT!
+if (!empty($action) AND $action == "LogOut") {
+    session_destroy();
+    header("Location: index.php");
+    exit(); // No need for data grinding when you know where they are going.
+}
+
 if(!empty($_SESSION['UserToken'])){
     include_once("Include/Usermodule/EditOrRegister.php");
 }

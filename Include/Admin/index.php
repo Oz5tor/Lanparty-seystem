@@ -1,4 +1,3 @@
-<!-- Last edit: Rosenheim - 03-01-2017: 10:00 -->
 <?php if($_SESSION['Admin'] != 1) { header("Location: /Website-2017/index.php"); } /* Fuck off... */ ?>
 <div class="row">
   <div id="admin_menu" class="col-lg-12 col-sm-12 hlpf_contentbox hlpf_adminmenu">
@@ -11,7 +10,8 @@
           ( SELECT COUNT(*) FROM NewsLetter ) as NewsLetter,
           ( SELECT COUNT(*) FROM Event ) as Event,
           ( SELECT COUNT(*) FROM Sponsors ) as Sponsors,
-          ( SELECT COUNT(*) FROM Competitions ) as Competitions
+          ( SELECT COUNT(*) FROM Competitions ) as Competitions,
+          ( SELECT COUNT(*) FROM Seatmap ) as Seatmap
         ");
         if( $result -> num_rows ) {
             $row = $result->fetch_assoc();
@@ -45,6 +45,10 @@
         <span class="badge"><?php echo $row['Competitions']?></span>
           Konkurrencer
       </li></a>
+      <a href="?page=Admin&subpage=Seatmap#admin_menu"><li class="<?php if($subpage == "Seatmap") echo "active "; ?>list-group-item col-lg-2 col-xs-6 col-md col-xl-2 col-sm-4">
+        <span class="badge"><?php echo $row['Seatmap']?></span>
+          Seatmaps
+      </li></a>
     </ul>
   </div>
   <div class="col-lg-12 col-sm-12 hlpf_contentbox">
@@ -60,4 +64,3 @@
   </div>
   </div>
 </div>
-<?php $result -> close(); ?>
