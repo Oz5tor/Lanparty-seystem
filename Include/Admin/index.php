@@ -17,38 +17,26 @@
             $row = $result->fetch_assoc();
         }
       ?>
-      <a href="?page=Admin&subpage=Users#admin_menu"><li class="<?php if($subpage == "Users") echo "active "; ?>list-group-item col-lg-2 col-xs-6 col-md col-xl-2 col-sm-4">
-        <span class="badge"><?php echo $row['Users']?></span>
-          Brugere
-      </li></a>
-      <a href="?page=Admin&subpage=News#admin_menu"><li class="<?php if($subpage == "News") echo "active "; ?>list-group-item col-lg-2 col-xs-6 col-md col-xl-2 col-sm-4">
-        <span class="badge"><?php echo $row['News']?></span>
-          Nyheder
-      </li></a>
-      <a href="?page=Admin&subpage=Pages#admin_menu"><li class="<?php if($subpage == "Pages") echo "active "; ?>list-group-item col-lg-2 col-xs-6 col-md col-xl-2 col-sm-4">
-        <span class="badge"><?php echo $row['Pages']?></span>
-          Side Redigering
-      </li></a>
-      <a href="?page=Admin&subpage=NewsLetters#admin_menu"><li class="<?php if($subpage == "NewsLetters") echo "active "; ?>list-group-item col-lg-2 col-xs-6 col-md col-xl-2 col-sm-4">
-        <span class="badge"><?php echo $row['NewsLetter']?></span>
-          Nyheds Breve
-      </li></a>
-      <a href="?page=Admin&subpage=Events#admin_menu"><li class="<?php if($subpage == "Events") echo "active "; ?>list-group-item col-lg-2 col-xs-6 col-md col-xl-2 col-sm-4">
-        <span class="badge"><?php echo $row['Event']?></span>
-          Arrangementer
-      </li></a>
-      <a href="?page=Admin&subpage=Sponsors#admin_menu"><li class="<?php if($subpage == "Sponsors") echo "active "; ?>list-group-item col-lg-2 col-xs-6 col-md col-xl-2 col-sm-4">
-        <span class="badge"><?php echo $row['Sponsors']?></span>
-          Sponsore
-      </li></a>
-      <a href="?page=Admin&subpage=Competitions#admin_menu"><li class="<?php if($subpage == "Competitions") echo "active "; ?>list-group-item col-lg-2 col-xs-6 col-md col-xl-2 col-sm-4">
-        <span class="badge"><?php echo $row['Competitions']?></span>
-          Konkurrencer
-      </li></a>
-      <a href="?page=Admin&subpage=Seatmap#admin_menu"><li class="<?php if($subpage == "Seatmap") echo "active "; ?>list-group-item col-lg-2 col-xs-6 col-md col-xl-2 col-sm-4">
-        <span class="badge"><?php echo $row['Seatmap']?></span>
-          Seatmaps
-      </li></a>
+
+      <?php
+      $adminTabs= [
+        "Users" => "Brugere",
+        "News" => "Nyheder",
+        "Pages" => "Side Redigering",
+        "NewsLetter" => "Nyheds Breve",
+        "Event" => "Arrangementer",
+        "Sponsors" => "Sponsore",
+        "Competitions" => "Konkurrencer",
+        "Seatmap" => "Seatmaps"
+      ];
+      while(list($key, $value) = each($adminTabs)) {
+        echo "<a href='?page=Admin&subpage=$key#admin_menu'><li class='";
+        if($subpage == $key) {
+          echo "active ";
+        }
+        echo "list-group-item col-lg-2 col-xs-6 col-md col-xl-2 col-sm-4'><span class='badge'>". $row[$key] . " </span>$value</li></a>";
+      }
+      ?>
     </ul>
   </div>
   <div class="col-lg-12 col-sm-12 hlpf_contentbox">

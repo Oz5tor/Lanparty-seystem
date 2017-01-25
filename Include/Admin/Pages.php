@@ -88,6 +88,6 @@ $result = $db_conn->query("Select * from Pages ORDER BY AdminOnly ASC, Online DE
   <?php } ?>
   </tbody>
 </table>
-<?php 
+<?php
 }
 ?>
