@@ -12,9 +12,13 @@
 </div>
 <div class="form-group col-lg-5">
   <h3>Lav seatmap her</h3>
-  <textarea name="generate-seat-map" rows="4" cols="60"><?php // Keep this tag close to the textarea!
+  <textarea name="generate-seat-map" rows="8" cols="50"><?php // Keep this tag close to the textarea!
     if (!empty($action)) {
-      echo "INSERT SOME MAP HERE";
+      $result = $db_conn->query( "SELECT * FROM Seatmap WHERE ID = $id");
+      if ($result -> num_rows) {
+        $row = $result->fetch_assoc();
+        echo $row['SeatString'];
+      }
     }
     ?></textarea>
 </div>
