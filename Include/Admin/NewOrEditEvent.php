@@ -34,13 +34,13 @@ if(isset($_POST['Save'])) {
             SeatsOpen = '$Unix_SeatsOpen',
             Rules = '$Rules_ID'
         WHERE PageID = '$tempID'" ) ) {
-      header("Location: index.php?page=Admin&subpage=Events#admin_menu");
+      header("Location: index.php?page=Admin&subpage=Event#admin_menu");
     }
   } else {
     // Create Query
     if($db_conn->query("INSERT INTO Event (Title,StartDate,EndDate,Location,SeatsOpen,Rules)
                         VALUES ('$Title', '$Unix_StartDate', '$Unix_EndDate', '$Location', '$Unix_SeatsOpen', '$Rules_ID')")){
-      header("Location: index.php?page=Admin&subpage=Events#admin_menu");
+      header("Location: index.php?page=Admin&subpage=Event#admin_menu");
     }
   }
 }
