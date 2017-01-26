@@ -1,7 +1,9 @@
 <?php
 if(isset($_GET['id']) && $_GET['id'] != ''){
   $SeatmapID = $db_conn->real_escape_string($_GET['id']);
-} ?>
+}
+include_once 'class/seatmap.php';
+?>
 <div class="col-lg-5">
   <!-- Instructions - How to make a seatmap. -->
   <h3>Instruktioner</h3>
@@ -27,15 +29,25 @@ if(isset($_GET['id']) && $_GET['id'] != ''){
       $result = $db_conn->query("SELECT * FROM Seatmap WHERE SeatmapID = $SeatmapID");
       if (!empty($result)) {
         $row = $result->fetch_assoc();
-        $actualSeatString = $row['SeatString'];
+        $SeatString = $row['SeatString'];
         $correction = 0;
-        for ($i=$row['Width']; $i < strlen($actualSeatString); $i += $row['Width']) {
-          $actualSeatString = substr_replace($actualSeatString, "\n", $i+$correction, 0);
+        for ($i=$row['Width']; $i < strlen($SeatString); $i += $row['Width']) {
+          $SeatString = substr_replace($SeatString, "\n", $i+$correction, 0);
           $correction += 1;
         }
-        echo $actualSeatString;
-        unset($correction, $actualSeatString, $result, $row); // Quick garbage colletion...
+        echo $SeatString;
+        unset($correction, $aSeatString, $result, $row); // Quick garbage colletion...
       }
     }
     ?></textarea>
+    <br>
+    <button class="btn btn-primary" onclick="clickMe()">Generate</button>
 </div>
+<div id="View-seatmap">
+
+</div>
+<script type="text/javascript">
+  function clickMe() {
+    $('#View-seatmap').load('index.php?page=Admin&subpage=Seatmap #View-seatmap')
+  };
+</script>
