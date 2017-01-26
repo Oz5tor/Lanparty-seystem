@@ -20,14 +20,16 @@
 
       <?php
       $adminTabs= [
-        "Users" => "Brugere",
-        "News" => "Nyheder",
-        "Pages" => "Side Redigering",
-        "NewsLetter" => "Nyheds Breve",
-        "Event" => "Arrangementer",
-        "Sponsors" => "Sponsore",
-        "Competitions" => "Konkurrencer",
-        "Seatmap" => "Seatmaps"
+      // File-name   =>    Writen ON the site.
+      // For links   =>    What the users see.
+        "Users"         =>  "Brugere",
+        "News"          =>  "Nyheder",
+        "Pages"         =>  "Side Redigering",
+        "NewsLetter"    =>  "Nyheds Breve",
+        "Event"         =>  "Arrangementer",
+        "Sponsors"      =>  "Sponsore",
+        "Competitions"  =>  "Konkurrencer",
+        "Seatmap"       =>  "Seatmaps"
       ];
       while(list($key, $value) = each($adminTabs)) {
         echo "<a href='?page=Admin&subpage=$key#admin_menu'><li class='";
