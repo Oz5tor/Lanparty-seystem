@@ -1,5 +1,4 @@
 <?php
-require_once("class/PayPalConfig.php");
 use PayPal\Api\Item; 
 use PayPal\Api\Payer; 
 use PayPal\Api\Amount; 
@@ -9,54 +8,79 @@ use PayPal\Api\ItemList;
 use PayPal\Api\Transaction;
 use PayPal\Api\RedirectUrls;
 
-$Payer = new Payer();
-$Payer->setPaymentMethod('paypal');
+$tempItem = array();
+$tempItem2 = array();
+$cart = array();
 
-$item = new Item();
-$item->setName('Kage')
-  ->setCurrency('DKK')
-  ->setQuantity(1)
-  ->setPrice(2);
+$tempItem['Name']     = 'Billet';
+$tempItem['Currency'] = 'DKK';
+$tempItem['Quantity'] = '1';
+$tempItem['Price']    = '5';
 
-$itemList = new ItemList();
-$itemList->setItems([$item]);
+$tempItem2['Name']     = 'Morgenmad';
+$tempItem2['Currency'] = 'DKK';
+$tempItem2['Quantity'] = '1';
+$tempItem2['Price']    = '2';
 
-$details = new Details();
-$details->setShipping(0)
-  ->setTax(0)
-  ->setSubtotal(2);
+$cart[] = $tempItem;
+$cart[] = $tempItem2;
 
-$amount = new Amount();
-$amount->setCurrency('DKK')
-  ->setTotal(2)
-  ->setDetails($details);
+echo '<pre>';
+echo print_r($cart);
+echo '</pre>';
 
-$transaction = new Transaction();
-$transaction->setAmount($amount)
-  ->setItemList($itemList)
-  ->setDescription('Virker det ?')
-  ->setInvoiceNumber(uniqid());
+function PayPalCheckOut($Cart,$description){
+  
+  require_once("class/PayPalConfig.php");
+  
+  $Payer = new Payer();
+  $Payer->setPaymentMethod('paypal');
 
-$redirectUrls = new RedirectUrls();
-$redirectUrls->setReturnUrl("http://localhost/Website-2017/index.php?page=Paypalpay&success=true")
-  ->setCancelUrl("http://localhost/Website-2017/index.php?page=Paypalpay&success=false");
+  $item = new Item();
+  $item->setName('Kage')
+    ->setCurrency('DKK')
+    ->setQuantity(1)
+    ->setPrice(2);
 
-$payment = new Payment();
-$payment->setIntent('sale')
-  ->setPayer($Payer)
-  ->setRedirectUrls($redirectUrls)
-  ->setTransactions([$transaction]); 
+  $itemList = new ItemList();
+  $itemList->setItems([$item]);
 
-try{
-  $payment->create($PaypalAPI);
-}catch (Exception $ex){
-  die($ex);
-}
-//echo '<pre>';
-//echo print_r($payment);
-//echo '</pre>';
+  $details = new Details();
+  $details->setShipping(0)
+    ->setTax(0)
+    ->setSubtotal(2);
 
-header("Location: ". $payment->getApprovalLink());
+  $amount = new Amount();
+  $amount->setCurrency('DKK')
+    ->setTotal(2)
+    ->setDetails($details);
+
+  $transaction = new Transaction();
+  $transaction->setAmount($amount)
+    ->setItemList($itemList)
+    ->setDescription('Virker det ?')
+    ->setInvoiceNumber(uniqid());
+
+  $redirectUrls = new RedirectUrls();
+  $redirectUrls->setReturnUrl("http://localhost/Website-2017/index.php?page=Paypalpay&success=true")
+    ->setCancelUrl("http://localhost/Website-2017/index.php?page=Paypalpay&success=false");
+
+  $payment = new Payment();
+  $payment->setIntent('sale')
+    ->setPayer($Payer)
+    ->setRedirectUrls($redirectUrls)
+    ->setTransactions([$transaction]); 
+
+  try{
+    $payment->create($PaypalAPI);
+    echo $payment->getApprovalLink();
+    //header("Location: ". $payment->getApprovalLink());
+  }catch (Exception $ex){
+    die($ex);
+  }
+} // Function end
 
 
+
+PayPalCheckOut($cart,'viker dette med flere dynamiske items');
 ?>
