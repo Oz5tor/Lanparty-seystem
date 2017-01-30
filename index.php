@@ -34,6 +34,9 @@ include_once("Include/DEBUGGIN.php");
     ?>
     <!-- Style override -->
     <link rel="stylesheet" href="Style/hlpf_main.css">
+    <!-- Jquery UI -->
+    <link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/themes/smoothness/jquery-ui.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
     <!-- Seat-chart -->
     <?php
     //if (condition) {
