@@ -35,6 +35,12 @@ elseif (! empty( $page ) ) {
         /*case "Gallery": // not in use yet
             include_once("Include/FBAlbumAPI.php");
             break;*/
+        case "Paypal":
+            include_once("class/PayPalCheckout.php");
+            break;
+        case "Paypal2":
+            include_once("class/PayPalPay.php.php");
+            break;
         case "NewsLetter":
             include_once("ShowNewsLetter.php");
             break;
