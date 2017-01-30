@@ -1,0 +1,39 @@
+div.seatStyle_Crew.available,
+div.seatStyle_Crew.unavailable {
+  color: black;
+  background-color: yellow;
+}
+div.seatStyle_Stage.available,
+div.seatStyle_Stage.unavailable {
+  border-color: grey;
+  background-color: grey;
+  color: grey;
+  cursor: default;
+}
+div.seatStyle_Arkade.available,
+div.seatStyle_Arkade.unavailable {
+  border-color: pink;
+  background-color: pink;
+  color: pink;
+  cursor: default;
+}
+div.seatStyle_Nothing.available,
+div.seatStyle_Nothing.unavailable {
+  border-color: transparent;
+  background-color: transparent;
+  color: transparent;
+  cursor: default;
+}
+div.seatStyle_Kiosk.available,
+div.seatStyle_Kiosk.unavailable {
+  border-color: orange;
+  background-color: orange;
+  color: orange;
+  cursor: default;
+}
+.seatCharts-legendItem div {
+  border: 0px !important;
+}
+div.seatCharts-seat.selected:hover {
+  background-color: #0099FF;
+}

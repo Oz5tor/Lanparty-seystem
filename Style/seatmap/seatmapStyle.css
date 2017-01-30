@@ -1,0 +1,10 @@
+body { margin: 0; }
+#map {
+  border: 4px solid darkgrey;
+  width: auto;
+  height: auto;
+  margin-left: auto;
+  margin-right: auto;
+  position: relative;
+  background-repeat: no-repeat;
+}

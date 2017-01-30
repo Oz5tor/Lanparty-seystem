@@ -2,7 +2,6 @@
 if(isset($_GET['id']) && $_GET['id'] != ''){
   $SeatmapID = $db_conn->real_escape_string($_GET['id']);
 }
-include_once 'class/seatmap.php';
 ?>
 <div class="col-lg-7">
   <!-- Instructions - How to make a seatmap. -->
@@ -51,6 +50,10 @@ include_once 'class/seatmap.php';
 </div>
 <script type="text/javascript">
   function clickMe() {
-    $('#View-seatmap').load('Include/Admin/Seatmap/showseatmap.php', {'generated_seatmap': 'generate-seat-map'})
+    $('#View-seatmap')
+      .load(
+        'Include/Admin/Seatmap/showseatmap.php',
+        {'generated_seatmap': 'kkk______________________________ kkk______________________________ __c__aaaaaaaaaa_aaaaaaaaaa_______ __c__aaaaaaaaaa_aaaaaaaaaa___AAA_ __c__________________________AAA_ __c__aaaaaaaaaa_aaaaaaaaaa___AAA_ __c__aaaaaaaaaa_aaaaaaaaaa___sss_ __c__________________________sss_ __c__aaaaaaaaaa_aaaaaaaaaa___sss_ __c__aaaaaaaaaa_aaaaaaaaaa___sss_ __c__________________________sss_ _cc__aaaaaaaaaa_aaaaaaaaaa___sss_ _cc__aaaaaaaaaa_aaaaaaaaaa___AAA_ _cc__________________________AAA_ _cc__aaaaaaaaaa_aaaaaaaaaa___AAA_ _cc__aaaaaaaaaa_aaaaaaaaaa_______ _cc______________________________'}
+    )
   };
 </script>
