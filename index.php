@@ -19,6 +19,9 @@ include_once("Include/DEBUGGIN.php");
     <title>HLParty <?php if(isset($html_headder_title)){echo '- '.$html_headder_title;} ?></title>
     <link rel="shortcut icon" href="">
     <!-- Stylesheets -->
+    <link rel="stylesheet" type="text/css" href="JS/seat-charts/jquery.seat-charts.css">
+    <link rel="stylesheet" type="text/css" href="Style/seatmap/seatmapStyle.css">
+    <link rel="stylesheet" type="text/css" href="Style/seatmap/hlpf_seatsStyling.css">
     <!-- Font awesome -->
     <link rel="stylesheet" href="Style/font-awesome/css/font-awesome.min.css">
     <!-- Bootstrap -->
@@ -26,10 +29,10 @@ include_once("Include/DEBUGGIN.php");
     <link rel="stylesheet" href="Style/bootstrap-theme.min.css">
     <?php
       if($page == 'Admin'){
-        ?>
+    ?>
     <!-- Bootstrap datetimepicker -->
     <link rel="stylesheet" href="Style/bootstrap-datetimepicker.min.css">
-        <?php
+    <?php
       }
     ?>
     <!-- Style override -->
@@ -37,12 +40,6 @@ include_once("Include/DEBUGGIN.php");
     <!-- Jquery UI -->
     <link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/themes/smoothness/jquery-ui.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
-    <!-- Seat-chart -->
-    <?php
-    //if (condition) {
-    //  echo "<link rel='stylesheet' type='text/css' href='JS/seat-chart/jquery.seat-chart.min.js'>";
-    //}
-    ?>
     <!-- TinyMCE -->
     <script type="text/javascript" src="JS/tinymce/tinymce.min.js"></script>
     <script>
