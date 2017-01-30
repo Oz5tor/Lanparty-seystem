@@ -31,10 +31,5 @@ $(document).ready(function() {
       n: { classes: 'seatStyle_Nothing' }
     }
   });
-  sc.find('A.available').status('unavailable');
-  sc.find('c.available').status('unavailable');
-  sc.find('s.available').status('unavailable');
-  sc.find('n.available').status('unavailable');
-  sc.find('k.available').status('unavailable');
 });
 </script>
