@@ -1,5 +1,3 @@
-
-
 <?php
 // "class/seatmap.php" doesn't work here for some reason.
 include_once '../../../class/seatmap.php';

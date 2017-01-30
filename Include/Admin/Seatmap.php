@@ -14,6 +14,7 @@ if(isset($_GET['id']) && $_GET['id'] != ''){
   <div class="panel-body">
     <ul class="hlpf_admin_seatmap">
       <li><code>a</code> En plads der er tilgængelig / kan købes.</li>
+      <li><code>A</code> Arkade. Spille maskiner og andet.</li>
       <li><code>c</code> En plads der kun er til crew / kan ikke købes.</li>
       <li><code>_</code> Fri rum.</li>
       <li><code>k</code> Kiosk / kantine område.</li>
