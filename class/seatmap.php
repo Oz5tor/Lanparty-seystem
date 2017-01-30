@@ -1,5 +1,7 @@
 <?php
 function seatmap_generation($seatgen_SeatString, $seatgen_Width) {
+
+
   // Convert the $seatgen_SeatString to an array.
   // Each line must be $seatgen_Width long.
   $seatgen_Seats = str_split($seatgen_SeatString, $seatgen_Width);
