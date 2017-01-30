@@ -16,7 +16,7 @@ $item = new Item();
 $item->setName('Kage')
   ->setCurrency('DKK')
   ->setQuantity(1)
-  ->setPrice(200);
+  ->setPrice(2);
 
 $itemList = new ItemList();
 $itemList->setItems([$item]);
@@ -24,11 +24,11 @@ $itemList->setItems([$item]);
 $details = new Details();
 $details->setShipping(0)
   ->setTax(0)
-  ->setSubtotal(200);
+  ->setSubtotal(2);
 
 $amount = new Amount();
 $amount->setCurrency('DKK')
-  ->setTotal(200)
+  ->setTotal(2)
   ->setDetails($details);
 
 $transaction = new Transaction();
@@ -38,8 +38,8 @@ $transaction->setAmount($amount)
   ->setInvoiceNumber(uniqid());
 
 $redirectUrls = new RedirectUrls();
-$redirectUrls->setReturnUrl("http://localhost/Website-2017/index.php?page=Paypal2&success=true")
-  ->setCancelUrl("http://localhost/Website-2017/index.php?page=Paypa2l&success=false");
+$redirectUrls->setReturnUrl("http://localhost/Website-2017/index.php?page=Paypalpay&success=true")
+  ->setCancelUrl("http://localhost/Website-2017/index.php?page=Paypalpay&success=false");
 
 $payment = new Payment();
 $payment->setIntent('sale')
@@ -55,7 +55,6 @@ try{
 //echo '<pre>';
 //echo print_r($payment);
 //echo '</pre>';
-echo B
 
 header("Location: ". $payment->getApprovalLink());
 
