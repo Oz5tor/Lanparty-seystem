@@ -1,5 +1,6 @@
 <?php 
-require 'PayPalSDK/autoload.php';
+require_once 'PayPalSDK/autoload.php';
+require_once 'Include/DBconn.php';
 
 use PayPal\Rest\ApiContext;
 use PayPal\Auth\OAuthTokenCredential;
