@@ -38,8 +38,8 @@ elseif (! empty( $page ) ) {
         case "Paypal":
             include_once("class/PayPalCheckout.php");
             break;
-        case "Paypal2":
-            include_once("class/PayPalPay.php.php");
+        case "Paypalpay":
+            include_once("class/PayPalPay.php");
             break;
         case "NewsLetter":
             include_once("ShowNewsLetter.php");
