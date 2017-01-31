@@ -20,6 +20,11 @@ p {
     background-color: #236ad5;
 }
 
+textarea.hlpf_seatmap-gen {
+  font-family: monospace, Consolas, Monaco, Lucida Console,
+                Liberation Mono, DejaVu Sans Mono,
+                Bitstream Vera Sans Mono, Courier New;
+}
 .hlpf_white_text, .hlpf_white_text ul li a {
     color: white;
 }
