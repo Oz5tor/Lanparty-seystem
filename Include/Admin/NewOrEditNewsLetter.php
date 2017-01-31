@@ -25,16 +25,16 @@ if(isset($_POST['Save'])){
       }// End of Users tehre want news
       // Insert querry
     if($Send != '0'){$Send = time();}
-    $db_conn->query("UPDATE NewsLetter SET Subject = '$Title', Body = '$Body', SentDate = '$Send', Author = '$Aurthor' 
+    $db_conn->query("UPDATE NewsLetter SET Subject = '$Title', Body = '$Body', SentDate = '$Send', Author = '$Aurthor'
                      WHERE LetterID = '$URLID'");
     }// if $Send = 1
     else{
-      $db_conn->query("UPDATE NewsLetter SET Subject = '$Title', Body = '$Body', SentDate = '0', Author = '$Aurthor' 
+      $db_conn->query("UPDATE NewsLetter SET Subject = '$Title', Body = '$Body', SentDate = '0', Author = '$Aurthor'
                      WHERE LetterID = '$URLID'");
     }
-    
+
     // update querry
-    //$db_conn->query("UPDATE NewsLetter SET Subject = '$Title', Body = '$Body', SentDate = '$Send', Author = '$Aurthor' 
+    //$db_conn->query("UPDATE NewsLetter SET Subject = '$Title', Body = '$Body', SentDate = '$Send', Author = '$Aurthor'
       ///               WHERE LetterID = '$URLID'");
     //header("Location: index.php?page=Admin&subpage=NewsLetters");
   }else{
@@ -77,8 +77,8 @@ if(isset($_GET['action']) && ( ($_GET['action'] == 'Edit') || ($_GET['action'] =
   if( ($action == 'Edit') && ($row['SentDate'] > 0) ){
     $LetterExist = 0;
     //echo '<b><p class="text-center"> Det valgte nyheds brev kan ikke redigers, da det er blevet udsendt</p></b>';
-    header("Location: index.php?page=Admin&subpage=NewsLetters#admin_menu"); // back to newsletter list  
-  }else{ 
+    header("Location: index.php?page=Admin&subpage=NewsLetter#admin_menu"); // back to newsletter list
+  }else{
     $LetterExist = 1;
     $Subject  = $row['Subject'];
     $Body     = $row['Body'];
@@ -110,7 +110,7 @@ if( (isset($LetterExist) && $LetterExist == 1) || $action == 'New')
     </tr>
   </table>
 </form>
-<?php 
+<?php
 }
 ?>
 

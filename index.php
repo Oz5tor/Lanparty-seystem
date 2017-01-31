@@ -18,17 +18,29 @@ include_once("Include/DEBUGGIN.php");
     <meta name="author" content="">
     <title>HLParty <?php if(isset($html_headder_title)){echo '- '.$html_headder_title;} ?></title>
     <link rel="shortcut icon" href="">
+    <!-- Stylesheets -->
+    <link rel="stylesheet" type="text/css" href="JS/seat-charts/jquery.seat-charts.css">
+    <link rel="stylesheet" type="text/css" href="Style/seatmap/seatmapStyle.css">
+    <link rel="stylesheet" type="text/css" href="Style/seatmap/hlpf_seatsStyling.css">
+    <!-- Font awesome -->
     <link rel="stylesheet" href="Style/font-awesome/css/font-awesome.min.css">
+    <!-- Bootstrap -->
     <link rel="stylesheet" href="Style/bootstrap.min.css">
     <link rel="stylesheet" href="Style/bootstrap-theme.min.css">
     <?php
       if($page == 'Admin'){
-        ?>
+    ?>
+    <!-- Bootstrap datetimepicker -->
     <link rel="stylesheet" href="Style/bootstrap-datetimepicker.min.css">
-        <?php
+    <?php
       }
     ?>
+    <!-- Style override -->
     <link rel="stylesheet" href="Style/hlpf_main.css">
+    <!-- Jquery UI -->
+    <link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/themes/smoothness/jquery-ui.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
+    <!-- TinyMCE -->
     <script type="text/javascript" src="JS/tinymce/tinymce.min.js"></script>
     <script>
         // Public Editor for use at places like Forum, Profile text and so on.
@@ -55,8 +67,9 @@ include_once("Include/DEBUGGIN.php");
         <script src="https://cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv.min.js"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/respond.js/1.4.2/respond.min.js"></script>
     <![endif]-->
+    <!-- OneAll -->
     <script type="text/javascript">
-        /* Replace #your_subdomain# by the subdomain of a Site in your OneAll account */    
+        /* Replace #your_subdomain# by the subdomain of a Site in your OneAll account */
         var oneall_subdomain = 'hlpartyjoomla';
         /* The library is loaded asynchronously */
         var oa = document.createElement('script');
@@ -67,6 +80,7 @@ include_once("Include/DEBUGGIN.php");
     </script>
 </head>
 <body>
+    <script src="JS/Jquery/jquery.min.js"></script>
     <!-- Facebook scocial like code prep start -->
     <div id="fb-root"></div>
     <script>(function(d, s, id) {
@@ -104,9 +118,8 @@ include_once("Include/DEBUGGIN.php");
     <!-- Footer start -->
     <?php require_once("Include/Footer.php"); ?>
     <!-- Footer end -->
-    <script src="JS/Jquery/jquery.min.js"></script>
     <script src="JS/Bootstrap/bootstrap.min.js"></script>
-    <?php 
+    <?php
       if($page == 'Admin'){
         ?>
     <script src="JS/Bootstrap/bootstrap-datetimepicker.js"></script>

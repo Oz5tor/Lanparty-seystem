@@ -20,6 +20,11 @@ p {
     background-color: #236ad5;
 }
 
+textarea.hlpf_seatmap-gen {
+  font-family: monospace, Consolas, Monaco, Lucida Console,
+                Liberation Mono, DejaVu Sans Mono,
+                Bitstream Vera Sans Mono, Courier New;
+}
 .hlpf_white_text, .hlpf_white_text ul li a {
     color: white;
 }
@@ -29,7 +34,6 @@ p {
 }
 
 .hlpf_news {
-    
     overflow-x: none;
     min-height: 222px;
     word-wrap: break-word;
@@ -42,7 +46,6 @@ p {
     padding-top: 10px;
     padding-bottom: 10px;
 }
-
 .hlpf_adminmenu {
     overflow-y: auto;
 }
@@ -119,6 +122,11 @@ hr {
     min-height: 22px;
 }
 
+.hlpf_admin_seatmap {
+    list-style: none;
+    -webkit-padding-start: 15px;
+}
+
 /* Nav drop down mouse over when on desktop  */
 @media (min-width:767px) {
     .dropdown:hover .dropdown-menu {
@@ -131,7 +139,7 @@ hr {
     background-color: #337ab7;
 }
 
-/* Til admin side. Se menuen.*/
+/* For admin menu. */
 .list-group .list-group-item {
     margin-bottom: 4px;
 }
