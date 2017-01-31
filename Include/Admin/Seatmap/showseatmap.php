@@ -3,21 +3,25 @@
 include_once '../../../class/seatmap.php';
 // Check if anything has been send
 if (!empty($_REQUEST['generated_seatmap'])) {
-  // Something has been send, let's do some magic!
-
-  // (Could be updated...) Split every line into an array.
-  $splitedString = preg_split('/[\s\n\r]+/', $_REQUEST['generated_seatmap']);
-  // Set the width to be the length of the first line.
-  $width = strlen($splitedString[0]);
-  // Garbage collection.
-  unset($splitedString);
-  // Remove all whitespace and newlines.
-  $fullString = trim(preg_replace('/\s+/', '', $_REQUEST['generated_seatmap']));
+// Something has been send, let's do some magic!
+  $request = $_REQUEST['generated_seatmap'];
+  if (ctype_digit(strval($request))) {
+    $ID = $db_conn->real_escape_string($_REQUEST['generated_seatmap']);
+  } else {
+    // (Could be updated...) Split every line into an array.
+    $splitedString = preg_split('/[\s\n\r]+/', $_REQUEST['generated_seatmap']);
+    // Set the width to be the length of the first line.
+    $width = strlen($splitedString[0]);
+    // Garbage collection.
+    unset($splitedString);
+    // Remove all whitespace and newlines.
+    $fullString = trim(preg_replace('/\s+/', '', $_REQUEST['generated_seatmap']));
+  }
   // We know that SOMETHING has happen, so let's tell the user about
   // it.
   echo "<h1>Preview</h1>";
 } else {
-  // If nothing has been send, kill.
+// If nothing has been send, kill.
   echo "<strong>Error in generation. No map found in \$_REQUEST</strong>";
   exit(0);
 }
