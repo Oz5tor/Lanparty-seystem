@@ -8,61 +8,65 @@ use PayPal\Api\ItemList;
 use PayPal\Api\Transaction;
 use PayPal\Api\RedirectUrls;
 
-$tempItem = array();
-$tempItem2 = array();
-$cart = array();
+## =============== Defined set of values on a item ==========
+#$tempItem = array();
+#$tempItem['Name']     = 'Billet';
+#$tempItem['Currency'] = 'DKK';
+#$tempItem['Quantity'] = '1';
+#$tempItem['Price']    = '200';
+#$tempItem['Desc']    = 'Plads Billet grgergergergreg ergegerg erg erger ge r';
+## ======== Add item or items to cart there will be used in the function ==========
+#$cart = array();
+#$cart[] = $tempItem;
+# == Call of the funtions looks like this and req the checkout cart and a description
+#PayPalCheckOut($cart,'Kage', $db_conn, 'index.php');
 
-$tempItem['Name']     = 'Billet';
-$tempItem['Currency'] = 'DKK';
-$tempItem['Quantity'] = '1';
-$tempItem['Price']    = '5';
-
-$tempItem2['Name']     = 'Morgenmad';
-$tempItem2['Currency'] = 'DKK';
-$tempItem2['Quantity'] = '1';
-$tempItem2['Price']    = '2';
-
-$cart[] = $tempItem;
-$cart[] = $tempItem2;
-
-echo '<pre>';
-echo print_r($cart);
-echo '</pre>';
-
-function PayPalCheckOut($Cart,$description){
-  
+function PayPalCheckOut($Cart,$description,$DBCONN, $returnto){
+  // get the basic paypal api config and DBconn.php
   require_once("class/PayPalConfig.php");
+  
+  $total = 0;
+  // get the total price
+  $tempcounter = 0;
+  $items = array();
+  foreach($Cart as $val){
+    $total += $val['Price'] * $val['Quantity'];
+    $item[$tempcounter] = new Item();
+    $item[$tempcounter]->setName($val['Name'])
+      ->setDescription($val['Desc'])
+      ->setCurrency($val['Currency'])
+      ->setQuantity($val['Quantity'])
+      ->setPrice($val['Price']);
+    $items[] = $item[$tempcounter];
+    $tempcounter++;
+  }
   
   $Payer = new Payer();
   $Payer->setPaymentMethod('paypal');
 
-  $item = new Item();
-  $item->setName('Kage')
-    ->setCurrency('DKK')
-    ->setQuantity(1)
-    ->setPrice(2);
-
+  // insert of items into a itemlist object
   $itemList = new ItemList();
-  $itemList->setItems([$item]);
+  $itemList->setItems($items);
 
-  $details = new Details();
+  $details = new Details(); // Lucky we dont use any tax or shipping for Lan Tickets
   $details->setShipping(0)
     ->setTax(0)
-    ->setSubtotal(2);
+    ->setSubtotal($total);
 
   $amount = new Amount();
   $amount->setCurrency('DKK')
-    ->setTotal(2)
+    ->setTotal($total) // Lucky we dont use any tax or shipping for Lan Tickets
     ->setDetails($details);
 
+  $invoiceid = uniqid();
   $transaction = new Transaction();
   $transaction->setAmount($amount)
     ->setItemList($itemList)
-    ->setDescription('Virker det ?')
-    ->setInvoiceNumber(uniqid());
+    ->setDescription($description)
+    ->setInvoiceNumber($invoiceid);
 
   $redirectUrls = new RedirectUrls();
-  $redirectUrls->setReturnUrl("http://localhost/Website-2017/index.php?page=Paypalpay&success=true")
+  $redirectUrls->setReturnUrl("http://localhost/Website-2017/index.php?page=Paypalpay&success=true&returnto=$returnto")
     ->setCancelUrl("http://localhost/Website-2017/index.php?page=Paypalpay&success=false");
 
   $payment = new Payment();
@@ -72,15 +76,24 @@ function PayPalCheckOut($Cart,$description){
     ->setTransactions([$transaction]); 
 
   try{
-    $payment->create($PaypalAPI);
-    echo $payment->getApprovalLink();
-    //header("Location: ". $payment->getApprovalLink());
+    $payment->create($PaypalAPI); // opret PayPal payment URL
+    
+    $paymentID = $payment->id;
+    // transaction code = $invoiceid;
+    $tempUser = $_SESSION['UserID'];
+    //require_once 'Include/DBconn.php';
+    $DBCONN->query("INSERT INTO Transactions_PayPal 
+                      (UserID,TransactionCode, Completed, PaymentID, CompletedTime)
+                      VALUES
+                      ('$tempUser','$invoiceid','0','$paymentID','NULL')");
+    
+    
+    //echo $payment->getApprovalLink();
+    header("Location: ". $payment->getApprovalLink());
   }catch (Exception $ex){
-    die($ex);
+    echo '<pre>';
+    var_dump($ex);
+    echo '</pre>';
   }
 } // Function end
-
-
-
-PayPalCheckOut($cart,'viker dette med flere dynamiske items');
 ?>
