@@ -14,11 +14,11 @@ if(isset($_GET['id']) && $_GET['id'] != ''){
   <div class="panel-body">
     <ul class="hlpf_admin_seatmap">
       <li><code>a</code> En plads der er tilgængelig / kan købes.</li>
-      <li><code>A</code> Arkade. Spille maskiner og andet.</li>
       <li><code>c</code> En plads der kun er til crew / kan ikke købes.</li>
-      <li><code>_</code> Fri rum.</li>
       <li><code>k</code> Kiosk / kantine område.</li>
+      <li><code>A</code> Arkade. Spille maskiner og andet.</li>
       <li><code>s</code> Scene / Podie.</li>
+      <li><code>_</code> Fri rum.</li>
     </ul>
   </div>
 </div>
@@ -38,12 +38,12 @@ if(isset($_GET['id']) && $_GET['id'] != ''){
           $correction += 1;
         }
         echo $SeatString;
-        unset($correction, $aSeatString, $result, $row); // Quick garbage colletion...
+        unset($correction, $SeatString, $result, $row); // Quick garbage colletion...
       }
     }
     ?></textarea>
     <br>
-    <button class="btn btn-primary" onclick="clickMe()">Generate</button>
+    <button class="btn btn-primary" onclick="clickMe()">Preview</button>
 </div>
 <!-- Find a way to show seatmap here! -->
 <div class="col-lg-12">
@@ -51,10 +51,11 @@ if(isset($_GET['id']) && $_GET['id'] != ''){
 </div>
 <script type="text/javascript">
   function clickMe() {
+    $('')
     $('#View-seatmap')
       .load(
         'Include/Admin/Seatmap/showseatmap.php',
-        {'generated_seatmap': 'kkk______________________________ kkk______________________________ __c__aaaaaaaaaa_aaaaaaaaaa_______ __c__aaaaaaaaaa_aaaaaaaaaa___AAA_ __c__________________________AAA_ __c__aaaaaaaaaa_aaaaaaaaaa___AAA_ __c__aaaaaaaaaa_aaaaaaaaaa___sss_ __c__________________________sss_ __c__aaaaaaaaaa_aaaaaaaaaa___sss_ __c__aaaaaaaaaa_aaaaaaaaaa___sss_ __c__________________________sss_ _cc__aaaaaaaaaa_aaaaaaaaaa___sss_ _cc__aaaaaaaaaa_aaaaaaaaaa___AAA_ _cc__________________________AAA_ _cc__aaaaaaaaaa_aaaaaaaaaa___AAA_ _cc__aaaaaaaaaa_aaaaaaaaaa_______ _cc______________________________'}
+        {'generated_seatmap': document.getElementById('generate-seat-map').value }
     )
   };
 </script>
