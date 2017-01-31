@@ -19,7 +19,6 @@ else{
   if(isset($_GET['token'])){ $token = $db_conn->real_escape_string($_GET['token']);}
   else{ $erro = true;}
   
-  
   if($erro === false){// extra check end
     $payment = Payment::get($paymentId, $PaypalAPI);
     $execute = new PaymentExecution();
@@ -27,11 +26,8 @@ else{
 
     try{
       $result = $payment->execute($execute,$PaypalAPI);
-
       $completedTime = time();
       $paymenySessionID = $result->id;
-
-
       $db_conn->query("UPDATE Transactions_PayPal 
                         SET Completed = '1', CompletedTime = '$completedTime'
                         WHERE PaymentID = '$paymenySessionID'");
