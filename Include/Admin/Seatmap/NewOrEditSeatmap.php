@@ -1,16 +1,27 @@
 <?php
 if(!isset($action)) { header("Include/Admin/index.php"); }
-if(isset($_GET['id']) && $_GET['id'] != ''){ $SeatmapID = $db_conn->real_escape_string($_GET['id']); }
-if(!empty($_POST) AND isset($SeatmapID)) {
-  if(isset($action) AND $action == "Edit" AND isset($SeatmapID)) {
-    $query = "UPDATE `hlparty`.`Seatmap`
-              SET `Seatmap`.`SeatString` = $fullString,
-                  `Seatmap`.`Width` = $width,
-                  `Seatmap`.`Seats` = $availableSeats,
-                  `Seatmap`.`CrewSeats` = $crewSeats
-              WHERE `Seatmap`.`SeatmapID` = $SeatmapID;";
-  } elseif (isset($action) AND $action == "Edit") {
+if(isset($_GET['id']) && $_GET['id'] != '') {
+  $SeatmapID = $db_conn->real_escape_string($_GET['id']);
+}
+if(!empty($_POST)) {
+  $fullString = trim(preg_replace('/\s+/', '', $_POST['generate-seat-map']));
+  $width = strlen(preg_split('/\s+/', $_POST['generate-seat-map'])[0]);
+  $availableSeats = preg_match_all('/(a)/', $fullString);
+  $crewSeats = preg_match_all('/(c)/', $fullString);
 
+  if(isset($action) AND $action == "Edit") {
+    $query = "UPDATE hlparty.Seatmap
+        SET Seatmap.SeatString = ".$fullString.", Seatmap.Width = ".$width.",
+            Seatmap.Seats = ".$availableSeats.", Seatmap.CrewSeats = ".$crewSeats."
+        WHERE Seatmap.SeatmapID = ".$SeatmapID.";";
+  } elseif (isset($action) AND $action == "New") {
+    $query = "INSERT INTO  hlparty.Seatmap (
+        Width, SeatString,
+        Seats, CrewSeats
+        ) VALUES (
+          '".$width."',  '".$fullString."',
+          '".$availableSeats."',  '".$crewSeats."'
+        );";
   }
   $db_conn->query($query);
 }
@@ -41,7 +52,7 @@ if(!empty($_POST) AND isset($SeatmapID)) {
     // If editing, show this
     echo "<h3>Ændre seatmap med ID: $SeatmapID</h3>";
   } else { echo "<h3>Nyt seatmap</h3>"; } ?>
-  <form>
+  <form action="" method="POST">
     <textarea id="generate-seat-map" class="hlpf_seatmap-gen" name="generate-seat-map" rows="10" cols="50" autofocus><?php // Keep this PHP-tag close to the textarea!
     if ($action == "Edit" AND !empty($SeatmapID)) {
       // If we are editing a seatmap...
