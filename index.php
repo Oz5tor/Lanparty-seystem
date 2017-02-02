@@ -20,7 +20,6 @@ include_once("Include/DEBUGGIN.php");
     <link rel="shortcut icon" href="">
     <!-- Stylesheets -->
     <link rel="stylesheet" type="text/css" href="JS/seat-charts/jquery.seat-charts.css">
-    <link rel="stylesheet" type="text/css" href="Style/seatmap/seatmapStyle.css">
     <link rel="stylesheet" type="text/css" href="Style/seatmap/hlpf_seatsStyling.css">
     <!-- Font awesome -->
     <link rel="stylesheet" href="Style/font-awesome/css/font-awesome.min.css">
@@ -37,9 +36,6 @@ include_once("Include/DEBUGGIN.php");
     ?>
     <!-- Style override -->
     <link rel="stylesheet" href="Style/hlpf_main.css">
-    <!-- Jquery UI -->
-    <link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/themes/smoothness/jquery-ui.css">
-    <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
     <!-- TinyMCE -->
     <script type="text/javascript" src="JS/tinymce/tinymce.min.js"></script>
     <script>
@@ -81,7 +77,10 @@ include_once("Include/DEBUGGIN.php");
 </head>
 <body>
     <script src="JS/Jquery/jquery.min.js"></script>
-    <!-- Facebook scocial like code prep start -->
+    <!-- jQuery UI -->
+    <link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/themes/smoothness/jquery-ui.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
+    <!-- Facebook scocial like code prep start
     <div id="fb-root"></div>
     <script>(function(d, s, id) {
       var js, fjs = d.getElementsByTagName(s)[0];
@@ -90,7 +89,7 @@ include_once("Include/DEBUGGIN.php");
       js.src = "//connect.facebook.net/da_DK/sdk.js#xfbml=1&version=v2.7&appId=1480239178911395";
       fjs.parentNode.insertBefore(js, fjs);
     }(document, 'script', 'facebook-jssdk'));</script>
-    <!-- Facebook scocial like code prep end -->
+    Facebook scocial like code prep end -->
     <!-- Slider start -->
     <div class="hlpf_no_margin_padding hidden-xs container-fluid">
        <img src="Images/image-slider-5.jpg" class="img-responsive center-block" >
