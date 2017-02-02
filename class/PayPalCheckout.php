@@ -19,9 +19,9 @@ use PayPal\Api\RedirectUrls;
 #$cart = array();
 #$cart[] = $tempItem;
 # == Call of the funtions looks like this and req the checkout cart and a description
-#PayPalCheckOut($cart,'Kage', $db_conn, 'index.php');
+#PayPalCheckOut($cart,'Kage', $db_conn, 'index.php', $invoiceID);
 
-function PayPalCheckOut($Cart,$description,$DBCONN, $returnto){
+function PayPalCheckOut($Cart,$description,$DBCONN, $returnto ,$invoiceID){
   // get the basic paypal api config and DBconn.php
   require_once("class/PayPalConfig.php");
   
@@ -58,12 +58,12 @@ function PayPalCheckOut($Cart,$description,$DBCONN, $returnto){
     ->setTotal($total) // Lucky we dont use any tax or shipping for Lan Tickets
     ->setDetails($details);
 
-  $invoiceid = uniqid();
+  
   $transaction = new Transaction();
   $transaction->setAmount($amount)
     ->setItemList($itemList)
     ->setDescription($description)
-    ->setInvoiceNumber($invoiceid);
+    ->setInvoiceNumber($invoiceID);
 
   $redirectUrls = new RedirectUrls();
   $redirectUrls->setReturnUrl("http://localhost/Website-2017/index.php?page=Paypalpay&success=true&returnto=$returnto")
