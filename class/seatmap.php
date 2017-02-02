@@ -26,7 +26,7 @@ function seatmap_generation($seatgen_SeatString, $seatgen_Width) {
     echo "'";
     // Loop through all charactors in the line.
     for ($seatgen_j=0; $seatgen_j < strlen($seatgen_Seats[$seatgen_i]); $seatgen_j++) {
-      // If the current character is an underscore, just echo it.
+      // If the current character is one of these, just echo it.
       if ( (substr($seatgen_Seats[$seatgen_i], $seatgen_j, 1) == "_") ||
            (substr($seatgen_Seats[$seatgen_i], $seatgen_j, 1) == "n") ||
            (substr($seatgen_Seats[$seatgen_i], $seatgen_j, 1) == "k") ||
