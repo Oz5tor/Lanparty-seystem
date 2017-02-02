@@ -24,6 +24,7 @@ if(!empty($_POST)) {
         );";
   }
   $db_conn->query($query);
+  header("Location: index.php?page=Admin&subpage=Seatmap");
 }
 ?>
 <div class="col-lg-7">
