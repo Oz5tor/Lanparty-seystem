@@ -1,6 +1,18 @@
 <?php
-if(isset($_GET['id']) && $_GET['id'] != ''){
-  $SeatmapID = $db_conn->real_escape_string($_GET['id']);
+if(!isset($action)) { header("Include/Admin/index.php"); }
+if(isset($_GET['id']) && $_GET['id'] != ''){ $SeatmapID = $db_conn->real_escape_string($_GET['id']); }
+if(!empty($_POST) AND isset($SeatmapID)) {
+  if(isset($action) AND $action == "Edit" AND isset($SeatmapID)) {
+    $query = "UPDATE `hlparty`.`Seatmap`
+              SET `Seatmap`.`SeatString` = $fullString,
+                  `Seatmap`.`Width` = $width,
+                  `Seatmap`.`Seats` = $availableSeats,
+                  `Seatmap`.`CrewSeats` = $crewSeats
+              WHERE `Seatmap`.`SeatmapID` = $SeatmapID;";
+  } elseif (isset($action) AND $action == "Edit") {
+
+  }
+  $db_conn->query($query);
 }
 ?>
 <div class="col-lg-7">
@@ -25,8 +37,12 @@ if(isset($_GET['id']) && $_GET['id'] != ''){
 <p><small>Note: Alle linjer skal have samme længde! Fyld resten af en linje med <code>_</code> hvis det er nødvendigt.</small></p>
 </div>
 <div class="form-group col-lg-5">
-  <h3>Seatmap</h3>
-  <textarea id="generate-seat-map" class="hlpf_seatmap-gen" name="generate-seat-map" rows="8" cols="50" autofocus><?php // Keep this tag close to the textarea!
+  <?php if (isset($action) AND $action == "Edit" AND isset($SeatmapID)){
+    // If editing, show this
+    echo "<h3>Ændre seatmap med ID: $SeatmapID</h3>";
+  } else { echo "<h3>Nyt seatmap</h3>"; } ?>
+  <form>
+    <textarea id="generate-seat-map" class="hlpf_seatmap-gen" name="generate-seat-map" rows="10" cols="50" autofocus><?php // Keep this PHP-tag close to the textarea!
     if ($action == "Edit" AND !empty($SeatmapID)) {
       // If we are editing a seatmap...
       $result = $db_conn->query("SELECT * FROM Seatmap WHERE SeatmapID = $SeatmapID");
@@ -48,10 +64,11 @@ if(isset($_GET['id']) && $_GET['id'] != ''){
     }
     ?></textarea>
     <br>
-    <button class="btn btn-primary" onclick="generatePreview()">Preview</button>
-    <button class="btn btn-primary" onclick="saveMe()">Save</button>
+    <a class="btn btn-primary" onclick="generatePreview()">Preview</a>
+    <button class="btn btn-primary" type="submit">Save</button>
+  </form>
 </div>
-<!-- Find a way to show seatmap here! -->
+<script src="JS/seat-charts/jquery.seat-charts.min.js"></script>
 <div class="col-lg-12" id="View-seatmap"></div>
 <script type="text/javascript">
   function generatePreview() {
@@ -63,16 +80,5 @@ if(isset($_GET['id']) && $_GET['id'] != ''){
         // Grab this with $_REQUEST['generated_seatmap']
         {'generated_seatmap': document.getElementById('generate-seat-map').value }
     )
-  };
-
-  function saveMe() {
-    // On the ID "View-seatmap": load 'page', 'data':'someDataHere'
-    $('#View-seatmap')
-      .load(
-        'Include/Admin/Seatmap/NewOrEditSeatmap.php',
-        // Send some data with the loader, called "generated_seatmap".
-        // Grab this with $_REQUEST['generated_seatmap']
-        { 'generated_seatmap': document.getElementById('generate-seat-map').value }
-    )
-  };
+  }
 </script>

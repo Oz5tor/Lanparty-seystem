@@ -1,7 +1,11 @@
 <?php
-  $result = $db_conn->query("SELECT * FROM Seatmap");
+  if ( isset($action) AND $action == "Edit" OR $action == "New" ) {
+    include 'Seatmap/NewOrEditSeatmap.php';
+  } else {
+    $result = $db_conn->query("SELECT * FROM Seatmap");
 ?>
-
+<a style="display:block;" href="?page=Admin&subpage=Seatmap&action=New" alt="Nyt seatmap" type="button" class="btn btn-info">Nyt Seatmap</a>
+<hr>
 <table class="table table-striped table-condensed table-hover hlpf_adminmenu">
   <thead>
     <tr>
@@ -26,13 +30,17 @@
       echo preg_match_all('/(c)/', $row['SeatString']);
       ?>
       </td>
-      <td class="text-center"><button style="width:auto;" class="btn btn-info" onclick="generatePreview(this)" value="<?php echo $row['SeatmapID']?> ">Preview</button></td>
-      <td class="text-center"><a style="display:block;" href="?page=Admin&subpage=Seatmap&action=Edit&id='.$row['SeatmapID'].'" alt="Redigér seatmap" type="button" class="btn btn-success">Redigér</a></td>
+      <td class="text-center">
+        <button style="width:auto;" class="btn btn-info" onclick="generatePreview(this)" value="<?php echo $row['SeatmapID']?>">Preview</button>
+      </td>
+      <td class="text-center">
+        <a style="display:block;" href='?page=Admin&subpage=Seatmap&action=Edit&id=<?php echo $row['SeatmapID']?>' alt="Redigér seatmap" type="button" class="btn btn-success">Redigér</a>
+      </td>
     </tr>
   <?php } ?>
   </tbody>
 </table>
-
+<script src="JS/seat-charts/jquery.seat-charts.min.js"></script>
 <div class="col-lg-12" id="View-seatmap"></div>
 <script type="text/javascript">
   function generatePreview(objectButton) {
@@ -46,3 +54,4 @@
     )
   };
 </script>
+<?php } ?>
