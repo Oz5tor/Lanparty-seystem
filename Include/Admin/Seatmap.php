@@ -1,61 +1,57 @@
 <?php
-if(isset($_GET['id']) && $_GET['id'] != ''){
-  $SeatmapID = $db_conn->real_escape_string($_GET['id']);
-}
+  if ( isset($action) AND $action == "Edit" OR $action == "New" ) {
+    include 'Seatmap/NewOrEditSeatmap.php';
+  } else {
+    $result = $db_conn->query("SELECT * FROM Seatmap");
 ?>
-<div class="col-lg-7">
-  <!-- Instructions - How to make a seatmap. -->
-  <h3>Instruktioner</h3>
-  <p>Lav et seatmap ved at skrive nedenstående betegnelser i boksen til højre.</p>
-  <div class="panel panel-primary">
-  <div class="panel-heading">
-    <h3 class="panel-title">Betegnelser</h3>
-  </div>
-  <div class="panel-body">
-    <ul class="hlpf_admin_seatmap">
-      <li><code>a</code> En plads der er tilgængelig / kan købes.</li>
-      <li><code>c</code> En plads der kun er til crew / kan ikke købes.</li>
-      <li><code>k</code> Kiosk / kantine område.</li>
-      <li><code>A</code> Arkade. Spille maskiner og andet.</li>
-      <li><code>s</code> Scene / Podie.</li>
-      <li><code>_</code> Fri rum.</li>
-    </ul>
-  </div>
-</div>
-<p><small>Note: Alle linjer skal have samme længde! Fyld resten af en linje med <code>_</code> hvis det er nødvendigt.</small></p>
-</div>
-<div class="form-group col-lg-5">
-  <h3>Seatmap</h3>
-  <textarea id="generate-seat-map" class="hlpf_seatmap-gen" name="generate-seat-map" rows="8" cols="50" autofocus><?php // Keep this tag close to the textarea!
-    if ($action == "Edit" AND !empty($SeatmapID)) {
-      $result = $db_conn->query("SELECT * FROM Seatmap WHERE SeatmapID = $SeatmapID");
-      if (!empty($result)) {
-        $row = $result->fetch_assoc();
-        $SeatString = $row['SeatString'];
-        $correction = 0;
-        for ($i=$row['Width']; $i < strlen($SeatString); $i += $row['Width']) {
-          $SeatString = substr_replace($SeatString, "\n", $i+$correction, 0);
-          $correction += 1;
-        }
-        echo $SeatString;
-        unset($correction, $SeatString, $result, $row); // Quick garbage colletion...
-      }
-    }
-    ?></textarea>
-    <br>
-    <button class="btn btn-primary" onclick="clickMe()">Preview</button>
-</div>
-<!-- Find a way to show seatmap here! -->
-<div class="col-lg-12">
-  <div id="View-seatmap"></div>
-</div>
+<a style="display:block;" href="?page=Admin&subpage=Seatmap&action=New" alt="Nyt seatmap" type="button" class="btn btn-info">Nyt Seatmap</a>
+<hr>
+<table class="table table-striped table-condensed table-hover hlpf_adminmenu">
+  <thead>
+    <tr>
+      <th class="text-center">ID</th>
+      <th class="text-center">Antal pladser</th>
+      <th class="text-center">Crew pladser</th>
+      <th class="text-center">Preview</th>
+      <th class="text-center">Edit</th>
+    </tr>
+  </thead>
+  <tbody>
+  <?php while ($row = $result->fetch_assoc()) { ?>
+    <tr>
+      <td class="text-center"><?php echo $row['SeatmapID'] ?></td>
+      <td class="text-center">
+      <?php
+      echo preg_match_all('/(a)/', $row['SeatString']);
+      ?>
+      </td>
+      <td class="text-center">
+      <?php
+      echo preg_match_all('/(c)/', $row['SeatString']);
+      ?>
+      </td>
+      <td class="text-center">
+        <button style="width:auto;" class="btn btn-info" onclick="generatePreview(this)" value="<?php echo $row['SeatmapID']?>">Preview</button>
+      </td>
+      <td class="text-center">
+        <a style="display:block;" href='?page=Admin&subpage=Seatmap&action=Edit&id=<?php echo $row['SeatmapID']?>' alt="Redigér seatmap" type="button" class="btn btn-success">Redigér</a>
+      </td>
+    </tr>
+  <?php } ?>
+  </tbody>
+</table>
+<script src="JS/seat-charts/jquery.seat-charts.min.js"></script>
+<div class="col-lg-12" id="View-seatmap"></div>
 <script type="text/javascript">
-  function clickMe() {
-    $('')
+  function generatePreview(objectButton) {
+    // On the ID "View-seatmap": load 'page', 'data':'someDataHere'
     $('#View-seatmap')
       .load(
         'Include/Admin/Seatmap/showseatmap.php',
-        {'generated_seatmap': document.getElementById('generate-seat-map').value }
+        // Send some data with the loader, called "generated_seatmap".
+        // Grab this with $_REQUEST['generated_seatmap']
+        {'generated_seatmap': objectButton.value }
     )
   };
 </script>
+<?php } ?>
