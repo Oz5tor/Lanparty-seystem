@@ -10,6 +10,7 @@
   <thead>
     <tr>
       <th class="text-center">ID</th>
+      <th class="text-center">Navn</th>
       <th class="text-center">Antal pladser</th>
       <th class="text-center">Crew pladser</th>
       <th class="text-center">Eksempel</th>
@@ -21,6 +22,7 @@
   <?php while ($row = $result->fetch_assoc()) { ?>
     <tr>
       <td class="text-center"><?php echo $row['SeatmapID'] ?></td>
+      <td class="text-center"><?php echo $row['Name'] ?></td>
       <td class="text-center">
       <?php
       echo $row['Seats'];
