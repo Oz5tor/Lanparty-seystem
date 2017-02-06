@@ -39,6 +39,9 @@
       <td class="text-center">
         <a style="display:block;" href='?page=Admin&subpage=Seatmap&action=Edit&id=<?php echo $row['SeatmapID']?>' alt="Redigér seatmap" type="button" class="btn btn-success">Redigér</a>
       </td>
+      <td class="text-center">
+        <a style="display:block;" href='?page=Admin&subpage=Seatmap&action=Delete&id=<?php echo $row['SeatmapID']?>' alt="Slet seatmap" type="button" class="btn btn-danger">Slet</a>
+      </td>
     </tr>
   <?php } ?>
   </tbody>
