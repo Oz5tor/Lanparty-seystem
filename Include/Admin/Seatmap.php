@@ -12,8 +12,9 @@
       <th class="text-center">ID</th>
       <th class="text-center">Antal pladser</th>
       <th class="text-center">Crew pladser</th>
-      <th class="text-center">Preview</th>
+      <th class="text-center">Eksempel</th>
       <th class="text-center">Edit</th>
+      <th class="text-center">Slet</th>
     </tr>
   </thead>
   <tbody>
@@ -22,16 +23,16 @@
       <td class="text-center"><?php echo $row['SeatmapID'] ?></td>
       <td class="text-center">
       <?php
-      echo preg_match_all('/(a)/', $row['SeatString']);
+      echo $row['Seats'];
       ?>
       </td>
       <td class="text-center">
       <?php
-      echo preg_match_all('/(c)/', $row['SeatString']);
+      echo $row['CrewSeats'];
       ?>
       </td>
       <td class="text-center">
-        <button style="width:auto;" class="btn btn-info" onclick="generatePreview(this)" value="<?php echo $row['SeatmapID']?>">Preview</button>
+        <button style="width:auto;" class="btn btn-info" onclick="generatePreview(this)" value="<?php echo $row['SeatmapID']?>">Se seatmap</button>
       </td>
       <td class="text-center">
         <a style="display:block;" href='?page=Admin&subpage=Seatmap&action=Edit&id=<?php echo $row['SeatmapID']?>' alt="Redigér seatmap" type="button" class="btn btn-success">Redigér</a>
