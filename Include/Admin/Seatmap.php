@@ -4,7 +4,8 @@
   } else {
     $result = $db_conn->query("SELECT * FROM Seatmap");
 ?>
-<a style="display:block;" href="?page=Admin&subpage=Seatmap&action=New" alt="Nyt seatmap" type="button" class="btn btn-info">Nyt Seatmap</a>
+<a style="display:block;" href="?page=Admin&subpage=Seatmap&action=New" alt="Nyt seatmap"
+      type="button" class="btn btn-info">Nyt Seatmap</a>
 <hr>
 <table class="table table-striped table-condensed table-hover hlpf_adminmenu">
   <thead>
@@ -23,24 +24,22 @@
     <tr>
       <td class="text-center"><?php echo $row['SeatmapID'] ?></td>
       <td class="text-center"><?php echo $row['Name'] ?></td>
+      <td class="text-center"><?php echo $row['Seats']; ?></td>
+      <td class="text-center"><?php echo $row['CrewSeats']; ?></td>
       <td class="text-center">
-      <?php
-      echo $row['Seats'];
-      ?>
+        <button style="width:auto;" class="btn btn-primary"
+              onclick="generatePreview(this)"
+              value="<?php echo $row['SeatmapID']?>">Se seatmap</button>
       </td>
       <td class="text-center">
-      <?php
-      echo $row['CrewSeats'];
-      ?>
+        <a style="display:block;" href='?page=Admin&subpage=Seatmap&action=Edit&id=<?php
+              echo $row['SeatmapID']?>' alt="Redigér seatmap" type="button"
+              class="btn btn-success">Redigér</a>
       </td>
       <td class="text-center">
-        <button style="width:auto;" class="btn btn-info" onclick="generatePreview(this)" value="<?php echo $row['SeatmapID']?>">Se seatmap</button>
-      </td>
-      <td class="text-center">
-        <a style="display:block;" href='?page=Admin&subpage=Seatmap&action=Edit&id=<?php echo $row['SeatmapID']?>' alt="Redigér seatmap" type="button" class="btn btn-success">Redigér</a>
-      </td>
-      <td class="text-center">
-        <a style="display:block;" href='?page=Admin&subpage=Seatmap&action=Delete&id=<?php echo $row['SeatmapID']?>' alt="Slet seatmap" type="button" class="btn btn-danger">Slet</a>
+        <a style="display:block;" href='?page=Admin&subpage=Seatmap&action=Delete&id=<?php
+              echo $row['SeatmapID']?>' alt="Slet seatmap" type="button"
+              class="btn btn-danger">Slet</a>
       </td>
     </tr>
   <?php } ?>

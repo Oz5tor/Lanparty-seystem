@@ -25,6 +25,7 @@ if(!empty($_POST)) {
         );";
   }
   $db_conn->query($query);
+  header("Location: index.php?page=Admin&subpage=Seatmap");
 }
 ?>
 <div class="col-lg-7">
@@ -79,11 +80,17 @@ if(!empty($_POST)) {
     </div>
     <div class="form-group">
       <input type="text" class="form-control" id="SeatmapName" name="SeatmapName"
-            placeholder="Navn til seatmap" value="<?php echo $row['Name'] ?>">
+            placeholder="Navn til seatmap" value="<?php if (isset($row['Name'])) {
+              echo $row['Name']; } ?>">
     </div>
     <div class="form-group">
       <a class="btn btn-primary" onclick="generatePreview()">Preview</a>
-      <button class="btn btn-primary" type="submit">Save</button>
+      <?php if (isset($row['SeatmapID'])) { ?>
+      <button class="btn btn-primary" type="submit">Gem som ID
+        <?php echo $row['SeatmapID'] ?></button>
+      <?php } else { ?>
+      <button class="btn btn-primary" type="submit">Gem som nyt Seatmap</button>
+      <?php } ?>
     </div>
   </form>
 </div>

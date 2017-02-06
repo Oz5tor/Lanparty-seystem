@@ -36,7 +36,8 @@
         if($subpage == $key) {
           echo "active ";
         }
-        echo "list-group-item col-lg-2 col-xs-6 col-md col-xl-2 col-sm-4'><span class='badge'>". $row[$key] . " </span>$value</li></a>";
+        echo "list-group-item col-xl-2 col-lg-2 col-md-6 col-sm-4 col-xs-12'>
+              <span class='badge'>". $row[$key] . " </span>$value</li></a>";
       }
       ?>
     </ul>
