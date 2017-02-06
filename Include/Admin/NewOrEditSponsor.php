@@ -1,5 +1,4 @@
 <?php
-require_once("class/FileUpload.php");
 if(isset($_GET['id'])){
   $tempID = $db_conn->real_escape_string($_GET['id']);
   if($result = $db_conn->query("Select * From Sponsors Where SponsorID = '$tempID'")){

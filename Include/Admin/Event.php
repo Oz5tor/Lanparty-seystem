@@ -19,8 +19,7 @@ if (isset($newOrEdit) && $newOrEdit != '') {
       Event.Poster AS Poster,
       Event.StartDate AS StartDate,
       Event.EndDate AS EndDate,
-      Event.Location AS Location,
-      Event.SeatsOpen AS SeatsOpenDate
+      Event.Location AS Location
     FROM
       Event
     ORDER BY
@@ -38,7 +37,7 @@ if (isset($newOrEdit) && $newOrEdit != '') {
         <th class="text-center">Åbnings dato</th>
         <th class="text-center">Slut dato</th>
         <th class="text-center">Lokation</th>
-        <th class="text-center">SeatsOpen</th>
+        
       </tr>
     </thead>
     <tbody>
@@ -50,7 +49,6 @@ if (isset($newOrEdit) && $newOrEdit != '') {
           <td class="text-center"><?php echo date("d M Y - H:i:s", $row['StartDate']); ?></td>
           <td class="text-center"><?php echo date("d M Y - H:i:s", $row['EndDate']); ?></td>
           <td class="text-center"><?php echo $row['Location'] ?></td>
-          <td class="text-center"><?php echo date("d M Y - H:i:s", $row['SeatsOpenDate']); ?></td>
         </tr>
       <?php } ?>
     </tbody>
