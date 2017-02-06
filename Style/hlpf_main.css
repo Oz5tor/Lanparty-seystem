@@ -24,6 +24,7 @@ textarea.hlpf_seatmap-gen {
   font-family: monospace, Consolas, Monaco, Lucida Console,
                 Liberation Mono, DejaVu Sans Mono,
                 Bitstream Vera Sans Mono, Courier New;
+  width: 100%;
 }
 .hlpf_white_text, .hlpf_white_text ul li a {
     color: white;
