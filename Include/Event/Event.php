@@ -183,7 +183,7 @@
     <?php if ($eventrows['Poster'] == null || $eventrows['Poster'] == "") {
       echo '<img class="img-responsive" src="Images/EventPoster/noposter.png">';
     }else{
-      echo '<img class="img-responsive" src="Images/EventPoster/'.$row['Poster'] . '">';
+      echo '<img class="img-responsive" src="Images/EventPoster/'.$eventrows['Poster'] . '">';
     } ?>
     </div>
   </div>
