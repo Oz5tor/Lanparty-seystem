@@ -5,27 +5,30 @@ if(isset($_GET['id']) && $_GET['id'] != '') {
 }
 if(!empty($_POST)) {
   $fullString = trim(preg_replace('/\s+/', '', $_POST['generate-seat-map']));
-  $SeatmapName = $_POST['Name'];
+  $SeatmapName = $_POST['SeatmapName'];
   $width = strlen(preg_split('/\s+/', $_POST['generate-seat-map'])[0]);
-  $availableSeats = substr_count($fullStrin, "a");
-  $crewSeats = substr_count($fullStrin, "c");
+  $availableSeats = substr_count($fullString, "a");
+  $crewSeats = substr_count($fullString, "c");
 
   if(isset($action) AND $action == "Edit") {
-    $query = "UPDATE hlparty.Seatmap
-        SET Seatmap.SeatString = '".$fullString."', Seatmap.Width = ".$width.",
-            Seatmap.Seats = ".$availableSeats.", Seatmap.CrewSeats = ".$crewSeats."
-        WHERE Seatmap.SeatmapID = ".$SeatmapID.";";
+    $query = "UPDATE  Seatmap
+              SET  SeatString = '".$fullString."',
+                Width = ".$width.",
+                Seats = ".$availableSeats.",
+                CrewSeats = ".$crewSeats.",
+                Name =  '".$SeatmapName."'
+              WHERE  SeatmapID = " . $SeatmapID;
   } elseif (isset($action) AND $action == "New") {
-    $query = "INSERT INTO  hlparty.Seatmap (
+    $query = "INSERT INTO Seatmap (
         SeatString, Name, Width,
         Seats, CrewSeats
         ) VALUES (
-          '".$fullString."', '".$SeatmapName."' '".$width."',
-          '".$availableSeats."',  '".$crewSeats."'
+          '".$fullString."', '".$SeatmapName."', ".$width.",
+          ".$availableSeats.",  ".$crewSeats."
         );";
   }
   $db_conn->query($query);
-  header("Location: index.php?page=Admin&subpage=Seatmap");
+  header("Location: index.php?page=Admin&subpage=Seatmap#admin_menu");
 }
 ?>
 <div class="col-lg-7">
@@ -80,11 +83,17 @@ if(!empty($_POST)) {
     </div>
     <div class="form-group">
       <input type="text" class="form-control" id="SeatmapName" name="SeatmapName"
-            placeholder="Navn til seatmap" value="<?php echo $row['Name'] ?>">
+            placeholder="Navn til seatmap" value="<?php if (isset($row['Name'])) {
+              echo $row['Name']; } ?>">
     </div>
     <div class="form-group">
       <a class="btn btn-primary" onclick="generatePreview()">Preview</a>
-      <button class="btn btn-primary" type="submit">Save</button>
+      <?php if (isset($row['SeatmapID'])) { ?>
+      <button class="btn btn-primary" type="submit">Gem som ID
+        <?php echo $row['SeatmapID'] ?></button>
+      <?php } else { ?>
+      <button class="btn btn-primary" type="submit">Gem som nyt Seatmap</button>
+      <?php } ?>
     </div>
   </form>
 </div>
