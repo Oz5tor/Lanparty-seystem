@@ -1,7 +1,16 @@
 <?php
-if(!isset($action)) { header("Include/Admin/index.php"); }
 if(isset($_GET['id']) && $_GET['id'] != '') {
   $SeatmapID = $db_conn->real_escape_string($_GET['id']);
+}
+if(!isset($action)) {
+  header("Location: index.php?page=Admin&subpage=Seatmap");
+} elseif ($action == "Delete" && isset($SeatmapID)) {
+  if ($db_conn->query("DELETE FROM Seatmap WHERE SeatmapID = " .
+                      $db_conn->real_escape_string($SeatmapID))) {
+    $_SESSION['SQLStatus'] = 'Success';
+  } else {
+    $_SESSION['SQLStatus'] = $db_conn->error;
+  }
 }
 if(!empty($_POST)) {
   // Replace all spaces (Includes newline) so we have one long string.
@@ -33,8 +42,14 @@ if(!empty($_POST)) {
           ".$availableSeats.",  ".$crewSeats."
         );";
   }
-  $db_conn->query($query);
-  header("Location: index.php?page=Admin&subpage=Seatmap#admin_menu");
+  // Run query.
+  if (!$db_conn->query($query)) {
+    $_SESSION['SQLStatus'] = $db_conn->error;
+  } else {
+    $_SESSION['SQLStatus'] = 'Success';
+    // Go back to Seatmap overview when done.
+    header("Location: index.php?page=Admin&subpage=Seatmap#admin_menu");
+  }
 }
 ?>
 <div class="col-lg-7">
