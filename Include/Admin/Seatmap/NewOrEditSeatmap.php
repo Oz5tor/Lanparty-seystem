@@ -85,7 +85,7 @@ if(!empty($_POST)) {
             name="generate-seat-map" rows="10" autofocus><?php // Keep this PHP-tag close to the textarea!
       if ($action == "Edit" AND !empty($SeatmapID)) {
         // If we are editing a seatmap...
-        $result = $db_conn->query("SELECT * FROM Seatmap WHERE SeatmapID = $SeatmapID");
+        $result = $db_conn->query("SELECT SeatString, Width, Name FROM Seatmap WHERE SeatmapID = $SeatmapID");
         if (!empty($result)) {
           // Fetch the results of the seatmap
           $row = $result->fetch_assoc();
@@ -99,13 +99,20 @@ if(!empty($_POST)) {
           }
           echo $SeatString;
         }
+      } elseif (!empty($_POST['generate-seat-map'])) {
+        echo $_POST['generate-seat-map'];
       }
       ?></textarea>
     </div>
     <div class="form-group">
       <input type="text" class="form-control" id="SeatmapName" name="SeatmapName"
-            placeholder="Navn til seatmap" value="<?php if (isset($row['Name'])) {
-              echo $row['Name']; } ?>">
+            placeholder="Navn til seatmap" value="<?php
+              if (isset($row['Name'])) {
+                echo $row['Name'];
+              } elseif (!empty($_POST['SeatmapName'])) {
+                echo $_POST['SeatmapName'];
+              }
+              ?>">
     </div>
     <div class="form-group">
       <a class="btn btn-primary" onclick="generatePreview()">Preview</a>
