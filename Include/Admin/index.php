@@ -1,4 +1,6 @@
-<?php if($_SESSION['Admin'] != 1) { header("Location: /Website-2017/index.php"); } /* Fuck off... */ ?>
+<?php if($_SESSION['Admin'] != 1) { header("Location: /Website-2017/index.php"); } /* Fuck off... */ 
+require_once("class/FileUpload.php");
+?>
 <div class="row">
   <div id="admin_menu" class="col-lg-12 col-sm-12 hlpf_contentbox hlpf_adminmenu">
     <ul class="list-group">
