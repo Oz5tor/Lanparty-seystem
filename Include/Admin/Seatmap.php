@@ -21,7 +21,7 @@
   </thead>
   <tbody>
   <?php while ($row = $result->fetch_assoc()) {
-    $disable = false;
+    $disabled = false;
     $eventResult = $db_conn->query("SELECT EndDate FROM Event WHERE Event.Seatmap = " . $row['SeatmapID']);
     if ($eventResult -> num_rows) {
 
