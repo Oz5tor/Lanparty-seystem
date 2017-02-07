@@ -19,7 +19,6 @@ include_once("Include/DEBUGGIN.php");
     <title>HLParty <?php if(isset($html_headder_title)){echo '- '.$html_headder_title;} ?></title>
     <link rel="shortcut icon" href="">
     <!-- Stylesheets -->
-    <link rel="stylesheet" type="text/css" href="JS/seat-charts/jquery.seat-charts.css">
     <link rel="stylesheet" type="text/css" href="Style/seatmap/hlpf_seatsStyling.css">
     <!-- Font awesome -->
     <link rel="stylesheet" href="Style/font-awesome/css/font-awesome.min.css">
