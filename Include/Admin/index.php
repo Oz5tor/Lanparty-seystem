@@ -1,6 +1,19 @@
-<?php if($_SESSION['Admin'] != 1) { header("Location: /Website-2017/index.php"); } /* Fuck off... */ 
+<?php if($_SESSION['Admin'] != 1) { header("Location: /Website-2017/index.php"); } /* Fuck off... */
 require_once("class/FileUpload.php");
 ?>
+
+<?php if (!empty($_SESSION['SQLStatus'])): ?>
+  <div class="row">
+    <div class="hlpf_contentbox col-lg-12 col-sm-12">
+      <h4>SQL Message</h4>
+      <pre>
+      <?php echo $_SESSION['SQLStatus']; ?>
+      </pre>
+    </div>
+  </div>
+<?php endif ?>
+
+
 <div class="row">
   <div id="admin_menu" class="col-lg-12 col-sm-12 hlpf_contentbox hlpf_adminmenu">
     <ul class="list-group">
