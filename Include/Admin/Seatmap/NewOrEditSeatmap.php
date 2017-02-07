@@ -1,14 +1,29 @@
 <?php
-if(!isset($action)) { header("Include/Admin/index.php"); }
 if(isset($_GET['id']) && $_GET['id'] != '') {
   $SeatmapID = $db_conn->real_escape_string($_GET['id']);
 }
+if(!isset($action)) {
+  header("Location: index.php?page=Admin&subpage=Seatmap");
+} elseif ($action == "Delete" && isset($SeatmapID)) {
+  if ($db_conn->query("DELETE FROM Seatmap WHERE SeatmapID = " .
+                      $db_conn->real_escape_string($SeatmapID))) {
+    $_SESSION['SQLStatus'] = 'Success';
+  } else {
+    $_SESSION['SQLStatus'] = $db_conn->error;
+  }
+}
 if(!empty($_POST)) {
+  // Replace all spaces (Includes newline) so we have one long string.
   $fullString = trim(preg_replace('/\s+/', '', $_POST['generate-seat-map']));
+  // Get seatmap name.
   $SeatmapName = $_POST['SeatmapName'];
+  #$SeatmapName = $db_conn->real_escape_string($_POST['SeatmapName']);
+  // Set 'wisth' to the length of the first line.
   $width = strlen(preg_split('/\s+/', $_POST['generate-seat-map'])[0]);
-  $availableSeats = substr_count($fullString, "a");
-  $crewSeats = substr_count($fullString, "c");
+  // Count 'a' in string.
+  $availableSeats = $db_conn->real_escape_string(substr_count($fullString, "a"));
+  // Count 'c' in string.
+  $crewSeats = $db_conn->real_escape_string(substr_count($fullString, "c"));
 
   if(isset($action) AND $action == "Edit") {
     $query = "UPDATE  Seatmap
@@ -27,8 +42,14 @@ if(!empty($_POST)) {
           ".$availableSeats.",  ".$crewSeats."
         );";
   }
-  $db_conn->query($query);
-  header("Location: index.php?page=Admin&subpage=Seatmap#admin_menu");
+  // Run query.
+  if (!$db_conn->query($query)) {
+    $_SESSION['SQLStatus'] = $db_conn->error;
+  } else {
+    $_SESSION['SQLStatus'] = 'Success';
+    // Go back to Seatmap overview when done.
+    header("Location: index.php?page=Admin&subpage=Seatmap#admin_menu");
+  }
 }
 ?>
 <div class="col-lg-7">
@@ -64,7 +85,7 @@ if(!empty($_POST)) {
             name="generate-seat-map" rows="10" autofocus><?php // Keep this PHP-tag close to the textarea!
       if ($action == "Edit" AND !empty($SeatmapID)) {
         // If we are editing a seatmap...
-        $result = $db_conn->query("SELECT * FROM Seatmap WHERE SeatmapID = $SeatmapID");
+        $result = $db_conn->query("SELECT SeatString, Width, Name FROM Seatmap WHERE SeatmapID = $SeatmapID");
         if (!empty($result)) {
           // Fetch the results of the seatmap
           $row = $result->fetch_assoc();
@@ -78,13 +99,20 @@ if(!empty($_POST)) {
           }
           echo $SeatString;
         }
+      } elseif (!empty($_POST['generate-seat-map'])) {
+        echo $_POST['generate-seat-map'];
       }
       ?></textarea>
     </div>
     <div class="form-group">
       <input type="text" class="form-control" id="SeatmapName" name="SeatmapName"
-            placeholder="Navn til seatmap" value="<?php if (isset($row['Name'])) {
-              echo $row['Name']; } ?>">
+            placeholder="Navn til seatmap" value="<?php
+              if (isset($row['Name'])) {
+                echo $row['Name'];
+              } elseif (!empty($_POST['SeatmapName'])) {
+                echo $_POST['SeatmapName'];
+              }
+              ?>">
     </div>
     <div class="form-group">
       <a class="btn btn-primary" onclick="generatePreview()">Preview</a>

@@ -48,12 +48,9 @@ textarea.hlpf_seatmap-gen {
     padding-top: 10px;
     padding-bottom: 10px;
 }
+
 .hlpf_adminmenu {
     overflow-y: auto;
-}
-.hlpf_adminmenu > th,
-.hlpf_adminmenu > td {
-    text-align: center;
 }
 
 .hlpf_adminmenu ul {
