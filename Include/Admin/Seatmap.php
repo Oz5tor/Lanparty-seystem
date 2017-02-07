@@ -1,5 +1,5 @@
 <?php
-  if ( isset($action) AND $action == "Edit" OR $action == "New" ) {
+  if (isset($action) && !empty($action)) {
     include 'Seatmap/NewOrEditSeatmap.php';
   } else {
     $result = $db_conn->query("SELECT * FROM Seatmap");
