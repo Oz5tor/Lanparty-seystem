@@ -6,13 +6,14 @@ require_once("class/FileUpload.php");
   <div class="row">
     <div class="hlpf_contentbox col-lg-12 col-sm-12">
       <h4>SQL Message</h4>
-      <pre>
-      <?php echo $_SESSION['SQLStatus']; ?>
-      </pre>
+      <pre><?php echo $_SESSION['SQLStatus']; ?></pre>
     </div>
   </div>
-<?php endif ?>
 
+<?php
+unset($_SESSION['SQLStatus']);
+endif
+?>
 
 <div class="row">
   <div id="admin_menu" class="col-lg-12 col-sm-12 hlpf_contentbox hlpf_adminmenu">
@@ -35,8 +36,9 @@ require_once("class/FileUpload.php");
 
       <?php
       $adminTabs= [
-      // File-name   =>    Writen ON the site.
-      // For links   =>    What the users see.
+      // File-name    =>    Writen ON the site.
+      // For links    =>    What the users see.
+      // key          =>    Value
         "Users"         =>  "Brugere",
         "News"          =>  "Nyheder",
         "Pages"         =>  "Side Redigering",
@@ -51,7 +53,7 @@ require_once("class/FileUpload.php");
         if($subpage == $key) {
           echo "active ";
         }
-        echo "list-group-item col-xl-2 col-lg-2 col-md-6 col-sm-4 col-xs-12'>
+        echo "list-group-item col-xl-2 col-lg-2 col-md-4 col-sm-6 col-xs-12'>
               <span class='badge'>". $row[$key] . " </span>$value</li></a>";
       }
       ?>
