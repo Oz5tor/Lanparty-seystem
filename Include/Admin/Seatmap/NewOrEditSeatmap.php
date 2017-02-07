@@ -4,11 +4,17 @@ if(isset($_GET['id']) && $_GET['id'] != '') {
   $SeatmapID = $db_conn->real_escape_string($_GET['id']);
 }
 if(!empty($_POST)) {
+  // Replace all spaces (Includes newline) so we have one long string.
   $fullString = trim(preg_replace('/\s+/', '', $_POST['generate-seat-map']));
+  // Get seatmap name.
   $SeatmapName = $_POST['SeatmapName'];
+  #$SeatmapName = $db_conn->real_escape_string($_POST['SeatmapName']);
+  // Set 'wisth' to the length of the first line.
   $width = strlen(preg_split('/\s+/', $_POST['generate-seat-map'])[0]);
-  $availableSeats = substr_count($fullString, "a");
-  $crewSeats = substr_count($fullString, "c");
+  // Count 'a' in string.
+  $availableSeats = $db_conn->real_escape_string(substr_count($fullString, "a"));
+  // Count 'c' in string.
+  $crewSeats = $db_conn->real_escape_string(substr_count($fullString, "c"));
 
   if(isset($action) AND $action == "Edit") {
     $query = "UPDATE  Seatmap
