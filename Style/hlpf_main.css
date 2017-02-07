@@ -51,6 +51,10 @@ textarea.hlpf_seatmap-gen {
 .hlpf_adminmenu {
     overflow-y: auto;
 }
+.hlpf_adminmenu > th,
+.hlpf_adminmenu > td {
+    text-align: center;
+}
 
 .hlpf_adminmenu ul {
     list-style: none;
