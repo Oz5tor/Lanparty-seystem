@@ -25,6 +25,7 @@ textarea.hlpf_seatmap-gen {
                 Liberation Mono, DejaVu Sans Mono,
                 Bitstream Vera Sans Mono, Courier New;
   width: 100%;
+  resize: vertical;
 }
 .hlpf_white_text, .hlpf_white_text ul li a {
     color: white;
@@ -47,6 +48,7 @@ textarea.hlpf_seatmap-gen {
     padding-top: 10px;
     padding-bottom: 10px;
 }
+
 .hlpf_adminmenu {
     overflow-y: auto;
 }
@@ -56,6 +58,9 @@ textarea.hlpf_seatmap-gen {
 }
 .hlpf_adminmenu ul li {
     float: left;
+}
+.hlpf_adminmenu button {
+    width: 100%;
 }
 
 hr {

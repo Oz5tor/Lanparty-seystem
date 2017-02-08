@@ -1,46 +1,51 @@
 <?php
-  if ( isset($action) AND $action == "Edit" OR $action == "New" ) {
+  if (isset($action) && !empty($action)) {
     include 'Seatmap/NewOrEditSeatmap.php';
   } else {
     $result = $db_conn->query("SELECT * FROM Seatmap");
 ?>
-<a style="display:block;" href="?page=Admin&subpage=Seatmap&action=New" alt="Nyt seatmap" type="button" class="btn btn-info">Nyt Seatmap</a>
+<a style="display:block;" href="?page=Admin&subpage=Seatmap&action=New" alt="Nyt seatmap"
+      type="button" class="btn btn-info">Nyt Seatmap</a>
 <hr>
 <table class="table table-striped table-condensed table-hover hlpf_adminmenu">
   <thead>
     <tr>
-      <th class="text-center">ID</th>
-      <th class="text-center">Navn</th>
+      <th class="text-center hidden-xs hidden-sm">ID</th>
+      <th class="text-center">Navn / Sted</th>
       <th class="text-center">Antal pladser</th>
       <th class="text-center">Crew pladser</th>
-      <th class="text-center">Eksempel</th>
-      <th class="text-center">Edit</th>
+      <th class="text-center hidden-xs hidden-sm">Eksempel</th>
+      <th class="text-center">Redigér</th>
       <th class="text-center">Slet</th>
     </tr>
   </thead>
   <tbody>
-  <?php while ($row = $result->fetch_assoc()) { ?>
+  <?php while ($row = $result->fetch_assoc()) {
+    $disabled = false;
+    $eventResult = $db_conn->query("SELECT EndDate FROM Event WHERE Event.Seatmap = " . $row['SeatmapID']);
+    if ($eventResult -> num_rows) {
+
+    }
+  ?>
     <tr>
-      <td class="text-center"><?php echo $row['SeatmapID'] ?></td>
+      <td class="text-center hidden-xs hidden-sm"><?php echo $row['SeatmapID'] ?></td>
       <td class="text-center"><?php echo $row['Name'] ?></td>
-      <td class="text-center">
-      <?php
-      echo $row['Seats'];
-      ?>
+      <td class="text-center"><?php echo $row['Seats']; ?></td>
+      <td class="text-center"><?php echo $row['CrewSeats']; ?></td>
+      <td class="text-center hidden-xs hidden-sm">
+        <button class="btn btn-primary"
+              onclick="generatePreview(this)"
+              value="<?php echo $row['SeatmapID']?>">Se seatmap</button>
       </td>
       <td class="text-center">
-      <?php
-      echo $row['CrewSeats'];
-      ?>
+        <a style="display:block;" href='?page=Admin&subpage=Seatmap&action=Edit&id=<?php
+              echo $row['SeatmapID']?>#admin_menu' alt="Redigér seatmap" type="button"
+              class="btn btn-success <?php if ($disabled) { echo "disabled"; }?>">Redigér</a>
       </td>
       <td class="text-center">
-        <button style="width:auto;" class="btn btn-info" onclick="generatePreview(this)" value="<?php echo $row['SeatmapID']?>">Se seatmap</button>
-      </td>
-      <td class="text-center">
-        <a style="display:block;" href='?page=Admin&subpage=Seatmap&action=Edit&id=<?php echo $row['SeatmapID']?>' alt="Redigér seatmap" type="button" class="btn btn-success">Redigér</a>
-      </td>
-      <td class="text-center">
-        <a style="display:block;" href='?page=Admin&subpage=Seatmap&action=Delete&id=<?php echo $row['SeatmapID']?>' alt="Slet seatmap" type="button" class="btn btn-danger">Slet</a>
+        <a style="display:block;" href='?page=Admin&subpage=Seatmap&action=Delete&id=<?php
+              echo $row['SeatmapID']?>#admin_menu' alt="Slet seatmap" type="button"
+              class="btn btn-danger">Slet</a>
       </td>
     </tr>
   <?php } ?>
