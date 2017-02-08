@@ -3,24 +3,24 @@ if($action != ''){
   if(isset($_GET['id']) && $_GET['id'] != ''){
     $URLID = $db_conn->real_escape_string($_GET['id']);
   }// get id end
-  
+
   function Sorter($Opreator,$DBCON,$ID){
         // Find Curren Sort int
         $CurrentResult = $DBCON->query("SELECT SponsorID, Sort FROM Sponsors WHERE SponsorID = '$ID'");
         if($CurrentRow = $CurrentResult->fetch_assoc()){
-          $CurrentSposID = $CurrentRow['SponsorID']; // current Sort ID 
+          $CurrentSposID = $CurrentRow['SponsorID']; // current Sort ID
           $CurrentSort = $CurrentRow['Sort'];
         }
         // Find Swap Sort
         if($Opreator == '+'){
-          $FindNext = $CurrentSort +1;  
+          $FindNext = $CurrentSort +1;
         }else{
           $FindNext = $CurrentSort -1;
         }
-        
+
         $SwapResult = $DBCON->query("SELECT SponsorID, Sort FROM Sponsors WHERE Sort = '$FindNext'");
         if($SwapRow = $SwapResult->fetch_assoc()){
-          $SwapSposID = $SwapRow['SponsorID']; // current Sort ID 
+          $SwapSposID = $SwapRow['SponsorID']; // current Sort ID
           $SwapSort = $SwapRow['Sort'];
         }
         // Update the sort ints
@@ -28,7 +28,7 @@ if($action != ''){
         $DBCON->query("Update Sponsors SET Sort = '$CurrentSort' Where SponsorID = '$SwapSposID' ");
     return true;
   }// sponsor sort function end
-  
+
     switch($action){
       case 'Offline': // set sponsor to be ofline
         $db_conn->query("Update Sponsors SET Online = '0' Where SponsorID = '$URLID' ");
@@ -46,16 +46,16 @@ if($action != ''){
         $db_conn->query("Update Sponsors SET MainSponsor = '1' Where SponsorID = '$URLID' ");
         header("Location: index.php?page=Admin&subpage=Sponsors");
         break;
-        
+
       case 'Up': // Give sponsor Higher Listing
         Sorter('-',$db_conn,$URLID);
         header("Location: index.php?page=Admin&subpage=Sponsors");
         break;
-        
+
       case 'Down': // Give sponsor Lower Listing
         Sorter('+',$db_conn,$URLID);
         header("Location: index.php?page=Admin&subpage=Sponsors");
-        break;  
+        break;
       case 'Edit':
         $NewOrEditSponsor = true;
         break;
@@ -75,7 +75,7 @@ if(isset($NewOrEditSponsor) && $NewOrEditSponsor != false){
   <table class="table table-striped table-condensed table-hover hlpf_adminmenu">
     <thead>
       <tr>
-        <th width="15%" class="text-center">Image</th>
+        <th width="15%" class="text-center hidden-xs hidden-sm">Image</th>
         <th class="text-center">Navn</th>
         <th class="text-center">Link</th>
         <th class="text-center">Hoved Sponsor</th>
@@ -86,17 +86,17 @@ if(isset($NewOrEditSponsor) && $NewOrEditSponsor != false){
       </tr>
     </thead>
     <tbody>
-    <?php 
+    <?php
       $Counter = 0;
       while ($row = $result->fetch_assoc()) {  /* Create List of Sponsors */
       $Counter++;
       ?>
       <tr>
-        <td class="text-center"><?php echo '<img class="img-responsive" src="Images/Sponsore/'.$row['Banner'].'">'; ?></td>
+        <td class="text-center hidden-xs hidden-sm"><?php echo '<img class="img-responsive" src="Images/Sponsore/'.$row['Banner'].'">'; ?></td>
         <td class="text-center"><?php echo $row['Name']; ?></td>
         <td class="text-center"><?php echo '<a href="'.$row['Url'].'">'.$row['Url'].'</a>'; ?></td>
         <td class="text-center">
-          <?php 
+          <?php
             if($row['MainSponsor'] == '1'){ // Is Sponsor Main sponsor or not
               echo '<a style="display:block;" href="?page=Admin&subpage=Sponsors&action=NotMainSponsor&id='.$row['SponsorID'].'" alt="Set Normal Sponsor" type="button" class="btn btn-success">Ja</a>';
             }else{
@@ -114,22 +114,22 @@ if(isset($NewOrEditSponsor) && $NewOrEditSponsor != false){
           ?>
         </td>
         <td class="text-center">
-          <?php // Sort Up/Down  buttons 
+          <?php // Sort Up/Down  buttons
           if($Counter != 1){// arrow up
             if($Counter == $NumRows){
-              echo '<a style="display:block;" href="?page=Admin&subpage=Sponsors&action=Up&id='.$row['SponsorID'].'" class="btn btn-success">&uArr;</a> '; 
+              echo '<a style="display:block;" href="?page=Admin&subpage=Sponsors&action=Up&id='.$row['SponsorID'].'" class="btn btn-success">&uArr;</a> ';
             }else{
-              echo '<a href="?page=Admin&subpage=Sponsors&action=Up&id='.$row['SponsorID'].'" class="btn btn-success">&uArr;</a> '; 
+              echo '<a href="?page=Admin&subpage=Sponsors&action=Up&id='.$row['SponsorID'].'" class="btn btn-success">&uArr;</a> ';
             }
           }
           if($Counter != $NumRows){ // arrow down
             if($Counter == 1){
-              echo '<a style="display:block;" href="?page=Admin&subpage=Sponsors&action=Down&id='.$row['SponsorID'].'" class="btn btn-danger">&dArr;</a>'; 
+              echo '<a style="display:block;" href="?page=Admin&subpage=Sponsors&action=Down&id='.$row['SponsorID'].'" class="btn btn-danger">&dArr;</a>';
             }else{
-              echo '<a href="?page=Admin&subpage=Sponsors&action=Down&id='.$row['SponsorID'].'" class="btn btn-danger">&dArr;</a>'; 
+              echo '<a href="?page=Admin&subpage=Sponsors&action=Down&id='.$row['SponsorID'].'" class="btn btn-danger">&dArr;</a>';
             }
-          } 
-           
+          }
+
           ?>
         </td>
         <td class="text-center">
@@ -141,6 +141,6 @@ if(isset($NewOrEditSponsor) && $NewOrEditSponsor != false){
     <?php } ?>
     </tbody>
   </table>
-<?php 
+<?php
 }
 ?>

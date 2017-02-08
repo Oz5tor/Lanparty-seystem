@@ -10,11 +10,11 @@
 <table class="table table-striped table-condensed table-hover hlpf_adminmenu">
   <thead>
     <tr>
-      <th class="text-center">ID</th>
+      <th class="text-center hidden-xs hidden-sm">ID</th>
       <th class="text-center">Navn / Sted</th>
       <th class="text-center">Antal pladser</th>
       <th class="text-center">Crew pladser</th>
-      <th class="text-center">Eksempel</th>
+      <th class="text-center hidden-xs hidden-sm">Eksempel</th>
       <th class="text-center">Redigér</th>
       <th class="text-center">Slet</th>
     </tr>
@@ -28,12 +28,12 @@
     }
   ?>
     <tr>
-      <td class="text-center"><?php echo $row['SeatmapID'] ?></td>
+      <td class="text-center hidden-xs hidden-sm"><?php echo $row['SeatmapID'] ?></td>
       <td class="text-center"><?php echo $row['Name'] ?></td>
       <td class="text-center"><?php echo $row['Seats']; ?></td>
       <td class="text-center"><?php echo $row['CrewSeats']; ?></td>
-      <td class="text-center">
-        <button style="width:auto;" class="btn btn-primary"
+      <td class="text-center hidden-xs hidden-sm">
+        <button class="btn btn-primary"
               onclick="generatePreview(this)"
               value="<?php echo $row['SeatmapID']?>">Se seatmap</button>
       </td>

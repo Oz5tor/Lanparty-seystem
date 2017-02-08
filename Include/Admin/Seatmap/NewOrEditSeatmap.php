@@ -16,8 +16,7 @@ if(!empty($_POST)) {
   // Replace all spaces (Includes newline) so we have one long string.
   $fullString = trim(preg_replace('/\s+/', '', $_POST['generate-seat-map']));
   // Get seatmap name.
-  $SeatmapName = $_POST['SeatmapName'];
-  #$SeatmapName = $db_conn->real_escape_string($_POST['SeatmapName']);
+  $SeatmapName = $db_conn->real_escape_string($_POST['SeatmapName']);
   // Set 'wisth' to the length of the first line.
   $width = strlen(preg_split('/\s+/', $_POST['generate-seat-map'])[0]);
   // Count 'a' in string.

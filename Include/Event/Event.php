@@ -25,6 +25,7 @@
           <th>Navn</th>
           <th>Start tidspunkt</th>
           <th>Slut tidspunkt</th>
+          <th>Adresse</th>
         </tr>
       </thead>
       <tbody>
