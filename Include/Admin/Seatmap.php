@@ -21,12 +21,11 @@
   </thead>
   <tbody>
   <?php while ($row = $result->fetch_assoc()) {
-    $eventResult = $db_conn->query("SELECT StartDate FROM Event WHERE Event.Seatmap = " . $row['SeatmapID'])->fetch_assoc();
+    $eventResult = $db_conn->query("SELECT StartDate FROM Event WHERE Event.Seatmap = " .
+                                   $row['SeatmapID'])->fetch_assoc();
     if (!empty($eventResult['StartDate']) && time() > $eventResult['StartDate']) {
       $disabled = true;
-    } else {
-      $disabled = false;
-    }
+    } else { $disabled = false; }
   ?>
     <tr>
       <td class="text-center hidden-xs hidden-sm"><?php echo $row['SeatmapID'] ?></td>
@@ -34,14 +33,13 @@
       <td class="text-center"><?php echo $row['Seats']; ?></td>
       <td class="text-center"><?php echo $row['CrewSeats']; ?></td>
       <td class="text-center hidden-xs hidden-sm">
-        <button class="btn btn-primary"
-              onclick="generatePreview(this)"
+        <button class="btn btn-primary" onclick="generatePreview(this)"
               value="<?php echo $row['SeatmapID']?>">Se seatmap</button>
       </td>
       <td class="text-center">
         <a style="display:block;" href='?page=Admin&subpage=Seatmap&action=Edit&id=<?php
               echo $row['SeatmapID']?>#admin_menu' alt="Redigér seatmap" type="button"
-              class="btn btn-success<?php if ($disabled) { echo " disabled"; }?>">Redigér</a>
+              class="btn btn-success<?php if($disabled){echo " disabled";}?>">Redigér</a>
       </td>
       <td class="text-center">
         <a style="display:block;" href='?page=Admin&subpage=Seatmap&action=Delete&id=<?php
