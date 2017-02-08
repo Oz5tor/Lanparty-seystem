@@ -22,7 +22,7 @@
   <tbody>
   <?php while ($row = $result->fetch_assoc()) {
     $eventResult = $db_conn->query("SELECT StartDate FROM Event WHERE Event.Seatmap = " . $row['SeatmapID'])->fetch_assoc();
-    if (time() > $eventResult['StartDate']) {
+    if (!empty($eventResult['StartDate']) && time() > $eventResult['StartDate']) {
       $disabled = true;
     } else {
       $disabled = false;
