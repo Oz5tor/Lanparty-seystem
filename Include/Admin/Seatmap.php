@@ -38,7 +38,8 @@
       </td>
       <td class="text-center">
         <a style="display:block;" href='?page=Admin&subpage=Seatmap&action=Edit&id=<?php
-              echo $row['SeatmapID']?>#admin_menu' alt="Redigér seatmap" type="button"
+              echo $row['SeatmapID']?>#admin_menu' alt="Redigér seatmap<?php if($disabled)
+              {echo " - Seatmap er i brug til et arrangement og kan derfor ikke regidéres";}?>" type="button"
               class="btn btn-success<?php if($disabled){echo " disabled";}?>">Redigér</a>
       </td>
       <td class="text-center">
