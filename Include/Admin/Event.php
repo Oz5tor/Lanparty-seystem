@@ -7,6 +7,9 @@ if($action != ''){
     case 'New':
       $newOrEdit = true;
       break;
+    case 'Edit':
+      $newOrEdit = true;
+      break;
   }
 }
 if (isset($newOrEdit) && $newOrEdit != '') {
@@ -23,7 +26,8 @@ if (isset($newOrEdit) && $newOrEdit != '') {
     FROM
       Event
     ORDER BY
-      Event.StartDate DESC
+      Event.StartDate DESC,
+      Event.EventID DESC
   ");
   ?>
   <a style="display:block;" href="?page=Admin&subpage=Event&action=New" alt="Ny Side" type="button" class="text-center btn btn-info">Opret ny event</a>
@@ -31,24 +35,23 @@ if (isset($newOrEdit) && $newOrEdit != '') {
   <table class="table table-striped table-condensed table-hover hlpf_adminmenu">
     <thead>
       <tr>
-        <th class="text-center">ID</th>
+        <th class="text-center" style="width: 3%;">Plakat</th>
         <th class="text-center">Event navn</th>
-        <th class="text-center" style="width: 10%">Plakat</th>
         <th class="text-center">Åbnings dato</th>
         <th class="text-center">Slut dato</th>
-        <th class="text-center">Lokation</th>
-        
+        <th class="text-center">Rediger</th>
       </tr>
     </thead>
     <tbody>
       <?php while ($row = $result->fetch_assoc()) { ?>
         <tr>
-          <td class="text-center"><?php echo $row['ID'] ?></td>
-          <td class="text-center"><?php echo $row['Title'] ?></td>
           <td class="text-center"><img class="img-responsive" src="Images/EventPoster/<?php echo $row['Poster'] ?>"></td>
-          <td class="text-center"><?php echo date("d M Y - H:i:s", $row['StartDate']); ?></td>
-          <td class="text-center"><?php echo date("d M Y - H:i:s", $row['EndDate']); ?></td>
-          <td class="text-center"><?php echo $row['Location'] ?></td>
+          <td class="text-center"><?php echo $row['Title'] ?></td>
+          <td class="text-center"><?php echo date("d M Y - H:i", $row['StartDate']); ?></td>
+          <td class="text-center"><?php echo date("d M Y - H:i", $row['EndDate']); ?></td>
+          <td class="text-center">
+            <a href="index.php?page=Admin&subpage=Event&action=Edit&id=<?php echo $row['ID']; ?>#admin_menu" style="display:block;" class="btn btn-warning">Rediger</a>
+          </td>
         </tr>
       <?php } ?>
     </tbody>
