@@ -21,10 +21,11 @@
   </thead>
   <tbody>
   <?php while ($row = $result->fetch_assoc()) {
-    $disabled = false;
-    $eventResult = $db_conn->query("SELECT EndDate FROM Event WHERE Event.Seatmap = " . $row['SeatmapID']);
-    if ($eventResult -> num_rows) {
-
+    $eventResult = $db_conn->query("SELECT StartDate FROM Event WHERE Event.Seatmap = " . $row['SeatmapID'])->fetch_assoc();
+    if (time() > $eventResult['StartDate']) {
+      $disabled = true;
+    } else {
+      $disabled = false;
     }
   ?>
     <tr>
@@ -40,7 +41,7 @@
       <td class="text-center">
         <a style="display:block;" href='?page=Admin&subpage=Seatmap&action=Edit&id=<?php
               echo $row['SeatmapID']?>#admin_menu' alt="Redigér seatmap" type="button"
-              class="btn btn-success <?php if ($disabled) { echo "disabled"; }?>">Redigér</a>
+              class="btn btn-success<?php if ($disabled) { echo " disabled"; }?>">Redigér</a>
       </td>
       <td class="text-center">
         <a style="display:block;" href='?page=Admin&subpage=Seatmap&action=Delete&id=<?php
@@ -52,7 +53,7 @@
   </tbody>
 </table>
 <script src="JS/seat-charts/jquery.seat-charts.min.js"></script>
-<div class="col-lg-12" id="View-seatmap"></div>
+<div class="col-lg-12 hidden-xs hidden-sm" id="View-seatmap"></div>
 <script type="text/javascript">
   function generatePreview(objectButton) {
     // On the ID "View-seatmap": load 'page', 'data':'someDataHere'
