@@ -17,7 +17,7 @@ if(isset($_GET['id'])){
 } // end of get id
 
 if(isset($SaleHasStarted)){
-  echo '<div class="alert alert-info" role="alert">salget for dette event er gået igen så Redigiering er begrænset.</div>';
+  echo '<div class="alert alert-info" role="alert">Salget for dette event er gået igang, så redigering er begrænset.</div>';
 }
 
 if(isset($_POST['Save'])) {
@@ -199,7 +199,7 @@ if(isset($_POST['Save'])) {
     </select>
   </div>
   <div class="form-group col-lg-3">
-    <label class="control-label" for="StartDate">Ineternet Hastighed</label>
+    <label class="control-label" for="StartDate">Internet Hastighed</label>
     <div class="input-group">
       <input class="form-control" <?php if(isset($SaleHasStarted)){echo 'disabled';} ?> name="wan" required id="wan" placeholder="1024" type="text" value="<?php if(isset($EventExist)){ $temp = explode('/',$row['Network']); echo $temp[0];} ?>">
       <div class="input-group-addon">Mb</div>
