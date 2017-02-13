@@ -1,10 +1,4 @@
 <?php
-// get the username by ID
-function TorGetUserName($TempUserID, $DBCONN){
-  $Func_result = $DBCONN->query("Select Username from Users Where UserID = '$TempUserID'");
-  $Func_row = $Func_result->fetch_assoc();
-  return $Func_row['Username'];
-}
 if($action != ''){
   if(isset($_GET['id']) && $_GET['id'] != ''){
     $URLPageID = $db_conn->real_escape_string($_GET['id']);
