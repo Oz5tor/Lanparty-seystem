@@ -32,29 +32,29 @@ if($action != ''){
     switch($action){
       case 'Offline': // set sponsor to be ofline
         $db_conn->query("Update Sponsors SET Online = '0' Where SponsorID = '$URLID' ");
-        header("Location: index.php?page=Admin&subpage=Sponsors");
+        header("Location: index.php?page=Admin&subpage=Sponsors#admin_menu");
         break;
       case 'Online': // set sponsor to be online
         $db_conn->query("Update Sponsors SET Online = '1' Where SponsorID = '$URLID' ");
-        header("Location: index.php?page=Admin&subpage=Sponsors");
+        header("Location: index.php?page=Admin&subpage=Sponsors#admin_menu");
         break;
       case 'NotMainSponsor': // Sponsor is not mainsponsor
         $db_conn->query("Update Sponsors SET MainSponsor = '0' Where SponsorID = '$URLID' ");
-        header("Location: index.php?page=Admin&subpage=Sponsors");
+        header("Location: index.php?page=Admin&subpage=Sponsors#admin_menu");
         break;
       case 'MainSponsor': // Sponsor is mainsponsor
         $db_conn->query("Update Sponsors SET MainSponsor = '1' Where SponsorID = '$URLID' ");
-        header("Location: index.php?page=Admin&subpage=Sponsors");
+        header("Location: index.php?page=Admin&subpage=Sponsors#admin_menu");
         break;
 
       case 'Up': // Give sponsor Higher Listing
         Sorter('-',$db_conn,$URLID);
-        header("Location: index.php?page=Admin&subpage=Sponsors");
+        header("Location: index.php?page=Admin&subpage=Sponsors#admin_menu");
         break;
 
       case 'Down': // Give sponsor Lower Listing
         Sorter('+',$db_conn,$URLID);
-        header("Location: index.php?page=Admin&subpage=Sponsors");
+        header("Location: index.php?page=Admin&subpage=Sponsors#admin_menu");
         break;
       case 'Edit':
         $NewOrEditSponsor = true;
@@ -70,7 +70,7 @@ if(isset($NewOrEditSponsor) && $NewOrEditSponsor != false){
   $result = $db_conn->query("Select  * from Sponsors ORDER BY Online DESC, Sort ASC");
   $NumRows = $result->num_rows;
   ?>
-  <a style="display:block;" href="?page=Admin&subpage=Sponsors&action=New" alt="Ny Side" type="button" class="text-center btn btn-info">Opret Ny Sponsor</a>
+  <a style="display:block;" href="?page=Admin&subpage=Sponsors&action=New#admin_menu" alt="Ny Side" type="button" class="text-center btn btn-info">Opret Ny Sponsor</a>
   <hr>
   <table class="table table-striped table-condensed table-hover hlpf_adminmenu">
     <thead>
@@ -134,7 +134,7 @@ if(isset($NewOrEditSponsor) && $NewOrEditSponsor != false){
         </td>
         <td class="text-center">
           <?php // Edit Button
-          echo '<a style="display:block;" href="?page=Admin&subpage=Sponsors&action=Edit&id='.$row['SponsorID'].'" alt="Rediger Sponsor" type="button" class="btn btn-warning">Rediger</a>';
+          echo '<a style="display:block;" href="?page=Admin&subpage=Sponsors&action=Edit&id='.$row['SponsorID'].'#admin_menu" alt="Rediger Sponsor" type="button" class="btn btn-warning">Rediger</a>';
           ?>
         </td>
       </tr>

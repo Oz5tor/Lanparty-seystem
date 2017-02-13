@@ -30,7 +30,7 @@ if (isset($newOrEdit) && $newOrEdit != '') {
       Event.EventID DESC
   ");
   ?>
-  <a style="display:block;" href="?page=Admin&subpage=Event&action=New" alt="Ny Side" type="button" class="text-center btn btn-info">Opret ny event</a>
+  <a style="display:block;" href="?page=Admin&subpage=Event&action=New#admin_menu" alt="Ny Side" type="button" class="text-center btn btn-info">Opret ny event</a>
   <hr>
   <table class="table table-striped table-condensed table-hover hlpf_adminmenu">
     <thead>

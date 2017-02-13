@@ -53,7 +53,7 @@ if(isset($NewOrEditNewsLetter) && $NewOrEditNewsLetter != false){
  // create the Lsit over pages
 $result = $db_conn->query("Select * from NewsLetter ORDER BY SentDate DESC, LetterID DESC");
 ?>
-<a style="display:block;" href="?page=Admin&subpage=NewsLetter&action=New" alt="Nyt Nyhedsbrev" type="button" class="text-center btn btn-info">
+<a style="display:block;" href="?page=Admin&subpage=NewsLetter&action=New#admin_menu" alt="Nyt Nyhedsbrev" type="button" class="text-center btn btn-info">
   Nyt Nyhedsbrev
 </a>
 <hr>
@@ -74,7 +74,7 @@ $result = $db_conn->query("Select * from NewsLetter ORDER BY SentDate DESC, Lett
       <td class="text-center"><?php echo $row['Subject'] ?></td>
       <td class="text-center"><?php echo TorGetUserName($row['Author'], $db_conn); ?></td>
       <?php if($row['SentDate'] == '0'){?>
-      <td class="text-center"><a href="?page=Admin&subpage=NewsLetter&action=Send&id=<?php echo $row['LetterID']; ?>" class="btn btn-success"onclick="confirm('Er du sikker på du vil sende nyhedbrevet')" style="display:block;">Udsend</a></td>
+      <td class="text-center"><a href="?page=Admin&subpage=NewsLetter&action=Send&id=<?php echo $row['LetterID']; ?>#admin_menu" class="btn btn-success"onclick="confirm('Er du sikker på du vil sende nyhedbrevet')" style="display:block;">Udsend</a></td>
       <?php }else{
       ?>
       <td class="text-center">
@@ -84,7 +84,7 @@ $result = $db_conn->query("Select * from NewsLetter ORDER BY SentDate DESC, Lett
       } ?>
       <td class="text-center">
         <?php
-          echo '<a style="display:block;" href="?page=Admin&subpage=NewsLetter&action=Template&id='.$row['LetterID'].'" alt="Brug som skabelon Sponsor" type="button" class="btn btn-primary">Brug Som skabelon</a>';
+          echo '<a style="display:block;" href="?page=Admin&subpage=NewsLetter&action=Template&id='.$row['LetterID'].'#admin_menu" alt="Brug som skabelon Sponsor" type="button" class="btn btn-primary">Brug Som skabelon</a>';
         ?>
       </td>
       <td class="text-center">
@@ -92,7 +92,7 @@ $result = $db_conn->query("Select * from NewsLetter ORDER BY SentDate DESC, Lett
           if($row['SentDate'] != 0){
             echo '<span style="display:block;" class="btn disabled btn-warning">Rediger</span>';
           }else{
-           echo '<a style="display:block;" href="?page=Admin&subpage=NewsLetter&action=Edit&id='.$row['LetterID'].'" alt="Rediger Sponsor" type="button" class="btn btn-warning">Rediger</a>';
+           echo '<a style="display:block;" href="?page=Admin&subpage=NewsLetter&action=Edit&id='.$row['LetterID'].'#admin_menu" alt="Rediger Sponsor" type="button" class="btn btn-warning">Rediger</a>';
           }
         ?>
       </td>
