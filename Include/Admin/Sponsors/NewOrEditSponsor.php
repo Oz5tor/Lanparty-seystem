@@ -64,40 +64,37 @@ if(isset($_POST['Save'])){
   }
 }
 ?>
-<table class="table hlpf_adminmenu">
   <form method="post" action="" enctype="multipart/form-data">
-    <tr>
-      <td>
-        <label for="Title">Title:</label> <input required type="text" name="Title" id="Title" value="<?php if(isset($SponsorExist)){echo $row['Name'];} ?>" maxlength="50"/>
-      </td>
-      <td>
-        <label for="Admin">Hovedsponsor Side:</label> <input <?php if(isset($MainSponsor)){echo 'checked';} ?> type="checkbox" name="MainSponsor" id="MainSponsor" value="1"/> &nbsp;&nbsp;
-        <label for="Online">Online:</label> <input <?php if(isset($Online)){echo 'checked';} ?> type="checkbox" name="Online" id="Online" value="1"/>
-      </td>
-      <td>
-        <label for="URL">Link: </label> <input type="text" required name="URL" size="40" id="URL" value="<?php if(isset($SponsorExist)){echo $row['Url'];} ?>">
-      </td>
-    </tr>
-    <tr>
-      <td>
-        <label for="Banner">Banner: </label><input type="file" name="Banner" id="Banner" value="">
-      </td>
-      <td colspan="2">
-        <?php if($action == 'Edit'){
-        ?>
-        <img class="image-responsive center-text" src="Images/Sponsore/<?php if(isset($SponsorExist)){echo $row['Banner'];} ?>">
-        <?php
-        }
-        ?>
-      </td>
-    </tr>
-    <tr>
-      <td colspan="3">
-        <textarea rows="25" id="AdminTinyMCE" name="AdminTinyMCE"><?php if(isset($SponsorExist)){echo $row['Description'];} ?></textarea>
-      </td>
-    </tr>
-    <tr>
-      <td colspan="3" class="text-center"><input class="btn btn-default" type="submit" value="Gem" name="Save" /></td>
-    </tr>
+    <div class="form-group col-lg-4">
+      <label class="control-lable" for="Title">Title:</label>
+      <input required type="text" class="form-control" name="Title" id="Title" value="<?php if(isset($SponsorExist)){echo $row['Name'];} ?>" maxlength="50"/>
+    </div>
+    <div class="form-group form-inline col-lg-2">
+      <label for="Admin">Hovedsponsor: </label>
+      <input <?php if(isset($MainSponsor)){echo 'checked';} ?> type="checkbox" name="MainSponsor" id="MainSponsor" value="1"/> &nbsp;&nbsp;
+    </div>
+    <div class="form-group col-lg-2 col-xs-12">
+      <label for="Online">Online:</label>
+      <input <?php if(isset($Online)){echo 'checked';} ?> type="checkbox" name="Online" id="Online" value="1"/>
+    </div>
+    <div class="form-group col-lg-4 col-xs-12">
+      <label class="control-lable" for="URL">Link: </label>
+      <input class="form-control" type="text" required name="URL" size="40" id="URL" value="<?php if(isset($SponsorExist)){echo $row['Url'];} ?>">
+    </div>
+    
+    <div class="form-group col-lg-2">
+      <label for="Banner">Banner: </label>
+      <input type="file" name="Banner" id="Banner" value="">
+    </div>
+    <div class="form-group center-text col-lg-10">
+      <?php if($action == 'Edit'){ ?>
+      <img class="img-responsive" src="Images/Sponsore/<?php if(isset($SponsorExist)){echo $row['Banner'];} ?>">
+      <?php } ?>
+    </div>
+    <div class="form-group col-lg-12">
+      <textarea rows="25" id="AdminTinyMCE" name="AdminTinyMCE"><?php if(isset($SponsorExist)){echo $row['Description'];} ?></textarea>
+    </div>
+    <div class="form-group text-center col-lg-12">
+      <input class="btn btn-default" type="submit" value="Gem" name="Save" />
+    </div>
   </form>
-</table>
