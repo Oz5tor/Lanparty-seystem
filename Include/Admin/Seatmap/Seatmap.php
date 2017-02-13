@@ -1,6 +1,6 @@
 <?php
   if (isset($action) && !empty($action)) {
-    include 'Seatmap/Seatmap/NewOrEditSeatmap.php';
+    include 'Include/Admin/Seatmap/NewOrEditSeatmap.php';
   } else {
     $result = $db_conn->query("SELECT * FROM Seatmap");
 ?>
