@@ -27,17 +27,17 @@ elseif (! empty( $page ) ) {
             }
             break;
         case "Newsarchive":
-            include_once("Include/Newsarchive/News.php");
+            include_once("Include/News.php");
             break;
         case "Event":
-            include_once("Include/Event/Event.php");
+            include_once("Include/Event.php");
             break;
         /*case "Gallery": // not in use yet
-            include_once("Include/FBAlbumAPI.php");
+            include_once("Include/TestArea/FBAlbumAPI.php");
             break;*/
-        case "Paypal":
+        /*case "Paypal":
             include_once("class/PayPalCheckout.php");
-            break;
+            break;*/
         case "Paypalpay":
             include_once("class/PayPalPay.php");
             break;
