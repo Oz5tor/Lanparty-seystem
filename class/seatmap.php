@@ -1,27 +1,20 @@
 <?php
 /*
-  Author:
-    Patrick Rosenheim - @XDRosenheim
+  Author: Patrick Rosenheim - @XDRosenheim
   Date: Jan/Feb - 2017
-  Nope Copyright 2017
-
+  License: N/A
   See https://github.com/mateuszmarkowski/jQuery-Seat-Charts#map for more on seatmaps.
-
   Description:
     Use this function if:
     You have your map string stored in a single line together with a number that defines
     the length of a row
-
-
   Dependecies:
     This function is to be used with @mateuszmarkowski's jQuery-Seat-Charts.
-
   How and where to use:
     Use this in the "map" section of JSC:
       var sc = $('#generated-seat-map').seatCharts({
         map:[INSERT ME HERE.]
       })
-
   @return void
 */
 function seatmap_generation($seatString, $width) {

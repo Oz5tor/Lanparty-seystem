@@ -202,14 +202,14 @@ if(isset($_POST['Save'])) {
     <label class="control-label" for="StartDate">Internet Hastighed</label>
     <div class="input-group">
       <input class="form-control" name="wan" required id="wan" placeholder="1024" type="text" value="<?php if(isset($EventExist)){ $temp = explode('/',$row['Network']); echo $temp[0];} ?>">
-      <div class="input-group-addon">Mb</div>
+      <div class="input-group-addon">Mb/s</div>
     </div>
   </div>
   <div class="form-group col-lg-3">
     <label class="control-label" for="EndDate">Lokalt Netværks Hastighed</label>
     <div class="input-group">
       <input class="form-control" name="lan" required id="lan" placeholder="100" type="text" value="<?php if(isset($EventExist)){ $temp = explode('/',$row['Network']); echo $temp[1];} ?>">
-      <div class="input-group-addon">Mb</div>
+      <div class="input-group-addon">Mb/s</div>
     </div>
   </div>
 
