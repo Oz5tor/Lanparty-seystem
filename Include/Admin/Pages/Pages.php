@@ -12,19 +12,19 @@ if($action != ''){
     switch($action){
       case 'Offline':
         $db_conn->query("Update Pages SET Online = '0' Where PageID = '$URLPageID' ");
-        header("Location: index.php?page=Admin&subpage=Pages");
+        header("Location: index.php?page=Admin&subpage=Pages#admin_menu");
         break;
       case 'Online':
         $db_conn->query("Update Pages SET Online = '1' Where PageID = '$URLPageID' ");
-        header("Location: index.php?page=Admin&subpage=Pages");
+        header("Location: index.php?page=Admin&subpage=Pages#admin_menu");
         break;
       case 'Forall':
         $db_conn->query("Update Pages SET AdminOnly = '0' Where PageID = '$URLPageID' ");
-        header("Location: index.php?page=Admin&subpage=Pages");
+        header("Location: index.php?page=Admin&subpage=Pages#admin_menu");
         break;
       case 'Foradmin':
         $db_conn->query("Update Pages SET AdminOnly = '1' Where PageID = '$URLPageID' ");
-        header("Location: index.php?page=Admin&subpage=Pages");
+        header("Location: index.php?page=Admin&subpage=Pages#admin_menu");
         break;
       case 'New':
         $NewOrEditPage = true;
@@ -41,7 +41,7 @@ if(isset($NewOrEditPage) && $NewOrEditPage != false){
  // create the Lsit over pages
 $result = $db_conn->query("Select * from Pages ORDER BY AdminOnly ASC, Online DESC, PageTitle ASC");
 ?>
-<a style="display:block;" href="?page=Admin&subpage=Pages&action=New" alt="Ny Side" type="button" class="text-center btn btn-info">Opret Ny Side</a>
+<a style="display:block;" href="?page=Admin&subpage=Pages&action=New#admin_menu" alt="Ny Side" type="button" class="text-center btn btn-info">Opret Ny Side</a>
 <hr>
 <table class="table table-striped table-condensed table-hover hlpf_adminmenu">
   <thead>
@@ -81,7 +81,7 @@ $result = $db_conn->query("Select * from Pages ORDER BY AdminOnly ASC, Online DE
       </td>
       <td class="text-center">
         <?php
-        echo '<a style="display:block;" href="?page=Admin&subpage=Pages&action=Edit&id='.$row['PageID'].'" alt="Rediger Side" type="button" class="btn btn-warning">Rediger</a>';
+        echo '<a style="display:block;" href="?page=Admin&subpage=Pages&action=Edit&id='.$row['PageID'].'#admin_menu" alt="Rediger Side" type="button" class="btn btn-warning">Rediger</a>';
         ?>
       </td>
     </tr>
