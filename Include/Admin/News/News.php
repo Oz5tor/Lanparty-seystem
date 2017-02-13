@@ -1,9 +1,5 @@
 <?php
-function TorGetUserName($TempUserID, $DBCONN){
-  $Func_result = $DBCONN->query("SELECT Username from Users Where UserID = '$TempUserID'");
-  $Func_row = $Func_result->fetch_assoc();
-  return $Func_row['Username'];
-}// function end
+
 if($action != ''){
   if(isset($_GET['id']) && $_GET['id'] != ''){
     $URLID = $db_conn->real_escape_string($_GET['id']);
@@ -80,7 +76,17 @@ if(isset($NewOrEditNews) && $NewOrEditNews != false){
         ?>
       </td>
       <td class="text-center">
-        <a href="index.php?page=Admin&subpage=News&action=Edit&id=<?php echo $row['NewsID']; ?>#admin_menu" style="display:block;" class="btn btn-warning">Rediger</a>
+        <?php 
+          if($row["PublishDate"] > time()){
+          ?>
+          <a href="index.php?page=Admin&subpage=News&action=Edit&id=<?php echo $row['NewsID']; ?>#admin_menu" style="display:block;" class="btn btn-warning">Rediger</a>
+          <?php
+          }else{
+          ?>
+          <a href="index.php?page=Admin&subpage=News&action=Edit&id=<?php echo $row['NewsID']; ?>#admin_menu" style="display:block;" class="btn disabled btn-danger">Rediger</a>
+          <?php
+          }
+        ?>
       </td>
     </tr>
 <?php 

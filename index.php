@@ -6,7 +6,7 @@ date_default_timezone_set ('Europe/Copenhagen');
 require_once("Include/CoreParts/DBconn.php");
 require_once("oneall_sdk/config.php");
 require_once("Include/oneall_hlpf/oneall_calls.php");
-require_once("Include/UrlContoller.php");
+require_once("Include/CoreParts/UrlContoller.php");
 include_once("Include/TestArea/DEBUGGIN.php");
 ?>
 <!DOCTYPE html>
@@ -57,25 +57,6 @@ include_once("Include/TestArea/DEBUGGIN.php");
     <?php require_once("Include/Footer.php"); ?>
     <!-- Footer end -->
     <script src="JS/Bootstrap/bootstrap.min.js"></script>
-    <?php
-      if($page == 'Admin'){
-        ?>
-    <script src="JS/Bootstrap/bootstrap-datetimepicker.js"></script>
-    <script src="JS/Bootstrap/bootstrap-datetimepicker.da.js"></script>
-     <script type="text/javascript">
-      $('.form_datetime').datetimepicker({
-          language:  'da',
-          weekStart: 1,
-          todayBtn:  1,
-          autoclose: 1,
-          todayHighlight: 1,
-          startView: 2,
-          forceParse: 0,
-          showMeridian: 0
-      });
-    </script>
-      <?php
-      }
-    ?>
+   <?php require_once("Include/CoreParts/htmlBottem.php"); ?>
 </body>
 </html>

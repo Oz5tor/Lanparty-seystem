@@ -9,15 +9,15 @@ use PayPal\Api\Transaction;
 use PayPal\Api\RedirectUrls;
 
 ## =============== Defined set of values on a item ==========
-#$tempItem = array();
-#$tempItem['Name']     = 'Billet';
-#$tempItem['Currency'] = 'DKK';
-#$tempItem['Quantity'] = '1';
-#$tempItem['Price']    = '200';
-#$tempItem['Desc']    = 'Plads Billet grgergergergreg ergegerg erg erger ge r';
+$tempItem = array();
+$tempItem['Name']     = 'Billet';
+$tempItem['Currency'] = 'DKK';
+$tempItem['Quantity'] = '1';
+$tempItem['Price']    = '200';
+$tempItem['Desc']    = 'Plads Billet grgergergergreg ergegerg erg erger ge r';
 ## ======== Add item or items to cart there will be used in the function ==========
-#$cart = array();
-#$cart[] = $tempItem;
+$cart = array();
+$cart[] = $tempItem;
 # == Call of the funtions looks like this and req the checkout cart and a description
 #PayPalCheckOut($cart,'Kage', $db_conn, 'index.php', $invoiceID);
 
@@ -96,4 +96,6 @@ function PayPalCheckOut($Cart,$description,$DBCONN, $returnto ,$invoiceID){
     echo '</pre>';
   }
 } // Function end
+
+PayPalCheckOut($cart,'Kage', $db_conn, 'index.php', uniqid());
 ?>

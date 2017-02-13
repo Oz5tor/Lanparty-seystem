@@ -1,5 +1,6 @@
 <?php if($_SESSION['Admin'] != 1) { header("Location: /Website-2017/index.php"); } /* Fuck off... */
 require_once("class/FileUpload.php");
+require_once("class/GetUsernameFromID.php");
 ?>
 <?php if (!empty($_SESSION['SQLStatus'])): ?>
   <div class="row">
