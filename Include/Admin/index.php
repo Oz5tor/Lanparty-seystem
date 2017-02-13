@@ -58,7 +58,7 @@ endif
       <!-- Load pages here... -->
       <?php
       if($subpage !=''){
-        include("Include/Admin/" . $subpage . ".php");
+        include("Include/Admin/".$subpage."/".$subpage.".php");
       }else{
         echo "<h3 class='text-center'>Velkommen til administrationen, Sir. Admin</h3>";
       }

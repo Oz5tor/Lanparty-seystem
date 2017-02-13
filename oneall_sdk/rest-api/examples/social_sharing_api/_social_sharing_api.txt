@@ -1,8 +1,0 @@
-http://docs.oneall.com/api/resources/social-sharing/
-
- With our social sharing API you can easily share content to multiple social networks simultaneously.
-After having shared content, you can measure the resulting referral traffic and take snapshots of the shared
-content by using the Sharing Analytics API.
-
-Snapshots give you a summary on how many users have clicked/liked the shared content. By taking snapshots at
-regular intervals you can measure the impact of the shared content and improve future shares.
