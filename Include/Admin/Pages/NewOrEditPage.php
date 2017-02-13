@@ -31,23 +31,25 @@ if(isset($_POST['Save'])){
   }
 }
 ?>
-<table class="table hlpf_adminmenu">
-  <form method="post" action="">
-    <tr>
-      <td>
-        <label for="Title">Title:</label> <input required type="text" name="Title" id="Title" size="50" value="<?php if(isset($pageExist)){echo $row['PageTitle'];} ?>" maxlength="50"/> &nbsp;&nbsp;
-        <label for="Admin">Admin Side:</label> <input <?php if(isset($adminOnly)){echo 'checked';} ?> type="checkbox" name="Admin" id="Admin" value="1"/> &nbsp;&nbsp;
-        <label for="Online">Online:</label> <input <?php if(isset($Online)){echo 'checked';} ?> type="checkbox" name="Online" id="Online" value="1"/>
-      </td>
-    </tr>
-    <tr>
-      <td colspan="3">
-        <textarea rows="25" id="AdminTinyMCE" name="AdminTinyMCE"><?php if(isset($pageExist)){echo $row['Content'];} ?></textarea>
-      </td>
-    </tr>
-    <tr>
-      <td colspan="3" class="text-center"><input class="btn btn-default" type="submit" value="Gem" name="Save" /></td>
-    </tr>
+
+  <form class="form-group" method="post" action="">
+    <div class="form-group col-lg-6">
+      <label class="control-label" for="Title">Title:</label>
+      <input required class="form-control" type="text" name="Title" id="Title" size="50" value="<?php if(isset($pageExist)){echo $row['PageTitle'];} ?>" maxlength="50"/> &nbsp;&nbsp;
+    </div>
+    <div class="form-group form-inline col-lg-3">
+      <label for="Admin">Admin Side:</label>
+      <input <?php if(isset($adminOnly)){echo 'checked';} ?> type="checkbox" name="Admin" id="Admin" value="1"/>
+    </div>
+    <div class="form-group form-inline col-lg-3">
+      <label for="Online">Online:</label>
+      <input <?php if(isset($Online)){echo 'checked';} ?> type="checkbox" name="Online" id="Online" value="1"/>
+    </div>
+    <div class="form-group col-lg-12">
+      <textarea rows="25" id="AdminTinyMCE" name="AdminTinyMCE"><?php if(isset($pageExist)){echo $row['Content'];} ?></textarea>
+    </div>
+    <div class="form-group col-lg-12">
+      <input class="btn btn-default" type="submit" value="Gem" name="Save" />
+    </div>
   </form>
-</table>
 

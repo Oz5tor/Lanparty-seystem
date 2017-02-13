@@ -90,25 +90,20 @@ if( (isset($LetterExist) && $LetterExist == 1) || $action == 'New')
 {
 ?>
 <form method="post" action="">
-  <table class="table hlpf_adminmenu">
-    <tr>
-      <td>
-        <label for="Title">Emne: </label>
-        <input type="text" maxlength="50" name="Title" id="Title" required size="50" value="<?php if($action == 'Edit'){echo $Subject;} ?>">
-      </td>
-      <td>
-        <label>Udsend:</label> <input type="checkbox" value="1" name="Send">
-      </td>
-    </tr>
-    <tr>
-      <td colspan="2">
-        <textarea rows="25" id="AdminTinyMCE" name="AdminTinyMCE"><?php if(isset($LetterExist)){echo $Body;} ?></textarea>
-      </td>
-    </tr>
-    <tr>
-      <td colspan="3" class="text-center"><input class="btn btn-default" type="submit" value="Gem" name="Save" /></td>
-    </tr>
-  </table>
+  <div class="form-group col-lg-6">
+    <label class="control-label" for="Title">Emne: </label>
+    <input class="form-control" type="text" maxlength="50" name="Title" id="Title" required size="50" value="<?php if($action == 'Edit'){echo $Subject;} ?>">
+  </div>
+  <div class="form-group form-inline col-lg-6">
+    <label>Udsend:</label> 
+    <input type="checkbox" value="1" name="Send">
+  </div>
+  <div class="form-group col-lg-12">
+    <textarea rows="25" id="AdminTinyMCE" name="AdminTinyMCE"><?php if(isset($LetterExist)){echo $Body;} ?></textarea>
+  </div>
+  <div class="form-group text-center col-lg-12">
+    <input class="btn btn-default" type="submit" value="Gem" name="Save" />
+  </div>
 </form>
 <?php
 }

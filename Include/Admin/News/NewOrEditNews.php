@@ -38,30 +38,26 @@ if($action == 'Edit'){
 ?>
 <!-- Missing the form -->
 <table class="table hlpf_adminmenu">
-  <form method="post" action="">
-    <tr>
-      <td>
-        <label for="Title">Title:</label>
-        <input size="50" required type="text" name="title" id="Title" value="<?php if(isset($OutTitle)){ echo $OutTitle;} ?>" maxlength="50"/>
-      </td>
-      <td>
-        <label>Offenligørelses dato:</label>
-        <input type="datetime" data-date="12-02-2012 23:59" data-date-format="dd-mm-yyyy hh:ii" class="form_datetime" name="publishdate" value="<?php if(isset($OutPuplishDate)){echo $OutPuplishDate;} ?>">
+  <form method="post" class="form-group" action="">
+    <div class="form-group col-lg-6">
+      <label class="control-label" for="Title">Title:</label>
+      <input class="form-control" required type="text" name="title" id="Title" value="<?php if(isset($OutTitle)){ echo $OutTitle;} ?>" maxlength="50"/>
+    </div>
+    <div class="form-group col-lg-3">
+      <label class="control-label" for="publishdate">Offenligørelses dato:</label>
+       <input type="datetime" data-date="12-02-2012 23:59" data-date-format="dd-mm-yyyy hh:ii" class="form-control form_datetime" id="publishdate" name="publishdate" value="<?php if(isset($OutPuplishDate)){echo $OutPuplishDate;} ?>">
         <span class="add-on"><i class="icon-remove"></i></span>
         <span class="add-on"><i class="icon-th"></i></span>
-      </td>
-      <td>
-        <label>Online</label>
-        <input type="checkbox" name="Online" <?php if(isset($OutOnline)){echo 'checked';} ?> value="1">
-      </td>
-    </tr>
-    <tr>
-      <td colspan="3">
-        <textarea rows="25" id="AdminTinyMCE" name="AdminTinyMCE"><?php if(isset($OutContent)){echo $OutContent;} ?></textarea>
-      </td>
-    </tr>
-    <tr>
-      <td colspan="3" class="text-center"><input class="btn btn-default" type="submit" value="Gem" name="Save" /></td>
-    </tr>
+    </div>
+    <div class="form-group form-inline col-lg-3">
+      <label class="" for="Online">Online: </label>
+      <input class="" type="checkbox" id="Online" name="Online" <?php if(isset($OutOnline)){echo 'checked';} ?> value="1">
+    </div>
+    <div class="form-group col-lg-12">
+      <textarea class="from-control" id="AdminTinyMCE" name="AdminTinyMCE"><?php if(isset($OutContent)){echo $OutContent;} ?></textarea>
+    </div>
+    <div class="from-group col-lg-12 text-center">
+      <input class="btn btn-default" type="submit" value="Gem" name="Save" />
+    </div>
   </form>
 </table>
