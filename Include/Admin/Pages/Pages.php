@@ -36,7 +36,7 @@ if($action != ''){
 } // Action end
 
 if(isset($NewOrEditPage) && $NewOrEditPage != false){
-  include_once("Include/Admin/NewOrEditPage.php");
+  include_once("Include/Admin/Pages/NewOrEditPage.php");
 }else{
  // create the Lsit over pages
 $result = $db_conn->query("Select * from Pages ORDER BY AdminOnly ASC, Online DESC, PageTitle ASC");

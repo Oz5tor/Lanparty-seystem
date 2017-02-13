@@ -65,7 +65,7 @@ if($action != ''){
     }// switch end
 } // Action end
 if(isset($NewOrEditSponsor) && $NewOrEditSponsor != false){
-  include_once("Include/Admin/NewOrEditSponsor.php");
+  include_once("Include/Admin/Sponsors/NewOrEditSponsor.php");
 }else{
   $result = $db_conn->query("Select  * from Sponsors ORDER BY Online DESC, Sort ASC");
   $NumRows = $result->num_rows;

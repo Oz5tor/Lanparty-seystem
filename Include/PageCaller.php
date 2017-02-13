@@ -33,7 +33,7 @@ elseif (! empty( $page ) ) {
             include_once("Include/Event/Event.php");
             break;
         /*case "Gallery": // not in use yet
-            include_once("Include/FBAlbumAPI.php");
+            include_once("Include/TestArea/FBAlbumAPI.php");
             break;*/
         case "Paypal":
             include_once("class/PayPalCheckout.php");

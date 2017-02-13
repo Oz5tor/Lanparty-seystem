@@ -7,7 +7,7 @@ require_once("Include/DBconn.php");
 require_once("oneall_sdk/config.php");
 require_once("Include/oneall_hlpf/oneall_calls.php");
 require_once("Include/UrlContoller.php");
-include_once("Include/DEBUGGIN.php");
+include_once("Include/TestArea/DEBUGGIN.php");
 ?>
 <!DOCTYPE html>
 <html lang="da">

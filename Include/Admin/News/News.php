@@ -20,7 +20,7 @@ if($action != ''){
 }
 
 if(isset($NewOrEditNews) && $NewOrEditNews != false){
-  include_once("Include/Admin/NewOrEditNews.php");
+  include_once("Include/Admin/News/NewOrEditNews.php");
 }else{
 ?>
 <a style="display:block;" href="?page=Admin&subpage=News&action=New#admin_menu" class="btn btn-info">Opret nyhed</a>

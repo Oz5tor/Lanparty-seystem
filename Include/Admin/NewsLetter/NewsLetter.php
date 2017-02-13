@@ -48,7 +48,7 @@ if($action != '') {
 } // Action end
 
 if(isset($NewOrEditNewsLetter) && $NewOrEditNewsLetter != false){
-  include_once("Include/Admin/NewOrEditNewsLetter.php");
+  include_once("Include/Admin/NewsLetter/NewOrEditNewsLetter.php");
 }else{
  // create the Lsit over pages
 $result = $db_conn->query("Select * from NewsLetter ORDER BY SentDate DESC, LetterID DESC");

@@ -13,7 +13,7 @@ if($action != ''){
   }
 }
 if (isset($newOrEdit) && $newOrEdit != '') {
-  include_once( "Include/Admin/NewOrEditEvent.php" );
+  include_once( "Include/Admin/Event/NewOrEditEvent.php" );
 } else {
   $result = $db_conn->query("
     SELECT
