@@ -1,7 +1,7 @@
 <?php
 session_start();
 require_once("oneall_calls.php");
-require_once("../DBconn.php");
+require_once("../CoreParts/DBconn.php");
 
 // Check if we have received a connection_token
 if ( ! empty ($_POST['connection_token']))
@@ -148,7 +148,7 @@ if ( ! empty ($_POST['connection_token']))
                               $_SESSION['PictureUrl'] = $data->user->identity->pictureUrl;
                         break;
                     }
-                    header("Location: /Website-2017/index.php");
+                    header("Location: ../../index.php"); 
                     /*echo "<pre>";
                     print_r($data->user);
                     echo "</pre>";*/
@@ -162,9 +162,10 @@ if ( ! empty ($_POST['connection_token']))
                     }
 
                     $LastLogin = time();
-                    if($db_conn->query("UPDATE Users SET LastLogin = '$LastLogin' WHERE UserID = '$user_id'")){}  
+                    if($db_conn->query("UPDATE Users SET LastLogin = '$LastLogin' WHERE UserID = '$user_id'")){
+                      header("Location: ../../index.php");  
+                    }  
                     
-                    header("Location: /Website-2017/index.php");
                 }   
             }
             break;
