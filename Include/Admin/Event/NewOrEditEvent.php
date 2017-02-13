@@ -155,13 +155,18 @@ if(isset($_POST['Save'])) {
   </div>
   <div class="form-group col-lg-3">
     <label class="control-label" for="StartDate">Start Dato</label>
-    <input class="form-control form_datetime" <?php if(isset($SaleHasStarted)){echo 'disabled';} ?> required type="datetime-local" name="StartDate" id="StartDate" 
-           value="<?php if(isset($EventExist)){echo date("d-m-Y H:i", $row['StartDate']);} ?>" />
+    <div class="input-group">
+      <input class="form-control form_datetime" <?php if(isset($SaleHasStarted)){echo 'disabled';} ?> required type="datetime-local" name="StartDate" id="StartDate" value="<?php if(isset($EventExist)){echo date("d-m-Y H:i", $row['StartDate']);} ?>" />
+      <div class="input-group-addon">&#x1f4c5;</div>
+    </div>
   </div>
   <div class="form-group col-lg-3">
     <label class="control-label" for="EndDate">Slut Dato</label>
-    <input class="form-control form_datetime" <?php if(isset($SaleHasStarted)){echo 'disabled';} ?> required type="datetime-local" name="EndDate" id="EndDate"
+    <div class="input-group">
+      <input class="form-control form_datetime" <?php if(isset($SaleHasStarted)){echo 'disabled';} ?> required type="datetime-local" name="EndDate" id="EndDate"
            value="<?php if(isset($EventExist)){echo date("d-m-Y H:i", $row['EndDate']);} ?>" />
+      <div class="input-group-addon">&#x1f4c5;</div>
+    </div>
   </div>
   <div class="form-group col-lg-6">
     <label class="control-label" for="Location">Lokation</label>
