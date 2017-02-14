@@ -1,4 +1,12 @@
 <?php
+// This should be the absolute first thing.
+// If logging out... LOG OUT!
+if (!empty($action) AND $action == "LogOut") {
+    session_destroy();
+    header("Location: index.php");
+    exit(); // No need for data grinding when you know where they are going.
+}
+
 if(!empty($_SESSION['UserToken'])){
     include_once("Include/Usermodule/EditOrRegister.php");
 }
@@ -19,13 +27,22 @@ elseif (! empty( $page ) ) {
             }
             break;
         case "Newsarchive":
-            include_once("Include/Newsarchive/News.php");
+            include_once("Include/News.php");
             break;
         case "Event":
-            include_once("Include/Event/Event.php");
+            include_once("Include/Event.php");
             break;
-        case "Gallery":
-            include_once("Include/FBAlbumAPI.php");
+        /*case "Gallery": // not in use yet
+            include_once("Include/TestArea/FBAlbumAPI.php");
+            break;*/
+        case "Paypal":
+            include_once("class/PayPalCheckout.php");
+            break;
+        case "Paypalpay":
+            include_once("class/PayPalPay.php");
+            break;
+        case "NewsLetter":
+            include_once("ShowNewsLetter.php");
             break;
         default:
             include_once("Include/Page.php");

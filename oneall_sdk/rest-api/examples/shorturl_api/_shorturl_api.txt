@@ -1,5 +1,0 @@
-http://docs.oneall.com/api/resources/shorturls/
-
-Our Social API includes a custom URL Shortener that enables you to track trends in site registrations, 
-returning visitors, social posts and resulting referral traffic. The corresponding reports can be viewed 
-in the Social Insights section of your account. 

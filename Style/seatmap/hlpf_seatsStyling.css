@@ -1,0 +1,102 @@
+#map {
+  background-repeat: no-repeat;
+  border: 4px solid darkgrey;
+  float: left;
+  height: auto;
+  margin-left: auto;
+  margin-right: auto;
+  position: relative;
+  width: auto;
+}
+div.seatCharts-cell {
+  height: 23px;
+  width: 23px;
+  margin: 0px;
+  float: left;
+  text-align: center;
+  outline: none;
+  font-size: 10px;
+  line-height: 25px;
+  color: white;
+}
+div.seatCharts-seat {
+  background-color: green;
+  border: 1px solid black;
+  cursor: default;
+}
+div.seatCharts-space {
+  background-color: transparent;
+  border: 1px solid transparent;
+}
+div.seatCharts-row {
+  height: 20px;
+}
+div.seatCharts-row:after {
+  clear: both;
+}
+div.seatCharts-seat.selected {
+  background-color: blue;
+  -webkit-transition: background-color 0.1s ease-in;
+  -moz-transition:    background-color 0.1s ease-in;
+  -ms-transition:     background-color 0.1s ease-in;
+  -o-transition:      background-color 0.1s ease-in;
+  transition:         background-color 0.1s ease-in;
+}
+div.seatCharts-seat.focused {
+  background-color: #6db131;
+}
+div.seatCharts-seat.available {
+  background-color: green;
+}
+div.seatCharts-seat.unavailable {
+  background-color: red;
+  cursor: not-allowed;
+}
+ul.seatCharts-legendList {
+  list-style: none;
+}
+li.seatCharts-legendItem {
+  line-height: 2;
+}
+span.seatCharts-legendDescription {
+  padding-left: 3px;
+}
+div.seatStyle_Crew.available,
+div.seatStyle_Crew.unavailable {
+  background-color: yellow;
+  color: black;
+}
+div.seatStyle_Stage.available,
+div.seatStyle_Stage.unavailable {
+  background-color: grey;
+  border-color: grey;
+  color: grey;
+  cursor: default;
+}
+div.seatStyle_Arkade.available,
+div.seatStyle_Arkade.unavailable {
+  background-color: pink;
+  border-color: pink;
+  color: pink;
+  cursor: default;
+}
+div.seatStyle_Nothing.available,
+div.seatStyle_Nothing.unavailable {
+  background-color: transparent;
+  border-color: transparent;
+  color: transparent;
+  cursor: default;
+}
+div.seatStyle_Kiosk.available,
+div.seatStyle_Kiosk.unavailable {
+  background-color: orange;
+  border-color: orange;
+  color: orange;
+  cursor: default;
+}
+.seatCharts-legendItem div {
+  border: 0px !important;
+}
+div.seatCharts-seat.selected:hover {
+  background-color: #0099FF;
+}

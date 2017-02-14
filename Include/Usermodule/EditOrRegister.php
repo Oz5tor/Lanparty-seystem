@@ -52,7 +52,7 @@ if(!isset($_SESSION['UserToken']) && !isset($_SESSION['UserID'])){
             $tempUsername = $_POST['Username'];
             if($result = $db_conn ->query("SELECT Username FROM Users Where Username = '$tempUsername'")){
                 if($result -> num_rows){
-                    $RegErroMSG[] .='Brugernavnet findes, beklager'; 
+                    $RegErroMSG[] .='Brugernavnet findes, beklager';
                     $FormAOKAY = 1;
                 }
             }
@@ -74,7 +74,7 @@ if(!isset($_SESSION['UserToken']) && !isset($_SESSION['UserID'])){
             $Username   = $db_conn->real_escape_string($_POST['Username']);
             if($page != 'EditMyProfile'){
                 $Password   = $db_conn->real_escape_string($_POST['Password']);
-                $CPassword  = $db_conn->real_escape_string($_POST['CPassword']);    
+                $CPassword  = $db_conn->real_escape_string($_POST['CPassword']);
                 $ToS        = $db_conn->real_escape_string($_POST['ToS']);
                 $PW = hash('sha512', $Password);
             }
@@ -107,7 +107,7 @@ if(!isset($_SESSION['UserToken']) && !isset($_SESSION['UserID'])){
                         $TokenRow      = 'BattlenetToken';
                         $profileURLCol = 'BattlenetID';
                     break;
-                }  
+                }
             }
             if($page == 'EditMyProfile'){ // user edits own informations
                 if($db_conn->query("UPDATE Users SET Username = '$Username', FullName = '$FullName', ZipCode = '$Zipcode',
@@ -123,11 +123,11 @@ if(!isset($_SESSION['UserToken']) && !isset($_SESSION['UserID'])){
                 $token = $_SESSION['UserToken'];
                 if($db_conn->query("INSERT INTO `Users`(Username, FullName, ZipCode, Birthdate, Created, Email, Bio, Admin,
                                      Address, PW, Phone, $TokenRow, $profileURLCol, NewsLetter)
-                                     VALUES 
+                                     VALUES
                                      ('$Username','$FullName','$Zipcode', '$Birthday','$CreateTime','$Email', '$Bio','0',
-                                      '$Address','$PW','$Phone','$token','$profileURL', '$NewsLetter')"))   
+                                      '$Address','$PW','$Phone','$token','$profileURL', '$NewsLetter')"))
                 {
-                    
+
                     if($result = $db_conn ->query("Select Users.UserID, Users.Admin From Users Where Users.Username = '$Username'")){
                       $row = $result->fetch_assoc();
                       $tempUserID = $row['UserID'];
@@ -140,25 +140,25 @@ if(!isset($_SESSION['UserToken']) && !isset($_SESSION['UserID'])){
                       if(isset($_SESSION['PictureUrl'])){unset($_SESSION['PictureUrl']);}
                       if(isset($_SESSION['BattleTag'])){unset($_SESSION['BattleTag']);}
                       if(isset($_SESSION['PreffereredUsername'])){unset($_SESSION['PreffereredUsername']);}
-                      
+
                       echo $_SESSION['UserID'] = $tempUserID;
                       echo $_SESSION['Admin'] = $row['Admin'];
                       $LastLogin = time();
                       if($db_conn->query("UPDATE Users SET LastLogin = '$LastLogin' WHERE UserID = '$tempUserID'")){ echo 'Senest login opdatert';}else{echo 'Senest login Ikke opdatert';}
-                      header("Location: index.php?page=EditMyProfile");   
+                      header("Location: index.php?page=EditMyProfile");
                     }else{echo 'find ny bruger fejled';}
                 }else {echo 'opret fejled';}
             }
-        } // if formOKAY end 
+        } // if formOKAY end
     }// Form submit end
     ?>
     <!-- Form Start -->
     <div class="row">
-        <div class="col-lg-12 hlpf_newsborder">
+        <div class="col-lg-12 hlpf_contentbox">
             <div class="row">
                 <div class="col-lg-12 hlpf_large_news_box">
                     <img class="img-responsive" src="Images/image-slider-5.jpg">
-                    <hr/> 
+                    <hr/>
                     <div class="hlpf_flex">
                         <div class="table-responsive">
                             <table class="table">
@@ -166,15 +166,15 @@ if(!isset($_SESSION['UserToken']) && !isset($_SESSION['UserID'])){
                                     <tr>
                                         <td>
                                             <label for="FullName">Fulde Navn:*</label>
-                                            <input type="text" class="form-control" placeholder="Santa Claus" id="FullName" 
+                                            <input type="text" class="form-control" placeholder="Santa Claus" id="FullName"
                                                    value="<?php if(isset($FullName)){ echo $FullName;} ?>"  name="FullName">
                                         </td>
                                         <td><label for="Email">Email:*</label>
-                                            <input type="email" class="form-control" id="Email" placeholder="Workshop@santa.chrismas" 
+                                            <input type="email" class="form-control" id="Email" placeholder="Workshop@santa.chrismas"
                                                    value="<?php if(isset($Email)){ echo $Email;} ?>"  name="Email">
                                         </td>
                                         <td><label for="Birthday">F&oslash;dselsdag:*</label>
-                                            <input type="date" class="form-control" id="Birthday" 
+                                            <input type="date" class="form-control" id="Birthday"
                                                    value="<?php if(isset($Birthday)){ echo date("d.m.Y",$Birthday);} ?>"
                                                     name="Birthday" title="dd.mm.yyyy">
                                         </td>
@@ -194,7 +194,7 @@ if(!isset($_SESSION['UserToken']) && !isset($_SESSION['UserID'])){
                                         <td>
                                             &nbsp;
                                         </td>
-                                        <?php  
+                                        <?php
                                         }else{
                                         ?>
                                         <td>
@@ -226,8 +226,8 @@ if(!isset($_SESSION['UserToken']) && !isset($_SESSION['UserID'])){
                                                 <?php
                                                     if($result = $db_conn->query("SELECT * FROM ZipCodes")){
                                                         while($row = $result->fetch_assoc()){
-                                                            echo '<option value=',$row["Zipcode"],'>',$row["Zipcode"],' ',$row["City"],'</option>';   
-                                                        }   
+                                                            echo '<option value=',$row["Zipcode"],'>',$row["Zipcode"],' ',$row["City"],'</option>';
+                                                        }
                                                     }
                                                 ?>
                                             </datalist>
@@ -243,7 +243,7 @@ if(!isset($_SESSION['UserToken']) && !isset($_SESSION['UserID'])){
                                     <tr>
                                       <td>
                                         <div class="form-inline">
-                                  <?php if($page != 'EditMyProfile'){ ?>  
+                                  <?php if($page != 'EditMyProfile'){ ?>
                                           <label for="ToS">*Brugerbetinelser:</label>
                                           <input type="checkbox" class="form-control" id="ToS" value="1"  name="ToS">&nbsp; |&nbsp;
                                   <?php } ?>
@@ -266,7 +266,7 @@ if(!isset($_SESSION['UserToken']) && !isset($_SESSION['UserID'])){
                                     }
                                     unset($RegErroMSG);
                                     ?>
-                                </form>    
+                                </form>
                             </table>
                         </div>
                     </div>
