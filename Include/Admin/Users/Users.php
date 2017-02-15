@@ -16,18 +16,7 @@ if($action != ''){
 } // Action end
 
  // create the Lsit over pages
-$result = $db_conn->query("
-  SELECT
-    Users.UserID,
-    Users.Username,
-    Users.FullName,
-    Users.Created,
-    Users.LastLogin,
-    Users.Email,
-    Users.Admin,
-    Users.Phone
-  FROM Users
-");
+$result = $db_conn->query("SELECT Users.UserID, Users.Username, Users.FullName, Users.Created, Users.LastLogin, Users.Email, Users.Admin, Users.Phone FROM Users");
 ?>
 <table class="table table-striped table-condensed table-hover hlpf_adminmenu">
   <thead>
@@ -45,13 +34,13 @@ $result = $db_conn->query("
   <tbody>
   <?php while ($row = $result->fetch_assoc()) { ?>
     <tr>
-      <td class="text-center"><?php echo $row['UserID'] ?></td>
-      <td class="text-center"><?php echo $row['Username'] ?></td>
-      <td class="text-center"><?php echo $row['FullName']; ?></td>
-      <td class="text-center"><?php echo date("d M Y", $row['Created']); ?></td>
-      <td class="text-center"><?php echo date("d M Y", $row['LastLogin']); ?></td>
-      <td class="text-center"><?php echo $row['Email']; ?></td>
-      <td class="text-center"><?php echo $row['Phone']; ?></td>
+      <td class="text-center"><?= $row['UserID'] ?></td>
+      <td class="text-center"><?= $row['Username'] ?></td>
+      <td class="text-center"><?= $row['FullName']; ?></td>
+      <td class="text-center"><?= date("d M Y", $row['Created']); ?></td>
+      <td class="text-center"><?= date("d M Y", $row['LastLogin']); ?></td>
+      <td class="text-center"><?= $row['Email']; ?></td>
+      <td class="text-center"><?= $row['Phone']; ?></td>
       <td class="text-center"><?php
           if($row['Admin'] == '1') {
             echo '<a href="?page=Admin&subpage=Users&action=NonAdmin&id='.$row['UserID'].'#admin_menu" alt="Fjern admin" type="button" class="btn btn-success">Admin</a>';

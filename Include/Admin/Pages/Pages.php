@@ -35,7 +35,7 @@ if(isset($NewOrEditPage) && $NewOrEditPage != false){
  // create the Lsit over pages
 $result = $db_conn->query("Select * from Pages ORDER BY AdminOnly ASC, Online DESC, PageTitle ASC");
 ?>
-<a style="display:block;" href="?page=Admin&subpage=Pages&action=New#admin_menu" alt="Ny Side" type="button" class="text-center btn btn-info">Opret Ny Side</a>
+<a href="?page=Admin&subpage=Pages&action=New#admin_menu" alt="Ny Side" type="button" class="text-center btn btn-info">Opret Ny Side</a>
 <hr>
 <table class="table table-striped table-condensed table-hover hlpf_adminmenu">
   <thead>
@@ -54,28 +54,28 @@ $result = $db_conn->query("Select * from Pages ORDER BY AdminOnly ASC, Online DE
   <tbody>
   <?php while ($row = $result->fetch_assoc()) { ?>
     <tr>
-      <td class="text-center"><?php echo $row['PageID'] ?></td>
-      <td class="text-center"><?php echo $row['PageTitle'] ?></td>
-      <td class="text-center"><?php echo TorGetUserName($row['AuthorID'], $db_conn); ?></td>
-      <td class="text-center"><?php echo date('d.m.Y',$row['CreatedDate']); ?></td>
-      <td class="text-center"><?php echo TorGetUserName($row['LastEditedID'], $db_conn); ?></td>
-      <td class="text-center"><?php echo date('d.m.Y',$row['LastEditedDate']); ?></td>
+      <td class="text-center"><?= $row['PageID'] ?></td>
+      <td class="text-center"><?= $row['PageTitle'] ?></td>
+      <td class="text-center"><?= TorGetUserName($row['AuthorID'], $db_conn); ?></td>
+      <td class="text-center"><?= date('d.m.Y',$row['CreatedDate']); ?></td>
+      <td class="text-center"><?= TorGetUserName($row['LastEditedID'], $db_conn); ?></td>
+      <td class="text-center"><?= date('d.m.Y',$row['LastEditedDate']); ?></td>
       <td class="text-center"><?php
           if($row['Online'] == '1'){
-            echo '<a style="display:block;" href="?page=Admin&subpage=Pages&action=Offline&id='.$row['PageID'].'" alt="Set Offline" type="button" class="btn btn-success">Online</a>';
+            echo '<a href="?page=Admin&subpage=Pages&action=Offline&id='.$row['PageID'].'" alt="Set Offline" type="button" class="btn btn-success">Online</a>';
           }else{
-            echo '<a style="display:block;" href="?page=Admin&subpage=Pages&action=Online&id='.$row['PageID'].'" alt="Set Online" type="button" class="btn btn-danger">Offline</a>';
+            echo '<a href="?page=Admin&subpage=Pages&action=Online&id='.$row['PageID'].'" alt="Set Online" type="button" class="btn btn-danger">Offline</a>';
           }?>
       </td>
       <td class="text-center"><?php if($row['AdminOnly'] == '1'){
-            echo '<a style="display:block;" href="?page=Admin&subpage=Pages&action=Forall&id='.$row['PageID'].'" alt="For Alle" type="button" class="btn btn-success">Ja</a>';
-          }else{
-            echo '<a style="display:block;" href="?page=Admin&subpage=Pages&action=Foradmin&id='.$row['PageID'].'" alt="For Admin" type="button" class="btn btn-danger">Nej</a>';
+            echo '<a href="?page=Admin&subpage=Pages&action=Forall&id='.$row['PageID'].'" alt="For Alle" type="button" class="btn btn-success">Ja</a>';
+          } else {
+            echo '<a href="?page=Admin&subpage=Pages&action=Foradmin&id='.$row['PageID'].'" alt="For Admin" type="button" class="btn btn-danger">Nej</a>';
           } ?>
       </td>
       <td class="text-center">
         <?php
-        echo '<a style="display:block;" href="?page=Admin&subpage=Pages&action=Edit&id='.$row['PageID'].'#admin_menu" alt="Rediger Side" type="button" class="btn btn-warning">Rediger</a>';
+        echo '<a href="?page=Admin&subpage=Pages&action=Edit&id='.$row['PageID'].'#admin_menu" alt="Rediger Side" type="button" class="btn btn-warning">Rediger</a>';
         ?>
       </td>
     </tr>
