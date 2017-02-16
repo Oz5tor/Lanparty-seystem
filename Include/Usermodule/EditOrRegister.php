@@ -153,129 +153,104 @@ if(!isset($_SESSION['UserToken']) && !isset($_SESSION['UserID'])){
     }// Form submit end
     ?>
     <!-- Form Start -->
-    <div class="row">
-        <div class="col-lg-12 hlpf_contentbox">
-            <div class="row">
-                <div class="col-lg-12 hlpf_large_news_box">
-                    <img class="img-responsive" src="Images/image-slider-5.jpg">
-                    <hr/>
-                    <div class="hlpf_flex">
-                        <div class="table-responsive">
-                            <table class="table">
-                                <form action="" method="post">
-                                    <tr>
-                                        <td>
-                                            <label for="FullName">Fulde Navn:*</label>
-                                            <input type="text" class="form-control" placeholder="Santa Claus" id="FullName"
-                                                   value="<?php if(isset($FullName)){ echo $FullName;} ?>"  name="FullName">
-                                        </td>
-                                        <td><label for="Email">Email:*</label>
-                                            <input type="email" class="form-control" id="Email" placeholder="Workshop@santa.chrismas"
-                                                   value="<?php if(isset($Email)){ echo $Email;} ?>"  name="Email">
-                                        </td>
-                                        <td><label for="Birthday">F&oslash;dselsdag:*</label>
-                                            <input type="date" class="form-control" id="Birthday"
-                                                   value="<?php if(isset($Birthday)){ echo date("d.m.Y",$Birthday);} ?>"
-                                                    name="Birthday" title="dd.mm.yyyy">
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td>
-                                            <label for="Username">Brugernavn:*</label>
-                                            <input type="text" placeholder="ImNotSanta" class="form-control" id="FullName"
-                                                   value="<?php if(isset($PreffereredUsername)){echo $PreffereredUsername; } ?>"  name="Username">
-                                        </td>
-                                        <?php
-                                        if($page == 'EditMyProfile'){
-                                        ?>
-                                        <td>
-                                            &nbsp;
-                                        </td>
-                                        <td>
-                                            &nbsp;
-                                        </td>
-                                        <?php
-                                        }else{
-                                        ?>
-                                        <td>
-                                            <label for="Password">Kodeord:*</label>
-                                            <input type="password" class="form-control" pattern=".{4,18}" title="4 til 18 karaktere" id="Password" placeholder="Kodeord"  name="Password">
-                                        </td>
-                                        <td>
-                                            <label for="CPassword">Bekr&aelig;ft Kodeord:*</label>
-                                            <input type="password" class="form-control" pattern=".{4,18}" title="4 til 18 karaktere" id="CPassword" placeholder="Gentag Kodeord"  name="CPassword">
-                                        </td>
-                                        <?php
-                                        }
-                                        ?>
-                                    </tr>
-                                    <tr>
-                                        <td>
-                                            <label for="Phone">Telefon:*</label>
-                                            <input type="text" class="form-control" id="Phone" value="<?php if(isset($Phone)){echo $Phone;} ?>"  placeholder="feks: 11223344 eller +4511223344"  name="Phone">
-                                        </td>
-                                        <td>
-                                            <label for="Address">Adresse:*</label>
-                                            <input type="text" placeholder="feks Norpolen 42, 6.sal tv" class="form-control" id="FullName" value="<?php if(isset($Address)){echo $Address;} ?>"  name="Address">
-                                        </td>
-                                        <td>
-                                            <label for="Zipcode">Postnumber:*</label>
-                                            <input type="text" list="DBZipcodes" placeholder="1337 Awesome city" class="form-control" id="Zipcode" value="<?php if(isset($Zipcode)){echo $Zipcode;} ?>"  name="Zipcode">
-                                            <!-- List of Zipcodes in Denmark -->
-                                            <datalist id="DBZipcodes">
-                                                <?php
-                                                    if($result = $db_conn->query("SELECT * FROM ZipCodes")){
-                                                        while($row = $result->fetch_assoc()){
-                                                            echo '<option value=',$row["Zipcode"],'>',$row["Zipcode"],' ',$row["City"],'</option>';
-                                                        }
-                                                    }
-                                                ?>
-                                            </datalist>
-                                            <!-- List of Zipcodes in Denmark End -->
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td colspan="3">
-                                            <label for="Bio">Profil tekst:</label>
-                                            <textarea id="PublicTinyMCE" class="form-control awesomplete" rows="5" name="Bio"><?php if(isset($Bio)){echo $Bio;} ?></textarea>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                      <td>
-                                        <div class="form-inline">
-                                  <?php if($page != 'EditMyProfile'){ ?>
-                                          <label for="ToS">*Brugerbetinelser:</label>
-                                          <input type="checkbox" class="form-control" id="ToS" value="1"  name="ToS">&nbsp; |&nbsp;
-                                  <?php } ?>
-                                          <label for="ToS">Nyhedbrev:</label>
-                                          <input type="checkbox" <?php if(isset($NewsLetter) && $NewsLetter == 1){ echo 'checked';} ?> class="form-control" id="NewsLetter" value="1"  name="NewsLetter">
-                                          </div>
-                                          </td>
-                                        <td>&nbsp;</td>
-                                        <td class="text-center">
-                                            <input type="submit" value="Send" class="btn btn-default" name="Send_form">
-                                        </td>
-                                    </tr>
-                                    <?php
-                                    if(isset($RegErroMSG)){
-                                        echo '<tr><td><ul class="alert alert-danger" role="alert"><b>Feltkravene er ikke opfyldt:</b>';
-                                        foreach($RegErroMSG as $i){
-                                            echo '<li>'.$i.'</li>';
-                                        }
-                                        echo '</li></ul></td></tr>';
-                                    }
-                                    unset($RegErroMSG);
-                                    ?>
-                                </form>
-                            </table>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <hr/>
-        </div>
+<div class="row hlpf_contentbox">
+    <div class="col-lg-12">
+      <img class="img-responsive" src="Images/image-slider-5.jpg">
     </div>
-    <!-- Form end -->
+  &nbsp;
+    <form action="" method="post">
+      <div class="form-group col-lg-3">
+        <label class="control-label" for="FullName">Fulde Navn:*</label>
+        <input type="text" class="form-control" placeholder="Santa Claus" id="FullName" 
+               value="<?php if(isset($FullName)){ echo $FullName;} ?>"  name="FullName">
+      </div>
+      <div class="form-group col-lg-3">
+        <label class="control-label" for="Email">Email:*</label>
+        <input type="email" class="form-control" id="Email" placeholder="Workshop@santa.chrismas" 
+               value="<?php if(isset($Email)){ echo $Email;} ?>"  name="Email">
+      </div>
+      
+      <div class="form-group col-lg-3">
+        <label class="control-label" for="Birthday">F&oslash;dselsdag:*</label>
+        <input type="date" class="form-control" id="Birthday" value="<?php if(isset($Birthday)){ echo date("d.m.Y",$Birthday);} ?>" 
+               name="Birthday" title="dd.mm.yyyy">
+      </div>
+      <div class="form-group col-lg-3">
+        <label class="control-label" for="Username">Brugernavn:*</label>
+        <input type="text" placeholder="ImNotSanta" class="form-control" id="Username" 
+               value="<?php if(isset($PreffereredUsername)){echo $PreffereredUsername; } ?>"  name="Username">
+      </div>
+      
+      <div class="form-group col-lg-3">
+        <label class="control-label" for="Password">Kodeord:*</label>
+        <input type="password" class="form-control" pattern=".{4,18}" title="4 til 18 karaktere" id="Password" placeholder="Kodeord"  name="Password">
+      </div>
+      <div class="form-group col-lg-3">
+        <label class="control-label" for="CPassword">Bekr&aelig;ft Kodeord:*</label>
+        <input type="password" class="form-control" pattern=".{4,18}" title="4 til 18 karaktere" id="CPassword" placeholder="Gentag Kodeord"  name="CPassword">
+      </div>
+      <div class="form-group col-lg-3">
+        <label class="control-label" for="Phone">Telefon:*</label>
+        <input type="text" class="form-control" id="Phone" value="<?php if(isset($Phone)){echo $Phone;} ?>" 
+               placeholder="feks: 11223344 eller +4511223344"  name="Phone">
+      </div>
+      <div class="form-group col-lg-3">
+        <label class="control-label" for="Address">Adresse:*</label>
+        <input type="text" placeholder="feks Norpolen 42, 6.sal tv" class="form-control" id="Address" 
+               value="<?php if(isset($Address)){echo $Address;} ?>"  name="Address">
+      </div>
+
+      <div class="form-group col-lg-3">
+        <label class="control-label" for="Zipcode">Postnumber:*</label>
+        <input type="text" list="DBZipcodes" placeholder="1337 Awesome city" class="form-control" id="Zipcode" 
+        value="<?php if(isset($Zipcode)){echo $Zipcode;} ?>"  name="Zipcode">
+        <!-- List of Zipcodes in Denmark -->
+        <datalist id="DBZipcodes">
+        <?php
+        if($result = $db_conn->query("SELECT * FROM ZipCodes")){
+          while($row = $result->fetch_assoc()){
+          echo '<option value=',$row["Zipcode"],'>',$row["Zipcode"],' ',$row["City"],'</option>';
+          }
+        }
+        ?>
+        </datalist>
+        <!-- List of Zipcodes in Denmark End -->
+      </div>
+      <div class="form-group form-inline col-lg-3">
+          <?php if($page != 'EditMyProfile'){ ?>
+            <label for="ToS">*Brugerbetinelser: </label>
+            <input type="checkbox" id="ToS" value="1"  name="ToS">
+          <?php } ?>
+      </div>
+      <div class="form-group form-inline col-lg-3">
+          <label for="NewsLetter">Nyhedbrev:</label>
+          <input type="checkbox" <?php if(isset($NewsLetter) && $NewsLetter == 1){ echo 'checked';} ?> id="NewsLetter" value="1" 
+                 name="NewsLetter">
+      </div>
+      
+      <div class="form-group col-lg-12">
+        <label class="control-label" for="Bio">Profil tekst:</label>
+        <textarea id="PublicTinyMCE" class="form-control" rows="5" name="Bio" id="Bio">
+        <?php if(isset($Bio)){echo $Bio;} ?>
+        </textarea>
+      </div>
+
+      <div class="form-group col-lg-12">
+        <input type="submit" value="Send" class="btn btn-default" name="Send_form">
+      </div>
+      <?php
+      if(isset($RegErroMSG)){
+      echo '<tr><td><ul class="alert alert-danger" role="alert"><b>Feltkravene er ikke opfyldt:</b>';
+      foreach($RegErroMSG as $i){
+      echo '<li>'.$i.'</li>';
+      }
+      echo '</li></ul></td></tr>';
+      }
+      unset($RegErroMSG);
+      ?>
+    </form><!-- Form end -->
+</div> <!-- Row end -->
+    
 <?php
 }
 ?>
