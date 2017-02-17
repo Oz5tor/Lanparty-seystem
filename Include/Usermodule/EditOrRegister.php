@@ -90,22 +90,27 @@ if(!isset($_SESSION['UserToken']) && !isset($_SESSION['UserID'])){
                     case 'steam':
                         #$TokenRow      = 'SteamToken';
                         $profileURLCol = 'SteamURL';
+                        $profileURL = $_SESSION['ProfileUrl'];
                     break;
                     case 'facebook':
                         #$TokenRow      = 'FacebookToken';
                         $profileURLCol = 'FacebookURL';
+                        $profileURL = $_SESSION['ProfileUrl'];
                     break;
                     case 'twitch':
                         #$TokenRow      = 'TwitchToken';
                         $profileURLCol = 'TwitchURL';
+                        $profileURL = $_SESSION['ProfileUrl'];
                     break;
                     case 'google':
                         #$TokenRow      = 'GoogleToken';
                         $profileURLCol = 'GoogleURL';
+                        $profileURL = $_SESSION['ProfileUrl'];
                     break;
                     case 'battlenet':
                         #$TokenRow      = 'BattlenetToken';
                         $profileURLCol = 'BattlenetID';
+                        $profileURL = $_SESSION['BattleTag'];
                     break;
                 }
             }
@@ -119,7 +124,7 @@ if(!isset($_SESSION['UserToken']) && !isset($_SESSION['UserID'])){
             else // user creation
             {
                 $CreateTime = time();
-                $profileURL = $_SESSION['ProfileUrl'];
+                
                 $token = $_SESSION['UserToken'];
                 if($db_conn->query("INSERT INTO `Users`(Username, FullName, ZipCode, Birthdate, Created, Email, Bio, Admin,
                                      Address, PW, Phone, OneallUserToken, $profileURLCol, NewsLetter)

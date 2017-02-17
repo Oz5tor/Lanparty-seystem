@@ -62,15 +62,15 @@ if ( ! empty ($_POST['connection_token']))
       case "social_link":
         if ($data->plugin->data->status == 'success')
         {
+          $temptoken = $_SESSION['OneAllToken'];
           //Identity linked
           if ($data->plugin->data->action == 'link_identity')
           {
             //The identity <identity_token> has been linked to the user <user_token>
             $user_token = $data->user->user_token;
             $identity_token = $data->user->identity->identity_token;
-            
             if($user_token === $_SESSION['OneAllToken']){
-              $temptoken = $_SESSION['OneAllToken'];
+              
               $_SESSION['Linked'] = true;
               $ProfileURL = $data->user->identity->profileUrl;
               $identity_token = $data->user->identity->source->key;
@@ -98,8 +98,52 @@ if ( ! empty ($_POST['connection_token']))
               $_SESSION['Linked'] = false;
               header("Location: ../../index.php?page=EditMyProfile"); 
             }
-          }elseif ($data->plugin->data->action == 'unlink_identity')
-          {
+          }/*end of sucessfull link */
+          elseif ($data->plugin->data->action == 'unlink_identity')
+          {             
+            $providers = array();
+            $providersToArray = (array)($data->user->identities);
+            $tempCount = 0;
+            foreach($data->user->identities as $key){
+              $providers[] = $providersToArray[$tempCount]->provider;
+                $tempCount++;
+            }
+            #echo "<pre>";
+            #print_r($providers);
+            #print_r($data->user->identities[0]->provider);
+            #echo "</pre>";
+            
+            if(!in_array('google',$providers)){
+              $db_conn->query("UPDATE Users SET GoogleURL = 'NULL' WHERE OneallUserToken = '$temptoken'");
+            }
+            if(!in_array('facebook',$providers)){
+              $db_conn->query("UPDATE Users SET FacebookURL = 'NULL' WHERE OneallUserToken = '$temptoken'");
+            }
+            if(!in_array('battlenet',$providers)){
+              $db_conn->query("UPDATE Users SET BattlenetID = 'NULL' WHERE OneallUserToken = '$temptoken'");
+            }
+            if(!in_array('twitch',$providers)){
+              $db_conn->query("UPDATE Users SET TwitchURL = 'NULL' WHERE OneallUserToken = '$temptoken'");
+            }
+            if(!in_array('steam',$providers)){
+              $db_conn->query("UPDATE Users SET SteamURL = 'NULL' WHERE OneallUserToken = '$temptoken'");
+            }
+            
+            if($urlResult = $db_conn->query("SELECT SteamURL, GoogleURL, FacebookURL, TwitchURL, BattlenetID FROM Users WHERE OneallUserToken = '$temptoken' LIMIT 1")){
+              $urlRow = $urlResult->fetch_assoc();
+              if($urlRow["SteamURL"] == 'NULL' &&
+                 $urlRow["GoogleURL"] == 'NULL' &&
+                 $urlRow["FacebookURL"] == 'NULL' &&
+                 $urlRow["TwitchURL"] == 'NULL' &&
+                 $urlRow["BattlenetID"] == 'NULL'
+              ){
+                $_SESSION['SQLStatus'] = $db_conn->query("DELETE FROM Users WHERE OneallUserToken = '$temptoken'");
+                session_destroy();
+              }
+            }
+            //echo "<pre>";
+            //print_r($data->user);
+            //echo "</pre>";
             header("Location: ../../index.php?page=EditMyProfile"); 
           }
         }
