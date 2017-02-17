@@ -88,23 +88,23 @@ if(!isset($_SESSION['UserToken']) && !isset($_SESSION['UserID'])){
             if(isset($_SESSION['SocialNetwork'])){
                 switch($_SESSION['SocialNetwork']){
                     case 'steam':
-                        $TokenRow      = 'SteamToken';
+                        #$TokenRow      = 'SteamToken';
                         $profileURLCol = 'SteamURL';
                     break;
                     case 'facebook':
-                        $TokenRow      = 'FacebookToken';
+                        #$TokenRow      = 'FacebookToken';
                         $profileURLCol = 'FacebookURL';
                     break;
                     case 'twitch':
-                        $TokenRow      = 'TwitchToken';
+                        #$TokenRow      = 'TwitchToken';
                         $profileURLCol = 'TwitchURL';
                     break;
                     case 'google':
-                        $TokenRow      = 'GoogleToken';
+                        #$TokenRow      = 'GoogleToken';
                         $profileURLCol = 'GoogleURL';
                     break;
                     case 'battlenet':
-                        $TokenRow      = 'BattlenetToken';
+                        #$TokenRow      = 'BattlenetToken';
                         $profileURLCol = 'BattlenetID';
                     break;
                 }
@@ -122,7 +122,7 @@ if(!isset($_SESSION['UserToken']) && !isset($_SESSION['UserID'])){
                 $profileURL = $_SESSION['ProfileUrl'];
                 $token = $_SESSION['UserToken'];
                 if($db_conn->query("INSERT INTO `Users`(Username, FullName, ZipCode, Birthdate, Created, Email, Bio, Admin,
-                                     Address, PW, Phone, $TokenRow, $profileURLCol, NewsLetter)
+                                     Address, PW, Phone, OneallUserToken, $profileURLCol, NewsLetter)
                                      VALUES
                                      ('$Username','$FullName','$Zipcode', '$Birthday','$CreateTime','$Email', '$Bio','0',
                                       '$Address','$PW','$Phone','$token','$profileURL', '$NewsLetter')"))
@@ -143,6 +143,7 @@ if(!isset($_SESSION['UserToken']) && !isset($_SESSION['UserID'])){
 
                       echo $_SESSION['UserID'] = $tempUserID;
                       echo $_SESSION['Admin'] = $row['Admin'];
+                      echo $_SESSION['OneAllToken'] = $token;
                       $LastLogin = time();
                       if($db_conn->query("UPDATE Users SET LastLogin = '$LastLogin' WHERE UserID = '$tempUserID'")){ echo 'Senest login opdatert';}else{echo 'Senest login Ikke opdatert';}
                       header("Location: index.php?page=EditMyProfile");
@@ -234,7 +235,28 @@ if(!isset($_SESSION['UserToken']) && !isset($_SESSION['UserID'])){
         <?php if(isset($Bio)){echo $Bio;} ?>
         </textarea>
       </div>
+      <?php
+      if(isset($_SESSION['UserID'])){   
+      ?>
+        <div id="oa_social_link_container" class="form-group col-lg-12"></div>
+        <script type="text/javascript"> 
+          /* Replace #your_callback_uri# with the url to your own callback script */
+          var your_callback_script = 'http://<?php echo $ROOTURL; ?>Include/oneall_hlpf/oneall_callback_handler.php'; 
+          /* Dynamically add the user_token of the currently logged in user. */
+          /* Leave the field blank in case the user has no user_token yet. */
+          var user_token = '<?php echo $_SESSION['OneAllToken']; ?>';
+          
+          /* Embeds the buttons into the oa_social_link_container */
+          var _oneall = _oneall || [];
+          _oneall.push(['social_link', 'set_providers', ['facebook', 'Google', 'Battlenet', 'Steam', 'Twitch']]);
+          _oneall.push(['social_link', 'set_callback_uri', your_callback_script]);
+          _oneall.push(['social_link', 'set_user_token', user_token]);
+          _oneall.push(['social_link', 'do_render_ui', 'oa_social_link_container']);
 
+        </script>
+      <?php 
+      }
+      ?>
       <div class="form-group col-lg-12">
         <input type="submit" value="Send" class="btn btn-default" name="Send_form">
       </div>
