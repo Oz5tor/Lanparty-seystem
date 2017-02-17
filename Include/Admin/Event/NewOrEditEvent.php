@@ -28,7 +28,7 @@ if(isset($_POST['Save'])) {
       $Rules_ID  = $db_conn->real_escape_string($_POST['Rules']);
       $Title     = $db_conn->real_escape_string($_POST['Title']);
       $WanSpeed  = $db_conn->real_escape_string($_POST['wan']);
-    $LanSpeed  = $db_conn->real_escape_string($_POST['lan']);
+      $LanSpeed  = $db_conn->real_escape_string($_POST['lan']);
       $Pricegroups[] = $_POST['TypeList'];
       $Pricegroups = $Pricegroups[0]; // get the inner arrays
       $SelectedSeatmap  = $db_conn->real_escape_string($_POST['seatmap']);
