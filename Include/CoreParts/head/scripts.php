@@ -28,7 +28,7 @@
 <!-- OneAll -->
 <script type="text/javascript">
   /* Replace #your_subdomain# by the subdomain of a Site in your OneAll account */
-  var oneall_subdomain = 'hlpartyjoomla';
+  var oneall_subdomain = 'localhosttest2kage';
   /* The library is loaded asynchronously */
   var oa = document.createElement('script');
   oa.type = 'text/javascript'; oa.async = true;

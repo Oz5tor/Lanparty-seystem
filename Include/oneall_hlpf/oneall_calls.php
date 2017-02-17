@@ -39,10 +39,7 @@ function get_user_token_for_user_id ($user_id, $db_conn){
  * Link a user_token to an existing user identifier.
  * The goal is to store a user_token for a given user_id so that we can recognize the user_token lateron.
  */
-function link_user_token_to_user_id ($user_token, $user_id,$db_conn){
-  // Example: INSERT INTO user_token_link SET user_token = <user_token>, user_id = <user_id>
-  // Return true
-    
+function link_user_token_to_user_id ($user_token, $user_id,$db_conn){    
     if($result = $db_conn->query("UPDATE Users SET OneallUserToken= '$user_token' WHERE UserID = '$user_id'"))
     {
         if(mysqli_affected_rows($db_conn) == 1){

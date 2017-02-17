@@ -22,9 +22,9 @@
 // You get these values in your OneAll account at: https://app.oneall.com/
 // Login >> Site Configuration > Click on a Site Name
 //
-define ('SITE_SUBDOMAIN', 'hlpartyjoomla');
-define ('SITE_PUBLIC_KEY', '6058925d-18e5-4c0e-b1ad-39da9dfddbff');
-define ('SITE_PRIVATE_KEY', 'ffb6dca2-c350-4489-a8b1-f183405c9589');
+define ('SITE_SUBDOMAIN', 'localhosttest2kage');
+define ('SITE_PUBLIC_KEY', '9a53bb86-36a4-4cab-a51b-b3ad7b6219ab');
+define ('SITE_PRIVATE_KEY', 'd494d291-c421-4272-9d8c-737573c65a38');
 
 
 //
