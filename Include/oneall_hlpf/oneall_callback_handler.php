@@ -137,7 +137,7 @@ if ( ! empty ($_POST['connection_token']))
                  $urlRow["TwitchURL"] == 'NULL' &&
                  $urlRow["BattlenetID"] == 'NULL'
               ){
-                $_SESSION['SQLStatus'] = $db_conn->query("DELETE FROM Users WHERE OneallUserToken = '$temptoken'");
+                $_SESSION['SQLStatus'] = $db_conn->query("UPDATE Users SET Inactive = '1' WHERE OneallUserToken = '$temptoken'");
                 session_destroy();
               }
             }
