@@ -54,11 +54,11 @@ if ( ! empty ($_POST['connection_token']))
 
     // Extract data
     $data = $json->response->result->data;
-      
+
     // Check for service
     switch ($data->plugin->key)
     {
-        
+
       case "social_link":
         if ($data->plugin->data->status == 'success')
         {
@@ -70,7 +70,7 @@ if ( ! empty ($_POST['connection_token']))
             $user_token = $data->user->user_token;
             $identity_token = $data->user->identity->identity_token;
             if($user_token === $_SESSION['OneAllToken']){
-              
+
               $_SESSION['Linked'] = true;
               $ProfileURL = $data->user->identity->profileUrl;
               $identity_token = $data->user->identity->source->key;
@@ -91,16 +91,16 @@ if ( ! empty ($_POST['connection_token']))
                 case "steam":
                   $db_conn->query("Update Users SET SteamURL = '$ProfileURL' WHERE OneallUserToken = '$temptoken'");
                   break;
-                  
+
               }
-              header("Location: ../../index.php?page=EditMyProfile"); 
+              header("Location: ../../index.php?page=EditMyProfile");
             }else{
               $_SESSION['Linked'] = false;
-              header("Location: ../../index.php?page=EditMyProfile"); 
+              header("Location: ../../index.php?page=EditMyProfile");
             }
           }/*end of sucessfull link */
           elseif ($data->plugin->data->action == 'unlink_identity')
-          {             
+          {
             $providers = array();
             $providersToArray = (array)($data->user->identities);
             $tempCount = 0;
@@ -112,7 +112,7 @@ if ( ! empty ($_POST['connection_token']))
             #print_r($providers);
             #print_r($data->user->identities[0]->provider);
             #echo "</pre>";
-            
+
             if(!in_array('google',$providers)){
               $db_conn->query("UPDATE Users SET GoogleURL = 'NULL' WHERE OneallUserToken = '$temptoken'");
             }
@@ -128,7 +128,7 @@ if ( ! empty ($_POST['connection_token']))
             if(!in_array('steam',$providers)){
               $db_conn->query("UPDATE Users SET SteamURL = 'NULL' WHERE OneallUserToken = '$temptoken'");
             }
-            
+
             if($urlResult = $db_conn->query("SELECT SteamURL, GoogleURL, FacebookURL, TwitchURL, BattlenetID FROM Users WHERE OneallUserToken = '$temptoken' LIMIT 1")){
               $urlRow = $urlResult->fetch_assoc();
               if($urlRow["SteamURL"] == 'NULL' &&
@@ -137,30 +137,30 @@ if ( ! empty ($_POST['connection_token']))
                  $urlRow["TwitchURL"] == 'NULL' &&
                  $urlRow["BattlenetID"] == 'NULL'
               ){
-                $_SESSION['SQLStatus'] = $db_conn->query("DELETE FROM Users WHERE OneallUserToken = '$temptoken'");
                 session_destroy();
+                $_SESSION['SQLStatus'] = $db_conn->query("DELETE FROM Users WHERE OneallUserToken = '$temptoken'");
               }
             }
             //echo "<pre>";
             //print_r($data->user);
             //echo "</pre>";
-            header("Location: ../../index.php?page=EditMyProfile"); 
+            header("Location: ../../index.php?page=EditMyProfile");
           }
         }
         break;
-        
+
       // Single Sign On
       case "social_login":
         // Operation successful
         if ($data->plugin->data->status == 'success')
             {
-            // The user_token uniquely identifies the user 
+            // The user_token uniquely identifies the user
             // that has connected with his social network account
             $user_token = $data->user->user_token;
-            // The identity_token uniquely identifies the social network account 
+            // The identity_token uniquely identifies the social network account
             // that the user has used to connect with
             $identity_token = $data->user->identity->source->key;
-            
+
             // check of does the user exist in the database vv
             switch($identity_token){
                 // Battle.net
@@ -185,13 +185,13 @@ if ( ! empty ($_POST['connection_token']))
                 break;
             }
                 if ($user_id == null)
-                {   
+                {
                     switch($identity_token){
                         // Battle.net
                         case "battlenet":
                               $_SESSION['SocialNetwork'] = 'battlenet';
                               $_SESSION['UserToken'] = $user_token;
-                              $_SESSION['PreffereredUsername'] = $data->user->identity->preferredUsername;  
+                              $_SESSION['PreffereredUsername'] = $data->user->identity->preferredUsername;
                               $_SESSION['BattleTag'] = $data->user->identity->accounts[0]->username;
                         break;
                         // Facebook
@@ -202,8 +202,8 @@ if ( ! empty ($_POST['connection_token']))
                               $_SESSION['FullName'] = $data->user->identity->name->formatted;
                               $_SESSION['PreffereredUsername'] = $data->user->identity->preferredUsername;
                               $_SESSION['Email'] = $data->user->identity->emails[0]->value;
-                              $_SESSION['PictureUrl'] = $data->user->identity->pictureUrl;                      
-                            
+                              $_SESSION['PictureUrl'] = $data->user->identity->pictureUrl;
+
                         break;
                         // Steam
                         case "steam":
@@ -212,8 +212,8 @@ if ( ! empty ($_POST['connection_token']))
                               $_SESSION['ProfileUrl'] = $data->user->identity->profileUrl;
                               $_SESSION['PreffereredUsername'] = $data->user->identity->preferredUsername;
                               $_SESSION['PictureUrl'] = $data->user->identity->pictureUrl;
-                            
-                        break; 
+
+                        break;
                         //Google
                         case "google":
                               $_SESSION['SocialNetwork'] = 'google';
@@ -223,8 +223,8 @@ if ( ! empty ($_POST['connection_token']))
                               $_SESSION['Email'] = $data->user->identity->emails[0]->value;
                               $propicture = explode('50',$data->user->identity->pictureUrl);
                               // calling larger picture than what we get from 'pictureUrl'^
-                              $_SESSION['PictureUrl'] = $propicture[0].'250';   
-                            
+                              $_SESSION['PictureUrl'] = $propicture[0].'250';
+
                         break;
                         // Twitch TV
                         case "twitch":
@@ -236,7 +236,7 @@ if ( ! empty ($_POST['connection_token']))
                               $_SESSION['PictureUrl'] = $data->user->identity->pictureUrl;
                         break;
                     }
-                    header("Location: ../../index.php"); 
+                    header("Location: ../../index.php");
                     #echo "<pre>";
                     #print_r($data->user);
                     #echo "</pre>";
@@ -252,10 +252,10 @@ if ( ! empty ($_POST['connection_token']))
 
                     $LastLogin = time();
                     if($db_conn->query("UPDATE Users SET LastLogin = '$LastLogin' WHERE UserID = '$user_id'")){
-                      header("Location: ../../index.php");  
-                    }  
-                    
-                }   
+                      header("Location: ../../index.php");
+                    }
+
+                }
             }
             break;
             }
