@@ -57,7 +57,7 @@ if($action == 'Edit'){
     <div class="form-group col-lg-12">
       <textarea class="from-control" id="AdminTinyMCE" name="AdminTinyMCE"><?php if(isset($OutContent)){echo $OutContent;} ?></textarea>
     </div>
-    <div class="from-group col-lg-12 text-center">
+    <div class="form-group col-lg-12 text-center">
       <input class="btn btn-default" type="submit" value="Gem" name="Save" />
     </div>
   </form>

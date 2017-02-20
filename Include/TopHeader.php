@@ -5,11 +5,11 @@
         <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12 text-center" id="hlpf_countdown">
 
         </div>
-        <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12 text-center hidden-xs" id="hlpf_Login">
+        <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12 text-center" id="hlpf_Login">
             <?php if(!isset($_SESSION['UserID'])){ ?>
             <!-- ===================================== -->
             <div id="oa_social_login_container"></div>
-              <script type="text/javascript"> 
+              <script type="text/javascript">
                 /* Replace #your_callback_uri# with the url to your own callback script */
                 var your_callback_script = 'http://<?php echo $ROOTURL; ?>Include/oneall_hlpf/oneall_callback_handler.php';
                 /* Embeds the buttons into the container oa_social_login_container */

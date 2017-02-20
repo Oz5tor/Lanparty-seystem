@@ -82,7 +82,6 @@ $(document).ready(function() {
     $query = "SELECT Tickets.SeatNumber FROM Tickets INNER JOIN TicketPrices ON Tickets.TicketPriceID = TicketPrices.TicketPriceID INNER JOIN Event ON TicketPrices.EventID = Event.EventID WHERE Event.EventID = 2";
     $result = $DBConn->query($query);
     if ($result -> num_rows) {
-      #echo print_r($row);
       echo "sc.get([";
       while ($row = $result->fetch_assoc()) {
         echo "'" . $row['SeatNumber'] . "',";
