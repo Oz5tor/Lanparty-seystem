@@ -1,8 +1,8 @@
 <?php
-use PayPal\Api\Item; 
-use PayPal\Api\Payer; 
-use PayPal\Api\Amount; 
-use PayPal\Api\Details; 
+use PayPal\Api\Item;
+use PayPal\Api\Payer;
+use PayPal\Api\Amount;
+use PayPal\Api\Details;
 use PayPal\Api\Payment;
 use PayPal\Api\ItemList;
 use PayPal\Api\Transaction;
@@ -10,21 +10,21 @@ use PayPal\Api\RedirectUrls;
 
 ## =============== Defined set of values on a item ==========
 $tempItem = array();
-$tempItem['Name']     = 'Billet';
+$tempItem['Name']     = $_SERVER['PayPal']['Name'];
 $tempItem['Currency'] = 'DKK';
 $tempItem['Quantity'] = '1';
-$tempItem['Price']    = '200';
-$tempItem['Desc']    = 'Plads Billet grgergergergreg ergegerg erg erger ge r';
+$tempItem['Price']    = $_SERVER['PayPal']['Price'];
+$tempItem['Desc']    = 'Plads Billet ' . $_SERVER['PayPal']['SeatNumber'] . ' til ' . $_SERVER['PayPal']['Username'];
 ## ======== Add item or items to cart there will be used in the function ==========
 $cart = array();
 $cart[] = $tempItem;
 # == Call of the funtions looks like this and req the checkout cart and a description
-#PayPalCheckOut($cart,'Kage', $db_conn, 'index.php', $invoiceID);
+#PayPalCheckOut($cart, $db_conn, 'index.php', $invoiceID);
 
-function PayPalCheckOut($Cart,$description,$DBCONN, $returnto ,$invoiceID){
+function PayPalCheckOut($Cart, $DBCONN, $returnto ,$invoiceID){
   // get the basic paypal api config and DBconn.php
   require_once("class/PayPalConfig.php");
-  
+
   $total = 0;
   // get the total price
   $tempcounter = 0;
@@ -40,7 +40,7 @@ function PayPalCheckOut($Cart,$description,$DBCONN, $returnto ,$invoiceID){
     $items[] = $item[$tempcounter];
     $tempcounter++;
   }
-  
+
   $Payer = new Payer();
   $Payer->setPaymentMethod('paypal');
 
@@ -58,11 +58,10 @@ function PayPalCheckOut($Cart,$description,$DBCONN, $returnto ,$invoiceID){
     ->setTotal($total) // Lucky we dont use any tax or shipping for Lan Tickets
     ->setDetails($details);
 
-  
+
   $transaction = new Transaction();
   $transaction->setAmount($amount)
     ->setItemList($itemList)
-    ->setDescription($description)
     ->setInvoiceNumber($invoiceID);
 
   $redirectUrls = new RedirectUrls();
@@ -73,21 +72,21 @@ function PayPalCheckOut($Cart,$description,$DBCONN, $returnto ,$invoiceID){
   $payment->setIntent('sale')
     ->setPayer($Payer)
     ->setRedirectUrls($redirectUrls)
-    ->setTransactions([$transaction]); 
+    ->setTransactions([$transaction]);
 
   try{
     $payment->create($PaypalAPI); // opret PayPal payment URL
-    
+
     $paymentID = $payment->id;
     // transaction code = $invoiceid;
     $tempUser = $_SESSION['UserID'];
     //require_once 'Include/DBconn.php';
-    $DBCONN->query("INSERT INTO Transactions_PayPal 
+    $DBCONN->query("INSERT INTO Transactions_PayPal
                       (UserID,TransactionCode, Completed, PaymentID, CompletedTime)
                       VALUES
                       ('$tempUser','$invoiceid','0','$paymentID','NULL')");
-    
-    
+
+
     //echo $payment->getApprovalLink();
     header("Location: ". $payment->getApprovalLink());
   }catch (Exception $ex){
@@ -97,5 +96,5 @@ function PayPalCheckOut($Cart,$description,$DBCONN, $returnto ,$invoiceID){
   }
 } // Function end
 
-PayPalCheckOut($cart,'Kage', $db_conn, 'index.php', uniqid());
+PayPalCheckOut($cart, $db_conn, 'index.php', uniqid());
 ?>
