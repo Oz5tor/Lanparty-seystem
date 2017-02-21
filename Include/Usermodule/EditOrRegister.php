@@ -124,7 +124,7 @@ if(!isset($_SESSION['UserToken']) && !isset($_SESSION['UserID'])){
             else // user creation
             {
                 $CreateTime = time();
-                
+
                 $token = $_SESSION['UserToken'];
                 if($db_conn->query("INSERT INTO `Users`(Username, FullName, ZipCode, Birthdate, Created, Email, Bio, Admin,
                                      Address, PW, Phone, OneallUserToken, $profileURLCol, NewsLetter)
@@ -167,26 +167,26 @@ if(!isset($_SESSION['UserToken']) && !isset($_SESSION['UserID'])){
     <form action="" method="post">
       <div class="form-group col-lg-3">
         <label class="control-label" for="FullName">Fulde Navn:*</label>
-        <input type="text" class="form-control" placeholder="Santa Claus" id="FullName" 
+        <input type="text" class="form-control" placeholder="Santa Claus" id="FullName"
                value="<?php if(isset($FullName)){ echo $FullName;} ?>"  name="FullName">
       </div>
       <div class="form-group col-lg-3">
         <label class="control-label" for="Email">Email:*</label>
-        <input type="email" class="form-control" id="Email" placeholder="Workshop@santa.chrismas" 
+        <input type="email" class="form-control" id="Email" placeholder="Workshop@santa.chrismas"
                value="<?php if(isset($Email)){ echo $Email;} ?>"  name="Email">
       </div>
-      
+
       <div class="form-group col-lg-3">
         <label class="control-label" for="Birthday">F&oslash;dselsdag:*</label>
-        <input type="date" class="form-control" id="Birthday" value="<?php if(isset($Birthday)){ echo date("d.m.Y",$Birthday);} ?>" 
+        <input type="date" class="form-control" id="Birthday" value="<?php if(isset($Birthday)){ echo date("d.m.Y",$Birthday);} ?>"
                name="Birthday" title="dd.mm.yyyy">
       </div>
       <div class="form-group col-lg-3">
         <label class="control-label" for="Username">Brugernavn:*</label>
-        <input type="text" placeholder="ImNotSanta" class="form-control" id="Username" 
+        <input type="text" placeholder="ImNotSanta" class="form-control" id="Username"
                value="<?php if(isset($PreffereredUsername)){echo $PreffereredUsername; } ?>"  name="Username">
       </div>
-      
+
       <div class="form-group col-lg-3">
         <label class="control-label" for="Password">Kodeord:*</label>
         <input type="password" class="form-control" pattern=".{4,18}" title="4 til 18 karaktere" id="Password" placeholder="Kodeord"  name="Password">
@@ -197,18 +197,18 @@ if(!isset($_SESSION['UserToken']) && !isset($_SESSION['UserID'])){
       </div>
       <div class="form-group col-lg-3">
         <label class="control-label" for="Phone">Telefon:*</label>
-        <input type="text" class="form-control" id="Phone" value="<?php if(isset($Phone)){echo $Phone;} ?>" 
+        <input type="text" class="form-control" id="Phone" value="<?php if(isset($Phone)){echo $Phone;} ?>"
                placeholder="feks: 11223344 eller +4511223344"  name="Phone">
       </div>
       <div class="form-group col-lg-3">
         <label class="control-label" for="Address">Adresse:*</label>
-        <input type="text" placeholder="feks Norpolen 42, 6.sal tv" class="form-control" id="Address" 
+        <input type="text" placeholder="feks Norpolen 42, 6.sal tv" class="form-control" id="Address"
                value="<?php if(isset($Address)){echo $Address;} ?>"  name="Address">
       </div>
 
       <div class="form-group col-lg-3">
         <label class="control-label" for="Zipcode">Postnumber:*</label>
-        <input type="text" list="DBZipcodes" placeholder="1337 Awesome city" class="form-control" id="Zipcode" 
+        <input type="text" list="DBZipcodes" placeholder="1337 Awesome city" class="form-control" id="Zipcode"
         value="<?php if(isset($Zipcode)){echo $Zipcode;} ?>"  name="Zipcode">
         <!-- List of Zipcodes in Denmark -->
         <datalist id="DBZipcodes">
@@ -230,10 +230,10 @@ if(!isset($_SESSION['UserToken']) && !isset($_SESSION['UserID'])){
       </div>
       <div class="form-group form-inline col-lg-3">
           <label for="NewsLetter">Nyhedbrev:</label>
-          <input type="checkbox" <?php if(isset($NewsLetter) && $NewsLetter == 1){ echo 'checked';} ?> id="NewsLetter" value="1" 
+          <input type="checkbox" <?php if(isset($NewsLetter) && $NewsLetter == 1){ echo 'checked';} ?> id="NewsLetter" value="1"
                  name="NewsLetter">
       </div>
-      
+
       <div class="form-group col-lg-12">
         <label class="control-label" for="Bio">Profil tekst:</label>
         <textarea id="PublicTinyMCE" class="form-control" rows="5" name="Bio" id="Bio">
@@ -241,16 +241,16 @@ if(!isset($_SESSION['UserToken']) && !isset($_SESSION['UserID'])){
         </textarea>
       </div>
       <?php
-      if(isset($_SESSION['UserID'])){   
+      if(isset($_SESSION['UserID'])){
       ?>
         <div id="oa_social_link_container" class="form-group col-lg-12"></div>
-        <script type="text/javascript"> 
+        <script type="text/javascript">
           /* Replace #your_callback_uri# with the url to your own callback script */
-          var your_callback_script = 'http://<?php echo $ROOTURL; ?>Include/oneall_hlpf/oneall_callback_handler.php'; 
+          var your_callback_script = 'http://<?php echo $ROOTURL; ?>Include/oneall_hlpf/oneall_callback_handler.php';
           /* Dynamically add the user_token of the currently logged in user. */
           /* Leave the field blank in case the user has no user_token yet. */
           var user_token = '<?php echo $_SESSION['OneAllToken']; ?>';
-          
+
           /* Embeds the buttons into the oa_social_link_container */
           var _oneall = _oneall || [];
           _oneall.push(['social_link', 'set_providers', ['facebook', 'Google', 'Battlenet', 'Steam', 'Twitch']]);
@@ -259,7 +259,7 @@ if(!isset($_SESSION['UserToken']) && !isset($_SESSION['UserID'])){
           _oneall.push(['social_link', 'do_render_ui', 'oa_social_link_container']);
 
         </script>
-      <?php 
+      <?php
       }
       ?>
       <div class="form-group col-lg-12">
@@ -277,7 +277,7 @@ if(!isset($_SESSION['UserToken']) && !isset($_SESSION['UserID'])){
       ?>
     </form><!-- Form end -->
 </div> <!-- Row end -->
-    
+
 <?php
 }
 ?>
