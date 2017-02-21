@@ -19,95 +19,109 @@
     <h2>Information</h2>
     <!-- Tid og sted -->
     <h3>Tid og sted</h3>
-    <div class="col-lg-12">
-      <div class="col-lg-4">
-        <div>Navn:</div>
-        <div>Start tidspunkt:</div>
-        <div>Slut tidspunkt:</div>
-        <div>Adresse:</div>
-      </div>
-      <div class="col-lg-8">
-        <div><?php echo $eventrows['Title'] ?></div>
-        <div><?php echo date("d M Y - H:i:s", $eventrows['StartDate']) ?></div>
-        <div><?php echo date("d M Y - H:i:s", $eventrows['EndDate']) ?></div>
-        <div><?php echo $eventrows['Location'] ?></div>
-      </div>
-      &nbsp;
-    </div>
+    <table class="table table-responsive">
+      <thead>
+        <tr>
+          <th>Navn</th>
+          <th>Start tidspunkt</th>
+          <th>Slut tidspunkt</th>
+          <th>Adresse</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><?php echo $eventrows['Title'] ?></td>
+          <td><?php echo date("d M Y - H:i:s", $eventrows['StartDate']) ?></td>
+          <td><?php echo date("d M Y - H:i:s", $eventrows['EndDate']) ?></td>
+          <td><?php echo $eventrows['Location'] ?></td>
+        </tr>
+      </tbody>
+    </table>
 
     <!-- Pladser-->
     <h4>Pladser</h4>
-      <div>
+    <table class="table table-striped">
+    <tr>
+      <td>
         <img class="img-responsive" src="Images/Temp/seatmaphere.png">
         <?php if ($eventrows['Seatmap'] == null || $eventrows['Seatmap'] == "") {
-          //echo "Ingen information tilgængelig.";
+          echo "Ingen information tilgængelig.";
         } else {
-          //echo $eventrows['Seatmap'];
+          echo $eventrows['Seatmap'];
         } ?>
-    </div>
-
+      </td>
+    </tr>
+    </table>
     <!-- Tilmelding og priser -->
     <h4>Tilmelding og priser</h4>
-    <div class="col-lg-12">
-      <div class="col-lg-4">Medlem start dato:</div>
-      <div class="col-lg-8">
-      <div><!-- Empty field. --></div>
-      <?php
-        $SqlPricesMember = $db_conn->query($SqlPricesMemberQuery);
-        while ($row = mysqli_fetch_array($SqlPricesMember)) {
-          if ($row["StartTime"] != 0) {
-            echo "<div>" . date("d M H:i:s",$row["StartTime"]) . "</div>";
-          } else {
-            echo "<div>Dør-pris</div>";
-          }
-        }
-      ?>
-      </div>
-      <div class="col-lg-4">Medlem:</div>
-      <div class="col-lg-8">
+    <table class="table table-responsive table-striped table-hover">
+    <thead>
+      <tr>
+        <th><!-- Empty field. --></th>
         <?php
           $SqlPricesMember = $db_conn->query($SqlPricesMemberQuery);
           while ($row = mysqli_fetch_array($SqlPricesMember)) {
-            echo "<div>" . $row["Price"] . "DKK</div>";
-          }
-        ?>
-        &nbsp;          
-      </div>
-      <div class="col-lg-4">Ikke medlem start dato:</div>
-      <div class="col-lg-8">
-        <?php
-          echo "test";
-          $SqlPricesNonMember = $db_conn->query($SqlPricesNonMemberQuery);
-          while ($row = mysqli_fetch_array($SqlPricesNonMember)) {
             if ($row["StartTime"] != 0) {
-              echo "<div>" . date("d M H:i:s",$row["StartTime"]) . "</div>";
+              echo "<th>" . date("d M H:i:s",$row["StartTime"]) . "</th>";
             } else {
-              echo "<div>Dør-pris</div>";
+              echo "<th>Dør-pris</th>";
             }
           }
         ?>
-      </div>
-      <div class="col-lg-4">Ikke medlem:</div>
-      <div class="col-lg-8">
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <th>Medlem</th>
+        <?php
+          $SqlPricesMember = $db_conn->query($SqlPricesMemberQuery);
+          while ($row = mysqli_fetch_array($SqlPricesMember)) {
+            echo "<td>" . $row["Price"] . "DKK</td>";
+          }
+        ?>
+      </tr>
+    </tbody>
+    <thead>
+      <tr>
+        <th><!-- Empty field. --></th>
         <?php
           $SqlPricesNonMember = $db_conn->query($SqlPricesNonMemberQuery);
           while ($row = mysqli_fetch_array($SqlPricesNonMember)) {
-            echo "<div>" . $row["Price"] . "DKK</div>";
+            if ($row["StartTime"] != 0) {
+              echo "<th>" . date("d M H:i:s",$row["StartTime"]) . "</th>";
+            } else {
+              echo "<th>Dør-pris</th>";
+            }
           }
         ?>
-      </div>
-    </div>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <th>Ikke medlem</th>
+        <?php
+          $SqlPricesNonMember = $db_conn->query($SqlPricesNonMemberQuery);
+          while ($row = mysqli_fetch_array($SqlPricesNonMember)) {
+            echo "<td>" . $row["Price"] . "DKK</td>";
+          }
+        ?>
+      </tr>
+    </tbody>
+    </table>
     <p><a href="http://hlpf.dk">Klik her</a> for at blive medlem.</p>
 
     <!-- Netværk -->
     <h4>Netværk</h4>
-    <div class="col-lg-12">
-      <div class="col-lg-4">Lokalnetværk:</div>
-      <div class="col-lg-8"><?php echo $eventrows['Network'] ?></div>
-      <div class="col-lg-4">Internet:</div>
-      <div class="col-lg-8">100 Mbit / 100 Mbit</div>
-      &nbsp;
-    </div>
+    <table class="table table-striped">
+      <tr>
+        <td>Lokalnetværk</td>
+        <td><?php echo $eventrows['Network'] ?></td>
+      </tr>
+      <tr>
+        <td>Internet</td>
+        <td>100 Mbit / 100 Mbit</td>
+      </tr>
+    </table>
 
     <!-- Faciliteter -->
     <!--
