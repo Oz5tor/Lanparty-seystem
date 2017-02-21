@@ -138,7 +138,7 @@ if ( ! empty ($_POST['connection_token']))
                  $urlRow["BattlenetID"] == 'NULL'
               ){
                 session_destroy();
-                $_SESSION['SQLStatus'] = $db_conn->query("DELETE FROM Users WHERE OneallUserToken = '$temptoken'");
+                $_SESSION['SQLStatus'] = $db_conn->query("UPDATE Users SET Inactive = '1' WHERE OneallUserToken = '$temptoken'");
               }
             }
             //echo "<pre>";
