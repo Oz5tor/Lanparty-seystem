@@ -3,10 +3,10 @@
   $event = $db_conn->query("SELECT Event.Title, Event.EventID, Event.Poster, Event.StartDate, Event.EndDate, Event.Location, Event.Network, Event.Seatmap, Event.Rules FROM Event ORDER BY EventID DESC LIMIT 1");
   if( $event -> num_rows ) { $eventrows = $event->fetch_assoc(); }
   # Member price info
-  $SqlPricesMemberQuery = "SELECT * FROM TicketPrices WHERE TicketPrices.EventID = " . $eventrows["EventID"] . " AND TicketPrices.Type = 'Member' ORDER BY TicketPrices.Price ASC";
+  $SqlPricesMemberQuery = "SELECT * FROM TicketPrices WHERE TicketPrices.EventID = " . $eventrows["EventID"] . " AND TicketPrices.Type = 'Member' ORDER BY TicketPrices.StartTime ASC";
   //if( $SqlPricesMember -> num_rows ) { $pricesMember = $SqlPricesMember->fetch_assoc(); }
   # Nonmamber price info
-  $SqlPricesNonMemberQuery = "SELECT * FROM TicketPrices WHERE TicketPrices.EventID = " . $eventrows["EventID"] . " AND TicketPrices.Type = 'NonMember' ORDER BY TicketPrices.Price ASC";
+  $SqlPricesNonMemberQuery = "SELECT * FROM TicketPrices WHERE TicketPrices.EventID = " . $eventrows["EventID"] . " AND TicketPrices.Type = 'NonMember' ORDER BY TicketPrices.StartTime ASC";
   //if( $SqlPricesNonMember -> num_rows ) { $pricesNonMember = $SqlPricesNonMember->fetch_assoc(); }
   # Supplement price info
   # Food ticket query here.
@@ -48,55 +48,35 @@
 
     <!-- Tilmelding og priser -->
     <h4>Tilmelding og priser</h4>
-    <div class="col-lg-12">
-      <div class="col-lg-4">Medlem start dato:</div>
-      <div class="col-lg-8">
-      <div><!-- Empty field. --></div>
-      <?php
-        $SqlPricesMember = $db_conn->query($SqlPricesMemberQuery);
-        while ($row = mysqli_fetch_array($SqlPricesMember)) {
-          if ($row["StartTime"] != 0) {
-            echo "<div>" . date("d M H:i:s",$row["StartTime"]) . "</div>";
-          } else {
-            echo "<div>Dør-pris</div>";
-          }
-        }
-      ?>
-      </div>
-      <div class="col-lg-4">Medlem:</div>
-      <div class="col-lg-8">
-        <?php
-          $SqlPricesMember = $db_conn->query($SqlPricesMemberQuery);
-          while ($row = mysqli_fetch_array($SqlPricesMember)) {
-            echo "<div>" . $row["Price"] . "DKK</div>";
-          }
-        ?>
-        &nbsp;          
-      </div>
-      <div class="col-lg-4">Ikke medlem start dato:</div>
-      <div class="col-lg-8">
-        <?php
-          echo "test";
-          $SqlPricesNonMember = $db_conn->query($SqlPricesNonMemberQuery);
-          while ($row = mysqli_fetch_array($SqlPricesNonMember)) {
-            if ($row["StartTime"] != 0) {
-              echo "<div>" . date("d M H:i:s",$row["StartTime"]) . "</div>";
-            } else {
-              echo "<div>Dør-pris</div>";
+    <table class="table table-responsive table-striped table-hover">
+      <tbody>
+        <tr>
+          <th>Medlem pris:</th>
+          <?php
+            $SqlPricesMember = $db_conn->query($SqlPricesMemberQuery);
+            while ($row = mysqli_fetch_array($SqlPricesMember)) {
+              if ($row["StartTime"] != 0) {
+                echo "<td>" . "Fra " . date("d M",$row["StartTime"]) . " / " . $row["Price"] . ",- / Til " . date("d M",$row["EndTime"]) . "</td>";
+              } else {
+                echo "<div>Dør-pris</div>"; // div tags needs replacing
+              }
             }
-          }
-        ?>
-      </div>
-      <div class="col-lg-4">Ikke medlem:</div>
-      <div class="col-lg-8">
-        <?php
-          $SqlPricesNonMember = $db_conn->query($SqlPricesNonMemberQuery);
-          while ($row = mysqli_fetch_array($SqlPricesNonMember)) {
-            echo "<div>" . $row["Price"] . "DKK</div>";
-          }
-        ?>
-      </div>
-    </div>
+          ?>
+        </tr>
+          <th>Ikke medlem pris:</th>
+          <?php
+            $SqlPricesNonMember = $db_conn->query($SqlPricesNonMemberQuery);
+            while ($row = mysqli_fetch_array($SqlPricesNonMember)) {
+              if ($row["StartTime"] != 0) {
+                echo "<td>" . "Fra " . date("d M",$row["StartTime"]) . " / " . $row["Price"] . ",- / Til " . date("d M",$row["EndTime"]) . "</td>";
+              } else {
+                echo "<div>Dør-pris</div>";
+              }
+            }
+          ?>
+        </tr>
+      </tbody>
+    </table>
     <p><a href="http://hlpf.dk">Klik her</a> for at blive medlem.</p>
 
     <!-- Netværk -->
