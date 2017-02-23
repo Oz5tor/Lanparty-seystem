@@ -72,7 +72,6 @@ if(!isset($_SESSION['UserToken']) && !isset($_SESSION['UserID'])){
       
       if($NewClan == '' && $Clan == 0){
         $finalClan = 0;
-        echo "Kage0";
       }
       
       if($Clan != 0){
@@ -82,13 +81,9 @@ if(!isset($_SESSION['UserToken']) && !isset($_SESSION['UserID'])){
           if($NewClanExist->num_rows == 1){
             $NewClanExistRow = $NewClanExist->fetch_assoc();
             $finalClan = $NewClanExistRow['ClanID'];
-            echo "Kage4";  
           }else{
-            echo "Kage1";
             if($db_conn->query("INSERT INTO Clan (Name) VALUES ('$NewClan')")){
-              echo "Kage2";
               if($NewClanResult = $db_conn->query("SELECT * FROM Clan WHERE Name = '$NewClan'")){
-                echo "Kage3";
                 $NewClanRow = $NewClanResult->fetch_assoc();
                 $finalClan = $NewClanRow['ClanID'];
               }
@@ -154,7 +149,7 @@ if(!isset($_SESSION['UserToken']) && !isset($_SESSION['UserID'])){
                                                   Address = '$Address', Phone = '$Phone', NewsLetter = '$NewsLetter',
                                                   ClanID = '$finalClan'
                                   WHERE UserID = '$UserID'")){}
-                  //header("Location: index.php?page=EditMyProfile");
+                  header("Location: index.php?page=EditMyProfile");
             }
             else // user creation
             {
@@ -186,7 +181,7 @@ if(!isset($_SESSION['UserToken']) && !isset($_SESSION['UserID'])){
                       echo $_SESSION['OneAllToken'] = $token;
                       $LastLogin = time();
                       if($db_conn->query("UPDATE Users SET LastLogin = '$LastLogin' WHERE UserID = '$tempUserID'")){ echo 'Senest login opdatert';}else{echo 'Senest login Ikke opdatert';}
-                      //header("Location: index.php?page=EditMyProfile");
+                      header("Location: index.php?page=EditMyProfile");
                     }else{echo 'find ny bruger fejled';}
                 }else {echo 'opret fejled';}
             }
