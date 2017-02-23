@@ -20,13 +20,13 @@
     <!-- Tid og sted -->
     <h3>Tid og sted</h3>
     <div class="col-lg-12">
-      <div class="col-lg-4">
+      <div class="col-lg-3">
         <div>Navn:</div>
         <div>Start tidspunkt:</div>
         <div>Slut tidspunkt:</div>
         <div>Adresse:</div>
       </div>
-      <div class="col-lg-8">
+      <div class="col-lg-9">
         <div><?php echo $eventrows['Title'] ?></div>
         <div><?php echo date("d M Y - H:i:s", $eventrows['StartDate']) ?></div>
         <div><?php echo date("d M Y - H:i:s", $eventrows['EndDate']) ?></div>
@@ -48,55 +48,53 @@
 
     <!-- Tilmelding og priser -->
     <h4>Tilmelding og priser</h4>
-    <table class="table table-responsive table-striped table-hover">
-      <tbody>
-        <tr>
-          <th><font size='2'>Medlem pris:</font></th>
-          <?php
-            $counter = 1; // Counter to limit amount of TicketPrices shown
-            $SqlPricesMember = $db_conn->query($SqlPricesMemberQuery);
-            while (($row = mysqli_fetch_array($SqlPricesMember)) && $counter < 4) {
-              if ($row["StartTime"] < TIME() && $row["EndTime"] > TIME()) { // If TicketPrice exists today
-                echo "<td><font size='2'>" . date("d M",$row["StartTime"]) . " / " . $row["Price"] . ",- / " . date("d M",$row["EndTime"]) . "</font></td>";
-                $counter++;
-              } elseif ($row["StartTime"] > TIME()){ // If TicketPrice exists in future
-                echo "<td><font size='2'>" . date("d M",$row["StartTime"]) . " / " . $row["Price"] . ",- / " . date("d M",$row["EndTime"]) . "</font></td>";
-                $counter++;
-              } else { //If TicketPrice in past
-                
-              }
+    <div class="col-lg-12">
+      <div class="col-lg-2">Medlem pris:</div>
+      <div class="col-lg-10">
+        <?php
+          $counter = 1; // Counter to limit amount of TicketPrices shown
+          $SqlPricesMember = $db_conn->query($SqlPricesMemberQuery);
+          while (($row = mysqli_fetch_array($SqlPricesMember)) && $counter < 4) {
+            if ($row["StartTime"] < TIME() && $row["EndTime"] > TIME()) { // If TicketPrice exists today
+              echo "<div class='col-lg-4'>" . date("d/m",$row["StartTime"]) . "-" . date("d/m",$row["EndTime"]) . ", " . $row["Price"] . ",-" . "</div>";
+              $counter++;
+            } elseif ($row["StartTime"] > TIME()){ // If TicketPrice exists in future
+              echo "<div class='col-lg-4'>" . date("d M",$row["StartTime"]) . "-" . date("d M",$row["EndTime"]) . ", " . $row["Price"] . ",-" . "</div>";
+              $counter++;
+            } else { //If TicketPrice in past
+              
             }
-          ?>
-        </tr>
-        <tr>
-          <th><font size='2'>Ikke medlem pris:</font></th>
-          <?php
-            $counter = 1; // Counter to limit amount of TicketPrices shown
-            $SqlPricesNonMember = $db_conn->query($SqlPricesNonMemberQuery);
-            while (($row = mysqli_fetch_array($SqlPricesNonMember)) && $counter < 4) {
-              if ($row["StartTime"] < TIME() && $row["EndTime"] > TIME()) { // If TicketPrice exists today
-                echo "<td><font size='2'>" . date("d M",$row["StartTime"]) . " / " . $row["Price"] . ",- / " . date("d M",$row["EndTime"]) . "</font></td>";
-                $counter++;
-              } elseif ($row["StartTime"] > TIME()){ // If TicketPrice exists in future
-                echo "<td><font size='2'>" . date("d M",$row["StartTime"]) . " / " . $row["Price"] . ",- / " . date("d M",$row["EndTime"]) . "</font></td>";
-                $counter++;
-              } else { //If TicketPrice in past
-                
-              }
+          }
+        ?>
+      </div>
+      <div class="col-lg-3">Ikke medlem pris:</div>
+      <div class="col-lg-9">
+        <?php
+          $counter = 1; // Counter to limit amount of TicketPrices shown
+          $SqlPricesNonMember = $db_conn->query($SqlPricesNonMemberQuery);
+          while (($row = mysqli_fetch_array($SqlPricesNonMember)) && $counter < 4) {
+            if ($row["StartTime"] < TIME() && $row["EndTime"] > TIME()) { // If TicketPrice exists today
+              echo "<div class='col-lg-4'>" . date("d M",$row["StartTime"]) . "-" . date("d M",$row["EndTime"]) . ", " . $row["Price"] . ",-" . "</div>";
+              $counter++;
+            } elseif ($row["StartTime"] > TIME()){ // If TicketPrice exists in future
+              echo "<div class='col-lg-4'>" . date("d M",$row["StartTime"]) . "-" . date("d M",$row["EndTime"]) . ", " . $row["Price"] . ",-" . "</div>";
+              $counter++;
+            } else { //If TicketPrice in past
+              
             }
-          ?>
-        </tr>
-      </tbody>
-    </table>
+          }
+        ?>
+      </div>
+    </div>
     <p><a href="http://hlpf.dk">Klik her</a> for at blive medlem.</p>
 
     <!-- Netværk -->
     <h4>Netværk</h4>
     <div class="col-lg-12">
-      <div class="col-lg-4">Lokalnetværk:</div>
-      <div class="col-lg-8"><?php echo $eventrows['Network'] ?></div>
-      <div class="col-lg-4">Internet:</div>
-      <div class="col-lg-8">100 Mbit / 100 Mbit</div>
+      <div class="col-lg-3">Lokalnetværk:</div>
+      <div class="col-lg-9"><?php echo $eventrows['Network'] ?></div>
+      <div class="col-lg-3">Internet:</div>
+      <div class="col-lg-9">100 Mbit / 100 Mbit</div>
       &nbsp;
     </div>
 
