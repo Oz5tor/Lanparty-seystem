@@ -4,17 +4,68 @@
   if( $event -> num_rows ) { $eventrows = $event->fetch_assoc(); }
   # Member price info
   $SqlPricesMemberQuery = "SELECT * FROM TicketPrices WHERE TicketPrices.EventID = " . $eventrows["EventID"] . " AND TicketPrices.Type = 'Member' ORDER BY TicketPrices.StartTime ASC";
-  //if( $SqlPricesMember -> num_rows ) { $pricesMember = $SqlPricesMember->fetch_assoc(); }
-  # Nonmamber price info
+  #none member
   $SqlPricesNonMemberQuery = "SELECT * FROM TicketPrices WHERE TicketPrices.EventID = " . $eventrows["EventID"] . " AND TicketPrices.Type = 'NonMember' ORDER BY TicketPrices.StartTime ASC";
-  //if( $SqlPricesNonMember -> num_rows ) { $pricesNonMember = $SqlPricesNonMember->fetch_assoc(); }
-  # Supplement price info
-  # Food ticket query here.
-  //$result5 = $db_conn->query("SELECT tp.StartTime, tp.EndTime, tp.Price FROM Event as e INNER JOIN TicketPrices as tp	ON e.EventID = tp.EventID WHERE e.EventID = " . $eventrows["EventID"] . " AND tp.Type = 'Supplement' ORDER BY tp.StartTime ASC LIMIT 0, 1");
-  //if( $result5 -> num_rows ) { $row5 = $result5->fetch_assoc(); }
 ?>
-
 <div class="col-lg-12 hlpf_contentbox"> <!-- Ret class til-->
+  <div class="row">
+    <!-- Basic info -->
+    <div class="col-lg-12">
+      <div class="col-lg-9">
+        <h1><?php echo $eventrows['Title']; ?></h1>
+        <hr>
+        <!-- ============== -->
+        <div>
+          <p><b>Start tidspunkt:</b> <?php echo $eventrows['StartDate']; ?>. <b>Slut tidspunkt:</b> <?php echo $eventrows['EndDate']; ?></p>
+          <p><b>Adresse:</b> <?php echo $eventrows['Location']; ?> <a href="#">Se Map</a></p>
+          <p><b>Internet/LAN: </b> <?php echo $eventrows['Network']; ?></p>
+          <p><b>Regler: </b> <a href="?page=<?php echo $eventrows['Rules']; ?>">Læs dem her</a></p>
+          <hr>
+          <!-- Tickets prices -->
+          <div>
+            <h2>Billet Priser:</h2>
+            <div class="">
+              <div class="col-lg-3"><p><b>Medlemmer</b></p></div>
+              <div style="background-color: lightgreen;" class="col-lg-3 center-text">12/25 - 12/25 450,-</div>
+              <div style="background-color: yellow;"class="col-lg-3 center-text">12/25 - 12/25 450,-</div>
+              <div style="background-color: red;" class="col-lg-3 center-text">12/25 - 12/25 450,-</div>
+              <!--<div class="col-lg-1">Flere</div>-->
+            </div>
+            &nbsp;
+            <div class="">
+              <div class="col-lg-3"><p><b>Ikke-Medlemmer</b></p></div>
+              <div style="background-color: lightgreen;" class="col-lg-3 center-text">12/25 - 12/25 450,-</div>
+              <div style="background-color: yellow;"class="col-lg-3 center-text">12/25 - 12/25 450,-</div>
+              <div style="background-color: red;" class="col-lg-3 center-text">12/25 - 12/25 450,-</div>
+              <!-- <div class="col-lg-1">Flere</div>-->
+            </div>
+          </div><!-- Tickets prices end -->
+          <br>
+          <hr>
+          <!-- Seat map -->
+          <div>
+            <img src="Images/2017-02-23%2013_58_43-HLParty%20-%20Admin%20-_%20Seatmap.png">
+          </div><!-- Seat Map end -->
+        </div>
+      </div><!-- Basic info end -->
+      <!-- Poster -->
+      <div class="col-lg-3">
+        <?php
+        echo '<img class="img-responsive" src="Images/EventPoster/'.$eventrows['Poster'].'">';
+        ?>
+      </div><!-- Poster -->
+    </div><!-- end of first div row -->
+  </div>
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  <?php /*
   <div class="col-lg-8 row">
     <h2>Information</h2>
     <!-- Tid og sted -->
@@ -163,6 +214,7 @@
     } ?>
     </div>
   </div>
+  */ ?>
 </div>
 
 <?php
