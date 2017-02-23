@@ -24,21 +24,33 @@
           <!-- Tickets prices -->
           <div>
             <h2>Billet Priser:</h2>
-            <div class="">
+            <div class="row">
               <div class="col-lg-3"><p><b>Medlemmer</b></p></div>
-              <div style="background-color: lightgreen;" class="col-lg-3 center-text">12/25 - 12/25 450,-</div>
-              <div style="background-color: yellow;"class="col-lg-3 center-text">12/25 - 12/25 450,-</div>
-              <div style="background-color: red;" class="col-lg-3 center-text">12/25 - 12/25 450,-</div>
+              <div style="background-color: lightgreen;" class="col-lg-2 text-center">12/25 - 12/25 450,-</div>
+              <div style="background-color: yellow;" class="col-lg-2 text-center">12/25 - 12/25 450,-</div>
+              <div style="background-color: red;" class="col-lg-2 text-center">12/25 - 12/25 450,-</div>
+              <div style="background-color: red;" class="col-lg-2 text-center">12/25 - 12/25 450,-</div>  
               <!--<div class="col-lg-1">Flere</div>-->
             </div>
-            &nbsp;
-            <div class="">
+            <div class="row">
               <div class="col-lg-3"><p><b>Ikke-Medlemmer</b></p></div>
-              <div style="background-color: lightgreen;" class="col-lg-3 center-text">12/25 - 12/25 450,-</div>
-              <div style="background-color: yellow;"class="col-lg-3 center-text">12/25 - 12/25 450,-</div>
-              <div style="background-color: red;" class="col-lg-3 center-text">12/25 - 12/25 450,-</div>
+              <div style="border-top:solid 1px black; background-color: lightgreen;" class="col-lg-2 text-center">12/25 - 12/25 450,-</div>
+              <div style="border-top:solid 1px black; background-color: yellow;" class="col-lg-2 text-center">12/25 - 12/25 450,-</div>
+              <div style="border-top:solid 1px black; background-color: red;" class="col-lg-2 text-center">12/25 - 12/25 450,-</div>  
+              <div style="border-top:solid 1px black; background-color: red;" class="col-lg-2 text-center">12/25 - 12/25 450,-</div>  
               <!-- <div class="col-lg-1">Flere</div>-->
             </div>
+            <div class="row">
+              <div class="col-lg-3"><p><b>Morgenmad</b></p></div>
+              <div style="border-top:solid 1px black; background-color: lightgreen;" class="col-lg-8 text-center">12/25 - 12/25 <br> 60,-</div>
+              <!-- <div class="col-lg-1">Flere</div>-->
+            </div>
+            <div class="row">
+              <div class="col-lg-3"><p><b>Aftensmad</b></p></div>
+              <div style="border-top:solid 1px black; background-color: lightgreen;" class="col-lg-8 text-center">12/25 - 12/25 <br> 60,-</div>
+              <!-- <div class="col-lg-1">Flere</div>-->
+            </div>
+              
           </div><!-- Tickets prices end -->
           <br>
           <hr>
