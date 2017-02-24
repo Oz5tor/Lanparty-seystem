@@ -2,11 +2,18 @@
   # Latest event - Get the ID.
   $event = $db_conn->query("SELECT e.Title, e.EventID, e.Poster, e.StartDate, e.EndDate, e.Location, e.Network, e.Seatmap, e.Rules FROM Event as e ORDER BY e.EventID DESC LIMIT 1");
   if( $event -> num_rows ) { $eventrows = $event->fetch_assoc(); }
+  var_dump($eventrows);
   # Query
   $SqlPricesQuery = "SELECT * FROM TicketPrices as tp WHERE tp.EventID = " . $eventrows["EventID"] . " ORDER BY tp.Type, tp.StartTime ASC";
-  
-  $DistinctEventPriceTypes = "SELECT DISTINCT tp.Type FROM TicketPrices as tp WHERE tp.EventID = " . $eventrows["EventID"] . " ORDER BY tp.Type ASC";
-  if( $DistinctEventPriceTypes -> num_rows ) { $type = $$DistinctEventPriceTypes->fetch_assoc(); } // Why would I need this? How do you want to add this to another SQL query? I must check through types to know what type I am adding to the div, then use SqlPricesQuery to actually add the values, based on the type.
+
+  $DistinctEventPriceTypes = $db_conn->query("SELECT DISTINCT tp.Type FROM TicketPrices as tp WHERE tp.EventID = " . $eventrows["EventID"] . " ORDER BY tp.Type ASC");
+  if( $DistinctEventPriceTypes -> num_rows ) { $type = $DistinctEventPriceTypes->fetch_assoc(); } // May need to rmeove this + db_conn->query
+
+  var_dump($type);
+
+/*
+  $PeriodsInEventPerType = 
+  SELECT tp.StartTime, tp.EndTime FROM TicketPrices as tp WHERE tp.EventID = $eventrows["EventID"] AND tp.Type = $type["Type"] ORDER BY tp.StartTime ASC
   # Member price info
   /*$SqlPricesMemberQuery = "SELECT * FROM TicketPrices WHERE TicketPrices.EventID = " . $eventrows["EventID"] . " AND TicketPrices.Type = 'Member' ORDER BY TicketPrices.StartTime ASC";
   # none member
@@ -38,10 +45,10 @@
                 $counter = 1;
                 $SqlPricesMember = $db_conn->query($SqlPricesQuery);
                 while ($row = mysqli_fetch_array($SqlPricesMember)) {
-                  foreach (times as x) {
-                    echo "<div style='border-top:solid 1px black; border-left:solid 1px black; border-right:solid 1px black; background-color: lightgreen;' class='col-lg-2 text-center'>" . date("d/m",$row["StartTime"]) . " - " . date("d/m",$row["EndTime"]) . "<br>" . $row["Price"] . ",-" . "</div>";
-                    $counter++;
-                  }
+                  #foreach (periods as x) {
+                    #echo "<div style='border-top:solid 1px black; border-left:solid 1px black; border-right:solid 1px black; background-color: lightgreen;' class='col-lg-2 text-center'>" . date("d/m",$row["StartTime"]) . " - " . date("d/m",$row["EndTime"]) . "<br>" . $row["Price"] . ",-" . "</div>";
+                   # $counter++;
+                  #}
                   /*
                   if ($row["StartTime"] != null && $counter == 1) {
                     echo "<div style='border-top:solid 1px black; border-left:solid 1px black; border-right:solid 1px black; background-color: lightgreen;' class='col-lg-2 text-center'>" . date("d/m",$row["StartTime"]) . " - " . date("d/m",$row["EndTime"]) . "<br>" . $row["Price"] . ",-" . "</div>";
