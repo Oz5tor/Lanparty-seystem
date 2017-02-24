@@ -44,6 +44,9 @@ elseif (! empty( $page ) ) {
         case "NewsLetter":
             include_once("ShowNewsLetter.php");
             break;
+        case "Buy":
+            include_once("Include/OrderTicket/ChooseSeat.php");
+            break;
         default:
             include_once("Include/Page.php");
             break;

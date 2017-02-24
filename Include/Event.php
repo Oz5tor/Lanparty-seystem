@@ -51,26 +51,37 @@
     <table class="table table-responsive table-striped table-hover">
       <tbody>
         <tr>
-          <th>Medlem pris:</th>
+          <th><font size='2'>Medlem pris:</font></th>
           <?php
+            $counter = 1; // Counter to limit amount of TicketPrices shown
             $SqlPricesMember = $db_conn->query($SqlPricesMemberQuery);
-            while ($row = mysqli_fetch_array($SqlPricesMember)) {
-              if ($row["StartTime"] != 0) {
-                echo "<td>" . "Fra " . date("d M",$row["StartTime"]) . " / " . $row["Price"] . ",- / Til " . date("d M",$row["EndTime"]) . "</td>";
-              } else {
-                echo "<div>Dør-pris</div>"; // div tags needs replacing
+            while (($row = mysqli_fetch_array($SqlPricesMember)) && $counter < 4) {
+              if ($row["StartTime"] < TIME() && $row["EndTime"] > TIME()) { // If TicketPrice exists today
+                echo "<td><font size='2'>" . date("d M",$row["StartTime"]) . " / " . $row["Price"] . ",- / " . date("d M",$row["EndTime"]) . "</font></td>";
+                $counter++;
+              } elseif ($row["StartTime"] > TIME()){ // If TicketPrice exists in future
+                echo "<td><font size='2'>" . date("d M",$row["StartTime"]) . " / " . $row["Price"] . ",- / " . date("d M",$row["EndTime"]) . "</font></td>";
+                $counter++;
+              } else { //If TicketPrice in past
+                
               }
             }
           ?>
         </tr>
-          <th>Ikke medlem pris:</th>
+        <tr>
+          <th><font size='2'>Ikke medlem pris:</font></th>
           <?php
+            $counter = 1; // Counter to limit amount of TicketPrices shown
             $SqlPricesNonMember = $db_conn->query($SqlPricesNonMemberQuery);
-            while ($row = mysqli_fetch_array($SqlPricesNonMember)) {
-              if ($row["StartTime"] != 0) {
-                echo "<td>" . "Fra " . date("d M",$row["StartTime"]) . " / " . $row["Price"] . ",- / Til " . date("d M",$row["EndTime"]) . "</td>";
-              } else {
-                echo "<div>Dør-pris</div>";
+            while (($row = mysqli_fetch_array($SqlPricesNonMember)) && $counter < 4) {
+              if ($row["StartTime"] < TIME() && $row["EndTime"] > TIME()) { // If TicketPrice exists today
+                echo "<td><font size='2'>" . date("d M",$row["StartTime"]) . " / " . $row["Price"] . ",- / " . date("d M",$row["EndTime"]) . "</font></td>";
+                $counter++;
+              } elseif ($row["StartTime"] > TIME()){ // If TicketPrice exists in future
+                echo "<td><font size='2'>" . date("d M",$row["StartTime"]) . " / " . $row["Price"] . ",- / " . date("d M",$row["EndTime"]) . "</font></td>";
+                $counter++;
+              } else { //If TicketPrice in past
+                
               }
             }
           ?>

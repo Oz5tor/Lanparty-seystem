@@ -20,6 +20,7 @@
 ?>
 <script type="text/javascript">
 $(document).ready(function() {
+  var chosenSeats = 0;
   var sc = $('#seat-map').seatCharts({
     map: [
       <?php
@@ -61,10 +62,13 @@ $(document).ready(function() {
     },
     click: function () {
       if (this.status() == 'available') {
-        //do some stuff, i.e. add to the cart
+        chosenSeats++;
+        if (chosenSeats > 10) {
+          alert("I am an alert box!");
+        }
         return 'selected';
       } else if (this.status() == 'selected') {
-        //seat has been vacated
+        chosenSeats--;
         return 'available';
       } else if (this.status() == 'unavailable') {
         //seat has been already booked
