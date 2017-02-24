@@ -1,12 +1,20 @@
 <?php
   # Latest event - Get the ID.
-  $event = $db_conn->query("SELECT Event.Title, Event.EventID, Event.Poster, Event.StartDate, Event.EndDate, Event.Location, Event.Network, Event.Seatmap, Event.Rules FROM Event ORDER BY EventID DESC LIMIT 1");
+  $event = $db_conn->query("SELECT e.Title, e.EventID, e.Poster, e.StartDate, e.EndDate, e.Location, e.Network, e.Seatmap, e.Rules FROM Event as e ORDER BY e.EventID DESC LIMIT 1");
   if( $event -> num_rows ) { $eventrows = $event->fetch_assoc(); }
+  # Query
+  $SqlPricesQuery = "SELECT * FROM TicketPrices as tp WHERE tp.EventID = " . $eventrows["EventID"] . " ORDER BY tp.Type, tp.StartTime ASC";
+  
+  $DistinctEventPriceTypes = "SELECT DISTINCT tp.Type FROM TicketPrices as tp WHERE tp.EventID = " . $eventrows["EventID"] . " ORDER BY tp.Type ASC";
+  if( $DistinctEventPriceTypes -> num_rows ) { $type = $$DistinctEventPriceTypes->fetch_assoc(); } // Why would I need this? How do you want to add this to another SQL query? I must check through types to know what type I am adding to the div, then use SqlPricesQuery to actually add the values, based on the type.
   # Member price info
-  $SqlPricesMemberQuery = "SELECT * FROM TicketPrices WHERE TicketPrices.EventID = " . $eventrows["EventID"] . " AND TicketPrices.Type = 'Member' ORDER BY TicketPrices.StartTime ASC";
-  #none member
+  /*$SqlPricesMemberQuery = "SELECT * FROM TicketPrices WHERE TicketPrices.EventID = " . $eventrows["EventID"] . " AND TicketPrices.Type = 'Member' ORDER BY TicketPrices.StartTime ASC";
+  # none member
   $SqlPricesNonMemberQuery = "SELECT * FROM TicketPrices WHERE TicketPrices.EventID = " . $eventrows["EventID"] . " AND TicketPrices.Type = 'NonMember' ORDER BY TicketPrices.StartTime ASC";
+  # supplement
+  $SqlPricesSupplementQuery = "SELECT * FROM TicketPrices WHERE TicketPrices.EventID = " . $eventrows["EventID"] . " AND TicketPrices.Type = 'Supplement' ORDER BY TicketPrices.StartTime ASC";*/
 ?>
+
 <div class="col-lg-12 hlpf_contentbox"> <!-- Ret class til-->
   <div class="row">
     <!-- Basic info -->
@@ -16,7 +24,7 @@
         <hr>
         <!-- ============== -->
         <div>
-          <p><b>Start tidspunkt:</b> <?php echo $eventrows['StartDate']; ?>. <b>Slut tidspunkt:</b> <?php echo $eventrows['EndDate']; ?></p>
+          <p><b>Start tidspunkt:</b> <?php echo date("d/m/y - H:i:s",$eventrows['StartDate']); ?>. <b>Slut tidspunkt:</b> <?php echo date("d/m/y - H:i:s",$eventrows['EndDate']); ?></p>
           <p><b>Adresse:</b> <?php echo $eventrows['Location']; ?> <a href="#">Se Map</a></p>
           <p><b>Internet/LAN: </b> <?php echo $eventrows['Network']; ?></p>
           <p><b>Regler: </b> <a href="?page=<?php echo $eventrows['Rules']; ?>">Læs dem her</a></p>
@@ -25,12 +33,58 @@
           <div>
             <h2>Billet Priser:</h2>
             <div class="row">
+              <?php foreach ($type as &$value) {
+                echo "<div class='col-lg-3'><p><b>" . $value . "</b></p></div>";
+                $counter = 1;
+                $SqlPricesMember = $db_conn->query($SqlPricesQuery);
+                while ($row = mysqli_fetch_array($SqlPricesMember)) {
+                  foreach (times as x) {
+                    echo "<div style='border-top:solid 1px black; border-left:solid 1px black; border-right:solid 1px black; background-color: lightgreen;' class='col-lg-2 text-center'>" . date("d/m",$row["StartTime"]) . " - " . date("d/m",$row["EndTime"]) . "<br>" . $row["Price"] . ",-" . "</div>";
+                    $counter++;
+                  }
+                  /*
+                  if ($row["StartTime"] != null && $counter == 1) {
+                    echo "<div style='border-top:solid 1px black; border-left:solid 1px black; border-right:solid 1px black; background-color: lightgreen;' class='col-lg-2 text-center'>" . date("d/m",$row["StartTime"]) . " - " . date("d/m",$row["EndTime"]) . "<br>" . $row["Price"] . ",-" . "</div>";
+                    $counter++;
+                  } elseif ($row["StartTime"] != null && $counter == 2) {
+                    echo "<div style='border-top:solid 1px black; border-left:solid 1px black; border-right:solid 1px black; background-color: yellow;' class='col-lg-2 text-center'>" . date("d/m",$row["StartTime"]) . " - " . date("d/m",$row["EndTime"]) . "<br>" . $row["Price"] . ",-" . "</div>";
+                    $counter++;
+                  } elseif ($row["StartTime"] != null && $counter == 3) {
+                    echo "<div style='border-top:solid 1px black; border-left:solid 1px black; border-right:solid 1px black; background-color: red;' class='col-lg-2 text-center'>" . date("d/m",$row["StartTime"]) . " - " . date("d/m",$row["EndTime"]) . "<br>" . $row["Price"] . ",-" . "</div>";
+                    $counter++;
+                  } elseif ($row["StartTime"] != null && $counter == 4) {
+                    echo "<div style='border-top:solid 1px black; border-left:solid 1px black; border-right:solid 1px black; background-color: red;' class='col-lg-2 text-center'>" . date("d/m",$row["StartTime"]) . " - " . date("d/m",$row["EndTime"]) . "<br>" . $row["Price"] . ",-" . "</div>";
+                    $counter++;
+                  } else {
+                    $counter++;
+                  }*/
+                }
+              }
+              ?>
+
+              <!--
               <div class="col-lg-3"><p><b>Medlemmer</b></p></div>
-              <div style="background-color: lightgreen;" class="col-lg-2 text-center">12/25 - 12/25 450,-</div>
-              <div style="background-color: yellow;" class="col-lg-2 text-center">12/25 - 12/25 450,-</div>
-              <div style="background-color: red;" class="col-lg-2 text-center">12/25 - 12/25 450,-</div>
-              <div style="background-color: red;" class="col-lg-2 text-center">12/25 - 12/25 450,-</div>  
-              <!--<div class="col-lg-1">Flere</div>-->
+              <?php /*
+                $counter = 1; // Counter to limit amount of TicketPrices shown per div
+                $SqlPricesMember = $db_conn->query($SqlPricesQuery);
+                while ($row = mysqli_fetch_array($SqlPricesMember)) {
+                  if ($row["StartTime"] != null && $counter == 1) {
+                    echo "<div style='border-top:solid 1px black; border-left:solid 1px black; border-right:solid 1px black; background-color: lightgreen;' class='col-lg-2 text-center'>" . date("d/m",$row["StartTime"]) . " - " . date("d/m",$row["EndTime"]) . "<br>" . $row["Price"] . ",-" . "</div>";
+                    $counter++;
+                  } elseif ($row["StartTime"] != null && $counter == 2) {
+                    echo "<div style='border-top:solid 1px black; border-left:solid 1px black; border-right:solid 1px black; background-color: yellow;' class='col-lg-2 text-center'>" . date("d/m",$row["StartTime"]) . " - " . date("d/m",$row["EndTime"]) . "<br>" . $row["Price"] . ",-" . "</div>";
+                    $counter++;
+                  } elseif ($row["StartTime"] != null && $counter == 3) {
+                    echo "<div style='border-top:solid 1px black; border-left:solid 1px black; border-right:solid 1px black; background-color: red;' class='col-lg-2 text-center'>" . date("d/m",$row["StartTime"]) . " - " . date("d/m",$row["EndTime"]) . "<br>" . $row["Price"] . ",-" . "</div>";
+                    $counter++;
+                  } elseif ($row["StartTime"] != null && $counter == 4) {
+                    echo "<div style='border-top:solid 1px black; border-left:solid 1px black; border-right:solid 1px black; background-color: red;' class='col-lg-2 text-center'>" . date("d/m",$row["StartTime"]) . " - " . date("d/m",$row["EndTime"]) . "<br>" . $row["Price"] . ",-" . "</div>";
+                    $counter++;
+                  } else {
+                    $counter++;
+                  }
+                } */
+              ?>-->
             </div>
             <div class="row">
               <div class="col-lg-3"><p><b>Ikke-Medlemmer</b></p></div>
