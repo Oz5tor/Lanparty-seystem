@@ -156,15 +156,18 @@ if(isset($_POST['Save'])) {
   <div class="form-group col-lg-3">
     <label class="control-label" for="StartDate">Start Dato</label>
     <div class="input-group">
-      <input class="form-control form_datetime" <?php if(isset($SaleHasStarted)){echo 'disabled';} ?> required type="datetime-local" name="StartDate" id="StartDate" value="<?php if(isset($EventExist)){echo date("d-m-Y H:i", $row['StartDate']);} ?>" />
+      <input class="form-control picker" readonly placeholder="dd-mm-yyyy hh:mm" data-date-format="dd-mm-yyyy hh:ii"
+             <?php if(isset($SaleHasStarted)){echo 'disabled';} ?> required type="text" name="StartDate" id="StartDate" 
+             value="<?php if(isset($EventExist)){echo date("d-m-Y H:i", $row['StartDate']);} ?>" />
       <div class="input-group-addon">&#x1f4c5;</div>
     </div>
   </div>
   <div class="form-group col-lg-3">
     <label class="control-label" for="EndDate">Slut Dato</label>
     <div class="input-group">
-      <input class="form-control form_datetime" <?php if(isset($SaleHasStarted)){echo 'disabled';} ?> required type="datetime-local" name="EndDate" id="EndDate"
-           value="<?php if(isset($EventExist)){echo date("d-m-Y H:i", $row['EndDate']);} ?>" />
+      <input class="form-control picker" readonly placeholder="dd-mm-yyyy hh:mm" data-date-format="dd-mm-yyyy hh:ii"
+             <?php if(isset($SaleHasStarted)){echo 'disabled';} ?> required type="datetime" name="EndDate" 
+             id="EndDate" value="<?php if(isset($EventExist)){echo date("d-m-Y H:i", $row['EndDate']);} ?>" />
       <div class="input-group-addon">&#x1f4c5;</div>
     </div>
   </div>
@@ -234,16 +237,18 @@ if(isset($_POST['Save'])) {
     </div>
 
     <div class="form-inline">
-      <div class="input-group">
+      <div class="col-lg-2 input-group">
         <input <?php if(isset($SaleHasStarted)){echo 'disabled';} ?> class="form-control" type="text" pattern="[0-9]{4}" placeholder="150" size="2" class="" name="region" id="TypePrice" />
-        <div class="input-group-addon">,-&nbsp;</div>
+        <div class="input-group-addon">,-</div>
       </div>
-      <div class="input-group">
-      <input class="form-control form_datetime" <?php if(isset($SaleHasStarted)){echo 'disabled';} ?> placeholder="dd-mm-yyyy hh:mm" data-date-format="dd-mm-yyyy hh:ii" type="datetime" size="21" name="region" id="TypeStart" />
+      <div class="col-lg-4 input-group">
+      <input class="form-control picker" placeholder="dd-mm-yyyy hh:mm" readonly data-date-format="dd/mm/yyyy hh:ii"
+             <?php if(isset($SaleHasStarted)){echo 'disabled';} ?> type="datetime" name="region" id="TypeStart" />
       <div class="input-group-addon">&#x1f4c5;</div>
       </div>
-      <div class="input-group">
-      <input class="form-control form_datetime" <?php if(isset($SaleHasStarted)){echo 'disabled';} ?> placeholder="dd-mm-yyyy hh:mm" data-date-format="dd-mm-yyyy hh:ii" type="datetime" size="21" name="region" id="TypeEnd" />
+      <div class="col-lg-4 input-group">
+      <input class="form-control picker" placeholder="dd-mm-yyyy hh:mm" readonly data-date-format="dd/mm/yyyy hh:ii"
+             <?php if(isset($SaleHasStarted)){echo 'disabled';} ?> type="datetime" name="region" id="TypeEnd" />
       <div class="input-group-addon">&#x1f4c5;</div>
       </div>
     </div>

@@ -1,4 +1,4 @@
-﻿/* =========================================================
+/* =========================================================
  * bootstrap-datetimepicker.js
  * =========================================================
  * Copyright 2012 Stefan Petre
@@ -54,7 +54,8 @@
   function timeZoneAbbreviation() {
     var abbreviation, date, formattedStr, i, len, matchedStrings, ref, str;
     date = (new Date()).toString();
-    formattedStr = ((ref = date.split('(')[1]) !== null ? ref.slice(0, -1) : 0) || date.split(' ');
+    formattedStr = ((ref = date.split('(')[1]) != null ? ref.slice(0, -1) : 0) || date.split(' '); 
+    // fix added, found at from https://github.com/smalot/bootstrap-datetimepicker/issues/610#issuecomment-269224923
     if (formattedStr instanceof Array) {
       matchedStrings = [];
       for (var i = 0, len = formattedStr.length; i < len; i++) {

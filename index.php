@@ -57,7 +57,6 @@ include_once("Include/TestArea/DEBUGGIN.php");
     <!-- Footer start -->
     <?php require_once("Include/Footer.php"); ?>
     <!-- Footer end -->
-    <script src="JS/Bootstrap/bootstrap.min.js"></script>
    <?php require_once("Include/CoreParts/htmlBottem.php"); ?>
 </body>
 </html>
