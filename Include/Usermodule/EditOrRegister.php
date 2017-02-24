@@ -208,8 +208,8 @@ if(!isset($_SESSION['UserToken']) && !isset($_SESSION['UserID'])){
 
       <div class="form-group col-lg-3">
         <label class="control-label" for="Birthday">F&oslash;dselsdag:*</label>
-        <input type="date" class="form-control" id="Birthday" value="<?php if(isset($Birthday)){ echo date("d.m.Y",$Birthday);} ?>"
-               name="Birthday" title="dd.mm.yyyy">
+        <input type="text" class="form-control picker" id="Birthday" value="<?php if(isset($Birthday)){ echo date("d-m-Y",$Birthday);} ?>"
+               name="Birthday" title="dd-mm-yyyy" data-date-format="dd-mm-yyyy">
       </div>
       <div class="form-group col-lg-3">
         <label class="control-label" for="Username">Brugernavn:*</label>
