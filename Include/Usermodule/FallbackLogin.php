@@ -2,14 +2,12 @@
 if(isset($_POST["Login"])){
   $LoginUsername = $db_conn->real_escape_string($_POST["Username"]);
   $LoginPassword = $db_conn->real_escape_string($_POST["Password"]);
-  
-  $hasedPassword = hash('sha512', $LoginPassword);
-  
-  if($LoginuserResult = $db_conn->query("SELECT UserID, Admin, OneallUserToken, Username, Password FROM Users 
-                                        WHERE Password = '$hasedPassword' AND
-                                        Username = '$LoginUsername'")
+  $hasedPassword = hash('sha512', $LoginPassword);  
+  if($LoginuserResult = $db_conn->query("SELECT * FROM Users WHERE (PW = '$hasedPassword' AND Username = '$LoginUsername')")
     ){
-    if($LoginuserResult->num_rows >= 1){
+    $LoginuserResult->num_rows.'<br>';
+    //echo hash('sha512', '1234').'<br>';
+    if($LoginuserResult->num_rows == 1){
       $LoginuserRow = $LoginuserResult->fetch_assoc();
       $user_id = $LoginuserRow['UserID'];
       $_SESSION['UserID'] =  $user_id;
@@ -18,35 +16,28 @@ if(isset($_POST["Login"])){
 
       $LastLogin = time();
       if($db_conn->query("UPDATE Users SET LastLogin = '$LastLogin' WHERE UserID = '$user_id'")){
-        //header("Location: index.php");
+        header("Location: index.php");
       }
     } 
   }
 }
 ?>
-<form method="post">
-  <div class="form-inline">
-    <div class="form-group">
-      <div class="col-lg-6">
-        <label class="control-lable" for="Username">Brugernavn:</label>
-      </div>
-      <div class="col-lg-6">
-        <input class="form-control" type="text" name="Username" id="Username">
+<div>
+  <form method="post">
+    <div class="form-inline fallbackloginPadding">
+      <div class="form-group fallbackTextRight" style="background-color:white;">
+        <label class="col-lg-6 control-lable fallbackTextRight" for="Username">Brugernavn:</label>
+        <input class="col-lg-6 form-control" type="text" name="Username" id="Username">
+        
+        <label class="col-lg-6 control-lable fallbackTextRight" for="Password">Kodeord:</label>
+        <input class="col-lg-6 form-control" type="text" name="Password" id="Password">
+        
+        <span class="col-lg-1"></span>
+        <a href="#" class="col-lg-5">Glemt Kodeord</a>
+        <input class="col-lg-5 btn btn-success form-control" type="submit" name="Login"  id="Login" value="Logind">
+        <span class="col-lg-1"></span>
+        
       </div>
     </div>
-    <div class="form-group">
-      <div class="col-lg-6">
-        <label class="control-lable" for="Password">Kodeord:</label>
-      </div>
-      <div class="col-lg-6">
-        <input class="form-control" type="text" name="Password" id="Password">
-      </div>
-    </div>
-    <div class="form-group col-lg-6">
-      <a href="#" class="btn btn-primary" style="display: block;">Glemt Kodeord</a>
-    </div>
-    <div class="form-group col-lg-6">
-      <input type="submit" name="Login" id="Login" value="Logind" class="btn btn-success form-control" style="display: block;">
-    </div>
-  </div>
-</form>
+  </form>
+</div>
