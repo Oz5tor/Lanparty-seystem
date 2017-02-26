@@ -1,11 +1,11 @@
 <?php
 
 /*
-TTTTTTTTT EEEEEEEEE MM       MM PPPPPP    PPPPPP  RRRRRR  IIIII   CCCCCcc EEEEEEEEE
-    T     E         M M     M M P    PP   P    PP R    RR   I    C        E
-    T     EEEEE     M  M   M  M PPPPPP    PPPPPP  RRRRRR    I   C         EEEEE
-    T     E         M   M M   M P         P       R RR      I    C        E
-    T     EEEEEEEEE M    M    M P         P       R  RR   IIIII   CCCCCcc EEEEEEEEE
+TTTTTTT EEEEEEE MM   MM PPPPPP      PPPPPP  RRRRRR  IIIIIII   CCCCC EEEEEEE
+   T    E       M M M M P    PP     P    PP R    RR    I     C      E
+   T    EEEE    M  M  M PPPPPP      PPPPPP  RRRRRR     I    C       EEEE
+   T    E       M     M P           P       R RR       I     C      E
+   T    EEEEEEE M     M P           P       R  RR   IIIIIII   CCCCC EEEEEEE
 */
 $_SESSION['EventPrice'] = 350;
 
@@ -29,7 +29,8 @@ $theEvent = $db_conn->query($query)->fetch_assoc();
     <div id="Seatmap-Cart">
       <h4>Dit valg (<span id="Seatmap-Counter">0</span>)</h4>
       <ul id="Seatmap-Cart-Items"></ul>
-      <p>Total pris: <span id="Seatmap-Total"></span></p>
+      <p>Total pris: <span id="Seatmap-Total">0</span>,-</p>
+      <button id="CheckoutButton" class="btn btn-default">Køb &raquo;</button>
     </div>
   </div>
 </div>
@@ -59,11 +60,11 @@ $(document).ready(function() {
         node  : $('#Seatmap-Legend'),
         items : [
           [ 'a', 'available', 'Fri plads' ],
+          [ 'a', 'unavailable', 'Optaget' ],
           [ 'c', 'unavailable', 'Crew plads'],
           [ 's', 'unavailable', 'Scene / Storskærm'],
           [ 'A', 'unavailable', 'Arkade'],
           [ 'k', 'unavailable', 'Kiosk'],
-          [ 'a', 'unavailable', 'Optaget' ]
         ]
       },
       click: function () {
@@ -118,12 +119,17 @@ $(document).ready(function() {
 });
 
 function calculateTotal(sc) {
-      var total = 0;
-      //basically find every selected seat and sum its price
-      sc.find('selected').each(function () {
-        total += this.data().price;
-      });
-      return total;
-    }
+  var total = 0;
+  //basically find every selected seat and sum its price
+  sc.find('selected').each(function () {
+    total += this.data().price;
+  });
+  return total;
+}
+
+function updateCheckoutButton() {
+  $button = document.getElementById('#CheckoutButton');
+
+}
 
 </script>
