@@ -7,7 +7,7 @@ $Mailer = new PHPMailer;
   // connection methohs
   $Mailer->IsSMTP();
   $Mailer->SMTPAuth = true;
-  $Mailer->SMTPDebug = 2;
+  $Mailer->SMTPDebug = 1;
 
   // Connections Rules sets
   $Mailer->Host       = 'mail.rosenheim.dk ';
