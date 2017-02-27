@@ -25,10 +25,12 @@
               <?php
               // Get distinct types //
               $DistinctEventPriceTypes = $db_conn->query("
-                          SELECT DISTINCT tp.Type
-                          FROM TicketPrices as tp
+                          SELECT DISTINCT tp.Type 
+                          FROM TicketPrices as tp 
+                          LEFT JOIN TicketTypes as tt 
+                          ON tp.Type = tt.Type 
                           WHERE tp.EventID = " . $eventrows["EventID"] . "
-                          ORDER BY tp.Type ASC");
+                          ORDER BY tt.Sort ASC");
               if( $DistinctEventPriceTypes -> num_rows ) {
                 while ($type = $DistinctEventPriceTypes->fetch_assoc()) {
                   foreach ($type as $key => $value) {
