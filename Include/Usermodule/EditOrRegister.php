@@ -12,15 +12,16 @@ if(!isset($_SESSION['UserToken']) && !isset($_SESSION['UserID'])){
         if($result = $db_conn->query("SELECT * FROM Users WHERE UserID = '$UserID'")){
             if($result -> num_rows){
                 $row = $result->fetch_assoc();
-                $FullName               = $row['FullName'];
-                $Email                  = $row['Email'];
-                $PreffereredUsername    = $row['Username'];
+                $NewsLetter             = $row['NewsLetter'];
                 $Birthday               = $row['Birthdate'];
-                $Phone                  = $row['Phone'];
+                $PreffereredUsername    = $row['Username'];
+                $FullName               = $row['FullName'];
                 $Address                = $row['Address'];
                 $Zipcode                = $row['ZipCode'];
+                $Clan                   = $row['ClanID'];
+                $Email                  = $row['Email'];
+                $Phone                  = $row['Phone'];
                 $Bio                    = $row['Bio'];
-                $NewsLetter             = $row['NewsLetter'];
             }
         }
     }
@@ -32,6 +33,7 @@ if(!isset($_SESSION['UserToken']) && !isset($_SESSION['UserID'])){
         if($_POST['Email'] == '')     {$RegErroMSG[] .='Email'; $FormAOKAY = 1;}
         if($_POST['Birthday'] == '')  {$RegErroMSG[] .='Fødselsdag'; $FormAOKAY = 1;}
         if($_POST['Username'] == '')  {$RegErroMSG[] .='Brugernavn'; $FormAOKAY = 1;}
+      
 
         if($page != 'EditMyProfile'){
             if($_POST['Password'] == '')  {$RegErroMSG[] .='Kodeord'; $FormAOKAY = 1;}
@@ -57,14 +59,40 @@ if(!isset($_SESSION['UserToken']) && !isset($_SESSION['UserID'])){
                 }
             }
         }
-                $FullName               = $_POST['FullName'];
-                $Email                  = $_POST['Email'];
-                $PreffereredUsername    = $_POST['Username'];
-                $Birthday               = $_POST['Birthday'];
-                $Phone                  = $_POST['Phone'];
-                $Address                = $_POST['Address'];
-                $Zipcode                = $_POST['Zipcode'];
-                $Bio                    = $_POST['Bio'];
+        $PreffereredUsername    = $_POST['Username'];
+        $FullName               = $_POST['FullName'];
+        $Birthday               = $_POST['Birthday'];
+        $Address                = $_POST['Address'];
+        $Zipcode                = $_POST['Zipcode'];
+        $NewClan                = $db_conn->real_escape_string($_POST['NewClan']);
+        $Email                  = $_POST['Email'];
+        $Phone                  = $_POST['Phone'];
+        $Clan                   = $db_conn->real_escape_string($_POST['Clan']);
+        $Bio                    = $_POST['Bio'];
+      
+      if($NewClan == '' && $Clan == 0){
+        $finalClan = 0;
+      }
+      
+      if($Clan != 0){
+        $finalClan = $Clan;
+      }else{
+        if($NewClanExist = $db_conn->query("SELECT * FROM Clan WHERE Name = '$NewClan'")){
+          if($NewClanExist->num_rows == 1){
+            $NewClanExistRow = $NewClanExist->fetch_assoc();
+            $finalClan = $NewClanExistRow['ClanID'];
+          }else{
+            if($db_conn->query("INSERT INTO Clan (Name) VALUES ('$NewClan')")){
+              if($NewClanResult = $db_conn->query("SELECT * FROM Clan WHERE Name = '$NewClan'")){
+                $NewClanRow = $NewClanResult->fetch_assoc();
+                $finalClan = $NewClanRow['ClanID'];
+              }
+            }
+          }
+        }
+      }// end of clan stuff
+      
+      
        if($FormAOKAY == 0){
             // For sucessfull filled
             // injection prevention
@@ -115,11 +143,13 @@ if(!isset($_SESSION['UserToken']) && !isset($_SESSION['UserID'])){
                 }
             }
             if($page == 'EditMyProfile'){ // user edits own informations
-                if($db_conn->query("UPDATE Users SET Username = '$Username', FullName = '$FullName', ZipCode = '$Zipcode',
-                                                    Birthdate = '$Birthday', Email = '$Email', Bio = '$Bio',
-                                                    Address = '$Address', Phone = '$Phone', NewsLetter = '$NewsLetter'
-                                    WHERE UserID = '$UserID'")){}
-                    header("Location: index.php?page=EditMyProfile");
+              
+              if($db_conn->query("UPDATE Users SET Username = '$Username', FullName = '$FullName', ZipCode = '$Zipcode',
+                                                  Birthdate = '$Birthday', Email = '$Email', Bio = '$Bio',
+                                                  Address = '$Address', Phone = '$Phone', NewsLetter = '$NewsLetter',
+                                                  ClanID = '$finalClan'
+                                  WHERE UserID = '$UserID'")){}
+                  header("Location: index.php?page=EditMyProfile");
             }
             else // user creation
             {
@@ -127,10 +157,10 @@ if(!isset($_SESSION['UserToken']) && !isset($_SESSION['UserID'])){
                 
                 $token = $_SESSION['UserToken'];
                 if($db_conn->query("INSERT INTO `Users`(Username, FullName, ZipCode, Birthdate, Created, Email, Bio, Admin,
-                                     Address, PW, Phone, OneallUserToken, $profileURLCol, NewsLetter)
+                                     Address, PW, Phone, OneallUserToken, $profileURLCol, NewsLetter, ClanID)
                                      VALUES
                                      ('$Username','$FullName','$Zipcode', '$Birthday','$CreateTime','$Email', '$Bio','0',
-                                      '$Address','$PW','$Phone','$token','$profileURL', '$NewsLetter')"))
+                                      '$Address','$PW','$Phone','$token','$profileURL', '$NewsLetter','$finalClan')"))
                 {
 
                     if($result = $db_conn ->query("Select Users.UserID, Users.Admin From Users Where Users.Username = '$Username'")){
@@ -175,18 +205,19 @@ if(!isset($_SESSION['UserToken']) && !isset($_SESSION['UserID'])){
         <input type="email" class="form-control" id="Email" placeholder="Workshop@santa.chrismas" 
                value="<?php if(isset($Email)){ echo $Email;} ?>"  name="Email">
       </div>
-      
       <div class="form-group col-lg-3">
         <label class="control-label" for="Birthday">F&oslash;dselsdag:*</label>
-        <input type="date" class="form-control" id="Birthday" value="<?php if(isset($Birthday)){ echo date("d.m.Y",$Birthday);} ?>" 
-               name="Birthday" title="dd.mm.yyyy">
+        <input type="text" class="form-control picker" id="Birthday" value="<?php if(isset($Birthday)){ echo date("d-m-Y",$Birthday);} ?>" 
+               name="Birthday" title="dd-mm-yyyy" data-date-format="dd-mm-yyyy">
       </div>
       <div class="form-group col-lg-3">
         <label class="control-label" for="Username">Brugernavn:*</label>
         <input type="text" placeholder="ImNotSanta" class="form-control" id="Username" 
                value="<?php if(isset($PreffereredUsername)){echo $PreffereredUsername; } ?>"  name="Username">
       </div>
-      
+      <?php 
+      if(!isset($_SESSION['UserID'])){
+      ?>
       <div class="form-group col-lg-3">
         <label class="control-label" for="Password">Kodeord:*</label>
         <input type="password" class="form-control" pattern=".{4,18}" title="4 til 18 karaktere" id="Password" placeholder="Kodeord"  name="Password">
@@ -195,6 +226,9 @@ if(!isset($_SESSION['UserToken']) && !isset($_SESSION['UserID'])){
         <label class="control-label" for="CPassword">Bekr&aelig;ft Kodeord:*</label>
         <input type="password" class="form-control" pattern=".{4,18}" title="4 til 18 karaktere" id="CPassword" placeholder="Gentag Kodeord"  name="CPassword">
       </div>
+      <?php 
+      }
+      ?>
       <div class="form-group col-lg-3">
         <label class="control-label" for="Phone">Telefon:*</label>
         <input type="text" class="form-control" id="Phone" value="<?php if(isset($Phone)){echo $Phone;} ?>" 
@@ -205,7 +239,6 @@ if(!isset($_SESSION['UserToken']) && !isset($_SESSION['UserID'])){
         <input type="text" placeholder="feks Norpolen 42, 6.sal tv" class="form-control" id="Address" 
                value="<?php if(isset($Address)){echo $Address;} ?>"  name="Address">
       </div>
-
       <div class="form-group col-lg-3">
         <label class="control-label" for="Zipcode">Postnumber:*</label>
         <input type="text" list="DBZipcodes" placeholder="1337 Awesome city" class="form-control" id="Zipcode" 
@@ -222,16 +255,60 @@ if(!isset($_SESSION['UserToken']) && !isset($_SESSION['UserID'])){
         </datalist>
         <!-- List of Zipcodes in Denmark End -->
       </div>
-      <div class="form-group form-inline col-lg-3">
-          <?php if($page != 'EditMyProfile'){ ?>
-            <label for="ToS">*Brugerbetinelser: </label>
-            <input type="checkbox" id="ToS" value="1"  name="ToS">
-          <?php } ?>
+      <div class="form-group col-lg-3">
+        <label class="control-label" for="Clan">Klan: </label> &nbsp;<a type="button" id="ClanLink" onclick="showStuff()">Ny Klan?</a>  
+        
+        <!-- if existing Clans -->
+        <input type="text" name="NewClan" placeholder="Kage Banden" class="form-control" style="display: none;" id="NewClan">
+        <!-- if existing Clans -->
+        <!-- if existing Clans -->
+        <select list="DBClans" placeholder="Hovedstadens Lanparty Forening" class="form-control" id="Clan" 
+        value="<?php if(isset($Clan)){echo $Clan;} ?>" name="Clan">
+          <option value="0">Er ikke i nogen Clan</option>
+          <?php
+          if($Clanresult = $db_conn->query("SELECT * FROM Clan")){
+            while($Clanrow = $Clanresult->fetch_assoc()){
+          ?>
+          <option <?php if($Clanrow["ClanID"] == $Clan){echo "selected";} ?>  value='<?php echo $Clanrow["ClanID"]; ?>'>
+            <?php echo $Clanrow["Name"]; ?>
+          </option>
+          <?php
+            }
+          }
+          ?>
+        </select>
+        <!-- if existing Clans end -->
+        <script type="text/javascript">
+        function showStuff(){
+            if(document.getElementById('NewClan').style.display != 'block'){
+              document.getElementById('NewClan').style.display = 'block';  
+            }else{
+              document.getElementById('NewClan').style.display = 'none';
+            }
+            // hide the lorem ipsum text
+            if(document.getElementById('Clan').style.display != 'none'){
+              document.getElementById('Clan').style.display = 'none';
+            }else{
+              document.getElementById('Clan').style.display = 'block';
+            }
+          if(document.getElementById('ClanLink').text != 'Ny Klan?'){
+            document.getElementById('ClanLink').text = 'Ny Klan?';
+          }else{
+            document.getElementById('ClanLink').text = 'Klan Liste?';
+          }
+        }
+        </script>
       </div>
       <div class="form-group form-inline col-lg-3">
           <label for="NewsLetter">Nyhedbrev:</label>
           <input type="checkbox" <?php if(isset($NewsLetter) && $NewsLetter == 1){ echo 'checked';} ?> id="NewsLetter" value="1" 
                  name="NewsLetter">
+      </div>
+      <div class="form-group form-inline col-lg-3">
+          <?php if($page != 'EditMyProfile'){ ?>
+            <label for="ToS">*Brugerbetinelser: </label>
+            <input type="checkbox" id="ToS" value="1"  name="ToS">
+          <?php } ?>
       </div>
       
       <div class="form-group col-lg-12">
@@ -266,12 +343,12 @@ if(!isset($_SESSION['UserToken']) && !isset($_SESSION['UserID'])){
         <input type="submit" value="Send" class="btn btn-default" name="Send_form">
       </div>
       <?php
-      if(isset($RegErroMSG)){
-      echo '<tr><td><ul class="alert alert-danger" role="alert"><b>Feltkravene er ikke opfyldt:</b>';
+      if(isset($RegErroMSG) && $RegErroMSG == ''){
+      echo '<ul class="alert alert-danger" role="alert"><b>Feltkravene er ikke opfyldt:</b>';
       foreach($RegErroMSG as $i){
       echo '<li>'.$i.'</li>';
       }
-      echo '</li></ul></td></tr>';
+      echo '</li></ul>';
       }
       unset($RegErroMSG);
       ?>
