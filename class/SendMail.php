@@ -3,28 +3,27 @@ require_once("PHPMailer/PHPMailerAutoload.php");
 
 $Mailer = new PHPMailer;
 
-$Mailer->isSMTP();
+$Mailer->IsSMTP();
 $Mailer->SMTPAuth = true;
 $Mailer->SMTPDebug = 2;
 
-$Mailer->Host       = 'smtp.gmail.com';
-$Mailer->Username   = 'torsoya@gmail.com';
-$Mailer->Password   = ''; // set pass before testing
+$Mailer->Host       = 'mail.rosenheim.dk ';
+$Mailer->Username   = 'tor@rosenheim.dk';
+$Mailer->Password   = 'hlparty123'; // set pass before testing
 $Mailer->SMTPSecure = 'ssl';
 $Mailer->Port       = 465;
 
-$Mailer->From = 'torsoya@gmail.com';
+$Mailer->From = 'tor@rosenheim.dk';
 $Mailer->FromName = 'Tor Soya';
-$Mailer->addReplyTo('Kage@kage.dk','Reply adress');
-$Mailer->addAddress('age@kage.dk','Tor Soya');
+$Mailer->addReplyTo('torsoya@gmail.com','Reply adress');
+$Mailer->addAddress('torsoya@gmail.com','Tor Soya');
 
-$Mailer->Subject  = "Det her er en email";
-$Mailer->Body     = "Kage er godt";
-$Mailer->AltBody  = "Kage er godt";
+$Mailer->Subject  = "Vi tro mail virker";
+$Mailer->Body     = "HLPartys nye hjemmeside kan sende mails nu ish";
+$Mailer->AltBody  = "HLPartys nye hjemmeside kan sende mails nu ish";
 
 echo "<pre>";
 var_dump($Mailer->send());
 echo "</pre>";
-
   
 ?>
