@@ -2,14 +2,15 @@
   # Latest event - Get the ID.
   $event = $db_conn->query("SELECT e.Title, e.EventID, e.Poster, e.StartDate, e.EndDate, e.Location, e.Network, e.Seatmap, e.Rules FROM Event as e ORDER BY e.EventID DESC LIMIT 1");
   if( $event -> num_rows ) { $eventrows = $event->fetch_assoc(); }
-  var_dump($eventrows);
+  //var_dump($eventrows);
   # Query
   $SqlPricesQuery = "SELECT * FROM TicketPrices as tp WHERE tp.EventID = " . $eventrows["EventID"] . " ORDER BY tp.Type, tp.StartTime ASC";
 
   $DistinctEventPriceTypes = $db_conn->query("SELECT DISTINCT tp.Type FROM TicketPrices as tp WHERE tp.EventID = " . $eventrows["EventID"] . " ORDER BY tp.Type ASC");
-  if( $DistinctEventPriceTypes -> num_rows ) { $type = $DistinctEventPriceTypes->fetch_assoc(); } // May need to rmeove this + db_conn->query
+  if( $DistinctEventPriceTypes -> num_rows ) { $type = $DistinctEventPriceTypes->fetch_assoc(); } // May need to remove this + db_conn->query
 
-  var_dump($type);
+  $SqlPricesPeriods = "SELECT * FROM TicketPrices as tp WHERE tp.EventID = " . $eventrows["EventID"] . " AND tp.Type = " . $DistinctEventPriceTypes["Type"] . " ORDER BY tp.Type, tp.StartTime ASC";
+  var_dump($SqlPricesPeriods);
 
 /*
   $PeriodsInEventPerType = 
