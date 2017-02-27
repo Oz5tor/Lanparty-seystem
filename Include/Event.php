@@ -6,14 +6,12 @@
   # Query
   $SqlPricesQuery = "SELECT * FROM TicketPrices as tp WHERE tp.EventID = " . $eventrows["EventID"] . " ORDER BY tp.Type, tp.StartTime ASC";
 
-  $DistinctEventPriceTypes = $db_conn->query("SELECT DISTINCT tp.Type FROM TicketPrices as tp WHERE tp.EventID = " . $eventrows["EventID"] . " ORDER BY tp.Type ASC");
-  if( $DistinctEventPriceTypes -> num_rows ) { $type = $DistinctEventPriceTypes->fetch_assoc(); } // May need to remove this + db_conn->query
-
   $SqlPricesPeriods = "SELECT * FROM TicketPrices as tp WHERE tp.EventID = " . $eventrows["EventID"] . " AND tp.Type = " . $DistinctEventPriceTypes["Type"] . " ORDER BY tp.Type, tp.StartTime ASC";
   var_dump($SqlPricesPeriods);
+   // May need to remove this + db_conn->query
 
 /*
-  $PeriodsInEventPerType = 
+  $PeriodsInEventPerType =
   SELECT tp.StartTime, tp.EndTime FROM TicketPrices as tp WHERE tp.EventID = $eventrows["EventID"] AND tp.Type = $type["Type"] ORDER BY tp.StartTime ASC
   # Member price info
   /*$SqlPricesMemberQuery = "SELECT * FROM TicketPrices WHERE TicketPrices.EventID = " . $eventrows["EventID"] . " AND TicketPrices.Type = 'Member' ORDER BY TicketPrices.StartTime ASC";
@@ -66,6 +64,16 @@
                   } else {
                     $counter++;
                   }*/
+              $DistinctEventPriceTypes = $db_conn->query("
+                          SELECT DISTINCT tp.Type
+                          FROM TicketPrices as tp
+                          WHERE tp.EventID = " . $eventrows["EventID"] . "
+                          ORDER BY tp.Type ASC");
+              if( $DistinctEventPriceTypes -> num_rows ) {
+                while ($type = $DistinctEventPriceTypes->fetch_assoc()) {
+                  foreach ($type as $key => $value) {
+                    echo $value;
+                  }
                 }
               }
               ?>
@@ -98,8 +106,8 @@
               <div class="col-lg-3"><p><b>Ikke-Medlemmer</b></p></div>
               <div style="border-top:solid 1px black; background-color: lightgreen;" class="col-lg-2 text-center">12/25 - 12/25 450,-</div>
               <div style="border-top:solid 1px black; background-color: yellow;" class="col-lg-2 text-center">12/25 - 12/25 450,-</div>
-              <div style="border-top:solid 1px black; background-color: red;" class="col-lg-2 text-center">12/25 - 12/25 450,-</div>  
-              <div style="border-top:solid 1px black; background-color: red;" class="col-lg-2 text-center">12/25 - 12/25 450,-</div>  
+              <div style="border-top:solid 1px black; background-color: red;" class="col-lg-2 text-center">12/25 - 12/25 450,-</div>
+              <div style="border-top:solid 1px black; background-color: red;" class="col-lg-2 text-center">12/25 - 12/25 450,-</div>
               <!-- <div class="col-lg-1">Flere</div>-->
             </div>
             <div class="row">
@@ -112,7 +120,6 @@
               <div style="border-top:solid 1px black; background-color: lightgreen;" class="col-lg-8 text-center">12/25 - 12/25 <br> 60,-</div>
               <!-- <div class="col-lg-1">Flere</div>-->
             </div>
-              
           </div><!-- Tickets prices end -->
           <br>
           <hr>
@@ -130,15 +137,7 @@
       </div><!-- Poster -->
     </div><!-- end of first div row -->
   </div>
-  
-  
-  
-  
-  
-  
-  
-  
-  
+
   <?php /*
   <div class="col-lg-8 row">
     <h2>Information</h2>
@@ -187,7 +186,6 @@
               echo "<div class='col-lg-4'>" . date("d M",$row["StartTime"]) . "-" . date("d M",$row["EndTime"]) . ", " . $row["Price"] . ",-" . "</div>";
               $counter++;
             } else { //If TicketPrice in past
-              
             }
           }
         ?>
@@ -205,7 +203,6 @@
               echo "<div class='col-lg-4'>" . date("d M",$row["StartTime"]) . "-" . date("d M",$row["EndTime"]) . ", " . $row["Price"] . ",-" . "</div>";
               $counter++;
             } else { //If TicketPrice in past
-              
             }
           }
         ?>
