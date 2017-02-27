@@ -1,14 +1,20 @@
 <?php
 
 /*
-TTTTTTT EEEEEEE MM   MM PPPPPP      PPPPPP  RRRRRR  IIIIIII   CCCCC EEEEEEE
-   T    E       M M M M P    PP     P    PP R    RR    I     C      E
-   T    EEEE    M  M  M PPPPPP      PPPPPP  RRRRRR     I    C       EEEE
-   T    E       M     M P           P       R RR       I     C      E
-   T    EEEEEEE M     M P           P       R  RR   IIIIIII   CCCCC EEEEEEE
+TTTTTTT EEEEEEE MM   MM PPPPPP
+   T    E       M M M M P    PP
+   T    EEEE    M  M  M PPPPPP
+   T    E       M     M P
+   T    EEEEEEE M     M P
 */
 $_SESSION['EventPrice'] = 350;
-
+/*
+PPPPPP  RRRRRR  IIIIIII   CCCCC EEEEEEE
+P    PP R    RR    I     C      E
+PPPPPP  RRRRRR     I    C       EEEE
+P       R RR       I     C      E
+P       R  RR   IIIIIII   CCCCC EEEEEEE
+*/
 
 
 if (!isset($_SESSION['UserID'])) {
@@ -30,7 +36,7 @@ $theEvent = $db_conn->query($query)->fetch_assoc();
       <h4>Dit valg (<span id="Seatmap-Counter">0</span>)</h4>
       <ul id="Seatmap-Cart-Items"></ul>
       <p>Total pris: <span id="Seatmap-Total">0</span>,-</p>
-      <button id="CheckoutButton" class="btn btn-default">Køb &raquo;</button>
+      <button id="CheckoutButton" class="btn btn-default" onclick="checkoutButton()">Køb &raquo;</button>
     </div>
   </div>
 </div>
@@ -71,10 +77,12 @@ $(document).ready(function() {
         if (this.status() == 'available') {
           seatsSelected++;
           if (seatsSelected >= <?php
-          if (isset($_GLOBAL['g_max_seats_selection'])) { echo ($_GLOBAL['g_max_seats_selection'] + 1); } else {
+          if (isset($_GLOBAL['g_max_seats_selection'])) {
+            echo ($_GLOBAL['g_max_seats_selection'] + 1);
+          } else {
             echo "11";
           } ?>) {
-            alert("Maks 10 sæder, boi...");
+            alert("Du kan højst vælge <?=$_GLOBAL['g_max_seats_selection'];?> sæder.");
             seatsSelected--;
             return 'available';
           } else {
@@ -127,9 +135,14 @@ function calculateTotal(sc) {
   return total;
 }
 
-function updateCheckoutButton() {
-  $button = document.getElementById('#CheckoutButton');
-
+function checkoutButton() {
+  var lis = document.getElementById("Seatmap-Cart-Items").
+        getElementsByTagName("li");
+  var arr = [];
+  for (var i = lis.length - 1; i >= 0; i--) {
+    arr.push(lis[i].id);
+  }
+  $.post("test.php", { json_string:JSON.stringify(arr) });
 }
 
 </script>
