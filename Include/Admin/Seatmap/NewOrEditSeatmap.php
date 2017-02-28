@@ -26,7 +26,7 @@ if(!empty($_POST)) {
 
   if(isset($action) AND $action == "Edit") {
     $query = "UPDATE  Seatmap
-              SET  SeatString = '".$fullString."',
+              SET SeatString = '".$fullString."',
                 Width = ".$width.",
                 Seats = ".$availableSeats.",
                 CrewSeats = ".$crewSeats.",
@@ -52,9 +52,9 @@ if(!empty($_POST)) {
 }
 ?>
 <div class="col-lg-7">
-  <!-- Instructions - How to make a seatmap. -->
   <h3>Instruktioner</h3>
-  <p>Lav et seatmap ved at udfylde nedenstående betegnelser i boksen til højre.</p>
+  <p class="hidden-md hidden-sm hidden-xs">Lav et seatmap ved at udfylde nedenstående betegnelser i boksen til højre.</p>
+  <p class="hidden-lg">Lav et seatmap ved at udfylde nedenstående betegnelser i boksen nedenfor.</p>
   <div class="panel panel-primary">
   <div class="panel-heading">
     <h3 class="panel-title">Betegnelser</h3>
@@ -115,9 +115,8 @@ if(!empty($_POST)) {
     </div>
     <div class="form-group">
       <a class="btn btn-primary" onclick="generatePreview()">Preview</a>
-      <?php if (isset($row['SeatmapID'])) { ?>
-      <button class="btn btn-primary" type="submit">Gem som ID
-        <?php echo $row['SeatmapID'] ?></button>
+      <?php if (isset($SeatmapID)) { ?>
+      <button class="btn btn-primary" type="submit">Gem som ID <?= $SeatmapID ?></button>
       <?php } else { ?>
       <button class="btn btn-primary" type="submit">Gem som nyt Seatmap</button>
       <?php } ?>
