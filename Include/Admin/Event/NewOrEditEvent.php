@@ -157,7 +157,7 @@ if(isset($_POST['Save'])) {
     <label class="control-label" for="StartDate">Start Dato</label>
     <div class="input-group">
       <input class="form-control picker" readonly placeholder="dd-mm-yyyy hh:mm" data-date-format="dd-mm-yyyy hh:ii"
-             <?php if(isset($SaleHasStarted)){echo 'disabled';} ?> required type="text" name="StartDate" id="StartDate" 
+             <?php if(isset($SaleHasStarted)){echo 'disabled';} ?> required type="text" name="StartDate" id="StartDate"
              value="<?php if(isset($EventExist)){echo date("d-m-Y H:i", $row['StartDate']);} ?>" />
       <div class="input-group-addon">&#x1f4c5;</div>
     </div>
@@ -166,7 +166,7 @@ if(isset($_POST['Save'])) {
     <label class="control-label" for="EndDate">Slut Dato</label>
     <div class="input-group">
       <input class="form-control picker" readonly placeholder="dd-mm-yyyy hh:mm" data-date-format="dd-mm-yyyy hh:ii"
-             <?php if(isset($SaleHasStarted)){echo 'disabled';} ?> required type="datetime" name="EndDate" 
+             <?php if(isset($SaleHasStarted)){echo 'disabled';} ?> required type="datetime" name="EndDate"
              id="EndDate" value="<?php if(isset($EventExist)){echo date("d-m-Y H:i", $row['EndDate']);} ?>" />
       <div class="input-group-addon">&#x1f4c5;</div>
     </div>
@@ -199,7 +199,7 @@ if(isset($_POST['Save'])) {
         while($Seatmap = $GetSeatmaps->fetch_assoc()){
         ?>
           <option <?php if($Seatmap['SeatmapID'] == $row['Seatmap'] && isset($EventExist)) {echo 'selected';} ?> value="<?php echo $Seatmap['SeatmapID']; ?>">
-            <?php echo $Seatmap['Name'];?>
+            <?php echo $Seatmap['Name'];?> &rarr; Pladser <?=$Seatmap['Seats'];?> &rarr; Crew pladser <?=$Seatmap['CrewSeats'];?>
           </option>
       <?php
         }
