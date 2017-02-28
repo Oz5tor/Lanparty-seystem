@@ -6,7 +6,7 @@ if(isset($_POST["Login"])){
     $email    = $_POST['email'];
     $zipcode  = $_POST['Zipcode'];
 
-    $userExsisst = $db_conn->query("SELECT FullName, Email, UserID FROM Users WHERE Username = '$username' AND Email = '$email' AND ZipCode = '$zipcode'");
+    $userExsisst = $db_conn->query("SELECT Username, FullName, Email, UserID FROM Users WHERE Username = '$username' AND Email = '$email' AND ZipCode = '$zipcode'");
 
     if($userExsisst->num_rows == 1){
       $userExsisstRow = $userExsisst->fetch_assoc();
@@ -16,12 +16,19 @@ if(isset($_POST["Login"])){
 
       $to       = $userExsisstRow['Email'];
       $toname   = $userExsisstRow['FullName'];
+      $nick     = $userExsisstRow['Username'];
       $subject  = 'HLParty - Du har fået ny kodeord';
-      $body     = 'Dit nye kodeord er: <b>'.$newpass.'</b>';
+      $GetMailText = $db_conn->query("SELECT Message From MailMesseges Where Title = 'PasswordReset'");
+      
+      $GetMailTextRow = $GetMailText->fetch_assoc();
+      $msg = $GetMailTextRow['Message'];
+      $msg = str_replace('$toname',$toname,$msg);
+      $msg = str_replace('$nick',$nick,$msg);
+      $msg = str_replace('$newpass',$newpass,$msg);
 
-      SendMail($to,$toname,$subject,$body,$_GLOBAL);
+      SendMail($to,$toname,$subject,$msg,$_GLOBAL);
       $db_conn->query("UPDATE Users SET PW = '$newhash' WHERE UserID = '$PassResetID'");
-      header("Location: index.php");
+    //  header("Location: index.php");
     }
   }else{
     $LoginUsername = $db_conn->real_escape_string($_POST["Username"]);
@@ -84,11 +91,6 @@ if(isset($_POST["Login"])){
               if($_POST["Login"] != 'Logind'){
                 echo "Der er blevet sendt en mail til dig med et nyt kodedord";
               ?>
-              <script type='text/javascript'> setTimeout(
-                function() {
-                    window.location = 'index.php';
-                }, 5000);
-              </script>
               <?php
               }
             }
