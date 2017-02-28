@@ -8,6 +8,7 @@ TTTTTTT EEEEEEE MM   MM PPPPPP
    T    EEEEEEE M     M P
 */
 $_SESSION['EventPrice'] = 350;
+$_SESSION['EventId'] = 35;
 /*
 PPPPPP  RRRRRR  IIIIIII   CCCCC EEEEEEE
 P    PP R    RR    I     C      E
@@ -17,21 +18,52 @@ P       R  RR   IIIIIII   CCCCC EEEEEEE
 */
 
 if (!isset($_SESSION['UserID'])) {
-  header("Location: /Website-2017/index.php");
+  header("Location: index.php");
 }
+$legit = true; // If this is ever false, kick them out...
 if (isset($_POST['checkoutCart']) AND !empty($_POST['checkoutCart'])) {
   $json = json_decode($_POST['checkoutCart']);
   if (count($json) > $_GLOBAL['g_max_seats_selection']) {
     header("Location: index.php?page=Buy"); // Hacker detected! Terminate!
   } else {
-    if (count($json) == 1) {
-
-    }
+    $query = "SELECT Seatmap.Seats
+        FROM Seatmap
+        INNER JOIN Event
+          ON Event.Seatmap = Seatmap.SeatmapID
+        WHERE Event.EventID = " . $_SESSION['EventId'];
+    $seats = $db_conn->query($query)->fetch_assoc();
     for ($i=0; $i < count($json); $i++) {
-      // Insert textboxes and shit.
+      $seatNumber = preg_replace("(cart-item-)", "", $json[$i]);
+      $query = "SELECT Seatmap.Seats
+          FROM Seatmap
+          INNER JOIN Event
+            ON Event.Seatmap = Seatmap.SeatmapID
+          WHERE Event.EventID = " . $_SESSION['EventId'];
+      $seats = $db_conn->query($query)->fetch_assoc();
+      if ($seatNumber <= 0 OR $seatNumber > $seats['Seats']) {
+        $legit = false;
+      } else {
+        $query = "SELECT Tickets.SeatNumber
+          FROM Tickets
+          WHERE Tickets.EventID = " . $_SESSION['EventId'] . "
+            AND Tickets.SeatNumber = " . $seatNumber;
+        $checkSeatNumber = $db_conn->query($query)->fetch_assoc();
+        if (!$checkSeatNumber == "") {
+        } // else { Everything is okay. }
+      }
     }
   }
-
+  if (count($json) == 1) {
+    $seat = preg_replace("(cart-item-)", "", $json[0]);
+    $timeAddTen = time() + (10 * 60);
+    $query = "INSERT INTO hlparty.Tickets (UserID, EventID, SeatNumber, OderedDate, RevokeDate) VALUES (" . $_SESSION['UserID'] . ", " . $_SESSION['EventId'] . ", " . $seat . ", " . time() . ", " . $timeAddTen . ")";
+    $_SESSION['SQLStatus'] = $db_conn->query($query);
+  }
+  for ($i=0; $i < count($json); $i++) {
+    $timeAddTen = time() + (10 * 60);
+    $query = "INSERT INTO hlparty.Tickets (UserID, EventID, SeatNumber, OderedDate, RevokeDate) VALUES (" . $_SESSION['UserID'] . ", " . $_SESSION['EventId'] . ", " . $seat . ", " . time() . ", " . $timeAddTen . ")";
+    $_SESSION['SQLStatus'] = $db_conn->query($query);
+  }
 } else {
   include_once 'class/seatmap.php';
   $query = "SELECT Seatmap.Width AS Width, Seatmap.SeatString AS SeatString
@@ -142,6 +174,10 @@ $(document).ready(function() {
   sc.find('c.available').status('unavailable');
   sc.find('s.available').status('unavailable');
   sc.find('k.available').status('unavailable');
+  <?php
+    $query = "SELECT Tickets.SeatNumber FROM Tickets WHERE Tickets.EventID = " . $_SESSION['EventId'];
+  ?>
+  sc.get(<?php echo "" ?>).status('unavailable');
 });
 
 function calculateTotal(sc) {
