@@ -4,7 +4,7 @@
   if( $event -> num_rows ) { $eventrows = $event->fetch_assoc(); }
 ?>
 
-<div class="col-lg-12 hlpf_contentbox"> <!-- Ret class til-->
+<div class="col-lg-12 hlpf_contentbox">
   <div class="row">
     <!-- Basic info -->
     <div class="col-lg-12">
@@ -25,28 +25,39 @@
               <?php
               // Get distinct types //
               $DistinctEventPriceTypes = $db_conn->query("
-                          SELECT DISTINCT tp.Type 
-                          FROM TicketPrices as tp 
-                          LEFT JOIN TicketTypes as tt 
-                          ON tp.Type = tt.Type 
-                          WHERE tp.EventID = " . $eventrows["EventID"] . "
-                          ORDER BY tt.Sort ASC");
+                            SELECT DISTINCT tp.Type 
+                            FROM TicketPrices as tp 
+                            LEFT JOIN TicketTypes as tt 
+                            ON tp.Type = tt.Type 
+                            WHERE tp.EventID = " . $eventrows["EventID"] . "
+                            ORDER BY tt.Sort ASC");
               if( $DistinctEventPriceTypes -> num_rows ) {
                 while ($type = $DistinctEventPriceTypes->fetch_assoc()) {
                   foreach ($type as $key => $value) {
                     echo "<div class='col-lg-3'><p><b>" . $type["Type"] . ":" . "</p></b></div>";
                     // Get ticket values per type //
                     $SqlPricesQuery = "
-                              SELECT * 
-                              FROM TicketPrices as tp 
-                              WHERE tp.EventID = " . $eventrows["EventID"] . " 
-                              AND tp.Type = '" . $type["Type"] . "' 
-                              ORDER BY tp.Type, tp.StartTime ASC";
+                            SELECT * 
+                            FROM TicketPrices as tp 
+                            WHERE tp.EventID = " . $eventrows["EventID"] . " 
+                            AND tp.Type = '" . $type["Type"] . "' 
+                            ORDER BY tp.Type, tp.StartTime ASC";
                     $SqlPrices = $db_conn->query($SqlPricesQuery);
                       echo "<div class='row'>";
+                      // Simple color counter //
+                      $counter = 1;
                       while ($row = mysqli_fetch_array($SqlPrices)) {
-                        echo "<div style='border-top:solid 1px black; border-left:solid 1px black; border-right:solid 1px black; border-bottom:solid 1px black; background-color: lightgreen;' class='col-lg-2 text-center'>" . 
+                        // Simple color picker //
+                        $color = 'white';
+                        if ($counter == 1) { $color = 'lightgreen'; }
+                        elseif ($counter == 2) { $color = 'yellow'; }
+                        elseif ($counter == 3) { $color = 'orange'; }
+                        elseif ($counter == 4) { $color = 'red'; }
+                        else { $color = 'white'; }
+                        // Create divs //
+                        echo "<div style='background-color: " . $color . ";' class='col-lg-2 text-center hlpf_Black_Border'>" . 
                         date("d/m",$row["StartTime"]) . " - " . date("d/m",$row["EndTime"]) . "<br>" . $row["Price"] . ",-" . "</div>";
+                        $counter++;
                       }
                     echo "</div>";
                   }
@@ -69,6 +80,19 @@
         echo '<img class="img-responsive" src="Images/EventPoster/'.$eventrows['Poster'].'">';
         ?>
       </div><!-- Poster -->
+      <div class="col-lg-3">
+        <!-- Arrangør -->
+        <h4>Arrangør</h4>
+        <p>
+          HLParty arrangeres af foreningen Hovedstadens LanParty Forening. Foreningen er en folkeoplysende forening, godkendt i Hillerød kommune. Foreningens formål er (uddrag af vedtægter):
+          <blockquote class="hlpf_smallerquote">
+            <i>Foreningens formål er at samle unge mennesker, primært i hovedstadsområdet, med interesse for computere og IT, for derved at medvirke til at styrke medlemmernes sociale kompetencer, skabe kontakt på tværs af kommunegrænser, etnicitet, køn og alder og styrke medlemmernes almennyttige IT kundskaber til glæde for den enkelte, såvel som for samfundet.</i>
+            <small>Hovedstadens LANParty Forening</small>
+          </blockquote>
+          Overskud fra et arrangement går til drift af foreningen (f.eks. webhotel, vedligeholdelse og nyinkøb af servere, switche, netværkskabler mv.), samt til at sikre fremtidige arrangementer.
+        </p>
+        <p>Læs mere om foreningen bag HLParty på adressen <a href="https://hlpf.dk" target="_blank">https://hlpf.dk</a>.</p>
+      </div>
     </div><!-- end of first div row -->
   </div>
 </div>

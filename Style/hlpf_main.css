@@ -72,6 +72,10 @@ textarea.hlpf_seatmap-gen {
     padding-bottom: 10px;
 }
 
+.hlpf_Black_Border {
+    border: 1px solid black;
+}
+
 .hlpf_facebok_like { min-height: 22px; }
 
 .hlpf_large_news_box {
