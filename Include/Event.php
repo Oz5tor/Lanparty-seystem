@@ -59,18 +59,35 @@
                       echo "<div class='row'>";
                       // Simple color counter //
                       $counter = 1;
-                      while ($row = mysqli_fetch_array($SqlPrices)) {
+                      while ($row = mysqli_fetch_assoc($SqlPrices)) {
                         // Simple color picker //
                         $color = 'white';
                         if ($counter == 1) { $color = 'lightgreen'; }
-                        elseif ($counter == 2) { $color = 'yellow'; }
-                        elseif ($counter == 3) { $color = 'orange'; }
-                        elseif ($counter == 4) { $color = 'red'; }
-                        else { $color = 'white'; }
+                        if ($counter == 2) { $color = 'yellow'; }
+                        if ($counter == 3) { $color = 'orange'; }
+                        if ($counter == 4) { $color = 'red'; }
                         // Create divs //
-                        echo "<div style='background-color: " . $color . ";' class='col-lg-2 text-center hlpf_Black_Border'>" . 
-                        date("d/m",$row["StartTime"]) . " - " . date("d/m",$row["EndTime"]) . "<br>" . $row["Price"] . ",-" . "</div>";
-                        $counter++;
+                        if (count($type["Type"]) == 1) {
+                          echo "<div style='background-color: " . $color . ";' class='col-lg-8 text-center hlpf_Black_Border'>" . 
+                          date("d/m",$row["StartTime"]) . " - " . date("d/m",$row["EndTime"]) . "<br>" . $row["Price"] . ",-" . "</div>";
+                          $counter++;
+                        }
+                        if (count($type["Type"]) == 2) {
+                          echo "<div style='background-color: " . $color . ";' class='col-lg-4 text-center hlpf_Black_Border'>" . 
+                          date("d/m",$row["StartTime"]) . " - " . date("d/m",$row["EndTime"]) . "<br>" . $row["Price"] . ",-" . "</div>";
+                          $counter++;
+                        }
+                        if (count($type["Type"]) == 3) {
+                          echo "<div style='background-color: " . $color . ";' class='col-lg-2 text-center hlpf_Black_Border'>" . 
+                          date("d/m",$row["StartTime"]) . " - " . date("d/m",$row["EndTime"]) . "<br>" . $row["Price"] . ",-" . "</div>";
+                          $counter++;
+                        }
+                        if (count($type["Type"]) == 4) {
+                          echo "<div style='background-color: " . $color . ";' class='col-lg-2 text-center hlpf_Black_Border'>" . 
+                          date("d/m",$row["StartTime"]) . " - " . date("d/m",$row["EndTime"]) . "<br>" . $row["Price"] . ",-" . "</div>";
+                          $counter++;
+                        }
+                        var_dump($row);
                       }
                     echo "</div>";
                   }
