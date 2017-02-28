@@ -55,14 +55,14 @@ if (isset($_POST['checkoutCart']) AND !empty($_POST['checkoutCart'])) {
   }
   if (count($json) == 1) {
     $seat = preg_replace("(cart-item-)", "", $json[0]);
-    $timeAddTen = time() + (10 * 60);
-    $query = "INSERT INTO hlparty.Tickets (UserID, EventID, SeatNumber, OderedDate, RevokeDate) VALUES (" . $_SESSION['UserID'] . ", " . $_SESSION['EventId'] . ", " . $seat . ", " . time() . ", " . $timeAddTen . ")";
+    $query = "INSERT INTO hlparty.Tickets (UserID, EventID, SeatNumber, OderedDate) VALUES (" . $_SESSION['UserID'] . ", " . $_SESSION['EventId'] . ", " . $seat . ", " . time() . ")";
     $_SESSION['SQLStatus'] = $db_conn->query($query);
-  }
-  for ($i=0; $i < count($json); $i++) {
-    $timeAddTen = time() + (10 * 60);
-    $query = "INSERT INTO hlparty.Tickets (UserID, EventID, SeatNumber, OderedDate, RevokeDate) VALUES (" . $_SESSION['UserID'] . ", " . $_SESSION['EventId'] . ", " . $seat . ", " . time() . ", " . $timeAddTen . ")";
-    $_SESSION['SQLStatus'] = $db_conn->query($query);
+  } else {
+    for ($i=0; $i < count($json); $i++) {
+      $seat = preg_replace("(cart-item-)", "", $json[0])
+      $query = "INSERT INTO hlparty.Tickets (UserID, EventID, SeatNumber, OderedDate) VALUES (" . $_SESSION['UserID'] . ", " . $_SESSION['EventId'] . ", " . $seat . ", " . time() . ")";
+      $_SESSION['SQLStatus'] = $db_conn->query($query);
+    }
   }
 } else {
   include_once 'class/seatmap.php';
