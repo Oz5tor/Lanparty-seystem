@@ -1,7 +1,20 @@
 <?php
+  // Include seatmap //
+  include_once 'class/seatmap.php';
   # Latest event - Get the ID.
+  // Get event info //
   $event = $db_conn->query("SELECT e.Title, e.EventID, e.Poster, e.StartDate, e.EndDate, e.Location, e.Network, e.Seatmap, e.Rules FROM Event as e ORDER BY e.EventID DESC LIMIT 1");
   if( $event -> num_rows ) { $eventrows = $event->fetch_assoc(); }
+  // Get seatmap info //
+  $query = "SELECT Width, SeatString
+              FROM Seatmap
+              WHERE Seatmap.SeatmapID = " . $eventrows['Seatmap'];
+  $result = $db_conn->query($query);
+  if ($result -> num_rows) {
+    $row = $result->fetch_assoc();
+    $width = $row['Width'];
+    $fullString = $row['SeatString'];
+  }
 ?>
 
 <div class="col-lg-12 hlpf_contentbox">
@@ -25,23 +38,23 @@
               <?php
               // Get distinct types //
               $DistinctEventPriceTypes = $db_conn->query("
-                            SELECT DISTINCT tp.Type 
-                            FROM TicketPrices as tp 
-                            LEFT JOIN TicketTypes as tt 
-                            ON tp.Type = tt.Type 
-                            WHERE tp.EventID = " . $eventrows["EventID"] . "
-                            ORDER BY tt.Sort ASC");
+                            SELECT DISTINCT TicketPrices.Type
+                            FROM TicketPrices
+                            LEFT JOIN TicketTypes
+                            ON TicketPrices.Type = TicketTypes.Type
+                            WHERE TicketPrices.EventID = " . $eventrows["EventID"] . "
+                            ORDER BY TicketTypes.Sort ASC");
               if( $DistinctEventPriceTypes -> num_rows ) {
                 while ($type = $DistinctEventPriceTypes->fetch_assoc()) {
                   foreach ($type as $key => $value) {
                     echo "<div class='col-lg-3'><p><b>" . $type["Type"] . ":" . "</p></b></div>";
                     // Get ticket values per type //
                     $SqlPricesQuery = "
-                            SELECT * 
-                            FROM TicketPrices as tp 
-                            WHERE tp.EventID = " . $eventrows["EventID"] . " 
-                            AND tp.Type = '" . $type["Type"] . "' 
-                            ORDER BY tp.Type, tp.StartTime ASC";
+                            SELECT *
+                            FROM TicketPrices
+                            WHERE EventID = " . $eventrows["EventID"] . "
+                            AND Type = '" . $type["Type"] . "'
+                            ORDER BY Type, StartTime ASC";
                     $SqlPrices = $db_conn->query($SqlPricesQuery);
                       echo "<div class='row'>";
                       // Simple color counter //
@@ -68,9 +81,43 @@
           </div><!-- Tickets prices end -->
           <br>
           <hr>
-          <!-- Seat map -->
+          <!-- Seat map (magic) -->
+          <div id="map" class="col-lg-12">
+            <div id="generated-seat-map"></div>
+          </div>
+          <div style="float: left;" id="generated-seat-map-legend" class="col-lg-12"></div>
           <div>
-            <img src="Images/2017-02-23%2013_58_43-HLParty%20-%20Admin%20-_%20Seatmap.png">
+            <script src="JS/seat-charts/jquery.seat-charts.min.js"></script>
+            <script type="text/javascript">
+            $(document).ready(function() {
+              var sc = $('#generated-seat-map').seatCharts({
+                map: [<?php seatmap_generation($fullString, $width) ?>],
+                seats: {
+                  A: { classes: 'seatStyle_Arkade' },
+                  s: { classes: 'seatStyle_Stage' },
+                  c: { classes: 'seatStyle_Crew' },
+                  k: { classes: 'seatStyle_Kiosk' }
+                },
+                legend : {
+                  node  : $('#generated-seat-map-legend'),
+                  items : [
+                    [ 'a', 'available', 'Fri plads' ],
+                    [ 'c', 'unavailable', 'Crew plads'],
+                    [ 's', 'unavailable', 'Scene / Storskærm'],
+                    [ 'A', 'unavailable', 'Arkade'],
+                    [ 'k', 'unavailable', 'Kiosk'],
+                    [ 'a', 'unavailable', 'Optaget' ]
+                  ]
+                }
+              });
+              // Make all these seats unavailable.
+              // Unless you want people to buy them, ofcourse.
+              sc.find('A.available').status('unavailable');
+              sc.find('c.available').status('unavailable');
+              sc.find('s.available').status('unavailable');
+              sc.find('k.available').status('unavailable');
+            });
+            </script>
           </div><!-- Seat Map end -->
         </div>
       </div><!-- Basic info end -->
