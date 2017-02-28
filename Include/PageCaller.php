@@ -44,6 +44,9 @@ elseif (! empty( $page ) ) {
         case "NewsLetter":
             include_once("ShowNewsLetter.php");
             break;
+        case "Mailtest":
+            include_once("class/SendMail.php");
+            break;
         default:
             include_once("Include/Page.php");
             break;
