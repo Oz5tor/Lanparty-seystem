@@ -28,7 +28,7 @@ if(isset($_POST["Login"])){
 
       SendMail($to,$toname,$subject,$msg,$_GLOBAL);
       $db_conn->query("UPDATE Users SET PW = '$newhash' WHERE UserID = '$PassResetID'");
-    //  header("Location: index.php");
+      //header("Location: index.php");
     }
   }else{
     $LoginUsername = $db_conn->real_escape_string($_POST["Username"]);
@@ -58,17 +58,17 @@ if(isset($_POST["Login"])){
   <form method="post">
     <div class="form-inline ">
       <div class="form-group fallbackTextRight" style="background-color:white;">
-        <label class="col-lg-5 control-lable fallbackTextRight" for="Username">Brugernavn:</label>
-        <input class="col-lg-7 form-control" type="text" name="Username" id="Username">
+        <label class="col-lg-6 control-lable fallbackTextRight" for="Username">Brugernavn:</label>
+        <input class="col-lg-6 form-control" type="text" name="Username" id="Username">
         
-        <label style="display:block;" class="col-lg-5 control-lable fallbackTextRight" id="ForPassword" for="Password">Kodeord:</label>
-        <input style="display:block;" class="col-lg-7 form-control" type="password" placeholder="***" name="Password" id="Password">
+        <label style="display:block;" class="col-lg-6 control-lable fallbackTextRight" id="ForPassword" for="Password">Kodeord:</label>
+        <input style="display:block;" class="col-lg-6 form-control" type="password" placeholder="***" name="Password" id="Password">
         <!-- For Reset password -->
-        <label style="display:none;" class="col-lg-5 control-lable fallbackTextRight" id="Foremail" for="email">Email:</label>
-        <input style="display:none;" class="col-lg-7 form-control" type="email" name="email" placeholder="Lan@greenland.dk" id="email">
+        <label style="display:none;" class="col-lg-6 control-lable fallbackTextRight" id="Foremail" for="email">Email:</label>
+        <input style="display:none;" class="col-lg-6 form-control" type="email" name="email" placeholder="Lan@greenland.dk" id="email">
         
-        <label style="display:none;" class="col-lg-5 control-lable fallbackTextRight" id="ForZip" for="Zipcode">Post nr:</label>
-        <input style="display:none;" class="col-lg-7 form-control"  type="text" list="DBZipcodes" placeholder="1337 Awesome city" class="form-control" id="Zipcode" value="<?php if(isset($Zipcode)){echo $Zipcode;} ?>"  name="Zipcode">
+        <label style="display:none;" class="col-lg-6 control-lable fallbackTextRight" id="ForZip" for="Zipcode">Post nr:</label>
+        <input style="display:none;" class="col-lg-6 form-control"  type="text" list="DBZipcodes" placeholder="1337 Awesome city" class="form-control" id="Zipcode" value="<?php if(isset($Zipcode)){echo $Zipcode;} ?>"  name="Zipcode">
           <!-- List of Zipcodes in Denmark -->
           <datalist id="DBZipcodes">
           <?php
@@ -85,18 +85,6 @@ if(isset($_POST["Login"])){
         <a onclick="showStuff()" id="forgotPass" class="col-lg-5">Glemt Kodeord</a>
         <input class="col-lg-5 btn btn-success form-control" type="submit" name="Login"  id="knap" value="Logind">
         <span class="col-lg-1"></span>
-        <div class="col12">
-          <?php 
-            if(isset($_POST["Login"])){
-              if($_POST["Login"] != 'Logind'){
-                echo "Der er blevet sendt en mail til dig med et nyt kodedord";
-              ?>
-              <?php
-              }
-            }
-          ?>
-        </div>
-        
         <script type="text/javascript">
         function showStuff(){
           // viseble by default
@@ -150,7 +138,25 @@ if(isset($_POST["Login"])){
           
         }
         </script>
-        
+          <?php 
+            if(isset($_POST["Login"])){
+              if($_POST["Login"] != 'Logind'){
+                ?>
+                <br>
+                <div class="alert alert-info col-lg-12">
+                <?php
+                echo "Der er blevet sendt en mail til dig med et nyt kodedord";
+              ?>
+                <script type='text/javascript'> setTimeout(
+                  function() {
+                      window.location = 'index.php';
+                  }, 5000);
+                </script>
+                </div>
+              <?php
+              }
+            }
+          ?>
       </div>
     </div>
   </form>
