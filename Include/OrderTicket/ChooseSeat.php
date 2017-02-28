@@ -16,14 +16,30 @@ P       R RR       I     C      E
 P       R  RR   IIIIIII   CCCCC EEEEEEE
 */
 
-
 if (!isset($_SESSION['UserID'])) {
   header("Location: /Website-2017/index.php");
 }
-include_once 'class/seatmap.php';
-$query = "SELECT Seatmap.Width AS Width, Seatmap.SeatString AS SeatString FROM Event INNER JOIN Seatmap
-    ON Event.Seatmap = Seatmap.SeatmapID ORDER BY Event.StartDate DESC LIMIT 1";
-$theEvent = $db_conn->query($query)->fetch_assoc();
+if (isset($_POST['checkoutCart']) AND !empty($_POST['checkoutCart'])) {
+  $json = json_decode($_POST['checkoutCart']);
+  if (count($json) > $_GLOBAL['g_max_seats_selection']) {
+    header("Location: index.php?page=Buy"); // Hacker detected! Terminate!
+  } else {
+    if (count($json) == 1) {
+
+    }
+    for ($i=0; $i < count($json); $i++) {
+      // Insert textboxes and shit.
+    }
+  }
+
+} else {
+  include_once 'class/seatmap.php';
+  $query = "SELECT Seatmap.Width AS Width, Seatmap.SeatString AS SeatString
+      FROM Event
+      INNER JOIN Seatmap
+        ON Event.Seatmap = Seatmap.SeatmapID
+      ORDER BY Event.StartDate DESC LIMIT 1";
+  $theEvent = $db_conn->query($query)->fetch_assoc();
 ?>
 
 <div class="hlpf_contentbox col-lg-12 col-md-12 col-sm-12 col-xs-12">
@@ -40,7 +56,9 @@ $theEvent = $db_conn->query($query)->fetch_assoc();
     </div>
   </div>
 </div>
-
+<form id="hiddenForm" class="hidden" action="" method="POST">
+  <input type="hidden" id="checkoutCart" name="checkoutCart" class="hidden">
+</form>
 <script src="JS/seat-charts/jquery.seat-charts.min.js"></script>
 
 <script type="text/javascript">
@@ -54,8 +72,8 @@ $(document).ready(function() {
       map: [<?php seatmap_generation($theEvent['SeatString'], $theEvent['Width']) ?>],
       seats: {
         a: {
-          price: <?php if (isset($_SESSION['EventPrice'])) {echo $_SESSION['EventPrice'];} ?>,
-          category: 'Sæde'
+          price: <?php if (isset($_SESSION['EventPrice'])) { echo $_SESSION['EventPrice']; } ?>,
+          category: 'Sæde' // This will be shown to the costumer when they pick a seat.
         },
         A: { classes: 'seatStyle_Arkade' },
         s: { classes: 'seatStyle_Stage' },
@@ -142,7 +160,10 @@ function checkoutButton() {
   for (var i = lis.length - 1; i >= 0; i--) {
     arr.push(lis[i].id);
   }
-  $.post("test.php", { json_string:JSON.stringify(arr) });
+  var json = JSON.stringify(arr);
+  document.getElementById('checkoutCart').value = json;
+  document.getElementById('hiddenForm').submit();
 }
 
 </script>
+<?php } // End else ?>
