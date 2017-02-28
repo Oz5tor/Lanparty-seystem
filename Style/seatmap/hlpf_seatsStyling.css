@@ -7,6 +7,22 @@
   margin-right: auto;
   position: relative;
   width: auto;
+  padding: 0px;
+}
+#map-extras {
+  float: left;
+}
+#map-extras #Seatmap-Cart {
+  padding-left: 40px;
+}
+#map-extras #Seatmap-Cart-Items {
+  width: 250px;
+  max-height: 100px;
+  overflow-y: auto;
+  padding-left: 5px;
+}
+#map-extras #Seatmap-Cart-Items li {
+  list-style: none;
 }
 div.seatCharts-cell {
   height: 23px;
@@ -36,11 +52,6 @@ div.seatCharts-row:after {
 }
 div.seatCharts-seat.selected {
   background-color: blue;
-  -webkit-transition: background-color 0.1s ease-in;
-  -moz-transition:    background-color 0.1s ease-in;
-  -ms-transition:     background-color 0.1s ease-in;
-  -o-transition:      background-color 0.1s ease-in;
-  transition:         background-color 0.1s ease-in;
 }
 div.seatCharts-seat.focused {
   background-color: #6db131;

@@ -56,20 +56,6 @@ $(document).ready(function() {
         [ 'k', 'unavailable', 'Kiosk'],
         [ 'a', 'unavailable', 'Optaget' ]
       ]
-    },
-    click: function () {
-      if (this.status() == 'available') {
-        //do some stuff, i.e. add to the cart
-        return 'selected';
-      } else if (this.status() == 'selected') {
-        //seat has been vacated
-        return 'available';
-      } else if (this.status() == 'unavailable') {
-        //seat has been already booked
-        return 'unavailable';
-      } else {
-        return this.style();
-      }
     }
   });
   // Make all these seats unavailable.
