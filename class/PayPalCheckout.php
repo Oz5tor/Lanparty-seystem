@@ -96,5 +96,5 @@ function PayPalCheckOut($Cart, $DBCONN, $returnto ,$invoiceID){
   }
 } // Function end
 
-PayPalCheckOut($cart, $db_conn, 'index.php', uniqid());
+//PayPalCheckOut($cart, $db_conn, 'index.php', uniqid());
 ?>
