@@ -84,7 +84,7 @@ function PayPalCheckOut($Cart, $DBCONN, $returnto ,$invoiceID){
     $DBCONN->query("INSERT INTO Transactions_PayPal
                       (UserID,TransactionCode, Completed, PaymentID, CompletedTime)
                       VALUES
-                      ('$tempUser','$invoiceid','0','$paymentID','NULL')");
+                      ('$tempUser','$invoiceID','0','$paymentID','NULL')");
 
 
     //echo $payment->getApprovalLink();
