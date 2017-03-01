@@ -57,7 +57,7 @@
                             ORDER BY Type, StartTime ASC";
                     $SqlPrices = $db_conn->query($SqlPricesQuery);
                     $SqlPricesCount = mysqli_num_rows ($SqlPrices); // Get amount of columns
-                      echo "<div class='row'>";
+                      echo "<div class='col-lg-10'>";
                       // Simple color counter //
                       $counter = 1;
                       while ($row = mysqli_fetch_assoc($SqlPrices)) {
@@ -68,9 +68,9 @@
                         if ($counter == 3) { $color = 'orange'; }
                         if ($counter == 4) { $color = 'red'; }
                         // Calculate column width //
-                        $colwidth = 80 / $SqlPricesCount;
+                        $colwidth = 100 / $SqlPricesCount;
                         // Create divs //
-                        echo "<div style='display: inline-table; background-color: " . $color . "; width: " . $colwidth . "%;' class='text-center hlpf_Black_Border'>" . 
+                        echo "<div style='display: inline-block; background-color: " . $color . "; width: " . $colwidth . "%;' class='text-center hlpf_Black_Border'>" . 
                         date("d/m",$row["StartTime"]) . " - " . date("d/m",$row["EndTime"]) . "<br>" . $row["Price"] . ",-" . "</div>";
                         $counter++;
                       }
@@ -84,6 +84,7 @@
           <br>
           <hr>
           <!-- Seat map (magic) -->
+          <h2>Pladsoversigt:</h2>
           <div id="map" class="col-lg-12">
             <div id="generated-seat-map"></div>
           </div>
