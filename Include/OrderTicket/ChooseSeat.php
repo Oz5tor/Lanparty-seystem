@@ -8,7 +8,6 @@ TTTTTTT EEEEEEE MM   MM PPPPPP
    T    EEEEEEE M     M P
 */
 $_SESSION['EventPrice'] = 350;
-$_SESSION['EventId'] = 35;
 /*
 PPPPPP  RRRRRR  IIIIIII   CCCCC EEEEEEE
 P    PP R    RR    I     C      E
@@ -16,7 +15,8 @@ PPPPPP  RRRRRR     I    C       EEEE
 P       R RR       I     C      E
 P       R  RR   IIIIIII   CCCCC EEEEEEE
 */
-
+$event = $db_conn->query("SELECT e.EventID, e.Seatmap FROM Event as e ORDER BY e.EventID DESC LIMIT 1");
+$event = $event->fetch_assoc();
 if (!isset($_SESSION['UserID'])) {
   header("Location: index.php");
 }
@@ -30,7 +30,7 @@ if (isset($_POST['checkoutCart']) AND !empty($_POST['checkoutCart'])) {
         FROM Seatmap
         INNER JOIN Event
           ON Event.Seatmap = Seatmap.SeatmapID
-        WHERE Event.EventID = " . $_SESSION['EventId'];
+        WHERE Event.EventID = " . $event['EventID'];
     $seats = $db_conn->query($query)->fetch_assoc();
     for ($i=0; $i < count($json); $i++) {
       $seatNumber = preg_replace("(cart-item-)", "", $json[$i]);
@@ -38,14 +38,14 @@ if (isset($_POST['checkoutCart']) AND !empty($_POST['checkoutCart'])) {
           FROM Seatmap
           INNER JOIN Event
             ON Event.Seatmap = Seatmap.SeatmapID
-          WHERE Event.EventID = " . $_SESSION['EventId'];
+          WHERE Event.EventID = " . $event['EventID'];
       $seats = $db_conn->query($query)->fetch_assoc();
       if ($seatNumber <= 0 OR $seatNumber > $seats['Seats']) {
         $legit = false;
       } else {
         $query = "SELECT Tickets.SeatNumber
           FROM Tickets
-          WHERE Tickets.EventID = " . $_SESSION['EventId'] . "
+          WHERE Tickets.EventID = " . $event['EventID'] . "
             AND Tickets.SeatNumber = " . $seatNumber;
         $checkSeatNumber = $db_conn->query($query)->fetch_assoc();
         if (!$checkSeatNumber == "") {
@@ -55,14 +55,26 @@ if (isset($_POST['checkoutCart']) AND !empty($_POST['checkoutCart'])) {
   }
   if (count($json) == 1) {
     $seat = preg_replace("(cart-item-)", "", $json[0]);
-    $query = "INSERT INTO hlparty.Tickets (UserID, EventID, SeatNumber, OderedDate) VALUES (" . $_SESSION['UserID'] . ", " . $_SESSION['EventId'] . ", " . $seat . ", " . time() . ")";
+    $query = "INSERT INTO hlparty.Tickets (UserID, EventID, SeatNumber, OderedDate) VALUES (" . $_SESSION['UserID'] . ", " . $event['EventID'] . ", " . $seat . ", " . time() . ")";
     $_SESSION['SQLStatus'] = $db_conn->query($query);
   } else {
+    sort($json); ?>
+<div class="hlpf_contentbox row">
+<?php
     for ($i=0; $i < count($json); $i++) {
-      $seat = preg_replace("(cart-item-)", "", $json[0])
-      $query = "INSERT INTO hlparty.Tickets (UserID, EventID, SeatNumber, OderedDate) VALUES (" . $_SESSION['UserID'] . ", " . $_SESSION['EventId'] . ", " . $seat . ", " . time() . ")";
-      $_SESSION['SQLStatus'] = $db_conn->query($query);
-    }
+      $seat = preg_replace("(cart-item-)", "", $json[$i]);
+?>
+  <div class="form-group col-lg-3">
+    <label class="control-label" for="focusedInput">Sæde #<?= $seat; ?></label>
+    <input class="form-control" id="focusedInput" type="text" value="" focused>
+  </div>
+<?php
+      // Save seats.
+      #$query = "INSERT INTO hlparty.Tickets (UserID, EventID, SeatNumber, OderedDate) VALUES (" . $_SESSION['UserID'] . ", " . $event['EventID'] . ", " . $seat . ", " . time() . ")";
+      #$_SESSION['SQLStatus'] = $db_conn->query($query);
+    } ?>
+    </div>
+<?php
   }
 } else {
   include_once 'class/seatmap.php';
@@ -175,7 +187,7 @@ $(document).ready(function() {
   sc.find('s.available').status('unavailable');
   sc.find('k.available').status('unavailable');
   <?php
-    $query = "SELECT Tickets.SeatNumber FROM Tickets WHERE Tickets.EventID = " . $_SESSION['EventId'];
+    $query = "SELECT Tickets.SeatNumber FROM Tickets WHERE Tickets.EventID = " . $event['EventID'];
   ?>
   sc.get(<?php echo "" ?>).status('unavailable');
 });
