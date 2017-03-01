@@ -31,8 +31,12 @@ else{
       $db_conn->query("UPDATE Transactions_PayPal 
                         SET Completed = '1', CompletedTime = '$completedTime'
                         WHERE PaymentID = '$paymenySessionID'");
-
-
+      
+      if(isset($_SESSION["BuyingMembership"]) && $_SESSION["BuyingMembership"] == 1){
+        require_once("Include/Usermodule/AddMembertoDB.php");
+      }
+      
+      
       echo '<p>Betaling Gemmenført, du vil blive sendt til forsiden om 5 sekunder</p>';
       echo '<a href="index.php"> klik her for at komme til forsiden</a>';
       echo '<pre>';
@@ -50,7 +54,7 @@ else{
     }catch(Exception $ex){
       $data = json_decode($ex->getData());
       echo $data->message;
-      echo '<a href="index.php"> klik her for at komme til forsiden</a>';
+      echo '<a href="index.php"> klik her for at komme tilbage til hvor du var</a>';
       
     }
   }
