@@ -30,7 +30,7 @@ if (isset($_POST['checkoutCart']) AND !empty($_POST['checkoutCart'])) {
         $query = "SELECT Tickets.SeatNumber
           FROM Tickets
           WHERE Tickets.EventID = " . $event['EventID'] . "
-            AND Tickets.SeatNumber = " . $seatNumber;
+            AND Tickets.SeatNumber = " . $db_con->real_escape_string($seatNumber);
         $checkSeatNumber = $db_conn->query($query)->fetch_assoc();
         if (!$checkSeatNumber == "") {
         } // else { Everything is okay. }
@@ -39,7 +39,9 @@ if (isset($_POST['checkoutCart']) AND !empty($_POST['checkoutCart'])) {
   }
   if (count($json) == 1) {
     $seat = preg_replace("(cart-item-)", "", $json[0]);
-    $query = "INSERT INTO hlparty.Tickets (UserID, EventID, SeatNumber, OderedDate) VALUES (" . $_SESSION['UserID'] . ", " . $event['EventID'] . ", " . $seat . ", " . time() . ")";
+    $query = "INSERT INTO hlparty.Tickets (UserID, EventID, SeatNumber, OderedDate)
+        VALUES (" . $_SESSION['UserID'] . ", " . $event['EventID'] . ",
+                  " . $db_con->real_escape_string($seat) . ", " . time() . ")";
     $_SESSION['SQLStatus'] = $db_conn->query($query);
   } else {
     sort($json);
@@ -62,6 +64,7 @@ if (isset($_POST['checkoutCart']) AND !empty($_POST['checkoutCart'])) {
 <?php } // end for loop?>
   </div>
   <div class="col-lg-12">
+    <input type="hidden" id="submitNamesForSeats" name="submitNamesForSeats">
     <button onclick="submitNames()" class="btn btn-primary" style="float:right">Næste &raquo;</button>
   </div>
 </div>
