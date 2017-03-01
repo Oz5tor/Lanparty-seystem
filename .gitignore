@@ -143,11 +143,9 @@ Temporary Items
 .nfs*
 
 ##### Custom
-# DBconn
-#[Ii]nclude/[Dd][Bb]conn.php
 *.rar
 *[Kk]opi.*
-[cC]lass/[Dd][Bb][Cc]onn.php
 *.less
 JS/tinymce/langs/readme.md
 JS/tinymce/license.txt
+Include/CoreParts/DBconn.php
