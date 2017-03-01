@@ -7,10 +7,10 @@ $Mailer = new PHPMailer;
   // connection methohs
   $Mailer->IsSMTP();
   $Mailer->SMTPAuth = true;
-  $Mailer->SMTPDebug = 2;
+  $Mailer->SMTPDebug = 0;
 
   // Connections Rules sets
-  $Mailer->Host       = 'mail.rosenheim.dk ';
+  $Mailer->Host       = 'mail.rosenheim.dk';
   $Mailer->Username   = 'tor@rosenheim.dk';
   $Mailer->Password   = 'hlparty123';
   $Mailer->SMTPSecure = 'ssl';
@@ -23,13 +23,13 @@ $Mailer = new PHPMailer;
   // sender and reciver informations
   $Mailer->From = $_GLOBAL['SendMailFrom'];
   $Mailer->FromName = $_GLOBAL['SendMailFromName'];
-  $Mailer->addReplyTo($_GLOBAL['SendMailFromName'],'Reply adress');
+  $Mailer->addReplyTo($_GLOBAL['SendMailFromName'],'Reply address');
   $Mailer->addAddress($to,$toname);
 
   // the acutaly mail
   $Mailer->Subject  = $subject;
   $Mailer->Body     = $body;
-  $Mailer->AltBody  = strip_tags($body,'<br>'); // for none html clients
+  $Mailer->AltBody  = strip_tags($body); // for none html clients
   
   if($Mailer->send()){
     return true;
