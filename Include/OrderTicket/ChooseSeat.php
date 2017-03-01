@@ -50,21 +50,44 @@ if (isset($_POST['checkoutCart']) AND !empty($_POST['checkoutCart'])) {
 ?>
 <div class="hlpf_contentbox row">
   <h1 class="col-lg-12">Hvem skal side hvor?</h1>
-    <div class=" col-lg-12 row">
+  <div class=" col-lg-12 row" id="namesForSeats">
 <?php
     for ($i=0; $i < count($json); $i++) {
       $seat = preg_replace("(cart-item-)", "", $json[$i]);
 ?>
-  <div class="form-group col-lg-3">
-    <label class="control-label" for="SeatNumber<?= $seat ?>">Sæde #<?= $seat; ?></label>
-    <input class="form-control" id="SeatNumber<?= $seat ?>" type="text" value="" focused>
-  </div>
+    <div class="form-group col-lg-3 col-md-4 col-sm-6 col-xs-12">
+      <label class="control-label" for="<?= $seat ?>">Sæde #<?= $seat; ?></label>
+      <input class="form-control" id="<?= $seat ?>" type="text" focused>
+    </div>
 <?php } // end for loop?>
   </div>
   <div class="col-lg-12">
-    <button class="btn btn-primary" style="float:right">Næste &raquo;</button>
+    <button onclick="submitNames()" class="btn btn-primary" style="float:right">Næste &raquo;</button>
   </div>
 </div>
+<script type="text/javascript">
+function submitNames() {
+  var lis = document.getElementById("namesForSeats").getElementsByTagName("input");
+
+
+
+  var arr = [];
+  for (var i = lis.length - 1; i >= 0; i--) {
+    arr.push(lis[i].id + ":" + lis[i].value);
+  }
+  var json = JSON.stringify(arr);
+  document.getElementById("submitNamesForSeats").value = json;
+
+
+
+  var arr = [];
+  for (var i = lis.length - 1; i >= 0; i--) {
+    arr.push(lis[i].id);
+  }
+  var json = JSON.stringify(arr);
+  document.getElementById('checkoutCart').value = json;
+}
+</script>
 <?php
   }
 } else {
@@ -203,6 +226,5 @@ function checkoutButton() {
   document.getElementById('checkoutCart').value = json;
   document.getElementById('hiddenForm').submit();
 }
-
 </script>
 <?php } // End else ?>
