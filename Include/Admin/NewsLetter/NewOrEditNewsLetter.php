@@ -36,7 +36,7 @@ if(isset($_POST['Save'])){
     // update querry
     //$db_conn->query("UPDATE NewsLetter SET Subject = '$Title', Body = '$Body', SentDate = '$Send', Author = '$Aurthor'
       ///               WHERE LetterID = '$URLID'");
-    //header("Location: index.php?page=Admin&subpage=NewsLetters");
+    header("Location: index.php?page=Admin&subpage=NewsLetter#admin_menu");
   }else{
     if($Send == 1){
 
@@ -65,7 +65,7 @@ if(isset($_POST['Save'])){
                                      VALUES ('$Title','$Body','0','$Aurthor')");
     }
   }// if action is not Edit
-  //header("Location: index.php?page=Admin&subpage=NewsLetters#admin_menu");
+  header("Location: index.php?page=Admin&subpage=NewsLetter#admin_menu");
 }// if submmit send
 
 // edit or template
