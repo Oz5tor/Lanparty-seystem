@@ -5,8 +5,18 @@ use PayPal\Api\Payment;
 use PayPal\Api\PaymentExecution;
 // ======
 $sucess = $db_conn->real_escape_string($_GET['success']);
-if($sucess == false){
+if($sucess == 'false'){ // if false
  echo '<p>Betaling fejled/annulert</p>';
+  if(isset($_SESSION["BuyingMembership"])){
+    unset($_SESSION["BuyingMembership"]);
+  }
+  echo "
+      <script type='text/javascript'> setTimeout(
+        function() {
+            window.location = 'index.php';
+        }, 5000);
+      </script>
+      ";
 }
 else{
   // extra check start

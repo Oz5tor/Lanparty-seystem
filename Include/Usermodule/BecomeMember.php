@@ -3,8 +3,12 @@ if(isset($_POST["BecomeMember"])){
 require_once("class/PayPalCheckout.php");
 ## =============== Defined set of values on a item ==========
 
-$price = $_GLOBAL["MembershipPrice"];  
+$price = $_GLOBAL["MembershipPrice"];
+if(date('m',time()) >= $_GLOBAL["MembershipPriceDiscountmonth"]){
+  $price = $price / 2;
+}
 $year = date('Y',time());
+$month = date('m',time());
 $Membership = array();
 $Membership['Name']     = "Medlemskab for $year";
 $Membership['Currency'] = 'DKK';
