@@ -1,26 +1,14 @@
 <?php
 
-/*
-TTTTTTT EEEEEEE MM   MM PPPPPP
-   T    E       M M M M P    PP
-   T    EEEE    M  M  M PPPPPP
-   T    E       M     M P
-   T    EEEEEEE M     M P
-*/
+
 $_SESSION['EventPrice'] = 350;
-/*
-PPPPPP  RRRRRR  IIIIIII   CCCCC EEEEEEE
-P    PP R    RR    I     C      E
-PPPPPP  RRRRRR     I    C       EEEE
-P       R RR       I     C      E
-P       R  RR   IIIIIII   CCCCC EEEEEEE
-*/
-$event = $db_conn->query("SELECT e.EventID, e.Seatmap FROM Event as e ORDER BY e.EventID DESC LIMIT 1");
-$event = $event->fetch_assoc();
+
+
 if (!isset($_SESSION['UserID'])) {
   header("Location: index.php");
 }
-$legit = true; // If this is ever false, kick them out...
+$event = $db_conn->query("SELECT e.EventID, e.Seatmap FROM Event as e ORDER BY e.EventID DESC LIMIT 1");
+$event = $event->fetch_assoc();
 if (isset($_POST['checkoutCart']) AND !empty($_POST['checkoutCart'])) {
   $json = json_decode($_POST['checkoutCart']);
   if (count($json) > $_GLOBAL['g_max_seats_selection']) {
@@ -34,14 +22,10 @@ if (isset($_POST['checkoutCart']) AND !empty($_POST['checkoutCart'])) {
     $seats = $db_conn->query($query)->fetch_assoc();
     for ($i=0; $i < count($json); $i++) {
       $seatNumber = preg_replace("(cart-item-)", "", $json[$i]);
-      $query = "SELECT Seatmap.Seats
-          FROM Seatmap
-          INNER JOIN Event
-            ON Event.Seatmap = Seatmap.SeatmapID
-          WHERE Event.EventID = " . $event['EventID'];
-      $seats = $db_conn->query($query)->fetch_assoc();
       if ($seatNumber <= 0 OR $seatNumber > $seats['Seats']) {
-        $legit = false;
+        //
+        // One ore more seats are already taken...
+        //
       } else {
         $query = "SELECT Tickets.SeatNumber
           FROM Tickets
@@ -58,22 +42,29 @@ if (isset($_POST['checkoutCart']) AND !empty($_POST['checkoutCart'])) {
     $query = "INSERT INTO hlparty.Tickets (UserID, EventID, SeatNumber, OderedDate) VALUES (" . $_SESSION['UserID'] . ", " . $event['EventID'] . ", " . $seat . ", " . time() . ")";
     $_SESSION['SQLStatus'] = $db_conn->query($query);
   } else {
-    sort($json); ?>
+    sort($json);
+    /*
+
+
+    */
+?>
 <div class="hlpf_contentbox row">
+  <h1 class="col-lg-12">Hvem skal side hvor?</h1>
+    <div class=" col-lg-12 row">
 <?php
     for ($i=0; $i < count($json); $i++) {
       $seat = preg_replace("(cart-item-)", "", $json[$i]);
 ?>
   <div class="form-group col-lg-3">
-    <label class="control-label" for="focusedInput">Sæde #<?= $seat; ?></label>
-    <input class="form-control" id="focusedInput" type="text" value="" focused>
+    <label class="control-label" for="SeatNumber<?= $seat ?>">Sæde #<?= $seat; ?></label>
+    <input class="form-control" id="SeatNumber<?= $seat ?>" type="text" value="" focused>
   </div>
-<?php
-      // Save seats.
-      #$query = "INSERT INTO hlparty.Tickets (UserID, EventID, SeatNumber, OderedDate) VALUES (" . $_SESSION['UserID'] . ", " . $event['EventID'] . ", " . $seat . ", " . time() . ")";
-      #$_SESSION['SQLStatus'] = $db_conn->query($query);
-    } ?>
-    </div>
+<?php } // end for loop?>
+  </div>
+  <div class="col-lg-12">
+    <button class="btn btn-primary" style="float:right">Næste &raquo;</button>
+  </div>
+</div>
 <?php
   }
 } else {
