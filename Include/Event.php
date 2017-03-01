@@ -47,7 +47,7 @@
               if( $DistinctEventPriceTypes -> num_rows ) {
                 while ($type = $DistinctEventPriceTypes->fetch_assoc()) {
                   foreach ($type as $key => $value) {
-                    echo "<div class='col-lg-3'><p><b>" . $type["Type"] . ":" . "</p></b></div>";
+                    echo "<div class='col-lg-2'><p><b>" . $type["Type"] . ":" . "</p></b></div>";
                     // Get ticket values per type //
                     $SqlPricesQuery = "
                             SELECT *
@@ -56,6 +56,7 @@
                             AND Type = '" . $type["Type"] . "'
                             ORDER BY Type, StartTime ASC";
                     $SqlPrices = $db_conn->query($SqlPricesQuery);
+                    $SqlPricesCount = mysqli_num_rows ($SqlPrices); // Get amount of columns
                       echo "<div class='row'>";
                       // Simple color counter //
                       $counter = 1;
@@ -66,28 +67,12 @@
                         if ($counter == 2) { $color = 'yellow'; }
                         if ($counter == 3) { $color = 'orange'; }
                         if ($counter == 4) { $color = 'red'; }
+                        // Calculate column width //
+                        $colwidth = 80 / $SqlPricesCount;
                         // Create divs //
-                        if (count($type["Type"]) == 1) {
-                          echo "<div style='background-color: " . $color . ";' class='col-lg-8 text-center hlpf_Black_Border'>" . 
-                          date("d/m",$row["StartTime"]) . " - " . date("d/m",$row["EndTime"]) . "<br>" . $row["Price"] . ",-" . "</div>";
-                          $counter++;
-                        }
-                        if (count($type["Type"]) == 2) {
-                          echo "<div style='background-color: " . $color . ";' class='col-lg-4 text-center hlpf_Black_Border'>" . 
-                          date("d/m",$row["StartTime"]) . " - " . date("d/m",$row["EndTime"]) . "<br>" . $row["Price"] . ",-" . "</div>";
-                          $counter++;
-                        }
-                        if (count($type["Type"]) == 3) {
-                          echo "<div style='background-color: " . $color . ";' class='col-lg-2 text-center hlpf_Black_Border'>" . 
-                          date("d/m",$row["StartTime"]) . " - " . date("d/m",$row["EndTime"]) . "<br>" . $row["Price"] . ",-" . "</div>";
-                          $counter++;
-                        }
-                        if (count($type["Type"]) == 4) {
-                          echo "<div style='background-color: " . $color . ";' class='col-lg-2 text-center hlpf_Black_Border'>" . 
-                          date("d/m",$row["StartTime"]) . " - " . date("d/m",$row["EndTime"]) . "<br>" . $row["Price"] . ",-" . "</div>";
-                          $counter++;
-                        }
-                        var_dump($row);
+                        echo "<div style='display: inline-table; background-color: " . $color . "; width: " . $colwidth . "%;' class='text-center hlpf_Black_Border'>" . 
+                        date("d/m",$row["StartTime"]) . " - " . date("d/m",$row["EndTime"]) . "<br>" . $row["Price"] . ",-" . "</div>";
+                        $counter++;
                       }
                     echo "</div>";
                   }
