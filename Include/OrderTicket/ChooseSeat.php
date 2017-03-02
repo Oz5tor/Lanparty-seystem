@@ -1,27 +1,20 @@
 <?php
 
-/*
-TTTTTTT EEEEEEE MM   MM PPPPPP
-   T    E       M M M M P    PP
-   T    EEEE    M  M  M PPPPPP
-   T    E       M     M P
-   T    EEEEEEE M     M P
-*/
+
 $_SESSION['EventPrice'] = 350;
-$_SESSION['EventId'] = 35;
-/*
-PPPPPP  RRRRRR  IIIIIII   CCCCC EEEEEEE
-P    PP R    RR    I     C      E
-PPPPPP  RRRRRR     I    C       EEEE
-P       R RR       I     C      E
-P       R  RR   IIIIIII   CCCCC EEEEEEE
-*/
+
 
 if (!isset($_SESSION['UserID'])) {
   header("Location: index.php");
 }
-$legit = true; // If this is ever false, kick them out...
+$event = $db_conn->query("SELECT e.EventID, e.Seatmap FROM Event as e ORDER BY e.EventID DESC LIMIT 1");
+$event = $event->fetch_assoc();
 if (isset($_POST['checkoutCart']) AND !empty($_POST['checkoutCart'])) {
+  /*
+
+    STEP TWO - WHO SITS WHERE?
+
+  */
   $json = json_decode($_POST['checkoutCart']);
   if (count($json) > $_GLOBAL['g_max_seats_selection']) {
     header("Location: index.php?page=Buy"); // Hacker detected! Terminate!
@@ -30,23 +23,19 @@ if (isset($_POST['checkoutCart']) AND !empty($_POST['checkoutCart'])) {
         FROM Seatmap
         INNER JOIN Event
           ON Event.Seatmap = Seatmap.SeatmapID
-        WHERE Event.EventID = " . $_SESSION['EventId'];
+        WHERE Event.EventID = " . $event['EventID'];
     $seats = $db_conn->query($query)->fetch_assoc();
     for ($i=0; $i < count($json); $i++) {
       $seatNumber = preg_replace("(cart-item-)", "", $json[$i]);
-      $query = "SELECT Seatmap.Seats
-          FROM Seatmap
-          INNER JOIN Event
-            ON Event.Seatmap = Seatmap.SeatmapID
-          WHERE Event.EventID = " . $_SESSION['EventId'];
-      $seats = $db_conn->query($query)->fetch_assoc();
       if ($seatNumber <= 0 OR $seatNumber > $seats['Seats']) {
-        $legit = false;
+        //
+        // One ore more seats are already taken...
+        //
       } else {
         $query = "SELECT Tickets.SeatNumber
           FROM Tickets
-          WHERE Tickets.EventID = " . $_SESSION['EventId'] . "
-            AND Tickets.SeatNumber = " . $seatNumber;
+          WHERE Tickets.EventID = " . $event['EventID'] . "
+            AND Tickets.SeatNumber = " . $db_conn->real_escape_string($seatNumber);
         $checkSeatNumber = $db_conn->query($query)->fetch_assoc();
         if (!$checkSeatNumber == "") {
         } // else { Everything is okay. }
@@ -54,17 +43,72 @@ if (isset($_POST['checkoutCart']) AND !empty($_POST['checkoutCart'])) {
     }
   }
   if (count($json) == 1) {
+    /*
+      CHECK IF USER HAS A TICKET ALREADY.
+    */
     $seat = preg_replace("(cart-item-)", "", $json[0]);
-    $query = "INSERT INTO hlparty.Tickets (UserID, EventID, SeatNumber, OderedDate) VALUES (" . $_SESSION['UserID'] . ", " . $_SESSION['EventId'] . ", " . $seat . ", " . time() . ")";
+    $query = "INSERT INTO hlparty.Tickets (UserID, EventID, SeatNumber, OderedDate)
+        VALUES (" . $_SESSION['UserID'] . ", " . $event['EventID'] . ", " . $seat . ", " . time() . ")";
     $_SESSION['SQLStatus'] = $db_conn->query($query);
+    /*
+      SEND USER TO PAYPAL HERE?
+    */
+      echo "Send nudes to PayPal";
   } else {
+    sort($json);
+
+?>
+<div class="hlpf_contentbox row col-lg-12">
+  <h1>Hvem skal side hvor?</h1>
+  <p>Skriv brugernanvet på den person der skal side på den enkelte plads.</p>
+  <div class="row" id="namesForSeats">
+<?php
     for ($i=0; $i < count($json); $i++) {
-      $seat = preg_replace("(cart-item-)", "", $json[0])
-      $query = "INSERT INTO hlparty.Tickets (UserID, EventID, SeatNumber, OderedDate) VALUES (" . $_SESSION['UserID'] . ", " . $_SESSION['EventId'] . ", " . $seat . ", " . time() . ")";
-      $_SESSION['SQLStatus'] = $db_conn->query($query);
-    }
+      $seat = preg_replace("(cart-item-)", "", $json[$i]);
+?>
+    <div class="form-group col-lg-3 col-md-4 col-sm-6 col-xs-12">
+      <label class="control-label" for="<?= $seat ?>">Sæde #<?= $seat; ?></label>
+      <input class="form-control" id="<?= $seat ?>" type="text">
+    </div>
+<?php } // end for loop?>
+  </div>
+  <div class="col-lg-12">
+    <form id="setNamesForSeats" class="" action="" method="POST">
+      <input type="text" id="nameForSeat" name="nameForSeat">
+    </form>
+    <button onclick="checkName()" class="btn btn-primary" style="float:right">Næste &raquo;</button>
+  </div>
+</div>
+<script type="text/javascript">
+function checkName() {
+  var lis = document.getElementById("namesForSeats").getElementsByTagName("input");
+  var arr = [];
+  for (var i = lis.length - 1; i >= 0; i--) {
+    arr.push(lis[i].id + ":" + lis[i].value);
   }
+  var json = JSON.stringify(arr);
+  document.getElementById("nameForSeat").value = json;
+  document.getElementById("setNamesForSeats").submit();
+}
+</script>
+<?php
+  }
+} elseif (isset($_POST['nameForSeat']) AND !empty($_POST['nameForSeat'])) {
+  /*
+
+    STEP THREE - CONFIRMATION AND FINAL CHECK BEFORE PAYPAL
+
+  */
+  /*
+    CHECK IF ONE OR MORE USERS ALREADY HAS A TICKET
+  */
+  echo "Send nudes to PayPal";
 } else {
+  /*
+
+    STEP ONE - CHOOSE SEATS
+
+  */
   include_once 'class/seatmap.php';
   $query = "SELECT Seatmap.Width AS Width, Seatmap.SeatString AS SeatString
       FROM Event
@@ -175,7 +219,7 @@ $(document).ready(function() {
   sc.find('s.available').status('unavailable');
   sc.find('k.available').status('unavailable');
   <?php
-    $query = "SELECT Tickets.SeatNumber FROM Tickets WHERE Tickets.EventID = " . $_SESSION['EventId'];
+    $query = "SELECT Tickets.SeatNumber FROM Tickets WHERE Tickets.EventID = " . $event['EventID'];
   ?>
   sc.get(<?php echo "" ?>).status('unavailable');
 });
@@ -190,8 +234,7 @@ function calculateTotal(sc) {
 }
 
 function checkoutButton() {
-  var lis = document.getElementById("Seatmap-Cart-Items").
-        getElementsByTagName("li");
+  var lis = document.getElementById("Seatmap-Cart-Items").getElementsByTagName("li");
   var arr = [];
   for (var i = lis.length - 1; i >= 0; i--) {
     arr.push(lis[i].id);
@@ -200,6 +243,5 @@ function checkoutButton() {
   document.getElementById('checkoutCart').value = json;
   document.getElementById('hiddenForm').submit();
 }
-
 </script>
 <?php } // End else ?>
