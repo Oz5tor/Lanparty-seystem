@@ -76,36 +76,28 @@
                     $SqlPrices = $db_conn->query($SqlPricesQuery);
                     $SqlPricesCount = mysqli_num_rows ($SqlPrices); // Get amount of columns
                       echo "<div class='col-lg-10'>";
-                      // Simple color counter //
-                      //$counter = 1;
-                      //$i = 0;
-                      $colorarr = array();
-                      $arrlength = count($colorarr);
+                      // Counter for colors //
+                      $i = 0;
                       while ($row = mysqli_fetch_assoc($SqlPrices)) {
-                        // Simple color picker //
-                        //$color = 'white'; // Color getting outdated, use the function at bottom instead (which will get column count from $SqlPricesCount)
-                        //if ($counter == 1) { $color = 'lightgreen'; }
-                        //if ($counter == 2) { $color = 'yellow'; }
-                        //if ($counter == 3) { $color = 'orange'; }
-                        //if ($counter == 4) { $color = 'red'; }
                         // Calculate column width //
                         $colwidth = 100 / $SqlPricesCount;
                         // Create divs //
-                        for ($i = 0; $i <= ($SqlPricesCount-1); $i++) {
-                        //while ($i <= ($SqlPricesCount-1)) {
-                          $theR = interpolate($theR0, $theR1, $i, $SqlPricesCount);
-                          $theG = interpolate($theG0, $theG1, $i, $SqlPricesCount);
-                          $theB = interpolate($theB0, $theB1, $i, $SqlPricesCount);
-                          $theVal = ((($theR << 8) | $theG) << 8) | $theB; // Put $theVal in instead of color
-                          $colorarr = $theVal;
+
+                        if ( $SqlPricesCount > 1 ){
+                          $theR = interpolate($theR0, $theR1, $i, $SqlPricesCount-1);
+                          $theG = interpolate($theG0, $theG1, $i, $SqlPricesCount-1);
+                          $theB = interpolate($theB0, $theB1, $i, $SqlPricesCount-1);
                         }
-                        echo "<div style='display: inline-block; background-color: " . 
-                        for ( $x = 0; $x < $arrlength; $x++ ) { $colorarr }
-                         . "; width: " . $colwidth . "%;' class='text-center hlpf_Black_Border'>" . 
+                        if ( $SqlPricesCount == 1 ) { 
+                          $theVal = 'green';
+                        }
+                        else { 
+                          $theVal = ((($theR << 8) | $theG) << 8) | $theB; 
+                        }
+
+                        echo "<div style='display: inline-block; background-color: " . $theVal . "; width: " . $colwidth . "%;' class='text-center hlpf_Black_Border'>" . 
                         date("d/m",$row["StartTime"]) . " - " . date("d/m",$row["EndTime"]) . "<br>" . $row["Price"] . ",-" . "</div>";
-                        //$counter++;
-                        //$i++;
-                        //}
+                        $i++;
                       }
                     echo "</div>";
                   }
@@ -188,9 +180,7 @@
 <?
   //$theColorBegin = (isset($_REQUEST['cbegin'])) ? hexdec($_REQUEST['cbegin']) : 0x000000;
   //$theColorEnd = (isset($_REQUEST['cend'])) ? hexdec($_REQUEST['cend']) : 0xffffff;
-  //$theColorBegin = 0x00ff00; // Always from green
-  //$theColorEnd = 0xff0000; // Always to red
-  //$theNumSteps = (isset($_REQUEST['steps'])) ? intval($_REQUEST['steps']) : 16; // $theNumSteps must have the value from $SqlPricesCount-1
+  //$theNumSteps = (isset($_REQUEST['steps'])) ? intval($_REQUEST['steps']) : 16;
 
   //$theColorBegin = (($theColorBegin >= 0x000000) && ($theColorBegin <= 0xffffff)) ? $theColorBegin : 0x000000;
   //$theColorEnd = (($theColorEnd >= 0x000000) && ($theColorEnd <= 0xffffff)) ? $theColorEnd : 0xffffff;
@@ -258,7 +248,7 @@
     //$theG = interpolate($theG0, $theG1, $i, $theNumSteps);
     //$theB = interpolate($theB0, $theB1, $i, $theNumSteps);
 
-    //$theVal = ((($theR << 8) | $theG) << 8) | $theB; // Put $theVal in instead of color
+    //$theVal = ((($theR << 8) | $theG) << 8) | $theB;
 
     //$theTDTag = sprintf("<td bgcolor='#%06X'>", $theVal);
     //$theTDARTag = sprintf("<td bgcolor='#%06X' align='right'>", $theVal);
