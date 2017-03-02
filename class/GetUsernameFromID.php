@@ -4,4 +4,8 @@ function TorGetUserName($TempUserID, $DBCONN){
   $Func_row = $Func_result->fetch_assoc();
   return $Func_row['Username'];
 }// function end
+function GetIDFromUsername($username, $database_connection) {
+  $result = $database_connection->query("SELECT UserID FROM Users WHERE Username = '$username'")->fetch_assoc();
+  return $result['UserID'];
+}
 ?>
