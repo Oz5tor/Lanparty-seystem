@@ -209,6 +209,9 @@ if(!isset($_SESSION['UserToken']) && !isset($_SESSION['UserID'])){
       unset($RegErroMSG);
       ?>
     </form><!-- Form end -->
+    <?php 
+    if(isset($_SESSION['UserID'])){
+    ?>
     <div id="" class="form-group col-lg-12">
       <hr>
       <?php
@@ -231,6 +234,9 @@ if(!isset($_SESSION['UserToken']) && !isset($_SESSION['UserID'])){
       }
       ?>
       </div>
+  <?php 
+    } // end if user loggedin
+    ?>
 </div> <!-- Row end -->
 
 <?php
