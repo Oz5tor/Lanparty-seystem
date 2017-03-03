@@ -60,12 +60,16 @@ if (isset($_POST['checkoutCart']) AND !empty($_POST['checkoutCart'])) {
     header("Location: index.php?page=Buy");
     exit;
   }
+  if (empty($json)) {
+    // Empty post data.
+    header("Location: index.php?page=Buy");
+    exit;
+  }
   if (count($json) == 1) {
     // Only one seat chosen...
     $seat = preg_replace("(cart-item-)", "", $json[0]);
     $query = "INSERT INTO hlparty.Tickets (UserID, EventID, SeatNumber, OderedDate)
         VALUES (" . $_SESSION['UserID'] . ", " . $event['EventID'] . ", " . $seat . ", " . time() . ")";
-    $_SESSION['SQLStatus'] = $db_conn->query($query);
     /*
       SEND USER TO PAYPAL HERE?
     */
@@ -143,6 +147,28 @@ function checkName() {
       header("Location: index.php?page=Buy");
       exit;
     }
+    // Check if the users already have tickets...
+    $naughtyUsers = [];
+    foreach ($arr as $key => $value) {
+      $query = "SELECT Tickets.UserID FROM Tickets WHERE Tickets.EventID = ".
+          $event['EventID'] . " AND Tickets.RevokeDate IS NULL AND Tickets.UserID = " . GetIDFromUsername($value, $db_conn);
+      $result = $db_conn->query($query);
+      if ($result -> num_rows) {
+        $naughtyUsers[] = $value;
+      }
+    }
+    if (!empty($naughtyUsers)) {
+      $_SESSION['MsgForUser'] = "Følgende brugere har allerede en billet: ";
+      for ($i=0; $i < count($naughtyUsers); $i++) {
+        $_SESSION['MsgForUser'] = $_SESSION['MsgForUser'] . $naughtyUsers[$i] . " ";
+      }
+      header("Location: index.php?page=Buy");
+      exit;
+    }
+    echo "<pre>";
+    print_r($naughtyUsers);
+    print_r($arr);
+    echo "</pre>";
     foreach ($arr as $key => $value) {
       $query = "INSERT INTO hlparty.Tickets (UserID, EventID, SeatNumber, OderedDate)
           VALUES (" . GetIDFromUsername($value, $db_conn) . ", " . $event['EventID'] . ", " . $key . ", " . time() . ")";
