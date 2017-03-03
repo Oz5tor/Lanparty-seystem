@@ -108,6 +108,3 @@ div.seatStyle_Kiosk.unavailable {
 .seatCharts-legendItem div {
   border: 0px !important;
 }
-div.seatCharts-seat.selected:hover {
-  background-color: #0099FF;
-}
