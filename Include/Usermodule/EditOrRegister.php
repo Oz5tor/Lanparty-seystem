@@ -53,7 +53,7 @@ if(!isset($_SESSION['UserToken']) && !isset($_SESSION['UserID'])){
 
       <div class="form-group col-lg-3">
         <label class="control-label" for="Birthday">F&oslash;dselsdag:*</label>
-        <input type="text" class="form-control picker" id="Birthday" value="<?php if(isset($Birthday)){ echo date("d-m-Y",$Birthday);} ?>"
+        <input type="text" class="form-control picker" placeholder="dd-mm-yyyy" id="Birthday" value="<?php if(isset($Birthday)){ echo date("d-m-Y",$Birthday);} ?>"
                name="Birthday" title="dd-mm-yyyy" data-date-format="dd-mm-yyyy">
       </div>
       <div class="form-group col-lg-3">
@@ -168,10 +168,16 @@ if(!isset($_SESSION['UserToken']) && !isset($_SESSION['UserID'])){
       <?php
       if(isset($_SESSION['UserID'])){
       ?>
+      <div class="form-group col-xs-12 col-sm-5 col-md-6 col-lg-3">
+        <input type="submit" value="Opdater min profil" class="btn btn-default" name="Send_form">
+      </div>
+      <div class="visible-lg col-lg-4">
+      </div>
+      <div class="col-lg-5 col-xs-12 col-sm-7 col-md-6">
         <div class="col-lg-12">
           <h4>Tilføj dine andre sociale netværker: </h4>
         </div>
-        <div id="oa_social_link_container" class="form-group col-lg-10"></div>
+        <div id="oa_social_link_container" class="form-group col-lg-12"></div>
         <script type="text/javascript">
           /* Replace #your_callback_uri# with the url to your own callback script */
           var your_callback_script = 'http://<?php echo $ROOTURL; ?>Include/oneall_hlpf/oneall_callback_handler.php';
@@ -187,12 +193,11 @@ if(!isset($_SESSION['UserToken']) && !isset($_SESSION['UserID'])){
           _oneall.push(['social_link', 'do_render_ui', 'oa_social_link_container']);
 
         </script>
+      </div>
       <?php
       }
       ?>
-      <div class="form-group col-lg-2">
-        <input type="submit" value="Opdater min profil" class="btn btn-default" name="Send_form">
-      </div>
+      
       <?php
       if(isset($RegErroMSG) && $RegErroMSG == ''){
       echo '<ul class="alert alert-danger" role="alert"><b>Feltkravene er ikke opfyldt:</b>';
@@ -204,6 +209,9 @@ if(!isset($_SESSION['UserToken']) && !isset($_SESSION['UserID'])){
       unset($RegErroMSG);
       ?>
     </form><!-- Form end -->
+    <?php 
+    if(isset($_SESSION['UserID'])){
+    ?>
     <div id="" class="form-group col-lg-12">
       <hr>
       <?php
@@ -226,6 +234,9 @@ if(!isset($_SESSION['UserToken']) && !isset($_SESSION['UserID'])){
       }
       ?>
       </div>
+  <?php 
+    } // end if user loggedin
+    ?>
 </div> <!-- Row end -->
 
 <?php
