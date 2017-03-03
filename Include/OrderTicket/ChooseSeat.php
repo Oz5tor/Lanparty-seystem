@@ -199,6 +199,7 @@ function checkName() {
       <h4>Dit valg (<span id="Seatmap-Counter">0</span>)</h4>
       <ul id="Seatmap-Cart-Items"></ul>
       <p>Total pris: <span id="Seatmap-Total">0</span>,-</p>
+      <p><i><small>Prisen er vejledende...</small></i></p>
       <button id="CheckoutButton" class="btn btn-default" onclick="checkoutButton()">Køb &raquo;</button>
     </div>
   </div>
