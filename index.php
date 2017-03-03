@@ -8,14 +8,14 @@ require_once("oneall_sdk/config.php");
 require_once("Include/oneall_hlpf/oneall_calls.php");
 require_once("Include/CoreParts/UrlContoller.php");
 require_once("Include/CoreParts/global_settings.php");
-include_once("Include/TestArea/DEBUGGIN.php");
 ?>
 <!DOCTYPE html>
 <html lang="da">
 <head>
-<?php require_once 'Include/CoreParts/head.php'; ?>
+    <?php require_once 'Include/CoreParts/head.php'; ?>
 </head>
 <body>
+    <?php include_once("Include/TestArea/DEBUGGIN.php"); ?>
     <script src="JS/Jquery/jquery.min.js"></script>
     <!-- jQuery UI -->
     <link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/themes/smoothness/jquery-ui.css">
