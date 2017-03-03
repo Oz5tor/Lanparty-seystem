@@ -46,6 +46,11 @@ include_once("Include/TestArea/DEBUGGIN.php");
         <!-- Nav end -->
     </header>
     <br>
+    <?php
+    if (isset($_SESSION['MsgForUser'])) {
+        include_once 'Include/MsgUser.php';
+    }
+    ?>
     <div class="container">
     <?php require_once("Include/PageCaller.php"); ?>
     </div>
