@@ -5,6 +5,7 @@ $_SESSION['EventPrice'] = 350;
 if (!isset($_SESSION['UserID'])) {
   $_SESSION['MsgForUser'] = "Du skal være logget ind for at se denne side.";
   header("Location: index.php");
+  exit;
 }
 $event = $db_conn->query("SELECT e.EventID, e.Seatmap FROM Event as e ORDER BY e.EventID DESC LIMIT 1");
 $event = $event->fetch_assoc();
@@ -15,10 +16,12 @@ if (isset($_POST['checkoutCart']) AND !empty($_POST['checkoutCart'])) {
   // Decode json...
   $json = json_decode($_POST['checkoutCart']);
   if (count($json) > $_GLOBAL['g_max_seats_selection']) {
+    // Hacker detected! Terminate!
     $_SESSION['MsgForUser'] = "Du har valgt " . count($json) .
         " sæder, men vi tillader kun at vælge " .
         $_GLOBAL['g_max_seats_selection'] . " sæder.";
-    header("Location: index.php?page=Buy"); // Hacker detected! Terminate!
+    header("Location: index.php?page=Buy");
+    exit;
   } else {
     // How many seats does the current seatmap have?
     $query = "SELECT Seatmap.Seats
@@ -30,38 +33,43 @@ if (isset($_POST['checkoutCart']) AND !empty($_POST['checkoutCart'])) {
     for ($i=0; $i < count($json); $i++) {
       $seatNumber = preg_replace("(cart-item-)", "", $json[$i]);
       if ($seatNumber <= 0 OR $seatNumber > $seats['Seats']) {
-        // Chosen seat is somehow less than 0 or more than there is.
+        // Chosen seat is somehow less than 0 or more than there are.
         $_SESSION['MsgForUser'] = "Fejl kode: 0x000D0001.";
         header("Location: index.php?page=Buy");
+        exit;
       } else {
-        $query = "SELECT Tickets.SeatNumber
-          FROM Tickets
-          WHERE Tickets.EventID = " . $event['EventID'] . "
-            AND Tickets.SeatNumber = " . $db_conn->real_escape_string($seatNumber);
+        $query = "SELECT count(Tickets.SeatNumber) AS seats
+            FROM Tickets
+            WHERE Tickets.EventID = " . $event['EventID'] . "
+              AND Tickets.SeatNumber = " . $db_conn->real_escape_string($seatNumber) . "
+              AND Tickets.RevokeDate IS NULL";
         $checkSeatNumber = $db_conn->query($query)->fetch_assoc();
-        if ($checkSeatNumber === 0) {
+        if ($checkSeatNumber['seats'] >= 1) {
+          $_SESSION['MsgForUser'] = "Sæde " . $seatNumber . " er optaget.";
+          header("Location: index.php?page=Buy");
+          exit;
         } // else { Everything is okay. }
       }
     }
   }
+  $query = "SELECT Tickets.UserID FROM Tickets WHERE Tickets.EventID = ". $event['EventID'] ." AND Tickets.UserID = ". $_SESSION['UserID'];
+  $result = $db_conn->query($query);
+  if ($result -> num_rows) {
+    // User has a ticket.
+    $_SESSION['MsgForUser'] = "Du har allerede en billet til dette arrangement og kan derfor ikke købe flere billetter.";
+    header("Location: index.php?page=Buy");
+    exit;
+  }
   if (count($json) == 1) {
     // Only one seat chosen...
-    $query = "SELECT Tickets.UserID FROM Tickets WHERE Tickets.EventID = ". $event['EventID'] ." AND Tickets.UserID = ". $_SESSION['UserID'];
-    $result = $db_conn->query($query);
-    if ($result -> num_rows) {
-      // User has a ticket.
-      $_SESSION['MsgForUser'] = "Du har allerede en billet til dette arrangement";
-      header("Location: index.php");
-    } else {
-      $seat = preg_replace("(cart-item-)", "", $json[0]);
-      $query = "INSERT INTO hlparty.Tickets (UserID, EventID, SeatNumber, OderedDate)
-          VALUES (" . $_SESSION['UserID'] . ", " . $event['EventID'] . ", " . $seat . ", " . time() . ")";
-      $_SESSION['SQLStatus'] = $db_conn->query($query);
-      /*
-        SEND USER TO PAYPAL HERE?
-      */
-      echo "Send nudes to PayPal";
-    }
+    $seat = preg_replace("(cart-item-)", "", $json[0]);
+    $query = "INSERT INTO hlparty.Tickets (UserID, EventID, SeatNumber, OderedDate)
+        VALUES (" . $_SESSION['UserID'] . ", " . $event['EventID'] . ", " . $seat . ", " . time() . ")";
+    $_SESSION['SQLStatus'] = $db_conn->query($query);
+    /*
+      SEND USER TO PAYPAL HERE?
+    */
+    echo "Send nudes to PayPal";
   } else {
     sort($json);
 ?>
@@ -115,20 +123,30 @@ function checkName() {
     // Same name was used twice
     $_SESSION['MsgForUser'] = "En person kan ikke have to sæder...";
     header("Location: index.php?page=Buy");
+    exit;
   } else {
     // All names are unique, continue
     // Check if the users exist...
     $naughtyUsers = [];
     foreach ($arr as $key => $value) {
-      $query = "SELECT Username FROM Users WHERE Username = " . $value;
+      $query = "SELECT Username FROM Users WHERE Username = '" . $value . "'";
       $result = $db_conn->query($query);
-      if ($result->num_rows) {
+      if (!$result -> num_rows) {
         $naughtyUsers[] = $value;
       }
     }
     if (!empty($naughtyUsers)) {
-      $_SESSION['MsgForUser'] = "Følgende brugere eksistere ikke ";
-      // Add all in array...
+      $_SESSION['MsgForUser'] = "Følgende brugere eksistere ikke: ";
+      for ($i=0; $i < count($naughtyUsers); $i++) {
+        $_SESSION['MsgForUser'] = $_SESSION['MsgForUser'] . $naughtyUsers[$i] . " ";
+      }
+      header("Location: index.php?page=Buy");
+      exit;
+    }
+    foreach ($arr as $key => $value) {
+      $query = "INSERT INTO hlparty.Tickets (UserID, EventID, SeatNumber, OderedDate)
+          VALUES (" . GetIDFromUsername($value, $db_conn) . ", " . $event['EventID'] . ", " . $key . ", " . time() . ")";
+      $db_conn->query($query);
     }
     echo "Send nudes to PayPal";
   }
@@ -247,7 +265,19 @@ $(document).ready(function() {
   <?php
     $query = "SELECT Tickets.SeatNumber FROM Tickets WHERE Tickets.EventID = " . $event['EventID'];
   ?>
-  sc.get(<?php echo "" ?>).status('unavailable');
+  sc.get(<?php
+        $query = "SELECT  Tickets.SeatNumber
+            FROM  Tickets
+            WHERE Tickets.EventID = ". $event['EventID'] ."
+            AND Tickets.RevokeDate IS NULL";
+        echo "[";
+        if ($result = $db_conn->query($query)) {
+          while ($row = $result->fetch_assoc()) {
+            echo "'" . sprintf('%03d', $row['SeatNumber']) . "',";
+          }
+        }
+        echo "]";
+          ?>).status('unavailable');
 });
 
 function calculateTotal(sc) {
