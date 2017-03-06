@@ -10,9 +10,9 @@ $Mailer = new PHPMailer;
   $Mailer->SMTPDebug = 0;
 
   // Connections Rules sets
-  $Mailer->Host       = 'mail.rosenheim.dk';
-  $Mailer->Username   = 'tor@rosenheim.dk';
-  $Mailer->Password   = 'hlparty123';
+  $Mailer->Host       = $_GLOBAL['SendMailSMTPServer'];
+  $Mailer->Username   = $_GLOBAL['SendMailSMTPUser'];
+  $Mailer->Password   = $_GLOBAL['SendMailSMTPUserPassword'];
   $Mailer->SMTPSecure = 'ssl';
   $Mailer->Port       = 465;
 
@@ -29,7 +29,7 @@ $Mailer = new PHPMailer;
   // the acutaly mail
   $Mailer->Subject  = $subject;
   $Mailer->Body     = $body;
-  $Mailer->AltBody  = strip_tags($body); // for none html clients
+  $Mailer->AltBody  = strip_tags($body); // for non-html clients
   
   if($Mailer->send()){
     return true;

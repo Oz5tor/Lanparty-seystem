@@ -21,7 +21,7 @@ $cart[] = $tempItem;*/
 # == Call of the funtions looks like this and req the checkout cart and a description
 #PayPalCheckOut($cart, $db_conn, 'index.php', $invoiceID);
 
-function PayPalCheckOut($Cart, $DBCONN, $returnto ,$invoiceID){
+function PayPalCheckOut($Cart, $DBCONN, $returnto ,$invoiceID, $ROOTURL){
   // get the basic paypal api config and DBconn.php
   require_once("class/PayPalConfig.php");
 
@@ -65,8 +65,8 @@ function PayPalCheckOut($Cart, $DBCONN, $returnto ,$invoiceID){
     ->setInvoiceNumber($invoiceID);
 
   $redirectUrls = new RedirectUrls();
-  $redirectUrls->setReturnUrl("http://localhost/Website-2017/index.php?page=Paypalpay&success=true&returnto=$returnto")
-    ->setCancelUrl("http://localhost/Website-2017/index.php?page=Paypalpay&success=false");
+  $redirectUrls->setReturnUrl("http://".$ROOTURL."/index.php?page=Paypalpay&success=true&returnto=$returnto")
+    ->setCancelUrl("http://".$ROOTURL."/index.php?page=Paypalpay&success=false");
 
   $payment = new Payment();
   $payment->setIntent('sale')
@@ -96,5 +96,5 @@ function PayPalCheckOut($Cart, $DBCONN, $returnto ,$invoiceID){
   }
 } // Function end
 
-//PayPalCheckOut($cart, $db_conn, 'index.php', uniqid());
+//PayPalCheckOut($cart, $db_conn, 'index.php', uniqid(), $ROOTURL);
 ?>
