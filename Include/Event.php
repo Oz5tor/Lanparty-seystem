@@ -152,7 +152,7 @@
         ?>
       </div><!-- Poster -->
       <div class="col-lg-3">
-        <!-- Arrangør -->
+        <!-- Organizers -->
         <h4>Arrangør</h4>
         <p>
           HLParty arrangeres af foreningen Hovedstadens LanParty Forening. Foreningen er en folkeoplysende forening, godkendt i Hillerød kommune. Foreningens formål er (uddrag af vedtægter):
