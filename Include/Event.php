@@ -41,16 +41,15 @@
     <div class="col-lg-12">
       <div class="col-lg-9">
         <h1><?php echo $eventrows['Title']; ?></h1>
-        <hr>
-        <!-- ============== -->
+        <hr> <!-- HORIZONTAL LINE -->
         <div>
           <p><b>Start tidspunkt:</b> <?php echo date("d/m/y - H:i:s",$eventrows['StartDate']); ?>. <b>Slut tidspunkt:</b> <?php echo date("d/m/y - H:i:s",$eventrows['EndDate']); ?></p>
           <p><b>Adresse:</b> <?php echo $eventrows['Location']; ?> <a href="#">Se Map</a></p>
           <p><b>Internet/LAN: </b> <?php echo $eventrows['Network']; ?></p>
           <p><b>Regler: </b> <a href="?page=<?php echo $eventrows['Rules']; ?>">Læs dem her</a></p>
-          <hr>
-          <!-- Tickets prices -->
+          <hr> <!-- HORIZONTAL LINE -->
           <div>
+            <!-- Tickets prices -->
             <h2>Billet Priser:</h2>
             <div class="row">
               <?php
@@ -81,21 +80,18 @@
                       while ($row = mysqli_fetch_assoc($SqlPrices)) {
                         // Calculate column width //
                         $colwidth = 100 / $SqlPricesCount;
-                        // Create divs //
-
+                        // Get color values //
                         if ( $SqlPricesCount > 1 ){
-                          $theR = interpolate($theR0, $theR1, $i, $SqlPricesCount-1);
-                          $theG = interpolate($theG0, $theG1, $i, $SqlPricesCount-1);
-                          $theB = interpolate($theB0, $theB1, $i, $SqlPricesCount-1);
+                          $theR = round(interpolate($theR0, $theR1, $i, $SqlPricesCount-1));
+                          $theG = round(interpolate($theG0, $theG1, $i, $SqlPricesCount-1));
+                          $theB = round(interpolate($theB0, $theB1, $i, $SqlPricesCount-1));
+                        } elseif ( $SqlPricesCount == 1 ) { 
+                          $theR = 0;
+                          $theG = 255;
+                          $theB = 0;
                         }
-                        if ( $SqlPricesCount == 1 ) { 
-                          $theVal = 'green';
-                        }
-                        else { 
-                          $theVal = ((($theR << 8) | $theG) << 8) | $theB; 
-                        }
-
-                        echo "<div style='display: inline-block; background-color: " . $theVal . "; width: " . $colwidth . "%;' class='text-center hlpf_Black_Border'>" . 
+                        // Create divs //
+                        echo "<div style='display: inline-block; background-color: rgb(" . $theR . ", " . $theG . ", " . $theB . "); width: " . $colwidth . "&#37;' class='text-center hlpf_Black_Border'>" . 
                         date("d/m",$row["StartTime"]) . " - " . date("d/m",$row["EndTime"]) . "<br>" . $row["Price"] . ",-" . "</div>";
                         $i++;
                       }
@@ -107,8 +103,8 @@
             </div>
           </div><!-- Tickets prices end -->
           <br>
-          <hr>
-          <!-- Seat map (magic) -->
+          <hr> <!-- HORIZONTAL LINE -->
+          <!-- Seat map (Patricks magic) -->
           <h2>Pladsoversigt:</h2>
           <div id="map" class="col-lg-12">
             <div id="generated-seat-map"></div>
@@ -174,91 +170,4 @@
 
 <?php
   $event -> close();
-?>
-
-<!-- Dynamic colour picker -->
-<?
-  //$theColorBegin = (isset($_REQUEST['cbegin'])) ? hexdec($_REQUEST['cbegin']) : 0x000000;
-  //$theColorEnd = (isset($_REQUEST['cend'])) ? hexdec($_REQUEST['cend']) : 0xffffff;
-  //$theNumSteps = (isset($_REQUEST['steps'])) ? intval($_REQUEST['steps']) : 16;
-
-  //$theColorBegin = (($theColorBegin >= 0x000000) && ($theColorBegin <= 0xffffff)) ? $theColorBegin : 0x000000;
-  //$theColorEnd = (($theColorEnd >= 0x000000) && ($theColorEnd <= 0xffffff)) ? $theColorEnd : 0xffffff;
-  //$theNumSteps = (($theNumSteps > 0) && ($theNumSteps < 256)) ? $theNumSteps : 16;
-?>
-  <!--
-  <form method="GET">
-    <table border='1'>
-      <tr>
-        <td>variable:</td>
-        <td>number type</td>
-        <td>minimum</td>
-        <td>maximum</td>
-        <td>value</td>
-      </tr>
-      <tr>
-        <td>color begin:</td>
-        <td>hex</td>
-        <td>0x000000</td>
-        <td>0xFFFFFF</td>
-        <td><input name="cbegin" value="<? //printf("%06X", $theColorBegin); ?>"></td>
-      </tr>
-      <tr>
-        <td>color end:</td>
-        <td>hex</td>
-        <td>0x000000</td>
-        <td>0xFFFFFF</td>
-        <td><input name="cend" value="<? //printf("%06X", $theColorEnd); ?>"></td>
-      </tr>
-      <tr>
-        <td>number of steps:</td>
-        <td>dec</td>
-        <td>1</td>
-        <td>255</td>
-        <td><input name="steps" value="<? //echo $theNumSteps; ?>"></td>
-      </tr>
-    </table>
-    <input type="submit" value="generate color gradient">
-  </form>
-  -->
-<?
-  //printf("<p>values are: (color begin: 0x%06X), (color end: 0x%06X), (number of steps: %d)</p>\n", $theColorBegin, $theColorEnd, $theNumSteps);
-
-  //$theR0 = ($theColorBegin & 0xff0000) >> 16;
-  //$theG0 = ($theColorBegin & 0x00ff00) >> 8;
-  //$theB0 = ($theColorBegin & 0x0000ff) >> 0;
-
-  //$theR1 = ($theColorEnd & 0xff0000) >> 16;
-  //$theG1 = ($theColorEnd & 0x00ff00) >> 8;
-  //$theB1 = ($theColorEnd & 0x0000ff) >> 0;
-
-  // return the interpolated value between pBegin and pEnd
-  //function interpolate($pBegin, $pEnd, $pStep, $pMax) {
-    //if ($pBegin < $pEnd) {
-      //return (($pEnd - $pBegin) * ($pStep / $pMax)) + $pBegin;
-    //} else {
-      //return (($pBegin - $pEnd) * (1 - ($pStep / $pMax))) + $pEnd;
-    //}
-  //}
-
-  // generate gradient swathe now
-  //echo "<table width='100%' cellpadding='8' style='border-collapse:collapse'>\n";
-  //for ($i = 0; $i <= $theNumSteps; $i++) {
-    //$theR = interpolate($theR0, $theR1, $i, $theNumSteps);
-    //$theG = interpolate($theG0, $theG1, $i, $theNumSteps);
-    //$theB = interpolate($theB0, $theB1, $i, $theNumSteps);
-
-    //$theVal = ((($theR << 8) | $theG) << 8) | $theB;
-
-    //$theTDTag = sprintf("<td bgcolor='#%06X'>", $theVal);
-    //$theTDARTag = sprintf("<td bgcolor='#%06X' align='right'>", $theVal);
-
-    /*
-    $theFC0Tag = "<font color='#000000'>";
-    $theFC1Tag = "<font color='#ffffff'>";
-          printf("<tr>$theTDTag$theFC0Tag%d</font></td>$theTDTag$theFC0Tag%d%%</font></td>$theTDARTag$theFC0Tag%d</font></td>$theTDARTag$theFC0Tag%06X</font></td>", $i, ($i/$theNumSteps) * 100, $theVal, $theVal);
-    printf("$theTDTag$theFC1Tag%06X</font></td>$theTDTag$theFC1Tag%d</font></td>$theTDARTag$theFC1Tag%d%%</font></td>$theTDARTag$theFC1Tag%d</font></td></tr>\n", $theVal, $theVal, ($i/$theNumSteps) * 100, $i);
-    */
-  //}
-  //echo "</table>\n";
 ?>
