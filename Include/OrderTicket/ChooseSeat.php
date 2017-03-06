@@ -1,13 +1,13 @@
 <?php
 
-$_SESSION['EventPrice'] = 350;
-
+$eventPrice = 350;
+require 'class/PayPalCheckout.php';
 if (!isset($_SESSION['UserID'])) {
   $_SESSION['MsgForUser'] = "Du skal være logget ind for at se denne side.";
   header("Location: index.php");
   exit;
 }
-$event = $db_conn->query("SELECT e.EventID, e.Seatmap FROM Event as e ORDER BY e.EventID DESC LIMIT 1");
+$event = $db_conn->query("SELECT e.EventID, e.Seatmap, e.Title FROM Event as e ORDER BY e.EventID DESC LIMIT 1");
 $event = $event->fetch_assoc();
 if (isset($_POST['checkoutCart']) AND !empty($_POST['checkoutCart'])) {
   /*
@@ -70,10 +70,46 @@ if (isset($_POST['checkoutCart']) AND !empty($_POST['checkoutCart'])) {
     $seat = preg_replace("(cart-item-)", "", $json[0]);
     $query = "INSERT INTO hlparty.Tickets (UserID, EventID, SeatNumber, OderedDate)
         VALUES (" . $_SESSION['UserID'] . ", " . $event['EventID'] . ", " . $seat . ", " . time() . ")";
+    if (!$db_conn->query($query)) {
+      $_SESSION['MsgForUser'] = "Fejl ved resevering af sæde...";
+      header("Location: index.php?page=Buy");
+    }
     /*
+      SINGLE USER
       SEND USER TO PAYPAL HERE?
     */
-    echo "Send nudes to PayPal";
+    $ticketPrice = 0;
+    $query = "SELECT UserMembership.UserID FROM UserMembership WHERE UserID = " . $_SESSION['UserID'] . " AND UserMembership.Year = " . date("Y");
+    if ($db_conn->query($query)->num_rows) {
+      $query = "SELECT * FROM TicketPrices WHERE TicketPrices.EventID = " . $event['EventID'] . " AND TicketPrices.Type = 'Medlem' AND " . time() . " BETWEEN TicketPrices.StartTime AND TicketPrices.EndTime";
+      if ($ticket = $db_conn->query($query)->fetch_assoc()) {
+        $ticketPrice = $ticket['Price'];
+      } else {
+        $_SESSION['MsgForUser'] = "Fejl kode: 0x000D0011";
+        header("Location: index.php?page=Buy");
+      }
+    } else {
+      $query = "SELECT * FROM TicketPrices WHERE TicketPrices.EventID = " . $event['EventID'] . " AND TicketPrices.Type = 'Ikke medlem' AND " . time() . " BETWEEN TicketPrices.StartTime AND TicketPrices.EndTime";
+      if ($ticket = $db_conn->query($query)->fetch_assoc()) {
+        $ticketPrice = $ticket['Price'];
+      } else {
+        $_SESSION['MsgForUser'] = "Fejl kode: 0x000D0012";
+        header("Location: index.php?page=Buy");
+      }
+    }
+    $cart = [
+      'Price' => $ticketPrice,
+      'Quantity' => 1,
+      'Currency' => 'DKK',
+      'Name' => "Billet til " . $event['Title'],
+      'Desc' => "Sæde #" . $seat
+    ];
+    #echo "<pre>";
+    #print_r($cart);
+    #echo "</pre>";
+    $Cart[] = $cart;
+    $_SESSION['BuyingTicketSingle'] = 1;
+    PayPalCheckOut($Cart, $db_conn, "index.php?page=Buy&subpage=PaypalConfirm", uniqid(), $ROOTURL);
   } else {
     sort($json);
 ?>
@@ -219,7 +255,7 @@ $(document).ready(function() {
       map: [<?php seatmap_generation($theEvent['SeatString'], $theEvent['Width']) ?>],
       seats: {
         a: {
-          price: <?php if (isset($_SESSION['EventPrice'])) { echo $_SESSION['EventPrice']; } ?>,
+          price: <?php if (isset($eventPrice)) { echo $eventPrice; } ?>,
           category: 'Sæde' // This will be shown to the costumer when they pick a seat.
         },
         A: { classes: 'seatStyle_Arkade' },

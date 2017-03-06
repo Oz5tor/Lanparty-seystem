@@ -1,4 +1,5 @@
 <?php
+$startScriptTime=microtime(TRUE);
 ob_start();
 session_start();
 //session_destroy();
@@ -63,5 +64,10 @@ require_once("Include/CoreParts/global_settings.php");
     <?php require_once("Include/Footer.php"); ?>
     <!-- Footer end -->
    <?php require_once("Include/CoreParts/htmlBottem.php"); ?>
+   <?php
+    $endScriptTime=microtime(TRUE);
+    $totalScriptTime=$endScriptTime-$startScriptTime;
+    echo "\n\r".'<!-- Load time: '.number_format($totalScriptTime, 15).' seconds -->'."\n\r";
+   ?>
 </body>
 </html>
