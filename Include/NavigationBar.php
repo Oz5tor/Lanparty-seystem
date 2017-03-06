@@ -27,6 +27,7 @@
                     <li><a href="?page=Huskeliste">Huskeliste</a></li>
                   </ul>
                 </li>
+                <li><a href="?page=Forum">Forum</a></li>
                 <li><a href="?page=Kontakt">Kontakt os</a></li>
                 <?php if(isset($_SESSION['UserID'])){ ?>
                 <li class="dropdown" id="hlpf_menu">
