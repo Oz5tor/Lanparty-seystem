@@ -46,8 +46,12 @@ elseif (! empty( $page ) ) {
             break;
         case "Mailtest":
             include_once("class/SendMail.php");
+            break;
         case "Buy":
             include_once("Include/OrderTicket/ChooseSeat.php");
+            break;
+        case "Forum":
+            include_once("Include/Forum/Forum.php");
             break;
         default:
             include_once("Include/Page.php");
