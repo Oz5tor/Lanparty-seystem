@@ -24,7 +24,7 @@ echo "</pre>";
 echo $c;*/
 // ======================================================
 
-$params = array(
+/*$params = array(
   "name" => 'NEWsite Test 006',
 //  "tournament_type" => '',
   "url" => 'HLPArtyNEWsiteTest006',
@@ -50,5 +50,10 @@ $data_json = json_encode($params);
 echo "<pre>";        
 print_r($response);
 echo "</pre>";
+*/
+require_once("Include/Admin/Tournament/ChallongeClassLib.php");
+print_r(ChallongeFunctions::CreateTournament("NEWsite Test 008", "HLPArtyNEWsiteTest008", "kage", true, true, 5, ''));
+
+
 
 ?>
