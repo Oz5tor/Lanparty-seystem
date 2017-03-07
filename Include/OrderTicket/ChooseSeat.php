@@ -7,7 +7,8 @@ if (!isset($_SESSION['UserID'])) {
   header("Location: index.php");
   exit;
 }
-$event = $db_conn->query("SELECT e.EventID, e.Seatmap, e.Title FROM Event as e ORDER BY e.EventID DESC LIMIT 1");
+$event = $db_conn->query("SELECT e.EventID, e.Seatmap, e.Title FROM Event as e
+                          ORDER BY e.EventID DESC LIMIT 1");
 $event = $event->fetch_assoc();
 if (isset($_POST['checkoutCart']) AND !empty($_POST['checkoutCart'])) {
   /*
@@ -52,7 +53,10 @@ if (isset($_POST['checkoutCart']) AND !empty($_POST['checkoutCart'])) {
       }
     }
   }
-  $query = "SELECT Tickets.UserID FROM Tickets WHERE Tickets.EventID = ". $event['EventID'] ." AND Tickets.UserID = ". $_SESSION['UserID'];
+  $query = "SELECT Tickets.UserID FROM Tickets
+      WHERE Tickets.EventID = ". $event['EventID'] .
+      " AND Tickets.UserID = ". $_SESSION['UserID'] .
+      " AND Tickets.RevokeDate IS NULL";
   $result = $db_conn->query($query);
   if ($result -> num_rows) {
     // User has a ticket.
@@ -109,6 +113,7 @@ if (isset($_POST['checkoutCart']) AND !empty($_POST['checkoutCart'])) {
     #echo "</pre>";
     $Cart[] = $cart;
     $_SESSION['BuyingTicketSingle'] = 1;
+    $_SESSION['Cart'] = $Cart;
     PayPalCheckOut($Cart, $db_conn, "index.php?page=Buy&subpage=PaypalConfirm", uniqid(), $ROOTURL);
   } else {
     sort($json);

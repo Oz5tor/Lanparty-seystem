@@ -41,20 +41,20 @@ else{
       $db_conn->query("UPDATE Transactions_PayPal
                         SET Completed = '1', CompletedTime = '$completedTime'
                         WHERE PaymentID = '$paymenySessionID'");
-
       if(isset($_SESSION["BuyingMembership"]) && $_SESSION["BuyingMembership"] == 1){
         require_once("Include/Usermodule/AddMembertoDB.php");
       }
-      if(isset($_SESSION["BuyingTicketSingle"]) && $_SESSION["BuyingTicketSingle"] == 1){
+      if(isset($_SESSION["BuyingTicketSingle"]) && $_SESSION["BuyingTicketSingle"] == 1 OR
+         isset($_SESSION["BuyingTicketMulti"]) && $_SESSION["BuyingTicketMulti"] == 1){
         require_once("Include/ORderTicket/PayPalConfirmation.php");
       }
-
-      echo '<p>Betaling Gemmenført, du vil blive sendt til forsiden om 5 sekunder</p>';
-      echo '<a href="index.php"> klik her for at komme til forsiden</a>';
+      echo '<div class="hlpf_contentborder">';
+      echo '<p>Betaling Gemmenført, du vil blive sendt til forsiden om 5 sekunder...</p>';
+      echo '<p><a href="index.php">Klik her for at komme til forsiden</a></p>';
       echo '<pre>';
       echo print_r($result);
       echo '</pre>';
-      echo '';
+      echo '</div>';
       $retunto = $_GET['returnto'];
     echo "
       <script type='text/javascript'> setTimeout(
@@ -66,7 +66,7 @@ else{
     }catch(Exception $ex){
       $data = json_decode($ex->getData());
       echo $data->message;
-      echo '<a href="index.php"> klik her for at komme tilbage til hvor du var</a>';
+      echo '<a href="index.php">Klik her for at komme tilbage til hvor du var</a>';
 
     }
   }
