@@ -1,7 +1,7 @@
 <?php
 if(isset($_POST['Send_form'])) // Submit form start
   {
-    require_once('Include/Usermodule/FormSubmit.php');
+    require_once('Include/Forum/FormSubmit.php');
   }// Form submit end
 ?>
 
@@ -56,8 +56,8 @@ if(isset($_POST['Send_form'])) // Submit form start
 			</div>
 			<?php } ?>
 		</div> <!-- CONTENT END -->
+		<?php if($_SESSION['Admin'] == 1){ ?>  
 		<hr>
-		<?php if($_SESSION['Admin'] == 1){ ?>                       
 		<div class='row' style='padding-right: 20px; padding-left: 20px;'>
 	    <form action='' method='post'>
 	      <div class='form-group col-lg-12'>
@@ -70,14 +70,9 @@ if(isset($_POST['Send_form'])) // Submit form start
 	        <input type='text' class='form-control' placeholder='Santa Claus' id='CategoryDesc'
 	               value='<?php if(isset($CategoryDesc)){ echo $CategoryDesc;} ?>' name='CategoryDesc'>
 	      </div>
-
-	      <?php
-	      if(isset($_SESSION['UserID']) && $_SESSION['Admin'] == 1){ ?>
 	      <div class='form-group col-xs-12 col-sm-5 col-md-6 col-lg-3'>
 	        <input type='submit' value='Opret kategori' class='btn btn-default' name='Send_form'>
 	      </div>
-	      <?php } ?>
-	      
 	      <?php
 	      if(isset($RegErroMSG) && $RegErroMSG == ''){
 	      	echo '<ul class="alert alert-danger" role="alert"><b>Feltkravene er ikke opfyldt:</b>';
