@@ -46,6 +46,7 @@ else{
       }
       if(isset($_SESSION["BuyingTicketSingle"]) && $_SESSION["BuyingTicketSingle"] == 1 OR
          isset($_SESSION["BuyingTicketMulti"]) && $_SESSION["BuyingTicketMulti"] == 1){
+        $_SESSION['payPalSuccess'] = $sucess;
         require_once("Include/ORderTicket/PayPalConfirmation.php");
       }
       echo '<div class="hlpf_contentborder">';
