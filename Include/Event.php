@@ -1,7 +1,6 @@
 <?php
   // Include seatmap //
   include_once 'class/seatmap.php';
-  # Latest event - Get the ID.
   // Get event info //
   $event = $db_conn->query("SELECT e.Title, e.EventID, e.Poster, e.StartDate, e.EndDate, e.Location, e.Network, e.Seatmap, e.Rules FROM Event as e ORDER BY e.EventID DESC LIMIT 1");
   if( $event -> num_rows ) { $eventrows = $event->fetch_assoc(); }
@@ -15,6 +14,25 @@
     $width = $row['Width'];
     $fullString = $row['SeatString'];
   }
+  // Dynamic color picker things //
+  $theColorBegin = 0x00ff00; // Always from green
+  $theColorEnd = 0xff0000; // Always to red
+
+  $theR0 = ($theColorBegin & 0xff0000) >> 16;
+  $theG0 = ($theColorBegin & 0x00ff00) >> 8;
+  $theB0 = ($theColorBegin & 0x0000ff) >> 0;
+
+  $theR1 = ($theColorEnd & 0xff0000) >> 16;
+  $theG1 = ($theColorEnd & 0x00ff00) >> 8;
+  $theB1 = ($theColorEnd & 0x0000ff) >> 0;
+
+  function interpolate($pBegin, $pEnd, $pStep, $pMax) {
+    if ($pBegin < $pEnd) {
+      return (($pEnd - $pBegin) * ($pStep / $pMax)) + $pBegin;
+    } else {
+      return (($pBegin - $pEnd) * (1 - ($pStep / $pMax))) + $pEnd;
+    }
+  }
 ?>
 
 <div class="col-lg-12 hlpf_contentbox">
@@ -23,16 +41,15 @@
     <div class="col-lg-12">
       <div class="col-lg-9">
         <h1><?php echo $eventrows['Title']; ?></h1>
-        <hr>
-        <!-- ============== -->
+        <hr> <!-- HORIZONTAL LINE -->
         <div>
           <p><b>Start tidspunkt:</b> <?php echo date("d/m/y - H:i:s",$eventrows['StartDate']); ?>. <b>Slut tidspunkt:</b> <?php echo date("d/m/y - H:i:s",$eventrows['EndDate']); ?></p>
           <p><b>Adresse:</b> <?php echo $eventrows['Location']; ?> <a href="#">Se Map</a></p>
           <p><b>Internet/LAN: </b> <?php echo $eventrows['Network']; ?></p>
           <p><b>Regler: </b> <a href="?page=<?php echo $eventrows['Rules']; ?>">Læs dem her</a></p>
-          <hr>
-          <!-- Tickets prices -->
+          <hr> <!-- HORIZONTAL LINE -->
           <div>
+            <!-- Tickets prices -->
             <h2>Billet Priser:</h2>
             <div class="row">
               <?php
@@ -47,7 +64,7 @@
               if( $DistinctEventPriceTypes -> num_rows ) {
                 while ($type = $DistinctEventPriceTypes->fetch_assoc()) {
                   foreach ($type as $key => $value) {
-                    echo "<div class='col-lg-3'><p><b>" . $type["Type"] . ":" . "</p></b></div>";
+                    echo "<div class='col-lg-2'><p><b>" . $type["Type"] . ":" . "</p></b></div>";
                     // Get ticket values per type //
                     $SqlPricesQuery = "
                             SELECT *
@@ -56,21 +73,27 @@
                             AND Type = '" . $type["Type"] . "'
                             ORDER BY Type, StartTime ASC";
                     $SqlPrices = $db_conn->query($SqlPricesQuery);
-                      echo "<div class='row'>";
-                      // Simple color counter //
-                      $counter = 1;
-                      while ($row = mysqli_fetch_array($SqlPrices)) {
-                        // Simple color picker //
-                        $color = 'white';
-                        if ($counter == 1) { $color = 'lightgreen'; }
-                        elseif ($counter == 2) { $color = 'yellow'; }
-                        elseif ($counter == 3) { $color = 'orange'; }
-                        elseif ($counter == 4) { $color = 'red'; }
-                        else { $color = 'white'; }
+                    $SqlPricesCount = mysqli_num_rows ($SqlPrices); // Get amount of columns
+                      echo "<div class='col-lg-10'>";
+                      // Counter for colors //
+                      $i = 0;
+                      while ($row = mysqli_fetch_assoc($SqlPrices)) {
+                        // Calculate column width //
+                        $colwidth = 100 / $SqlPricesCount;
+                        // Get color values //
+                        if ( $SqlPricesCount > 1 ){
+                          $theR = round(interpolate($theR0, $theR1, $i, $SqlPricesCount-1));
+                          $theG = round(interpolate($theG0, $theG1, $i, $SqlPricesCount-1));
+                          $theB = round(interpolate($theB0, $theB1, $i, $SqlPricesCount-1));
+                        } elseif ( $SqlPricesCount == 1 ) { 
+                          $theR = 0;
+                          $theG = 255;
+                          $theB = 0;
+                        }
                         // Create divs //
-                        echo "<div style='background-color: " . $color . ";' class='col-lg-2 text-center hlpf_Black_Border'>" . 
+                        echo "<div style='display: inline-block; background-color: rgb(" . $theR . ", " . $theG . ", " . $theB . "); width: " . $colwidth . "&#37;' class='text-center hlpf_Black_Border'>" . 
                         date("d/m",$row["StartTime"]) . " - " . date("d/m",$row["EndTime"]) . "<br>" . $row["Price"] . ",-" . "</div>";
-                        $counter++;
+                        $i++;
                       }
                     echo "</div>";
                   }
@@ -80,8 +103,9 @@
             </div>
           </div><!-- Tickets prices end -->
           <br>
-          <hr>
-          <!-- Seat map (magic) -->
+          <hr> <!-- HORIZONTAL LINE -->
+          <!-- Seat map (Patricks magic) -->
+          <h2>Pladsoversigt:</h2>
           <div id="map" class="col-lg-12">
             <div id="generated-seat-map"></div>
           </div>
@@ -128,7 +152,7 @@
         ?>
       </div><!-- Poster -->
       <div class="col-lg-3">
-        <!-- Arrangør -->
+        <!-- Organizers -->
         <h4>Arrangør</h4>
         <p>
           HLParty arrangeres af foreningen Hovedstadens LanParty Forening. Foreningen er en folkeoplysende forening, godkendt i Hillerød kommune. Foreningens formål er (uddrag af vedtægter):
