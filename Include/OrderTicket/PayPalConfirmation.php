@@ -14,7 +14,9 @@ if (!isset($_SESSION['BuyingTicketSingle'])) {
   header("Location: index.php");
 }
 if (isset($_SESSION['BuyingTicketSingle'])) {
+  //
   // Magic on a single buyer
+  //
   unset($_SESSION['BuyingTicketSingle']);
   $query = "UPDATE Tickets
       SET Tickets.TransactionCode = '" . $db_conn->real_escape_string($_SESSION['invoice_number']) . "'
@@ -49,7 +51,9 @@ if (isset($_SESSION['BuyingTicketSingle'])) {
 
   SendMail($email, $firstName, 'Billet kvittering - HLParty', $msg, $_GLOBAL);
 } elseif (isset($_SESSION['BuyingTicketMulti'])) {
+  //
   // Magic on multiple users
+  //
   unset($_SESSION['BuyingTicketMulti']);
   $query = "UPDATE Tickets
       SET Tickets.TransactionCode = " . $db_conn->real_escape_string($_SESSION['invoice_number']) . "

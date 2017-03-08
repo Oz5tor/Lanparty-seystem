@@ -116,6 +116,9 @@ if (isset($_POST['checkoutCart']) AND !empty($_POST['checkoutCart'])) {
     $_SESSION['Cart'] = $Cart;
     PayPalCheckOut($Cart, $db_conn, "index.php?page=Buy&subpage=PaypalConfirm", uniqid(), $ROOTURL);
   } else {
+    /*
+      MULTIPLE SEATS SELECTED
+    */
     sort($json);
 ?>
 <div class="hlpf_contentbox row col-lg-12">
@@ -164,9 +167,14 @@ function checkName() {
   for ($i=0; $i < count($jsonSeats); $i++) {
     $arr[substr($jsonSeats[$i], 0, 3)] = substr($jsonSeats[$i], 4);
   }
-  if(count(array_unique($arr))<count($arr)) {
+  if(count( array_unique($arr)) < count($arr) ) {
     // Same name was used twice
     $_SESSION['MsgForUser'] = "En person kan ikke have to sæder...";
+    // Remove the resevation, so the user can pick the seats again.
+    $query = "DELETE FROM hlparty.Tickets WHERE Tickets.UserID = " . $_SESSION['UserID'] .
+        " AND Tickets.EventID = " . $event['EventID'] .
+        " AND Tickets.RevokeDate IS NULL";
+    $db_conn->query($query);
     header("Location: index.php?page=Buy");
     exit;
   } else {
@@ -185,6 +193,11 @@ function checkName() {
       for ($i=0; $i < count($naughtyUsers); $i++) {
         $_SESSION['MsgForUser'] = $_SESSION['MsgForUser'] . $naughtyUsers[$i] . " ";
       }
+      // Remove the resevation, so the user can pick the seats again.
+      $query = "DELETE FROM hlparty.Tickets WHERE Tickets.UserID = " . $_SESSION['UserID'] .
+          " AND Tickets.EventID = " . $event['EventID'] .
+          " AND Tickets.RevokeDate IS NULL";
+      $db_conn->query($query);
       header("Location: index.php?page=Buy");
       exit;
     }
@@ -203,6 +216,11 @@ function checkName() {
       for ($i=0; $i < count($naughtyUsers); $i++) {
         $_SESSION['MsgForUser'] = $_SESSION['MsgForUser'] . $naughtyUsers[$i] . " ";
       }
+      // Remove the resevation, so the user can pick the seats again.
+      $query = "DELETE FROM hlparty.Tickets WHERE Tickets.UserID = " . $_SESSION['UserID'] .
+          " AND Tickets.EventID = " . $event['EventID'] .
+          " AND Tickets.RevokeDate IS NULL";
+      $db_conn->query($query);
       header("Location: index.php?page=Buy");
       exit;
     }
