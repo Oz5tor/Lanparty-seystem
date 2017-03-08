@@ -120,6 +120,12 @@ if (isset($_POST['checkoutCart']) AND !empty($_POST['checkoutCart'])) {
       MULTIPLE SEATS SELECTED
     */
     sort($json);
+    $timeNow = time();
+    for ($i=0; $i < count($json); $i++) {
+      $query = "INSERT INTO hlparty.Tickets (UserID, EventID, SeatNumber, OderedDate)
+          VALUES (" . $_SESSION['UserID'] . ", " . $event['EventID'] . ", " . substr($json[$i], -3) . ", " . $timeNow . ")";
+      $db_conn->query($query);
+    }
 ?>
 <div class="hlpf_contentbox row col-lg-12">
   <h1>Hvem skal side hvor?</h1>
