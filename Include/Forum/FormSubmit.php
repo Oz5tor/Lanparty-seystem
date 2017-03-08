@@ -17,5 +17,3 @@
     if($db_conn->query("INSERT INTO `ForumCategory` (Name, Description, CreationDate) VALUES ('$CategoryName', '$CategoryDesc', '$CreateTime')")){}
   } // if formOKAY end
 ?>
-
-<!-- Just make insert into, post has nothing to do with it -->
