@@ -59,6 +59,7 @@ if(isset($_POST['Send_form'])) // Submit form start
 		<?php if($_SESSION['Admin'] == 1){ ?>  
 		<hr>
 		<div class='row' style='padding-right: 20px; padding-left: 20px;'>
+			<div class='col-lg-12'><h1>Opret kategori</h1></div>
 	    <form action='' method='post'>
 	      <div class='form-group col-lg-12'>
 	        <label class='control-label' for='CategoryName'>Kategori navn:</label>
