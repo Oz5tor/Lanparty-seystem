@@ -142,11 +142,9 @@ if (isset($_POST['checkoutCart']) AND !empty($_POST['checkoutCart'])) {
 <?php } // end for loop ?>
   </div>
   <button onclick="checkName()" class="btn btn-primary">Næste &raquo;</button>
-  <div class="col-lg-12">
-    <form id="setNamesForSeats" class="hidden" action="" method="POST">
-      <input type="hidden" id="nameForSeat" name="nameForSeat">
-    </form>
-  </div>
+  <form id="setNamesForSeats" class="hidden" action="" method="POST">
+    <input type="hidden" id="nameForSeat" name="nameForSeat">
+  </form>
 </div>
 <script type="text/javascript">
 function checkName() {
