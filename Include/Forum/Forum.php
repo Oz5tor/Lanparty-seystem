@@ -39,7 +39,7 @@
 					<!-- Original row -->
 					<div class='row' style='padding-right: 20px; padding-left: 20px;'>
 						<div class='col-lg-10 hlpf_Black_Border'>
-							<p> <?php echo "<a href='?page=Forum&subpage=Forum" . $Categories['CategoryID'] . "'>" . $Categories['Name'] . "</a>" ?> </p>
+							<p> <?php echo "<a href='?page=Forum&subpage=" . $Categories['CategoryID'] . "'>" . $Categories['Name'] . "</a>" ?> </p>
 							<p> <?php echo $Categories['Description'] ?> </p>
 						</div>
 						<div class='col-lg-1 hlpf_Black_Border'>
