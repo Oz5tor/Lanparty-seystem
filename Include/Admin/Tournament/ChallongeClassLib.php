@@ -1,16 +1,16 @@
 <?php
-//global $site_subdomain = 'hlpf'; // challonges subdomain
-//$site_domain = 'hlpf.challonge.com'; // total site domain
-//$site_API_key = 'n2aigDz8ofsnCwpHSZqapJzIf84f3C5rS4tYh6iL';
-//$resource_uri = 'https://hlpf:n2aigDz8ofsnCwpHSZqapJzIf84f3C5rS4tYh6iL@api.challonge.com/v1/tournaments.json';
-
+# ================================================
+# Author: Tor Soya (Torsoya@gmail.com).
+# Created 6.March 2017
+# Last edidted: 7.March 2017.
+# ================================================
 class ChallongeFunctions{
   # ================================================
   // Post/create Curl
-  function ChallongeCurlPost($params){
+  function ChallongeCurlPost($params, $what){
     $data_json = json_encode($params);
     $ch = curl_init();
-    curl_setopt($ch, CURLOPT_URL,'https://hlpf:n2aigDz8ofsnCwpHSZqapJzIf84f3C5rS4tYh6iL@api.challonge.com/v1/tournaments.json');
+    curl_setopt($ch, CURLOPT_URL,'https://hlpf:n2aigDz8ofsnCwpHSZqapJzIf84f3C5rS4tYh6iL@api.challonge.com/v1/'.$what.'.json');
     curl_setopt($ch, CURLOPT_HTTPHEADER, array('Content-Type: application/json','Content-Length: ' . strlen($data_json)));
     curl_setopt($ch, CURLOPT_CUSTOMREQUEST, 'POST');
     curl_setopt($ch, CURLOPT_POSTFIELDS,$data_json);
@@ -71,11 +71,20 @@ class ChallongeFunctions{
       "hold_third_place_match" => $TThirdPlaceMatch,
       "hide_forum" => true,
       "show_rounds" => true,
+      "open_signup" => false,
       "allow_participant_match_reporting" => 0,
       "signup_cap" => $TSignupCap
     );    
-    return ChallongeFunctions::ChallongeCurlPost($params);
+    return ChallongeFunctions::ChallongeCurlPost($params, "tournaments");
   }
+  # ================================================
+  /*function SetTournamentCheckIn($TournamentID){
+    $what = "tournaments/".$TournamentID.'/process_check_ins.json';
+    $params = array(
+      "include_participants" => $TName,
+    );    
+    return ChallongeFunctions::ChallongeCurlPost($params, $what);
+  }*/
   # ================================================
   function ChallongeUpdateTournament($apiKey, $what, $params){
     $url = $apiKey.'@api.challonge.com/v1/'.$what.'.json/';
