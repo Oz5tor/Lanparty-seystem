@@ -1,8 +1,8 @@
 <?php
-if(isset($_POST['Send_form'])) // Submit form start
-  {
-    require_once('Include/Forum/FormSubmit.php');
-  }// Form submit end
+	if(isset($_POST['Send_form'])) // Submit form start
+	  {
+	    require_once('Include/Forum/FormSubmit.php');
+	  }// Form submit end
 ?>
 
 <div class='col-lg-12 hlpf_contentbox'>
@@ -23,38 +23,33 @@ if(isset($_POST['Send_form'])) // Submit form start
 				</div>
 			</div>
 			
-			<?php for ($i = 1; $i < 5; $i++) { ?> 
 			<div class='row' style='padding-right: 20px; padding-left: 20px;'>
-				<div class='col-lg-12 hlpf_Black_Border' style='background-color: lightgreen;'>
-					<p>Sæson x år y</p>
+				<div class='col-lg-12 hlpf_Black_Border'>
+					<p>Sæson x år y (Denne skal gøres dynamisk og have noget logik)</p>
 				</div>
 			</div>
-			<!-- Original row -->
-			<div class='row' style='padding-right: 20px; padding-left: 20px;'>
-				<div class='col-lg-10 hlpf_Black_Border' style='background-color: pink;'>
-					<p>Test</p>
-				</div>
-				<div class='col-lg-1 hlpf_Black_Border' style='background-color: pink;'>
-					<p>1</p>
-				</div>
-				<div class='col-lg-1 hlpf_Black_Border' style='background-color: pink;'>
-					<p>12</p>
-				</div>
-			</div>
-
-			<!-- Copy row -->
-			<div class='row' style='padding-right: 20px; padding-left: 20px;'>
-				<div class='col-lg-10 hlpf_Black_Border' style='background-color: pink;'> 
-					<p>Test</p>
-				</div>
-				<div class='col-lg-1 hlpf_Black_Border' style='background-color: pink;'>
-					<p>1</p>
-				</div>
-				<div class='col-lg-1 hlpf_Black_Border' style='background-color: pink;'>
-					<p>12</p>
-				</div>
-			</div>
-			<?php } ?>
+			<?php
+			$ForumCategories = $db_conn->query("SELECT * FROM `ForumCategory` ORDER BY CreationDate ASC");
+		  if( $ForumCategories -> num_rows ) {
+		  	while ($Categories = $ForumCategories->fetch_assoc()) { ?> 
+					
+					<!-- Original row -->
+					<div class='row' style='padding-right: 20px; padding-left: 20px;'>
+						<div class='col-lg-10 hlpf_Black_Border'>
+							<p> <?php echo "<a href='?page=Forum&subpage=Forum" . $Categories['CategoryID'] . "'>" . $Categories['Name'] . "</a>" ?> </p>
+							<p> <?php echo $Categories['Description'] ?> </p>
+						</div>
+						<div class='col-lg-1 hlpf_Black_Border'>
+							<p>1</p>
+							<p> &nbsp; </p>
+						</div>
+						<div class='col-lg-1 hlpf_Black_Border'>
+							<p>12</p>
+							<p> &nbsp; </p>
+						</div>
+					</div>
+		  	<?php }
+		  } ?>
 		</div> <!-- CONTENT END -->
 		<?php if($_SESSION['Admin'] == 1){ ?>  
 		<hr>
