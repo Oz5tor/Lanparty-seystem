@@ -63,7 +63,7 @@ require_once("Include/CoreParts/global_settings.php");
     <!-- Footer start -->
     <?php require_once("Include/Footer.php"); ?>
     <!-- Footer end -->
-   <?php require_once("Include/CoreParts/htmlBottem.php"); ?>
+   <?php require_once("Include/CoreParts/htmlBottom.php"); ?>
    <?php
     $endScriptTime=microtime(TRUE);
     $totalScriptTime=$endScriptTime-$startScriptTime;
