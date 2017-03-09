@@ -3,6 +3,9 @@
 	  {
 	    require_once('Include/Forum/FormSubmit.php');
 	  }// Form submit end
+	if (isset($subpage) AND !empty($subpage)) {
+		include_once 'Include/Forum/Category.php';
+	} else {
 ?>
 
 <div class='col-lg-12 hlpf_contentbox'>
@@ -22,7 +25,7 @@
 					<p>Svar</p>
 				</div>
 			</div>
-			
+
 			<div class='row' style='padding-right: 20px; padding-left: 20px;'>
 				<div class='col-lg-12 hlpf_Black_Border'>
 					<p>Sæson x år y (Denne skal gøres dynamisk og have noget logik)</p>
@@ -31,8 +34,8 @@
 			<?php
 			$ForumCategories = $db_conn->query("SELECT * FROM `ForumCategory` ORDER BY CreationDate ASC");
 		  if( $ForumCategories -> num_rows ) {
-		  	while ($Categories = $ForumCategories->fetch_assoc()) { ?> 
-					
+		  	while ($Categories = $ForumCategories->fetch_assoc()) { ?>
+
 					<!-- Original row -->
 					<div class='row' style='padding-right: 20px; padding-left: 20px;'>
 						<div class='col-lg-10 hlpf_Black_Border'>
@@ -51,7 +54,7 @@
 		  	<?php }
 		  } ?>
 		</div> <!-- CONTENT END -->
-		<?php if($_SESSION['Admin'] == 1){ ?>  
+		<?php if($_SESSION['Admin'] == 1){ ?>
 		<hr>
 		<div class='row' style='padding-right: 20px; padding-left: 20px;'>
 			<div class='col-lg-12'><h1>Opret kategori</h1></div>
@@ -84,3 +87,4 @@
 		<?php } ?>
 	</div>
 </div>
+<?php } ?>
