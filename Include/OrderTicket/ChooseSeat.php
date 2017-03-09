@@ -292,16 +292,19 @@ function checkName() {
 ?>
 
 <div class="hlpf_contentbox col-lg-12 col-md-12 col-sm-12 col-xs-12">
-  <div id="map" class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+  <div id="map" class="col-lg-9 col-md-12 col-sm-12 col-xs-12">
     <div id="Seatmap"></div>
   </div>
-  <div id="map-extras">
+  <div id="map-extras" class="col-lg-3 col-md-12 col-sm-12 col-xs-12">
     <div id="Seatmap-Legend"></div>
     <div id="Seatmap-Cart">
       <h4>Dit valg (<span id="Seatmap-Counter">0</span>)</h4>
       <ul id="Seatmap-Cart-Items"></ul>
       <p>Total pris: <span id="Seatmap-Total">0</span>,-</p>
-      <p><i><small>Prisen er vejledende...</small></i></p>
+      <p><i><small>
+        Prisen er vejledende og kan variere alt efter om du er medlem af foregningen.
+        Den endelige pris vil blive vist hos PayPal før du betaler.
+      </small></i></p>
       <button id="CheckoutButton" class="btn btn-default" onclick="checkoutButton()">Køb &raquo;</button>
     </div>
   </div>
@@ -333,6 +336,7 @@ $(document).ready(function() {
         node  : $('#Seatmap-Legend'),
         items : [
           [ 'a', 'available', 'Fri plads' ],
+          [ 'a', 'selected', 'Dit valg' ],
           [ 'a', 'unavailable', 'Optaget' ],
           [ 'c', 'unavailable', 'Crew plads'],
           [ 's', 'unavailable', 'Scene / Storskærm'],

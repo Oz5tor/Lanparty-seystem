@@ -1,7 +1,5 @@
 body {
-    background-image: url(../Images/background.png);
-    background-color: #e8e8e8;
-    background-repeat: repeat;
+    background-color: #d1d1d1;
     overflow-y: scroll;
     overflow-x: none;
 }
