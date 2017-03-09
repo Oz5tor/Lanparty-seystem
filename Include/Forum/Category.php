@@ -39,7 +39,7 @@
 					<!-- Original row -->
 					<div class='row' style='padding-right: 20px; padding-left: 20px;'>
 						<div class='col-lg-9 hlpf_Black_Border'>
-							<p> <?php echo "<a href='?page=Forum&subpage=Forum" . $Threads['ThreadID'] . "'>" . $Threads['Name'] . "</a>" ?> </p>
+							<p> <?php echo "<a href='?page=Forum&subpage=" . $Threads['CategoryID'] . "&thread=" . $Threads['ThreadID'] . "'>" . $Threads['Name'] . "</a>" ?> </p>
 						</div>
 						<div class='col-lg-1 hlpf_Black_Border'>
 							<p>1</p>

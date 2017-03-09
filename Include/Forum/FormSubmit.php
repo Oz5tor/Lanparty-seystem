@@ -1,7 +1,7 @@
 <?php
   $RegErroMSG = array();
   $FormAOKAY = 0;
-  if(is_null($_POST['subpage'])) {
+  if(is_null($_GET['subpage'])) {
     if($_POST['CategoryName'] == '') {$RegErroMSG[] .='Kategori navn'; $FormAOKAY = 1;}
     if($_POST['CategoryDesc'] == '') {$RegErroMSG[] .='Kategori beskrivelse'; $FormAOKAY = 1;}
 
@@ -24,12 +24,17 @@
       $ThreadName = $db_conn->real_escape_string($_POST['ThreadName']);
       $ReplyMessage = $db_conn->real_escape_string($_POST['ReplyMessage']);
       $CategoryID = $db_conn->real_escape_string($_GET['subpage']);
-      $ThreadID = $db_conn->real_escape_string($_POST['ThreadID']); // ???? Create a supersubpage and call it some garbage name?
-      $Author = $db_conn->real_escape_string($_SESSION['UserID']); // ???? UserID?
+      $Author = $db_conn->real_escape_string($_SESSION['UserID']);
       $CreateTime = time();
 
-      if($db_conn->query("INSERT INTO `ForumThread` (Name, CategoryID, Author, CreationDate) VALUES ('$ThreadName', '$CategoryID', '$Author', '$CreateTime')")){}
-      if($db_conn->query("INSERT INTO `ForumReplies` (Content, ThreadID, Author, CreationDate) VALUES ('$ReplyMessage', '$ThreadID', '$Author', '$CreateTime')")){}
-    } // if formOKAY end
+      $sql = "INSERT INTO `ForumThread` (Name, CategoryID, Author, CreationDate) VALUES ('$ThreadName', '$CategoryID', '$Author', '$CreateTime')";
+      //if($db_conn->query($sql)){}
+      if ($db_conn->query($sql) === TRUE) {
+
+        $ThreadID = $db_conn->insert_id; // ???? This is bull, this won't exist until after everything else ran
+
+        if($db_conn->query("INSERT INTO `ForumReplies` (Content, ThreadID, Author, CreationDate) VALUES ('$ReplyMessage', '$ThreadID', '$Author', '$CreateTime')")){}
+      } // if formOKAY end
+    }
   }
 ?>
