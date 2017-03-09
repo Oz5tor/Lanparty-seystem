@@ -79,8 +79,7 @@ if (isset($_POST['checkoutCart']) AND !empty($_POST['checkoutCart'])) {
       header("Location: index.php?page=Buy");
     }
     /*
-      SINGLE USER
-      SEND USER TO PAYPAL HERE?
+      SINGLE TICKET
     */
     $ticketPrice = 0;
     $query = "SELECT UserMembership.UserID FROM UserMembership WHERE UserID = " . $_SESSION['UserID'] . " AND UserMembership.Year = " . date("Y");
@@ -91,6 +90,7 @@ if (isset($_POST['checkoutCart']) AND !empty($_POST['checkoutCart'])) {
       } else {
         $_SESSION['MsgForUser'] = "Fejl kode: 0x000D0011";
         header("Location: index.php?page=Buy");
+        exit;
       }
     } else {
       $query = "SELECT * FROM TicketPrices WHERE TicketPrices.EventID = " . $event['EventID'] . " AND TicketPrices.Type = 'Ikke medlem' AND " . time() . " BETWEEN TicketPrices.StartTime AND TicketPrices.EndTime";
@@ -99,19 +99,16 @@ if (isset($_POST['checkoutCart']) AND !empty($_POST['checkoutCart'])) {
       } else {
         $_SESSION['MsgForUser'] = "Fejl kode: 0x000D0012";
         header("Location: index.php?page=Buy");
+        exit;
       }
     }
-    $cart = [
+    $Cart[] = [
       'Price' => $ticketPrice,
       'Quantity' => 1,
       'Currency' => 'DKK',
       'Name' => "Billet til " . $event['Title'],
       'Desc' => "Sæde #" . $seat
     ];
-    #echo "<pre>";
-    #print_r($cart);
-    #echo "</pre>";
-    $Cart[] = $cart;
     $_SESSION['BuyingTicketSingle'] = 1;
     $_SESSION['Cart'] = $Cart;
     PayPalCheckOut($Cart, $db_conn, "index.php?page=Buy&subpage=PaypalConfirm", uniqid(), $ROOTURL);
@@ -136,7 +133,7 @@ if (isset($_POST['checkoutCart']) AND !empty($_POST['checkoutCart'])) {
       $seat = preg_replace("(cart-item-)", "", $json[$i]);
 ?>
     <div class="form-group col-lg-3 col-md-4 col-sm-6 col-xs-12">
-      <label class="control-label" for="<?= $seat ?>">Sæde #<?= $seat; ?></label>
+      <label class="control-label" for="<?= $seat ?>">Sæde #<?= $seat ?></label>
       <input class="form-control" id="<?= $seat ?>" type="text">
     </div>
 <?php } // end for loop ?>
@@ -171,6 +168,11 @@ function checkName() {
   for ($i=0; $i < count($jsonSeats); $i++) {
     $arr[substr($jsonSeats[$i], 0, 3)] = substr($jsonSeats[$i], 4);
   }
+  /*
+    arr = [
+      Seatnumber => Username
+    ]
+  */
   if(count( array_unique($arr)) < count($arr) ) {
     // Same name was used twice
     $_SESSION['MsgForUser'] = "En person kan ikke have to sæder...";
@@ -209,7 +211,7 @@ function checkName() {
     $naughtyUsers = [];
     foreach ($arr as $key => $value) {
       $query = "SELECT Tickets.UserID FROM Tickets WHERE Tickets.EventID = ".
-          $event['EventID'] . " AND Tickets.RevokeDate IS NULL AND Tickets.UserID = " . GetIDFromUsername($value, $db_conn);
+          $event['EventID'] . " AND Tickets.RevokeDate IS NULL AND Tickets.TransactionCode IS NOT NULL AND Tickets.UserID = " . GetIDFromUsername($value, $db_conn);
       $result = $db_conn->query($query);
       if ($result -> num_rows) {
         $naughtyUsers[] = $value;
@@ -233,11 +235,48 @@ function checkName() {
     print_r($arr);
     echo "</pre>";
     foreach ($arr as $key => $value) {
-      $query = "INSERT INTO hlparty.Tickets (UserID, EventID, SeatNumber, OderedDate)
-          VALUES (" . GetIDFromUsername($value, $db_conn) . ", " . $event['EventID'] . ", " . $key . ", " . time() . ")";
+      $query = "UPDATE Tickets SET Tickets.UserID = " . GetIDFromUsername($value, $db_conn) .
+        " WHERE Tickets.UserID = " . $_SESSION['UserID'] .
+          " AND Tickets.RevokeDate IS NULL AND Tickets.TransactionCode IS NULL AND Tickets.SeatNumber = " . $key;
+          $_SESSION['SQL'] = $query;
       $db_conn->query($query);
     }
-    echo "Send nudes to PayPal";
+    $cart = [];
+    foreach ($arr as $key => $value) {
+      $ticketPrice = 0;
+      $query = "SELECT UserMembership.UserID FROM UserMembership WHERE UserID = " . GetIDFromUsername($value, $db_conn) . " AND UserMembership.Year = " . date("Y");
+      if ($db_conn->query($query)->num_rows) {
+        $query = "SELECT TicketPrices.Price FROM TicketPrices WHERE TicketPrices.EventID = " . $event['EventID'] .
+            " AND TicketPrices.Type = 'Medlem' AND " . time() . " BETWEEN TicketPrices.StartTime AND TicketPrices.EndTime";
+        if ($ticket = $db_conn->query($query)->fetch_assoc()) {
+          $ticketPrice = $ticket['Price'];
+        } else {
+          $_SESSION['MsgForUser'] = "Fejl kode: 0x000D0021";
+          header("Location: index.php?page=Buy");
+          exit;
+        }
+      } else {
+        $query = "SELECT TicketPrices.Price FROM TicketPrices WHERE TicketPrices.EventID = " . $event['EventID'] .
+            " AND TicketPrices.Type = 'Ikke medlem' AND " . time() . " BETWEEN TicketPrices.StartTime AND TicketPrices.EndTime";
+        if ($ticket = $db_conn->query($query)->fetch_assoc()) {
+          $ticketPrice = $ticket['Price'];
+        } else {
+          $_SESSION['MsgForUser'] = "Fejl kode: 0x000D0022";
+          header("Location: index.php?page=Buy");
+          exit;
+        }
+      }
+      $cart[] = [
+        'Price' => $ticketPrice,
+        'Quantity' => 1,
+        'Currency' => 'DKK',
+        'Name' => "Billet til " . $event['Title'],
+        'Desc' => "Sæde #" . $key . " til " . $value
+      ];
+    }
+    $_SESSION['BuyingTicketMulti'] = 1;
+    $_SESSION['Cart'] = $cart;
+    PayPalCheckOut($cart, $db_conn, "index.php?page=Buy&subpage=PaypalConfirm", uniqid(), $ROOTURL);
   }
 } else {
   /*
