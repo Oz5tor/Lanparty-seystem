@@ -57,19 +57,16 @@ if (isset($_SESSION['BuyingTicketSingle'])) {
   // Magic on multiple users
   //
   unset($_SESSION['BuyingTicketMulti']);
-  $_SESSION['MsgForUser'] = "Statements: " . count($_SESSION['Cart']);
   for ($i=0; $i < count($_SESSION['Cart']); $i++) {
     $username = substr($_SESSION['Cart'][$i]['Desc'], 14);
-    $_SESSION['MsgForUser'] = $_SESSION['MsgForUser'] . "One; ";
+    $seat = substr($_SESSION['Cart'][$i]['Desc'], 6, 3);
     $usernameID = GetIDFromUsername($username, $db_conn);
-    $_SESSION['MsgForUser'] = $_SESSION['MsgForUser'] . "Two; ";
     $query = "UPDATE Tickets
       SET Tickets.TransactionCode = '" . $db_conn->real_escape_string($_SESSION['invoice_number']) . "',
-          Tickets.UserID = '" . $db_conn->real_escape_string($usernameID) . "'
-      WHERE Tickets.UserID = " . $_SESSION['UserID'] .
+          Tickets.UserID = " . $db_conn->real_escape_string($usernameID) .
+    " WHERE Tickets.UserID = " . $_SESSION['UserID'] .
       " AND Tickets.EventID = " . $eventID .
-      " AND Tickets.SeatNumber = " . $db_conn->real_escape_string(substr($_SESSION['Cart']['Desc'], 6, 3));
-    $_SESSION['MsgForUser'] = $_SESSION['MsgForUser'] . $query . "; ";
+      " AND Tickets.SeatNumber = " . $db_conn->real_escape_string($seat);
     $db_conn->query($query);
   }
 }
