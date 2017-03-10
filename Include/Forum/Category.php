@@ -1,6 +1,6 @@
 <?php
-	if(isset($_GET['subpage']) && $_GET['subpage'] != ''){
-	  $ID = $db_conn->real_escape_string($_GET['subpage']);
+	if(isset($_GET['category']) && $_GET['category'] != ''){
+	  $ID = $db_conn->real_escape_string($_GET['category']);
 	}
 
 	if(isset($_POST['Send_form'])) // Submit form start
@@ -8,9 +8,9 @@
 	    require_once('Include/Forum/FormSubmit.php');
 	  }// Form submit end
 
-	//if (isset($subpage) AND !empty($subpage)) {
-		//include_once 'Include/Forum/Thread.php';
-	//} else {
+	if (isset($thread) AND !empty($thread)) {
+		include_once 'Include/Forum/Thread.php';
+	} else {
 ?>
 
 <div class='col-lg-12 hlpf_contentbox'>
@@ -39,13 +39,13 @@
 					<!-- Original row -->
 					<div class='row' style='padding-right: 20px; padding-left: 20px;'>
 						<div class='col-lg-9 hlpf_Black_Border'>
-							<p> <?php echo "<a href='?page=Forum&subpage=" . $Threads['CategoryID'] . "&thread=" . $Threads['ThreadID'] . "'>" . $Threads['Name'] . "</a>" ?> </p>
+							<p> <?php echo "<a href='?page=Forum&category=" . $Threads['CategoryID'] . "&thread=" . $Threads['ThreadID'] . "'>" . $Threads['Name'] . "</a>" ?> </p>
 						</div>
 						<div class='col-lg-1 hlpf_Black_Border'>
 							<p>1</p>
 						</div>
 						<div class='col-lg-2 hlpf_Black_Border'>
-							<p>12</p>
+							<p> <?php echo $Threads['Author'] ?> </p>
 						</div>
 					</div>
 		  	<?php }
@@ -54,7 +54,7 @@
 		<?php if(isset($_SESSION['UserID'])){ ?>
 		<hr>
 		<div class='row' style='padding-right: 20px; padding-left: 20px;'>
-			<div class='col-lg-12'><h1>Opret tråd</h1></div>
+			<div class='col-lg-12'><h1>Opret tråd:</h1></div>
 	    <form action='' method='post'>
 	      <div class='form-group col-lg-12'>
 	        <label class='control-label' for='ThreadName'>Trådnavn:</label>
@@ -84,4 +84,4 @@
 		<?php } ?>
 	</div>
 </div>
-<?php //} ?>
+<?php } ?>

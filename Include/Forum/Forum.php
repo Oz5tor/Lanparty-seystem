@@ -1,9 +1,29 @@
 <?php
+	// Make variables independant from URL controller //
+	if(isset($_GET['category']))
+	{
+		$category = mysqli_real_escape_string($db_conn,strip_tags($_GET['category']));
+	}
+	else
+	{
+		$category = '';
+	}
+
+	if(isset($_GET['thread']))
+	{
+		$thread = mysqli_real_escape_string($db_conn,strip_tags($_GET['thread']));
+	}
+	else
+	{
+		$thread = '';
+	}
+	// ==================================== //
+	
 	if(isset($_POST['Send_form'])) // Submit form start
 	  {
 	    require_once('Include/Forum/FormSubmit.php');
 	  }// Form submit end
-	if (isset($subpage) AND !empty($subpage)) {
+	if (isset($category) AND !empty($category)) {
 		include_once 'Include/Forum/Category.php';
 	} else {
 ?>
@@ -39,7 +59,7 @@
 					<!-- Original row -->
 					<div class='row' style='padding-right: 20px; padding-left: 20px;'>
 						<div class='col-lg-10 hlpf_Black_Border'>
-							<p> <?php echo "<a href='?page=Forum&subpage=" . $Categories['CategoryID'] . "'>" . $Categories['Name'] . "</a>" ?> </p>
+							<p> <?php echo "<a href='?page=Forum&category=" . $Categories['CategoryID'] . "'>" . $Categories['Name'] . "</a>" ?> </p>
 							<p> <?php echo $Categories['Description'] ?> </p>
 						</div>
 						<div class='col-lg-1 hlpf_Black_Border'>
@@ -57,7 +77,7 @@
 		<?php if($_SESSION['Admin'] == 1){ ?>
 		<hr>
 		<div class='row' style='padding-right: 20px; padding-left: 20px;'>
-			<div class='col-lg-12'><h1>Opret kategori</h1></div>
+			<div class='col-lg-12'><h1>Opret kategori:</h1></div>
 	    <form action='' method='post'>
 	      <div class='form-group col-lg-12'>
 	        <label class='control-label' for='CategoryName'>Kategori navn:</label>
