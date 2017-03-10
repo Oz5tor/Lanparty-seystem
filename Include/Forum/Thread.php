@@ -35,7 +35,7 @@
 							<p> <?php echo $Replies['Content'] ?> </p>
 						</div>
 						<div class='col-lg-2 hlpf_Black_Border'>
-							<p> <?php echo $Replies['Author'] ?> </p>
+							<p> <?php echo TorGetUserName($Replies['Author'], $db_conn); ?> </p>
 						</div>
 					</div>
 		  	<?php }

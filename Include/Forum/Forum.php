@@ -1,4 +1,5 @@
 <?php
+	require_once('class/GetUsernameFromID.php');
 	// Make variables independant from URL controller //
 	if(isset($_GET['category']))
 	{
@@ -55,19 +56,29 @@
 			$ForumCategories = $db_conn->query("SELECT * FROM `ForumCategory` ORDER BY CreationDate ASC");
 		  if( $ForumCategories -> num_rows ) {
 		  	while ($Categories = $ForumCategories->fetch_assoc()) { ?>
-
-					<!-- Original row -->
 					<div class='row' style='padding-right: 20px; padding-left: 20px;'>
 						<div class='col-lg-10 hlpf_Black_Border'>
 							<p> <?php echo "<a href='?page=Forum&category=" . $Categories['CategoryID'] . "'>" . $Categories['Name'] . "</a>" ?> </p>
 							<p> <?php echo $Categories['Description'] ?> </p>
 						</div>
+						<?php
+						$CategoryCount = $db_conn->query("SELECT * FROM `ForumThread` WHERE CategoryID = " . $Categories['CategoryID']);
+					  $CCount = mysqli_num_rows($CategoryCount); ?>
 						<div class='col-lg-1 hlpf_Black_Border'>
-							<p>1</p>
+							<p> <?php echo $CCount ?> </p>
 							<p> &nbsp; </p>
 						</div>
+						<?php
+						$RCount = 0;
+						$CategoryThreads = $db_conn->query("SELECT * FROM `ForumThread` WHERE CategoryID = " .$Categories['CategoryID'] . " ORDER BY CreationDate ASC");
+					  if( $CategoryThreads -> num_rows ) {
+					  	while ($Threads = $CategoryThreads->fetch_assoc()) {
+								$ReplyCount = $db_conn->query("SELECT * FROM `ForumReplies` WHERE ThreadID = " . $Threads['ThreadID']);
+							  $RCount = mysqli_num_rows($ReplyCount); 
+						  }
+					  } ?>
 						<div class='col-lg-1 hlpf_Black_Border'>
-							<p>12</p>
+							<p> <?php echo $RCount ?> </p> <!-- Almost, but it only shows the count of the last thread -->
 							<p> &nbsp; </p>
 						</div>
 					</div>

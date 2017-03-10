@@ -41,11 +41,14 @@
 						<div class='col-lg-9 hlpf_Black_Border'>
 							<p> <?php echo "<a href='?page=Forum&category=" . $Threads['CategoryID'] . "&thread=" . $Threads['ThreadID'] . "'>" . $Threads['Name'] . "</a>" ?> </p>
 						</div>
+						<?php
+						$ReplyCount = $db_conn->query("SELECT * FROM `ForumReplies` WHERE ThreadID = " . $Threads['ThreadID']);
+					  $Count = mysqli_num_rows ($ReplyCount); ?>
 						<div class='col-lg-1 hlpf_Black_Border'>
-							<p>1</p>
+							<p> <?php echo $Count ?> </p>
 						</div>
 						<div class='col-lg-2 hlpf_Black_Border'>
-							<p> <?php echo $Threads['Author'] ?> </p>
+							<p> <?php echo TorGetUserName($Threads['Author'], $db_conn); ?> </p>
 						</div>
 					</div>
 		  	<?php }
