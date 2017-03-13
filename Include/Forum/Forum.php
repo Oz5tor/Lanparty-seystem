@@ -19,11 +19,36 @@
 		$thread = '';
 	}
 	// ==================================== //
-	
 	if(isset($_POST['Send_form'])) // Submit form start
-	  {
-	    require_once('Include/Forum/FormSubmit.php');
-	  }// Form submit end
+  {
+    require_once('Include/Forum/FormSubmit.php');
+  }// Form submit end
+	// Pagination //
+	$ForumCategories_sql = "SELECT * FROM `ForumCategory`";
+	$ForumCategories = mysqli_query($db_conn, $ForumCategories_sql) or die (mysqli_error($db_conn));
+	$total_records = mysqli_num_rows($ForumCategories); // Total number of data
+
+	$scroll_page = 5; // Number of pages to be scrolled
+	$per_page = 5; // Number of pages to display each page
+
+	if(isset($_GET['npage'])) {
+		$current_page = strip_tags($_GET['npage']); // Found page
+	} else {
+		$current_page = 1;
+	}
+	$pager_url = "index.php?page=Forum&npage="; // The address where the paging is done
+	$inactive_page_tag = 'id="current_page"'; // Format for inactive page link
+	$previous_page_text = '&nbsp;<&nbsp;'; // Previous page text (such as <img src = "...)
+	$next_page_text = '>&nbsp;'; // Next page text (such as <img src = "...)
+	$first_page_text = '<<'; // First page text (such as <img src = "...)
+	$last_page_text = '>>'; // Last page text (such as <img src = "...)
+	$pager_url_last = ' ';
+
+	include("class/kgPager.php");
+	$kgPagerOBJ = new kgPager();
+	$kgPagerOBJ -> pager_set($pager_url , $total_records , $scroll_page , $per_page , $current_page , $inactive_page_tag , $previous_page_text , $next_page_text , $first_page_text , $last_page_text , $pager_url_last);
+	$albums_result = mysqli_query($db_conn,$ForumCategories_sql." ORDER BY CreationDate ASC LIMIT ".$kgPagerOBJ -> start.", ".$kgPagerOBJ -> per_page."");
+	// ==================================== //
 	if (isset($category) AND !empty($category)) {
 		include_once 'Include/Forum/Category.php';
 	} else {
@@ -53,9 +78,8 @@
 				</div>
 			</div>
 			<?php
-			$ForumCategories = $db_conn->query("SELECT * FROM `ForumCategory` ORDER BY CreationDate ASC");
 		  if( $ForumCategories -> num_rows ) {
-		  	while ($Categories = $ForumCategories->fetch_assoc()) { ?>
+		  	while ($Categories = mysqli_fetch_assoc($albums_result)) { ?>
 					<div class='row' style='padding-right: 20px; padding-left: 20px;'>
 						<div class='col-lg-10 hlpf_Black_Border'>
 							<p> <?php echo "<a href='?page=Forum&category=" . $Categories['CategoryID'] . "'>" . $Categories['Name'] . "</a>" ?> </p>
@@ -86,9 +110,33 @@
 					</div>
 		  	<?php }
 		  } ?>
+			<hr>
+			<!-- Pagination -->
+		  <div class="text-center">
+	    <?php
+	    	echo '<ul class="pagination pagination-lg">';
+	    if($current_page > 1) {
+			  echo '<li>'.$kgPagerOBJ -> first_page.'</li>' ;
+			  echo '<li>'.$kgPagerOBJ -> previous_page.'</li>' ;
+		  } else {
+			  echo '<li class="disabled"><a><<</a></li>';
+			  echo '<li class="disabled"><a><</a></li>';
+		  }
+		  echo '<li>'.$kgPagerOBJ -> page_links.'</li>' ;
+		  if($current_page >= $kgPagerOBJ -> total_pages) {
+			  echo '<li class="disabled"><a>></a></li>';
+			  echo '<li class="disabled"><a>>></a></li>';
+		  } else {
+			  echo '<li>'.$kgPagerOBJ -> next_page.'</li>' ;
+			  echo '<li>'.$kgPagerOBJ -> last_page.'</li>' ;
+		  }
+	    ?>
+	    </div>
 		</div> <!-- CONTENT END -->
 		<?php if($_SESSION['Admin'] == 1){ ?>
-		<hr>
+		<div class='col-lg-12'>
+			<hr>
+		</div>
 		<div class='row' style='padding-right: 20px; padding-left: 20px;'>
 			<div class='col-lg-12'><h1>Opret kategori:</h1></div>
 	    <form action='' method='post'>
