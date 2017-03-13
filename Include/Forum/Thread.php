@@ -77,10 +77,12 @@
 		  	while ($Replies = mysqli_fetch_assoc($albums_result)) { ?>
 					<div class='row' style='padding-right: 20px; padding-left: 20px;'>
 						<div class='col-lg-10 hlpf_Black_Border'>
+							<p> <?php echo "Dato: " . date("d/m/y - H:i:s",$Replies['CreationDate']) ?> </p>
 							<p> <?php echo $Replies['Content'] ?> </p>
 						</div>
 						<div class='col-lg-2 hlpf_Black_Border'>
 							<p> <?php echo TorGetUserName($Replies['Author'], $db_conn); ?> </p>
+							<p> &nbsp; </p>
 						</div>
 					</div>
 		  	<?php }
