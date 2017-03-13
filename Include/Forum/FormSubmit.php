@@ -47,8 +47,13 @@
       $CreateTime = time();
 
       $sql = "INSERT INTO `ForumReplies` (Content, ThreadID, Author, CreationDate) VALUES ('$Reply', '$ThreadID', '$Author', '$CreateTime')";
-      if ($db_conn->query($sql) === TRUE) {
-
+      $LatestThread = $db_conn->query("SELECT * FROM `ForumReplies` WHERE ThreadID = " . $ThreadID . " ORDER BY CreationDate DESC LIMIT 1");
+      $ActualLatestThread = mysqli_fetch_assoc($LatestThread);
+      if($ActualLatestThread['Author'] != $_SESSION['UserID']) {
+        if ($db_conn->query($sql) === TRUE) {
+        }
+      } else {
+        $_SESSION['MsgForUser'] = "Du er den sidste der har lavet en kommentar. Editer i stedet beskeden.";
       }
     }
   } // if formOKAY end
