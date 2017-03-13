@@ -35,12 +35,13 @@
 	$kgPagerOBJ -> pager_set($pager_url , $total_records , $scroll_page , $per_page , $current_page , $inactive_page_tag , $previous_page_text , $next_page_text , $first_page_text , $last_page_text , $pager_url_last);
 	$albums_result = mysqli_query($db_conn,$CategoryThreads_sql." ORDER BY CreationDate ASC LIMIT ".$kgPagerOBJ -> start.", ".$kgPagerOBJ -> per_page."");
 	// Pagination end //
+
 	if (isset($thread) AND !empty($thread)) {
 		include_once 'Include/Forum/Thread.php';
 	} else {
 ?>
 
-<div class='col-lg-12 hlpf_contentbox'>
+<div id='CategoryPanel' class='col-lg-12 hlpf_contentbox'>
 	<div class='row'>
 		<div class='col-lg-12'>
 			<h1>Forum:</h1>
@@ -50,7 +51,7 @@
 		<div class='col-lg-12' style='margin-bottom: 20px;'>
 			<div class='row' style='padding-right: 20px; padding-left: 20px;'>
 				<ul class='breadcrumb hlpf_Black_Border'>
-				  <li><a href='?page=Forum'>Forum main page</a></li>
+				  <li><a href='?page=Forum#ForumPanel'>Forum main page</a></li>
 				  <li class='active'><?php echo $row['Name'] ?></li>
 				</ul>
 			</div>
@@ -73,7 +74,7 @@
 		  	while ($Threads = mysqli_fetch_assoc($albums_result)) { ?>
 					<div class='row' style='padding-right: 20px; padding-left: 20px;'>
 						<div class='col-lg-9 hlpf_Black_Border'>
-							<p> <?php echo "<a href='?page=Forum&category=" . $Threads['CategoryID'] . "&thread=" . $Threads['ThreadID'] . "'>" . $Threads['Name'] . "</a>" ?> </p>
+							<p> <?php echo "<a href='?page=Forum&category=" . $Threads['CategoryID'] . "&thread=" . $Threads['ThreadID'] . "#ThreadPanel'>" . $Threads['Name'] . "</a>" ?> </p>
 						</div>
 						<?php
 						$ReplyCount = $db_conn->query("SELECT * FROM `ForumReplies` WHERE ThreadID = " . $Threads['ThreadID']);
@@ -123,7 +124,7 @@
 	      </div>
 	      <div class='form-group col-lg-12'>
 	        <label class='control-label' for='ReplyMessage'>Besked:</label>
-	        <input type='text' class='form-control' id='ReplyMessage' name='ReplyMessage'>
+	        <textarea id="PublicTinyMCE" class="form-control" rows="5" name="ReplyMessage" id="ReplyMessage"></textarea>
 	      </div>
 	      <div class='form-group col-xs-12 col-sm-5 col-md-6 col-lg-3'>
 	        <input type='submit' value='Opret tråd' class='btn btn-default' name='Send_form'>

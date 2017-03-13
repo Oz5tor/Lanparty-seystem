@@ -43,7 +43,7 @@
 	// Pagination end //
 ?>
 
-<div class='col-lg-12 hlpf_contentbox'>
+<div id='ThreadPanel' class='col-lg-12 hlpf_contentbox'>
 	<div class='row'>
 		<div class='col-lg-12'>
 			<h1>Forum:</h1>
@@ -56,8 +56,8 @@
 		<div class='col-lg-12' style='margin-bottom: 20px;'>
 			<div class='row' style='padding-right: 20px; padding-left: 20px;'>
 				<ul class='breadcrumb hlpf_Black_Border'>
-				  <li><a href='?page=Forum'>Forum main page</a></li>
-				  <li><?php echo "<a href='?page=Forum&category=" . $CID . "'>" . $row1['Name'] . "</a>"?></li>
+				  <li><a href='?page=Forum#ForumPanel'>Forum main page</a></li>
+				  <li><?php echo "<a href='?page=Forum&category=" . $CID . "#CategoryPanel'>" . $row1['Name'] . "</a>"?></li>
 				  <li class='active'><?php echo $row2['Name'] ?></li>
 				</ul>
 			</div>
@@ -77,10 +77,12 @@
 		  	while ($Replies = mysqli_fetch_assoc($albums_result)) { ?>
 					<div class='row' style='padding-right: 20px; padding-left: 20px;'>
 						<div class='col-lg-10 hlpf_Black_Border'>
+							<p> <?php echo "Dato: " . date("d/m/y - H:i:s",$Replies['CreationDate']) ?> </p>
 							<p> <?php echo $Replies['Content'] ?> </p>
 						</div>
 						<div class='col-lg-2 hlpf_Black_Border'>
 							<p> <?php echo TorGetUserName($Replies['Author'], $db_conn); ?> </p>
+							<p> &nbsp; </p>
 						</div>
 					</div>
 		  	<?php }
@@ -117,7 +119,7 @@
 	    <form action='' method='post'>
 	      <div class='form-group col-lg-12'>
 	        <label class='control-label' for='Reply'>Svar:</label>
-	        <input type='text' class='form-control' id='Reply' name='Reply'>
+	        <textarea id="PublicTinyMCE" class="form-control" rows="5" name="Reply" id="Reply"></textarea>
 	      </div>
 	      <div class='form-group col-xs-12 col-sm-5 col-md-6 col-lg-3'>
 	        <input type='submit' value='Send besked' class='btn btn-default' name='Send_form'>
