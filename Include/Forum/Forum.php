@@ -49,12 +49,13 @@
 	$kgPagerOBJ -> pager_set($pager_url , $total_records , $scroll_page , $per_page , $current_page , $inactive_page_tag , $previous_page_text , $next_page_text , $first_page_text , $last_page_text , $pager_url_last);
 	$albums_result = mysqli_query($db_conn,$ForumCategories_sql." ORDER BY CreationDate ASC LIMIT ".$kgPagerOBJ -> start.", ".$kgPagerOBJ -> per_page."");
 	// Pagination end //
+
 	if (isset($category) AND !empty($category)) {
 		include_once 'Include/Forum/Category.php';
 	} else {
 ?>
 
-<div class='col-lg-12 hlpf_contentbox'>
+<div id='ForumPanel' class='col-lg-12 hlpf_contentbox'>
 	<div class='row'>
 		<div class='col-lg-12'>
 			<h1>Forum:</h1>
@@ -82,7 +83,7 @@
 		  	while ($Categories = mysqli_fetch_assoc($albums_result)) { ?>
 					<div class='row' style='padding-right: 20px; padding-left: 20px;'>
 						<div class='col-lg-10 hlpf_Black_Border'>
-							<p> <?php echo "<a href='?page=Forum&category=" . $Categories['CategoryID'] . "'>" . $Categories['Name'] . "</a>" ?> </p>
+							<p> <?php echo "<a href='?page=Forum&category=" . $Categories['CategoryID'] . "#CategoryPanel'>" . $Categories['Name'] . "</a>" ?> </p>
 							<p> <?php echo $Categories['Description'] ?> </p>
 						</div>
 						<?php

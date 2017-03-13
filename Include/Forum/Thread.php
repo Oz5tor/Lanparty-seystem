@@ -43,7 +43,7 @@
 	// Pagination end //
 ?>
 
-<div class='col-lg-12 hlpf_contentbox'>
+<div id='ThreadPanel' class='col-lg-12 hlpf_contentbox'>
 	<div class='row'>
 		<div class='col-lg-12'>
 			<h1>Forum:</h1>
@@ -56,8 +56,8 @@
 		<div class='col-lg-12' style='margin-bottom: 20px;'>
 			<div class='row' style='padding-right: 20px; padding-left: 20px;'>
 				<ul class='breadcrumb hlpf_Black_Border'>
-				  <li><a href='?page=Forum'>Forum main page</a></li>
-				  <li><?php echo "<a href='?page=Forum&category=" . $CID . "'>" . $row1['Name'] . "</a>"?></li>
+				  <li><a href='?page=Forum#ForumPanel'>Forum main page</a></li>
+				  <li><?php echo "<a href='?page=Forum&category=" . $CID . "#CategoryPanel'>" . $row1['Name'] . "</a>"?></li>
 				  <li class='active'><?php echo $row2['Name'] ?></li>
 				</ul>
 			</div>
