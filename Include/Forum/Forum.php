@@ -134,7 +134,7 @@
 	    ?>
 	    </div> <!-- Pagination end -->
 		</div> <!-- CONTENT END -->
-		<?php if(isset($_SESSION['Admin'])){ ?>
+		<?php if(isset($_SESSION['Admin']) && $_SESSION['Admin'] == 1){ ?>
 		<div class='col-lg-12'>
 			<hr>
 		</div>
