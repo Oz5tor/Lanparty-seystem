@@ -74,7 +74,7 @@
 		  	while ($Threads = mysqli_fetch_assoc($albums_result)) { ?>
 					<div class='row' style='padding-right: 20px; padding-left: 20px;'>
 						<div class='col-lg-9 hlpf_Black_Border'>
-							<p> <?php echo "<a href='?page=Forum&category=" . $Threads['CategoryID'] . "&thread=" . $Threads['ThreadID'] . "#ThreadPanel'>" . $Threads['Name'] . "</a>" ?> </p>
+							<p> <?php echo "<a href='index.php?page=Forum&category=" . $Threads['CategoryID'] . "&thread=" . $Threads['ThreadID'] . "#ThreadPanel'>" . $Threads['Name'] . "</a>" ?> </p>
 						</div>
 						<?php
 						$ReplyCount = $db_conn->query("SELECT * FROM `ForumReplies` WHERE ThreadID = " . $Threads['ThreadID']);

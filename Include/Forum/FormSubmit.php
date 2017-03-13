@@ -43,6 +43,7 @@
       // injection prevention
       $Reply = $db_conn->real_escape_string($_POST['Reply']);
       $ThreadID = $db_conn->real_escape_string($_GET['thread']);
+      $CategoryID = $db_conn->real_escape_string($_GET['category']);
       $Author = $db_conn->real_escape_string($_SESSION['UserID']);
       $CreateTime = time();
 
@@ -54,6 +55,8 @@
         }
       } else {
         $_SESSION['MsgForUser'] = "Du er den sidste der har lavet en kommentar. Editer i stedet beskeden.";
+        header("Location: index.php?page=Forum&category=" . $CategoryID . "&thread=" . $ThreadID . "#ThreadPanel'");
+        exit;
       }
     }
   } // if formOKAY end
