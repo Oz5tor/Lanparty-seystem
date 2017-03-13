@@ -1,4 +1,4 @@
-<?php 
+<?php
 if(isset($_POST["BecomeMember"])){
 require_once("class/PayPalCheckout.php");
 ## =============== Defined set of values on a item ==========

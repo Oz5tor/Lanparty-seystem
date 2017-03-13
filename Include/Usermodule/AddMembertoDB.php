@@ -8,10 +8,10 @@
   $mailMSGResult = $db_conn->query("SELECT Message FROM MailMesseges WHERE MessegesID = '2'");
   $mailMSG = $mailMSGResult->fetch_assoc();
   $msg = $mailMSG['Message'];
-  
+
   $getsuerresult = $db_conn->query("SELECT FullName, Username, Email From Users WHERE UserID = '$UserID'");
   $getsuerrow = $getsuerresult->fetch_assoc();
-  
+
 
   $price = $_GLOBAL["MembershipPrice"];
   if(date('m',time()) >= $_GLOBAL["MembershipPriceDiscountmonth"]){
@@ -24,6 +24,6 @@
   $msg = str_replace('$nick',$nick,$msg);
   $msg = str_replace('$year',$year,$msg);
   $msg = str_replace('$price',$price,$msg);
-  
+
   SendMail($email,$toname,'HLParty - Tak for dit Medlemsskab',$msg,$_GLOBAL);
 ?>

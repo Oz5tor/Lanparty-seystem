@@ -30,6 +30,13 @@ function PayPalCheckOut($Cart, $DBCONN, $returnto ,$invoiceID, $ROOTURL){
   $tempcounter = 0;
   $items = array();
   foreach($Cart as $val){
+    // Cart array {
+    //  [Price]
+    //  [Quantity]
+    //  [Currency]
+    //  [Name]
+    //  [Desc]
+    // }
     $total += $val['Price'] * $val['Quantity'];
     $item[$tempcounter] = new Item();
     $item[$tempcounter]->setName($val['Name'])
@@ -87,6 +94,7 @@ function PayPalCheckOut($Cart, $DBCONN, $returnto ,$invoiceID, $ROOTURL){
                       ('$tempUser','$invoiceID','0','$paymentID','NULL')");
 
 
+    $_SESSION['invoice_number'] = $invoiceID;
     //echo $payment->getApprovalLink();
     header("Location: ". $payment->getApprovalLink());
   }catch (Exception $ex){
