@@ -48,8 +48,7 @@
 	    <form action='' method='post'>
 	      <div class='form-group col-lg-12'>
 	        <label class='control-label' for='Reply'>Svar:</label>
-	        <input type='text' class='form-control' placeholder='Santa Claus' id='Reply'
-	               value='<?php if(isset($Reply)){ echo $Reply;} ?>' name='Reply'>
+	        <input type='text' class='form-control' id='Reply' name='Reply'>
 	      </div>
 	      <div class='form-group col-xs-12 col-sm-5 col-md-6 col-lg-3'>
 	        <input type='submit' value='Send besked' class='btn btn-default' name='Send_form'>

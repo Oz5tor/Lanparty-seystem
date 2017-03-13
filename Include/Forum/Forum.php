@@ -69,16 +69,18 @@
 							<p> &nbsp; </p>
 						</div>
 						<?php
+						$TempRCount = 0;
 						$RCount = 0;
 						$CategoryThreads = $db_conn->query("SELECT * FROM `ForumThread` WHERE CategoryID = " .$Categories['CategoryID'] . " ORDER BY CreationDate ASC");
 					  if( $CategoryThreads -> num_rows ) {
 					  	while ($Threads = $CategoryThreads->fetch_assoc()) {
 								$ReplyCount = $db_conn->query("SELECT * FROM `ForumReplies` WHERE ThreadID = " . $Threads['ThreadID']);
-							  $RCount = mysqli_num_rows($ReplyCount); 
+							  $TempRCount = mysqli_num_rows($ReplyCount);
+							  $RCount = $RCount + $TempRCount;
 						  }
 					  } ?>
 						<div class='col-lg-1 hlpf_Black_Border'>
-							<p> <?php echo $RCount ?> </p> <!-- Almost, but it only shows the count of the last thread -->
+							<p> <?php echo $RCount ?> </p>
 							<p> &nbsp; </p>
 						</div>
 					</div>
@@ -92,13 +94,11 @@
 	    <form action='' method='post'>
 	      <div class='form-group col-lg-12'>
 	        <label class='control-label' for='CategoryName'>Kategori navn:</label>
-	        <input type='text' class='form-control' placeholder='Santa Claus' id='CategoryName'
-	               value='<?php if(isset($CategoryName)){ echo $CategoryName;} ?>' name='CategoryName'>
+	        <input type='text' class='form-control' id='CategoryName' name='CategoryName'>
 	      </div>
 	      <div class='form-group col-lg-12'>
 	        <label class='control-label' for='CategoryDesc'>Kategori beskrivelse:</label>
-	        <input type='text' class='form-control' placeholder='Santa Claus' id='CategoryDesc'
-	               value='<?php if(isset($CategoryDesc)){ echo $CategoryDesc;} ?>' name='CategoryDesc'>
+	        <input type='text' class='form-control' id='CategoryDesc' name='CategoryDesc'>
 	      </div>
 	      <div class='form-group col-xs-12 col-sm-5 col-md-6 col-lg-3'>
 	        <input type='submit' value='Opret kategori' class='btn btn-default' name='Send_form'>

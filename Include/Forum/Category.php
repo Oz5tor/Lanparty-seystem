@@ -61,13 +61,11 @@
 	    <form action='' method='post'>
 	      <div class='form-group col-lg-12'>
 	        <label class='control-label' for='ThreadName'>Trådnavn:</label>
-	        <input type='text' class='form-control' placeholder='Santa Claus' id='ThreadName'
-	               value='<?php if(isset($ThreadName)){ echo $ThreadName;} ?>' name='ThreadName'>
+	        <input type='text' class='form-control' id='ThreadName' name='ThreadName'>
 	      </div>
 	      <div class='form-group col-lg-12'>
 	        <label class='control-label' for='ReplyMessage'>Besked:</label>
-	        <input type='text' class='form-control' placeholder='Santa Claus' id='ReplyMessage'
-	               value='<?php if(isset($ReplyMessage)){ echo $ReplyMessage;} ?>' name='ReplyMessage'>
+	        <input type='text' class='form-control' id='ReplyMessage' name='ReplyMessage'>
 	      </div>
 	      <div class='form-group col-xs-12 col-sm-5 col-md-6 col-lg-3'>
 	        <input type='submit' value='Opret tråd' class='btn btn-default' name='Send_form'>
