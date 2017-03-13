@@ -28,11 +28,11 @@ require_once("Include/CoreParts/global_settings.php");
       fjs.parentNode.insertBefore(js, fjs);
     }(document, 'script', 'facebook-jssdk'));</script>
     Facebook scocial like code prep end -->
-    <!-- Slider start -->
+    <!-- Slider start
     <div class="hlpf_no_margin_padding hidden-xs container-fluid">
        <img src="Images/image-slider-5.jpg" class="img-responsive center-block" >
     </div>
-    <!-- Slider end -->
+    Slider end -->
     <br>
     <header>
         <!-- Top start -->
@@ -52,7 +52,7 @@ require_once("Include/CoreParts/global_settings.php");
     <div class="container">
     <?php require_once("Include/PageCaller.php"); ?>
     </div>
-    <?php require_once("Include/TilesAndTournament.php"); ?>
+    <?php #require_once("Include/TilesAndTournament.php"); ?>
     <!-- Sponsors start -->
     <hr>
     <?php require_once("Include/Sponsors.php"); ?>
