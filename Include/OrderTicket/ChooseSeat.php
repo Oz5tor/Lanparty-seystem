@@ -1,15 +1,23 @@
 <?php
 
-$eventPrice = 350;
-require 'class/PayPalCheckout.php';
+$eventPrice = 0;
+
 if (!isset($_SESSION['UserID'])) {
   $_SESSION['MsgForUser'] = "Du skal være logget ind for at se denne side.";
   header("Location: index.php");
   exit;
 }
+
+require 'class/PayPalCheckout.php';
 $event = $db_conn->query("SELECT e.EventID, e.Seatmap, e.Title FROM Event as e
-                          ORDER BY e.EventID DESC LIMIT 1");
-$event = $event->fetch_assoc();
+                          ORDER BY e.EventID DESC LIMIT 1")->fetch_assoc();
+
+$query = "SELECT * FROM TicketPrices WHERE TicketPrices.EventID = " . $event['EventID'] .
+    " AND TicketPrices.Type = 'Ikke medlem' AND " .
+    time() . " BETWEEN TicketPrices.StartTime AND TicketPrices.EndTime";
+$result = $db_conn->query($query)->fetch_assoc();
+$eventPrice = $result['Price'];
+
 if (isset($_POST['checkoutCart']) AND !empty($_POST['checkoutCart'])) {
   /*
     STEP TWO - WHO SITS WHERE?
@@ -179,7 +187,7 @@ function checkName() {
     // Remove the resevation, so the user can pick the seats again.
     $query = "DELETE FROM hlparty.Tickets WHERE Tickets.UserID = " . $_SESSION['UserID'] .
         " AND Tickets.EventID = " . $event['EventID'] .
-        " AND Tickets.RevokeDate IS NULL";
+        " AND Tickets.RevokeDate IS NULL AND Tickets.TransactionCode IS NULL";
     $db_conn->query($query);
     header("Location: index.php?page=Buy");
     exit;

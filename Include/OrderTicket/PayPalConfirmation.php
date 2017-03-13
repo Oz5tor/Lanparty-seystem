@@ -10,9 +10,10 @@ $eventID = 35; // REMEMBER ME
 // REMEMBER ME // REMEMBER ME
 // REMEMBER ME // REMEMBER ME
 
-if (!isset($_SESSION['BuyingTicketSingle'])) {
+if (!isset($_SESSION['BuyingTicketSingle']) AND !isset($_SESSION['BuyingTicketMulti'])) {
   $_SESSION['MsgForUser'] = "Fejl kode: 0x00010500";
   header("Location: index.php");
+  exit();
 }
 if (isset($_SESSION['BuyingTicketSingle'])) {
   //
@@ -33,12 +34,10 @@ if (isset($_SESSION['BuyingTicketSingle'])) {
         " AND Tickets.EventID = " . $eventID .
         " AND Tickets.TransactionCode = " . $db_conn->real_escape_string($_SESSION['invoice_number']);
     $db_conn->query($query);
-    unset($_SESSION['payPalSuccess']);
   }
 
   $userresult = $db_conn->query("SELECT FullName, Username, Email From Users
-                                WHERE UserID = " . $_SESSION['UserID'])
-                                ->fetch_assoc();
+      WHERE UserID = " . $_SESSION['UserID'])->fetch_assoc();
   $query = "SELECT Message FROM MailMesseges WHERE MessegesID = 3";
   $mailResult = $db_conn->query($query)->fetch_assoc();
   $msg = $mailResult['Message'];
@@ -57,18 +56,29 @@ if (isset($_SESSION['BuyingTicketSingle'])) {
   // Magic on multiple users
   //
   unset($_SESSION['BuyingTicketMulti']);
+  // For every item in cart, set transaction code.
   for ($i=0; $i < count($_SESSION['Cart']); $i++) {
-    $username = substr($_SESSION['Cart'][$i]['Desc'], 14);
-    $seat = substr($_SESSION['Cart'][$i]['Desc'], 6, 3);
+    $username = substr($_SESSION['Cart'][$i]['Desc'], 15);
     $usernameID = GetIDFromUsername($username, $db_conn);
+    $seat = substr($_SESSION['Cart'][$i]['Desc'], 7, 3);
     $query = "UPDATE Tickets
-      SET Tickets.TransactionCode = '" . $db_conn->real_escape_string($_SESSION['invoice_number']) . "',
-          Tickets.UserID = " . $db_conn->real_escape_string($usernameID) .
-    " WHERE Tickets.UserID = " . $_SESSION['UserID'] .
-      " AND Tickets.EventID = " . $eventID .
-      " AND Tickets.SeatNumber = " . $db_conn->real_escape_string($seat);
+        SET Tickets.TransactionCode = '" . $db_conn->real_escape_string($_SESSION['invoice_number']) . "'" .
+      " WHERE Tickets.UserID = " . $usernameID .
+        " AND Tickets.TransactionCode IS NULL AND Tickets.EventID = " . $eventID .
+        " AND Tickets.SeatNumber = " . $db_conn->real_escape_string($seat);
+    $_SESSION['SQL'] = $query;
     $db_conn->query($query);
+    // If the payment was unsuccessful, set revoke date.
+    if (isset($_SESSION['payPalSuccess']) AND !$_SESSION['payPalSuccess'] ) {
+      $query = "UPDATE Tickets
+          SET TIckets.RevokeDate = " . time() .
+        " WHERE Tickets.UserID = " . $usernameID .
+          " AND Tickets.EventID = " . $eventID .
+          " AND Tickets.TransactionCode = " . $db_conn->real_escape_string($_SESSION['invoice_number']);
+      $db_conn->query($query);
   }
+  }
+
 }
 unset($_SESSION['invoice_number'], $_SESSION['payPalSuccess'], $_SESSION['Cart']);
 // Fucking magic...
