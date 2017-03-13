@@ -1,32 +1,18 @@
 <?php
-	require_once('class/GetUsernameFromID.php');
-	// Make variables independant from URL controller //
-	if(isset($_GET['category']))
-	{
-		$category = mysqli_real_escape_string($db_conn,strip_tags($_GET['category']));
+	if(isset($_GET['category']) && $_GET['category'] != ''){
+	  $ID = $db_conn->real_escape_string($_GET['category']);
 	}
-	else
-	{
-		$category = '';
-	}
-
-	if(isset($_GET['thread']))
-	{
-		$thread = mysqli_real_escape_string($db_conn,strip_tags($_GET['thread']));
-	}
-	else
-	{
-		$thread = '';
-	}
-	// ==================================== //
+	// Breadcrumb data //
+	$BCCategoryName = $db_conn->query("SELECT * FROM `ForumCategory` WHERE CategoryID = " . $ID);
+  // Breadcrumb data end //
 	if(isset($_POST['Send_form'])) // Submit form start
   {
     require_once('Include/Forum/FormSubmit.php');
   }// Form submit end
 	// Pagination //
-	$ForumCategories_sql = "SELECT * FROM `ForumCategory`";
-	$ForumCategories = mysqli_query($db_conn, $ForumCategories_sql) or die (mysqli_error($db_conn));
-	$total_records = mysqli_num_rows($ForumCategories); // Total number of data
+	$CategoryThreads_sql = "SELECT * FROM `ForumThread` WHERE CategoryID = " . $ID;
+	$CategoryThreads = mysqli_query($db_conn, $CategoryThreads_sql) or die (mysqli_error($db_conn));
+	$total_records = mysqli_num_rows($CategoryThreads); // Total number of data
 
 	$scroll_page = 5; // Number of pages to be scrolled
 	$per_page = 10; // Number of pages to display each page
@@ -36,7 +22,8 @@
 	} else {
 		$current_page = 1;
 	}
-	$pager_url = "index.php?page=Forum&npage="; // The address where the paging is done
+
+	$pager_url = "index.php?page=Forum&category=" . $ID . "&npage="; // The address where the paging is done
 	$inactive_page_tag = 'id="current_page"'; // Format for inactive page link
 	$previous_page_text = '&nbsp;<&nbsp;'; // Previous page text (such as <img src = "...)
 	$next_page_text = '>&nbsp;'; // Next page text (such as <img src = "...)
@@ -44,13 +31,12 @@
 	$last_page_text = '>>'; // Last page text (such as <img src = "...)
 	$pager_url_last = ' ';
 
-	include("class/kgPager.php");
 	$kgPagerOBJ = new kgPager();
 	$kgPagerOBJ -> pager_set($pager_url , $total_records , $scroll_page , $per_page , $current_page , $inactive_page_tag , $previous_page_text , $next_page_text , $first_page_text , $last_page_text , $pager_url_last);
-	$albums_result = mysqli_query($db_conn,$ForumCategories_sql." ORDER BY CreationDate ASC LIMIT ".$kgPagerOBJ -> start.", ".$kgPagerOBJ -> per_page."");
+	$albums_result = mysqli_query($db_conn,$CategoryThreads_sql." ORDER BY CreationDate ASC LIMIT ".$kgPagerOBJ -> start.", ".$kgPagerOBJ -> per_page."");
 	// Pagination end //
-	if (isset($category) AND !empty($category)) {
-		include_once 'Include/Forum/Category.php';
+	if (isset($thread) AND !empty($thread)) {
+		include_once 'Include/Forum/Thread.php';
 	} else {
 ?>
 
@@ -59,58 +45,49 @@
 		<div class='col-lg-12'>
 			<h1>Forum:</h1>
 		</div>
+		<!-- Breadcrumbs -->
+		<?php $row = mysqli_fetch_assoc($BCCategoryName) ?>
+		<div class='col-lg-12' style='margin-bottom: 20px;'>
+			<div class='row' style='padding-right: 20px; padding-left: 20px;'>
+				<ul class='breadcrumb hlpf_Black_Border'>
+				  <li><a href='?page=Forum'>Forum main page</a></li>
+				  <li class='active'><?php echo $row['Name'] ?></li>
+				</ul>
+			</div>
+		</div><!-- Breadcrumbs end -->
 		<div class='col-lg-12' style='margin-bottom: 20px;'> <!-- CONTENT BEGIN -->
 			<div class='row' style='padding-right: 20px; padding-left: 20px;'>
-				<div class='col-lg-10 hlpf_Black_Border' style='background-color: lightblue;'>
-					<p>Forum</p>
-				</div>
-				<div class='col-lg-1 hlpf_Black_Border' style='background-color: lightblue;'>
+				<div class='col-lg-9 hlpf_Black_Border' style='background-color: lightblue;'>
 					<p>Tråde</p>
 				</div>
 				<div class='col-lg-1 hlpf_Black_Border' style='background-color: lightblue;'>
 					<p>Svar</p>
 				</div>
-			</div>
-
-			<div class='row' style='padding-right: 20px; padding-left: 20px;'>
-				<div class='col-lg-12 hlpf_Black_Border'>
-					<p>Sæson x år y (Denne skal gøres dynamisk og have noget logik)</p>
+				<div class='col-lg-2 hlpf_Black_Border' style='background-color: lightblue;'>
+					<p>Oprettet af:</p>
 				</div>
 			</div>
+
 			<?php
-		  if( $ForumCategories -> num_rows ) {
-		  	while ($Categories = mysqli_fetch_assoc($albums_result)) { ?>
+		  if( $CategoryThreads -> num_rows ) {
+		  	while ($Threads = mysqli_fetch_assoc($albums_result)) { ?>
 					<div class='row' style='padding-right: 20px; padding-left: 20px;'>
-						<div class='col-lg-10 hlpf_Black_Border'>
-							<p> <?php echo "<a href='?page=Forum&category=" . $Categories['CategoryID'] . "'>" . $Categories['Name'] . "</a>" ?> </p>
-							<p> <?php echo $Categories['Description'] ?> </p>
+						<div class='col-lg-9 hlpf_Black_Border'>
+							<p> <?php echo "<a href='?page=Forum&category=" . $Threads['CategoryID'] . "&thread=" . $Threads['ThreadID'] . "'>" . $Threads['Name'] . "</a>" ?> </p>
 						</div>
 						<?php
-						$CategoryCount = $db_conn->query("SELECT * FROM `ForumThread` WHERE CategoryID = " . $Categories['CategoryID']);
-					  $CCount = mysqli_num_rows($CategoryCount); ?>
+						$ReplyCount = $db_conn->query("SELECT * FROM `ForumReplies` WHERE ThreadID = " . $Threads['ThreadID']);
+					  $Count = mysqli_num_rows ($ReplyCount); ?>
 						<div class='col-lg-1 hlpf_Black_Border'>
-							<p> <?php echo $CCount ?> </p>
-							<p> &nbsp; </p>
+							<p> <?php echo $Count ?> </p>
 						</div>
-						<?php
-						$TempRCount = 0;
-						$RCount = 0;
-						$CategoryThreads = $db_conn->query("SELECT * FROM `ForumThread` WHERE CategoryID = " .$Categories['CategoryID'] . " ORDER BY CreationDate ASC");
-					  if( $CategoryThreads -> num_rows ) {
-					  	while ($Threads = $CategoryThreads->fetch_assoc()) {
-								$ReplyCount = $db_conn->query("SELECT * FROM `ForumReplies` WHERE ThreadID = " . $Threads['ThreadID']);
-							  $TempRCount = mysqli_num_rows($ReplyCount);
-							  $RCount = $RCount + $TempRCount;
-						  }
-					  } ?>
-						<div class='col-lg-1 hlpf_Black_Border'>
-							<p> <?php echo $RCount ?> </p>
-							<p> &nbsp; </p>
+						<div class='col-lg-2 hlpf_Black_Border'>
+							<p> <?php echo TorGetUserName($Threads['Author'], $db_conn); ?> </p>
 						</div>
 					</div>
 		  	<?php }
 		  } ?>
-			<hr>
+		  <hr>
 			<!-- Pagination -->
 		  <div class="text-center">
 	    <?php
@@ -133,23 +110,23 @@
 	    ?>
 	    </div> <!-- Pagination end -->
 		</div> <!-- CONTENT END -->
-		<?php if($_SESSION['Admin'] == 1){ ?>
+		<?php if(isset($_SESSION['UserID'])){ ?>
 		<div class='col-lg-12'>
 			<hr>
 		</div>
 		<div class='row' style='padding-right: 20px; padding-left: 20px;'>
-			<div class='col-lg-12'><h1>Opret kategori:</h1></div>
+			<div class='col-lg-12'><h1>Opret tråd:</h1></div>
 	    <form action='' method='post'>
 	      <div class='form-group col-lg-12'>
-	        <label class='control-label' for='CategoryName'>Kategori navn:</label>
-	        <input type='text' class='form-control' id='CategoryName' name='CategoryName'>
+	        <label class='control-label' for='ThreadName'>Trådnavn:</label>
+	        <input type='text' class='form-control' id='ThreadName' name='ThreadName'>
 	      </div>
 	      <div class='form-group col-lg-12'>
-	        <label class='control-label' for='CategoryDesc'>Kategori beskrivelse:</label>
-	        <input type='text' class='form-control' id='CategoryDesc' name='CategoryDesc'>
+	        <label class='control-label' for='ReplyMessage'>Besked:</label>
+	        <input type='text' class='form-control' id='ReplyMessage' name='ReplyMessage'>
 	      </div>
 	      <div class='form-group col-xs-12 col-sm-5 col-md-6 col-lg-3'>
-	        <input type='submit' value='Opret kategori' class='btn btn-default' name='Send_form'>
+	        <input type='submit' value='Opret tråd' class='btn btn-default' name='Send_form'>
 	      </div>
 	      <?php
 	      if(isset($RegErroMSG) && $RegErroMSG == ''){
