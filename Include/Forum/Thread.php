@@ -110,7 +110,10 @@
 	    ?>
 	    </div> <!-- Pagination end -->
 		</div> <!-- CONTENT END -->
-		<?php if(isset($_SESSION['UserID'])){ ?>
+		<?php if(isset($_SESSION['UserID'])){ 
+		$LatestThread = $db_conn->query("SELECT * FROM `ForumReplies` WHERE ThreadID = " . $ID . " ORDER BY CreationDate DESC LIMIT 1");
+		$ActualLatestThread = mysqli_fetch_assoc($LatestThread);
+		if($ActualLatestThread['Author'] != $_SESSION['UserID']) { var_dump($ActualLatestThread['Author']);?>
 		<div class='col-lg-12'>
 			<hr>
 		</div>
@@ -136,7 +139,10 @@
 	      ?>
 	    </form><!-- Form end -->
 		</div>
-		<?php } ?>
+		<?php } else {
+				$_SESSION['MsgForUser'] = "Du er den sidste der har lavet en kommentar. Editer i stedet beskeden.";
+			}
+		} ?>
 	</div>
 </div>
 <?php //} ?>
