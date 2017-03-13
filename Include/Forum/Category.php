@@ -124,7 +124,7 @@
 	      </div>
 	      <div class='form-group col-lg-12'>
 	        <label class='control-label' for='ReplyMessage'>Besked:</label>
-	        <input type='text' class='form-control' id='ReplyMessage' name='ReplyMessage'>
+	        <textarea id="PublicTinyMCE" class="form-control" rows="5" name="ReplyMessage" id="ReplyMessage"></textarea>
 	      </div>
 	      <div class='form-group col-xs-12 col-sm-5 col-md-6 col-lg-3'>
 	        <input type='submit' value='Opret tråd' class='btn btn-default' name='Send_form'>

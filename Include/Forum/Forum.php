@@ -73,11 +73,11 @@
 				</div>
 			</div>
 
-			<div class='row' style='padding-right: 20px; padding-left: 20px;'>
+			<!--<div class='row' style='padding-right: 20px; padding-left: 20px;'>
 				<div class='col-lg-12 hlpf_Black_Border'>
 					<p>Sæson x år y (Denne skal gøres dynamisk og have noget logik)</p>
 				</div>
-			</div>
+			</div>  Consider if this should be in the design or not, it needs logic-->
 			<?php
 		  if( $ForumCategories -> num_rows ) {
 		  	while ($Categories = mysqli_fetch_assoc($albums_result)) { ?>
