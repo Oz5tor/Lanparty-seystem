@@ -1,4 +1,5 @@
 <?php
+$startScriptTime=microtime(TRUE);
 ob_start();
 session_start();
 //session_destroy();
@@ -17,9 +18,6 @@ require_once("Include/CoreParts/global_settings.php");
 <body>
     <?php include_once("Include/TestArea/DEBUGGIN.php"); ?>
     <script src="JS/Jquery/jquery.min.js"></script>
-    <!-- jQuery UI -->
-    <link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/themes/smoothness/jquery-ui.css">
-    <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
     <!-- Facebook scocial like code prep start
     <div id="fb-root"></div>
     <script>(function(d, s, id) {
@@ -62,6 +60,11 @@ require_once("Include/CoreParts/global_settings.php");
     <!-- Footer start -->
     <?php require_once("Include/Footer.php"); ?>
     <!-- Footer end -->
-   <?php require_once("Include/CoreParts/htmlBottem.php"); ?>
+   <?php require_once("Include/CoreParts/htmlBottom.php"); ?>
+   <?php
+    $endScriptTime=microtime(TRUE);
+    $totalScriptTime=$endScriptTime-$startScriptTime;
+    echo "\n\r".'<!-- Load time: '.number_format($totalScriptTime, 15).' seconds -->'."\n\r";
+   ?>
 </body>
 </html>
