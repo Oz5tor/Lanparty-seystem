@@ -29,7 +29,7 @@
 	$total_records = mysqli_num_rows($ForumCategories); // Total number of data
 
 	$scroll_page = 5; // Number of pages to be scrolled
-	$per_page = 5; // Number of pages to display each page
+	$per_page = 10; // Number of pages to display each page
 
 	if(isset($_GET['npage'])) {
 		$current_page = strip_tags($_GET['npage']); // Found page
@@ -48,7 +48,7 @@
 	$kgPagerOBJ = new kgPager();
 	$kgPagerOBJ -> pager_set($pager_url , $total_records , $scroll_page , $per_page , $current_page , $inactive_page_tag , $previous_page_text , $next_page_text , $first_page_text , $last_page_text , $pager_url_last);
 	$albums_result = mysqli_query($db_conn,$ForumCategories_sql." ORDER BY CreationDate ASC LIMIT ".$kgPagerOBJ -> start.", ".$kgPagerOBJ -> per_page."");
-	// ==================================== //
+	// Pagination end //
 	if (isset($category) AND !empty($category)) {
 		include_once 'Include/Forum/Category.php';
 	} else {
@@ -131,7 +131,7 @@
 			  echo '<li>'.$kgPagerOBJ -> last_page.'</li>' ;
 		  }
 	    ?>
-	    </div>
+	    </div> <!-- Pagination end -->
 		</div> <!-- CONTENT END -->
 		<?php if($_SESSION['Admin'] == 1){ ?>
 		<div class='col-lg-12'>

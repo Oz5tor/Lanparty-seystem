@@ -2,7 +2,9 @@
 	if(isset($_GET['category']) && $_GET['category'] != ''){
 	  $ID = $db_conn->real_escape_string($_GET['category']);
 	}
-
+	// Breadcrumb data //
+	$BCCategoryName = $db_conn->query("SELECT * FROM `ForumCategory` WHERE CategoryID = " . $ID);
+  // Breadcrumb data end //
 	if(isset($_POST['Send_form'])) // Submit form start
   {
     require_once('Include/Forum/FormSubmit.php');
@@ -13,7 +15,7 @@
 	$total_records = mysqli_num_rows($CategoryThreads); // Total number of data
 
 	$scroll_page = 5; // Number of pages to be scrolled
-	$per_page = 5; // Number of pages to display each page
+	$per_page = 10; // Number of pages to display each page
 
 	if(isset($_GET['npage'])) {
 		$current_page = strip_tags($_GET['npage']); // Found page
@@ -32,7 +34,7 @@
 	$kgPagerOBJ = new kgPager();
 	$kgPagerOBJ -> pager_set($pager_url , $total_records , $scroll_page , $per_page , $current_page , $inactive_page_tag , $previous_page_text , $next_page_text , $first_page_text , $last_page_text , $pager_url_last);
 	$albums_result = mysqli_query($db_conn,$CategoryThreads_sql." ORDER BY CreationDate ASC LIMIT ".$kgPagerOBJ -> start.", ".$kgPagerOBJ -> per_page."");
-	// ==================================== //
+	// Pagination end //
 	if (isset($thread) AND !empty($thread)) {
 		include_once 'Include/Forum/Thread.php';
 	} else {
@@ -43,6 +45,16 @@
 		<div class='col-lg-12'>
 			<h1>Forum:</h1>
 		</div>
+		<!-- Breadcrumbs -->
+		<?php $row = mysqli_fetch_assoc($BCCategoryName) ?>
+		<div class='col-lg-12' style='margin-bottom: 20px;'>
+			<div class='row' style='padding-right: 20px; padding-left: 20px;'>
+				<ul class='breadcrumb hlpf_Black_Border'>
+				  <li><a href='?page=Forum'>Forum main page</a></li>
+				  <li class='active'><?php echo $row['Name'] ?></li>
+				</ul>
+			</div>
+		</div><!-- Breadcrumbs end -->
 		<div class='col-lg-12' style='margin-bottom: 20px;'> <!-- CONTENT BEGIN -->
 			<div class='row' style='padding-right: 20px; padding-left: 20px;'>
 				<div class='col-lg-9 hlpf_Black_Border' style='background-color: lightblue;'>
@@ -96,7 +108,7 @@
 			  echo '<li>'.$kgPagerOBJ -> last_page.'</li>' ;
 		  }
 	    ?>
-	    </div>
+	    </div> <!-- Pagination end -->
 		</div> <!-- CONTENT END -->
 		<?php if(isset($_SESSION['UserID'])){ ?>
 		<div class='col-lg-12'>
