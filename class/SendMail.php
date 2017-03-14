@@ -19,7 +19,7 @@ $Mailer = new PHPMailer;
   // is this a html mail and what charset is used
   $Mailer->isHTML(true);
   $Mailer->CharSet = "UTF-8";
-  
+
   // sender and reciver informations
   $Mailer->From = $_GLOBAL['SendMailFrom'];
   $Mailer->FromName = $_GLOBAL['SendMailFromName'];
@@ -30,7 +30,7 @@ $Mailer = new PHPMailer;
   $Mailer->Subject  = $subject;
   $Mailer->Body     = $body;
   $Mailer->AltBody  = strip_tags($body); // for non-html clients
-  
+
   if($Mailer->send()){
     return true;
   }else{
