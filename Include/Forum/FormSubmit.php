@@ -1,7 +1,7 @@
 <?php
   $RegErroMSG = array();
   $FormAOKAY = 0;
-  if(!isset($_GET['thread']) && !isset($_GET['category'])) {
+  if(!isset($_GET['thread']) && !isset($_GET['category']) && isset($_SESSION['Admin']) && $_SESSION['Admin'] == 1) {
     if($_POST['CategoryName'] == '') {$RegErroMSG[] .='Kategori navn'; $FormAOKAY = 1;}
     if($_POST['CategoryDesc'] == '') {$RegErroMSG[] .='Kategori beskrivelse'; $FormAOKAY = 1;}
 
@@ -14,7 +14,7 @@
 
       if($db_conn->query("INSERT INTO `ForumCategory` (Name, Description, CreationDate) VALUES ('$CategoryName', '$CategoryDesc', '$CreateTime')")){}
     } // if formOKAY end
-  } elseif (!isset($_GET['thread']) && isset($_GET['category'])) {
+  } elseif (!isset($_GET['thread']) && isset($_GET['category']) && isset($_SESSION['UserID']) && $_SESSION['UserID'] == 1) {
     if($_POST['ThreadName'] == '') {$RegErroMSG[] .='Trådnavn'; $FormAOKAY = 1;}
     if($_POST['ReplyMessage'] == '') {$RegErroMSG[] .='Besked'; $FormAOKAY = 1;}
 
@@ -35,7 +35,7 @@
         if($db_conn->query("INSERT INTO `ForumReplies` (Content, ThreadID, Author, CreationDate) VALUES ('$ReplyMessage', '$ThreadID', '$Author', '$CreateTime')")){}
       }
     } // if formOKAY end
-  } elseif (isset($_GET['thread']) && isset($_GET['category'])) {
+  } elseif (isset($_GET['thread']) && isset($_GET['category']) && isset($_SESSION['UserID']) && $_SESSION['UserID'] == 1) {
     if($_POST['Reply'] == '') {$RegErroMSG[] .='Svar'; $FormAOKAY = 1;}
 
     if($FormAOKAY == 0){
