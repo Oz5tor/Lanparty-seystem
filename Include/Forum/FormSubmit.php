@@ -55,7 +55,7 @@
         }
       } else {
         $_SESSION['MsgForUser'] = "Du er den sidste der har lavet en kommentar. Editer i stedet beskeden.";
-        header("Location: index.php?page=Forum&category=" . $CategoryID . "&thread=" . $ThreadID . "#ThreadPanel'");
+        header("Location: index.php?page=Forum&category=" . $CategoryID . "&thread=" . $ThreadID . "#hlpf_menu");
         exit;
       }
     }
