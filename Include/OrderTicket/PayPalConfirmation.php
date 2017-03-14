@@ -66,7 +66,6 @@ if (isset($_SESSION['BuyingTicketSingle'])) {
       " WHERE Tickets.UserID = " . $usernameID .
         " AND Tickets.TransactionCode IS NULL AND Tickets.EventID = " . $eventID .
         " AND Tickets.SeatNumber = " . $db_conn->real_escape_string($seat);
-    $_SESSION['SQL'] = $query;
     $db_conn->query($query);
     // If the payment was unsuccessful, set revoke date.
     if (isset($_SESSION['payPalSuccess']) AND !$_SESSION['payPalSuccess'] ) {
@@ -76,9 +75,25 @@ if (isset($_SESSION['BuyingTicketSingle'])) {
           " AND Tickets.EventID = " . $eventID .
           " AND Tickets.TransactionCode = " . $db_conn->real_escape_string($_SESSION['invoice_number']);
       $db_conn->query($query);
+    }
   }
+  $userresult = $db_conn->query("SELECT FullName, Username, Email From Users
+      WHERE UserID = " . $_SESSION['UserID'])->fetch_assoc();
+  $mailResult = $db_conn->query("SELECT Message FROM MailMesseges WHERE MessegesID = 5")->fetch_assoc();
+  $msg = $mailResult['Message'];
+  $username = $userresult['Username'];
+  $msg = str_replace('$fullName', $userresult['FullName'], $msg);
+  $msg = str_replace('$username', $userresult['Username'], $msg);
+  $priceTotal = 0;
+  $ticketTotal = 0;
+  for ($i=0; $i < count($_SESSION['Cart']); $i++) {
+    $priceTotal = $priceTotal + $_SESSION['Cart'][$i]['Price'];
+    $ticketTotal = $ticketTotal + $_SESSION['Cart'][$i]['Quantity'];
   }
-
+  $msg = str_replace('$price', $priceTotal, $msg);
+  $msg = str_replace('$antal', $ticketTotal, $msg);
+  // Add the whole cart to the email at some point. It's not important. Just make the mail work.
+  SendMail($userresult['Email'], $userresult['FullName'], 'Billet kvittering - HLParty', $msg, $_GLOBAL);
 }
 unset($_SESSION['invoice_number'], $_SESSION['payPalSuccess'], $_SESSION['Cart']);
 // Fucking magic...
