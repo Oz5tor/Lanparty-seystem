@@ -95,7 +95,7 @@
 						</div>
 					</div>
 		  	<?php }
-		  } ?> <!-- Data begin -->
+		  } ?> <!-- Data end -->
 			<hr> <!-- Pagination begin -->
 		  <div class="text-center">
 	    <?php

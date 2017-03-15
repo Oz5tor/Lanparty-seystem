@@ -14,7 +14,7 @@
 
       if($db_conn->query("INSERT INTO `ForumCategory` (Name, Description, CreationDate) VALUES ('$CategoryName', '$CategoryDesc', '$CreateTime')")){}
     } // if formOKAY end
-  } elseif (!isset($_GET['thread']) && isset($_GET['category']) && isset($_SESSION['UserID']) && $_SESSION['UserID'] == 1) { // Insert into thread
+  } elseif (!isset($_GET['thread']) && isset($_GET['category']) && isset($_SESSION['UserID'])) { // Insert into thread
     if($_POST['ThreadName'] == '') {$RegErroMSG[] .='Trådnavn'; $FormAOKAY = 1;}
     if($_POST['ReplyMessage'] == '') {$RegErroMSG[] .='Besked'; $FormAOKAY = 1;}
 
@@ -33,7 +33,7 @@
         if($db_conn->query("INSERT INTO `ForumReplies` (Content, ThreadID, Author, CreationDate) VALUES ('$ReplyMessage', '$ThreadID', '$Author', '$CreateTime')")){}
       }
     } // if formOKAY end
-  } elseif (isset($_GET['thread']) && isset($_GET['category']) && isset($_SESSION['UserID']) && $_SESSION['UserID'] == 1) { // Insert into replies
+  } elseif (isset($_GET['thread']) && isset($_GET['category']) && isset($_SESSION['UserID'])) { // Insert into replies
     if($_POST['Reply'] == '') {$RegErroMSG[] .='Svar'; $FormAOKAY = 1;}
 
     if($FormAOKAY == 0){
