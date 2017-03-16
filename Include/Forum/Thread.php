@@ -34,14 +34,14 @@
 	$albums_result = mysqli_query($db_conn,$ThreadReplies_sql." ORDER BY CreationDate ASC LIMIT ".$kgPagerOBJ -> start.", ".$kgPagerOBJ -> per_page."");
 ?>
 
-<div id='ThreadPanel' class='col-lg-12 hlpf_contentbox'>
+<div id='ThreadPanel' class='col-lg-12 col-md-12 col-sm-12 col-xs-12 hlpf_contentbox'>
 	<div class='row'>
-		<div class='col-lg-12'>
+		<div class='col-lg-12 col-md-12 col-sm-12 col-xs-12'>
 			<h1>Forum:</h1>
 		</div>
 		<?php $row1 = mysqli_fetch_assoc($BCCategoryName); ?> <!-- Breadcrumbs begin-->
 		<?php $row2 = mysqli_fetch_assoc($BCThreadName); ?>
-		<div class='col-lg-12' style='margin-bottom: 20px;'>
+		<div class='col-lg-12 col-md-12 col-sm-12 col-xs-12' style='margin-bottom: 20px;'>
 			<div class='row' style='padding-right: 20px; padding-left: 20px;'>
 				<ul class='breadcrumb hlpf_Black_Border'>
 				  <li><a href='?page=Forum#ForumPanel'>Forum main page</a></li>
@@ -50,12 +50,12 @@
 				</ul>
 			</div>
 		</div> <!-- Breadcrumbs end -->
-		<div class='col-lg-12' style='margin-bottom: 20px;'> <!-- Content begin -->
+		<div class='col-lg-12 col-md-12 col-sm-12 col-xs-12' style='margin-bottom: 20px;'> <!-- Content begin -->
 			<div class='row' style='padding-right: 20px; padding-left: 20px;'> <!-- Top row begin -->
-				<div class='col-lg-10 hlpf_Black_Border' style='background-color: lightblue;'>
+				<div class='col-lg-10 col-md-10 col-sm-12 col-xs-12 hlpf_Black_Border' style='background-color: lightblue;'>
 					<p>Content</p>
 				</div>
-				<div class='col-lg-2 hlpf_Black_Border' style='background-color: lightblue;'>
+				<div class='col-lg-2 col-md-2 hidden-sm hidden-xs hlpf_Black_Border' style='background-color: lightblue;'>
 					<p>Oprettet af:</p>
 				</div>
 			</div> <!-- Top row end -->
@@ -64,11 +64,11 @@
 		  if( $ThreadReplies -> num_rows ) { ?> <!-- Data begin -->
 		  	<?php while ($Replies = mysqli_fetch_assoc($albums_result)) { ?>
 					<div class='row' style='padding-right: 20px; padding-left: 20px;'>
-						<div class='col-lg-10 hlpf_Black_Border'>
-							<p> <?php echo "Dato: " . date("d/m/y - H:i:s",$Replies['CreationDate']) ?> </p>
+						<div class='col-lg-10 col-md-10 col-sm-12 col-xs-12 hlpf_Black_Border'>
+							<p> <?php echo "Dato: " . date("d/m/y - H:i:s",$Replies['CreationDate']) . " - skrevet af " . TorGetUserName($Replies['Author'], $db_conn); ?> </p>
 							<p> <?php echo $Replies['Content'] ?> </p>
 						</div>
-						<div class='col-lg-2 hlpf_Black_Border'>
+						<div class='col-lg-2 col-md-2 hidden-sm hidden-xs hlpf_Black_Border'>
 							<p> <?php echo TorGetUserName($Replies['Author'], $db_conn); ?> </p>
 							<p> &nbsp; </p>
 						</div>
@@ -99,13 +99,13 @@
 	    </div> <!-- Pagination end -->
 		</div> <!-- Content end -->
 		<?php if(isset($_SESSION['UserID'])){ ?> <!-- Create reply begin -->
-		<div class='col-lg-12'>
+		<div class='col-lg-12 col-md-12 col-sm-12 col-xs-12'>
 			<hr>
 		</div>
 		<div class='row' style='padding-right: 20px; padding-left: 20px;'>
-			<div class='col-lg-12'><h1>Besvar tråd:</h1></div>
+			<div class='col-lg-12 col-md-12 col-sm-12 col-xs-12'><h1>Besvar tråd:</h1></div>
 	    <form action='' method='post'>
-	      <div class='form-group col-lg-12'>
+	      <div class='form-group col-lg-12 col-md-12 col-sm-12 col-xs-12'>
 	        <label class='control-label' for='Reply'>Svar:</label>
 	        <textarea id="PublicTinyMCE" class="form-control" rows="5" name="Reply" id="Reply"></textarea>
 	      </div>
