@@ -3,7 +3,7 @@
 	$news_result = mysqli_query($db_conn, $news_sql) or die (mysqli_error($db_conn));
 	$total_records = mysqli_num_rows($news_result); // Total number of data
 	$scroll_page = 5; // Number of pages to be scrolled
-	$per_page = 5; // Number of pages to display each page
+	$per_page = $_GLOBAL["g_results_per_page"]; // Number of pages to display each page
 
 	if(isset($_GET['npage'])) {
 		$current_page = strip_tags($_GET['npage']); // Found page
