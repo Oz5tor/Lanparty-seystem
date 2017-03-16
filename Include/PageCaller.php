@@ -35,9 +35,9 @@ elseif (! empty( $page ) ) {
         /*case "Gallery": // not in use yet
             include_once("Include/TestArea/FBAlbumAPI.php");
             break;*/
-        case "Paypal":
+        /*case "Paypal":
             include_once("class/PayPalCheckout.php");
-            break;
+            break;*/
         case "Paypalpay":
             include_once("class/PayPalPay.php");
             break;
@@ -56,13 +56,6 @@ elseif (! empty( $page ) ) {
         default:
             include_once("Include/Page.php");
             break;
-    }
-    // Actions
-    switch($action){
-        case "LogOut":
-            session_destroy();
-            header("Location: index.php");
-        break;
     }
 }
 ?>
