@@ -36,13 +36,13 @@
 	else {
 ?>
 
-<div id='CategoryPanel' class='col-lg-12 hlpf_contentbox'>
+<div id='CategoryPanel' class='col-lg-12 col-md-12 col-sm-12 col-xs-12 hlpf_contentbox'>
 	<div class='row'>
-		<div class='col-lg-12'>
+		<div class='col-lg-12 col-md-12 col-sm-12 col-xs-12'>
 			<h1>Forum:</h1>
 		</div>
 		<?php $row = mysqli_fetch_assoc($BCCategoryName) ?> <!-- Breadcrumbs begin -->
-		<div class='col-lg-12' style='margin-bottom: 20px;'>
+		<div class='col-lg-12 col-md-12 col-sm-12 col-xs-12' style='margin-bottom: 20px;'>
 			<div class='row' style='padding-right: 20px; padding-left: 20px;'>
 				<ul class='breadcrumb hlpf_Black_Border'>
 				  <li><a href='?page=Forum#ForumPanel'>Forum main page</a></li>
@@ -50,15 +50,15 @@
 				</ul>
 			</div>
 		</div> <!-- Breadcrumbs end -->
-		<div class='col-lg-12' style='margin-bottom: 20px;'> <!-- Content begin -->
+		<div class='col-lg-12 col-md-12 col-sm-12 col-xs-12' style='margin-bottom: 20px;'> <!-- Content begin -->
 			<div class='row' style='padding-right: 20px; padding-left: 20px;'> <!-- Top row begin -->
-				<div class='col-lg-9 hlpf_Black_Border' style='background-color: lightblue;'>
+				<div class='col-lg-9 col-md-9 col-sm-12 col-xs-12 hlpf_Black_Border' style='background-color: lightblue;'>
 					<p>Tråde</p>
 				</div>
-				<div class='col-lg-1 hlpf_Black_Border' style='background-color: lightblue;'>
+				<div class='col-lg-1 col-md-1 hidden-sm hidden-xs hlpf_Black_Border' style='background-color: lightblue;'>
 					<p>Svar</p>
 				</div>
-				<div class='col-lg-2 hlpf_Black_Border' style='background-color: lightblue;'>
+				<div class='col-lg-2 col-md-2 hidden-sm hidden-xs hlpf_Black_Border' style='background-color: lightblue;'>
 					<p>Oprettet af:</p>
 				</div>
 			</div> <!-- Top row end -->
@@ -66,16 +66,16 @@
 		  if( $CategoryThreads -> num_rows ) { ?> <!-- Data begin -->
 		  	<?php while ($Threads = mysqli_fetch_assoc($albums_result)) { ?>
 					<div class='row' style='padding-right: 20px; padding-left: 20px;'>
-						<div class='col-lg-9 hlpf_Black_Border'>
+						<div class='col-lg-9 col-md-9 col-sm-12 col-xs-12 hlpf_Black_Border'>
 							<p> <?php echo "<a href='index.php?page=Forum&category=" . $Threads['CategoryID'] . "&thread=" . $Threads['ThreadID'] . "#ThreadPanel'>" . $Threads['Name'] . "</a>" ?> </p>
 						</div>
 						<?php
 						$ReplyCount = $db_conn->query("SELECT * FROM `ForumReplies` WHERE ThreadID = " . $Threads['ThreadID']);
 					  $Count = mysqli_num_rows ($ReplyCount); ?>
-						<div class='col-lg-1 hlpf_Black_Border'>
+						<div class='col-lg-1 col-md-1 hidden-sm hidden-xs hlpf_Black_Border'>
 							<p> <?php echo $Count ?> </p>
 						</div>
-						<div class='col-lg-2 hlpf_Black_Border'>
+						<div class='col-lg-2 col-md-2 hidden-sm hidden-xs hlpf_Black_Border'>
 							<p> <?php echo TorGetUserName($Threads['Author'], $db_conn); ?> </p>
 						</div>
 					</div>
@@ -105,17 +105,17 @@
 	    </div> <!-- Pagination end -->
 		</div> <!-- Content end -->
 		<?php if(isset($_SESSION['UserID'])){ ?> <!-- Create thread begin -->
-		<div class='col-lg-12'>
+		<div class='col-lg-12 col-md-12 col-sm-12 col-xs-12'>
 			<hr>
 		</div>
 		<div class='row' style='padding-right: 20px; padding-left: 20px;'>
-			<div class='col-lg-12'><h1>Opret tråd:</h1></div>
+			<div class='col-lg-12 col-md-12 col-sm-12 col-xs-12'><h1>Opret tråd:</h1></div>
 	    <form action='' method='post'>
-	      <div class='form-group col-lg-12'>
+	      <div class='form-group col-lg-12 col-md-12 col-sm-12 col-xs-12'>
 	        <label class='control-label' for='ThreadName'>Trådnavn:</label>
 	        <input type='text' class='form-control' id='ThreadName' name='ThreadName'>
 	      </div>
-	      <div class='form-group col-lg-12'>
+	      <div class='form-group col-lg-12 col-md-12 col-sm-12 col-xs-12'>
 	        <label class='control-label' for='ReplyMessage'>Besked:</label>
 	        <textarea id="PublicTinyMCE" class="form-control" rows="5" name="ReplyMessage" id="ReplyMessage"></textarea>
 	      </div>
