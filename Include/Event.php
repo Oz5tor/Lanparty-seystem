@@ -50,7 +50,7 @@
           <hr> <!-- HORIZONTAL LINE -->
           <div>
             <!-- Tickets prices -->
-            <h2>Billet Priser:</h2>
+            <h2>Billet Priser</h2>
             <div class="row">
               <?php
               // Get distinct types //
@@ -85,13 +85,13 @@
                           $theR = round(interpolate($theR0, $theR1, $i, $SqlPricesCount-1));
                           $theG = round(interpolate($theG0, $theG1, $i, $SqlPricesCount-1));
                           $theB = round(interpolate($theB0, $theB1, $i, $SqlPricesCount-1));
-                        } elseif ( $SqlPricesCount == 1 ) { 
+                        } elseif ( $SqlPricesCount == 1 ) {
                           $theR = 0;
                           $theG = 255;
                           $theB = 0;
                         }
                         // Create divs //
-                        echo "<div style='display: inline-block; background-color: rgb(" . $theR . ", " . $theG . ", " . $theB . "); width: " . $colwidth . "&#37;' class='text-center hlpf_Black_Border'>" . 
+                        echo "<div style='display: inline-block; background-color: rgb(" . $theR . ", " . $theG . ", " . $theB . "); width: " . $colwidth . "&#37;' class='text-center hlpf_Black_Border'>" .
                         date("d/m",$row["StartTime"]) . " - " . date("d/m",$row["EndTime"]) . "<br>" . $row["Price"] . ",-" . "</div>";
                         $i++;
                       }
@@ -105,7 +105,8 @@
           <br>
           <hr> <!-- HORIZONTAL LINE -->
           <!-- Seat map (Patricks magic) -->
-          <h2>Pladsoversigt:</h2>
+          <h2>Pladsoversigt <a href="?page=Buy" class="btn btn-primary">Køb billet her &raquo;</a></h2>
+
           <div id="map" class="col-lg-12">
             <div id="generated-seat-map"></div>
           </div>
