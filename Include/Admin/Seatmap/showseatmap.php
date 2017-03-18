@@ -1,7 +1,7 @@
 <?php
 // "class/seatmap.php" doesn't work here for some reason.
 include_once '../../../class/seatmap.php';
-require_once '../../../Include/CoreParts/DBConn.php';
+require_once '../../../Include/CoreParts/DBconn.php';
 // Check if anything has been send
 if (!empty($_REQUEST['generated_seatmap'])) {
 // Something has been send, let's do some magic!

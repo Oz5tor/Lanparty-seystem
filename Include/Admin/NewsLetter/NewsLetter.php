@@ -12,13 +12,15 @@ if($action != '') {
       break;
     case 'Send':
       require_once("class/SendMail.php");
-      $LetterResult = $db_conn->query("SELECT * FROM NewsLetter WHERE LetterID = '$URLID'");
+      $LetterResult = $db_conn->query("SELECT * FROM NewsLetter
+                                        WHERE LetterID = '$URLID'");
       $Lettercount = $LetterResult->num_rows;
       if($Lettercount == 1) {
         $LetterRow = $LetterResult->fetch_assoc();
         $Title = $LetterRow['Subject'];
         $Body = $LetterRow['Body'];
-        $NewsResult = $db_conn->query("SELECT Users.FullName, Users.Email, Users.NewsLetter FROM Users WHERE Users.NewsLetter = 1");
+        $NewsResult = $db_conn->query("SELECT Users.FullName, Users.Email, 
+        Users.NewsLetter FROM Users WHERE Users.NewsLetter = 1");
         while($NewsRow = $NewsResult->fetch_assoc()) {
           // Send mail
           echo SendMail($NewsRow["Email"],$NewsRow["FullName"],$Title,$Body,$_GLOBAL);
@@ -26,8 +28,9 @@ if($action != '') {
         }// End of Users that want news
         // update news letter to be sent querry
         $sentTime = time();
-        $statement = $db_conn->query("UPDATE NewsLetter SET SentDate = '$sentTime' WHERE LetterID = '$URLID'");
-        //header("Location: index.php?page=Admin&subpage=NewsLetter#admin_menu");
+        $statement = $db_conn->query("UPDATE NewsLetter SET
+        SentDate = '$sentTime' WHERE LetterID = '$URLID'");
+        header("Location: index.php?page=Admin&subpage=NewsLetter#admin_menu");
       }// letter count end
       break;
     case 'Template':
