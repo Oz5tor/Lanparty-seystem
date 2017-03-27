@@ -85,6 +85,7 @@ if (isset($_POST['checkoutCart']) AND !empty($_POST['checkoutCart'])) {
     if (!$db_conn->query($query)) {
       $_SESSION['MsgForUser'] = "Fejl ved resevering af sæde...";
       header("Location: index.php?page=Buy");
+      exit;
     }
     /*
       SINGLE TICKET
@@ -97,6 +98,8 @@ if (isset($_POST['checkoutCart']) AND !empty($_POST['checkoutCart'])) {
         $ticketPrice = $ticket['Price'];
       } else {
         $_SESSION['MsgForUser'] = "Fejl kode: 0x000D0011";
+        $query = "DELETE FROM Tickets WHERE UserID = '" . $_SESSION['UserID'] . "' AND OderedDate IS NOT NULL AND RevokeDate = NULL";
+        $db_conn->query($query);
         header("Location: index.php?page=Buy");
         exit;
       }
@@ -106,6 +109,8 @@ if (isset($_POST['checkoutCart']) AND !empty($_POST['checkoutCart'])) {
         $ticketPrice = $ticket['Price'];
       } else {
         $_SESSION['MsgForUser'] = "Fejl kode: 0x000D0012";
+        $query = "DELETE FROM Tickets WHERE UserID = '" . $_SESSION['UserID'] . "' AND OderedDate IS NOT NULL AND RevokeDate = NULL";
+        $db_conn->query($query);
         header("Location: index.php?page=Buy");
         exit;
       }
@@ -299,7 +304,7 @@ function checkName() {
   $theEvent = $db_conn->query($query)->fetch_assoc();
 ?>
 
-<div class="hlpf_contentbox col-lg-12 col-md-12 col-sm-12 col-xs-12">
+<div class="hlpf_contentbox row">
   <div id="map" class="col-lg-9 col-md-12 col-sm-12 col-xs-12">
     <div id="Seatmap"></div>
   </div>
