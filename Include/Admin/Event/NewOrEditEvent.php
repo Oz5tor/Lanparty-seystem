@@ -47,8 +47,8 @@ if(isset($_POST['Save'])) {
 
         $temptGroup['Type'] = $group[0];
         $temptGroup['Price'] = $group[1];
-        $temptGroup['Start'] = strtotime($group[2]);
-        $temptGroup['End'] = strtotime($group[3]);
+        $temptGroup['Start'] = strtotime(str_replace('/', '-',$group[2]));
+        $temptGroup['End'] = strtotime(str_replace('/', '-',$group[3]));
         $PricegroupList[$tempCount] = $temptGroup;
         $tempCount++;
       }

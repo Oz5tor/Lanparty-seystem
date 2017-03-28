@@ -46,7 +46,7 @@ if($action == 'Edit'){
     <div class="form-group col-lg-3">
       <label class="control-label" for="publishdate">Offenligørelses dato:</label>
       <div class="input-group">
-        <input type="datetime" data-date="12-02-2012 23:59" data-date-format="dd-mm-yyyy hh:ii" class="form-control form_datetime" id="publishdate" name="publishdate" value="<?php if(isset($OutPuplishDate)){echo $OutPuplishDate;} ?>">
+        <input type="datetime" data-date="12-02-2012 23:59" data-date-format="dd-mm-yyyy hh:ii" class="form-control picker form_datetime" id="publishdate" name="publishdate" value="<?php if(isset($OutPuplishDate)){echo $OutPuplishDate;} ?>">
         <div class="input-group-addon">&#x1f4c5;</div>
       </div>
     </div>

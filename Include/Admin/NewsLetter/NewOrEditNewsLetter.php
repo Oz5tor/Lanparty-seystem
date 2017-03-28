@@ -1,28 +1,20 @@
 <?php
+require_once("class/SendMail.php");
 if(isset($_GET['id'])){$URLID = $db_conn->real_escape_string($_GET['id']);}
 if(isset($_POST['Save'])){
   $Title = $db_conn->real_escape_string($_POST['Title']);
   if(isset($_POST['Send'])){$Send = $db_conn->real_escape_string($_POST['Send']);}else {$Send = '0';}
-  $Body  = $db_conn->real_escape_string($_POST['AdminTinyMCE']);
+  $Body  = $_POST['AdminTinyMCE'];
   $Aurthor = $_SESSION['UserID'];
   if($action == 'Edit'){
     if($Send == 1){
 
-      // call all users signed for news letters
-      $NewsResult = $db_conn->query("Select Users.FullName, Users.Email, Users.NewsLetter From Users Where Users.NewsLetter = 1");
-      while($NewsRow = $NewsResult->fetch_assoc()){
-
-      // To send HTML mail, the Content-type header must be set
-      $headers[] = 'MIME-Version: 1.0';
-      $headers[] = 'Content-type: text/html; charset=UTF-8';
-
-      // Additional headers
-      $headers[] = 'To: '.$NewsRow['FullName'].' <'.$NewsRow['Email'].'>';
-      $headers[] = 'From: HLParty Testin <noreply@hlparty.dk>';
-
-      // Mail it
-      mail($NewsRow['Email'], $Title, $Body, implode("\r\n", $headers));
-      }// End of Users tehre want news
+      $NewsResult = $db_conn->query("SELECT Users.FullName, Users.Email, Users.NewsLetter FROM Users WHERE Users.NewsLetter = 1");
+        while($NewsRow = $NewsResult->fetch_assoc()){
+          // Send mail
+          SendMail($NewsRow["Email"],$NewsRow["FullName"],$Title,$Body,$_GLOBAL);
+          //echo "<hr>";
+        }// End of Users that want news
       // Insert querry
     if($Send != '0'){$Send = time();}
     $db_conn->query("UPDATE NewsLetter SET Subject = '$Title', Body = '$Body', SentDate = '$Send', Author = '$Aurthor'
@@ -40,21 +32,13 @@ if(isset($_POST['Save'])){
   }else{
     if($Send == 1){
 
-      // call all users signed for news letters
-      $NewsResult = $db_conn->query("Select Users.FullName, Users.Email, Users.NewsLetter From Users Where Users.NewsLetter = 1");
-      while($NewsRow = $NewsResult->fetch_assoc()){
-
-      // To send HTML mail, the Content-type header must be set
-      $headers[] = 'MIME-Version: 1.0';
-      $headers[] = 'Content-type: text/html; charset=UTF-8';
-
-      // Additional headers
-      $headers[] = 'To: '.$NewsRow['FullName'].' <'.$NewsRow['Email'].'>';
-      $headers[] = 'From: HLParty Testin <noreply@hlparty.dk>';
-
-      // Mail it
-      mail($NewsRow['Email'], $Title, $Body, implode("\r\n", $headers));
-      }// End of Users tehre want news
+      $NewsResult = $db_conn->query("SELECT Users.FullName, Users.Email, Users.NewsLetter FROM Users WHERE Users.NewsLetter = 1");
+        while($NewsRow = $NewsResult->fetch_assoc()){
+          // Send mail
+          SendMail($NewsRow["Email"],$NewsRow["FullName"],$Title,$Body,$_GLOBAL);
+          //echo "<hr>";
+        }// End of Users that want news
+      
       // Insert querry
     if($Send != '0'){$Send = time($Send);}
     $db_conn->query("INSERT INTO NewsLetter (Subject, Body, SentDate, Author)

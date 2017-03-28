@@ -2,13 +2,9 @@
 require_once("class/SendMail.php");
 require_once("class/GetUsernameFromID.php");
 
-// REMEMBER ME // REMEMBER ME
-// REMEMBER ME // REMEMBER ME
-// REMEMBER ME // REMEMBER ME
-$eventID = 35; // REMEMBER ME
-// REMEMBER ME // REMEMBER ME
-// REMEMBER ME // REMEMBER ME
-// REMEMBER ME // REMEMBER ME
+$event = $db_conn->query("SELECT EventID FROM Event
+                          ORDER BY EventID DESC LIMIT 1")->fetch_assoc();
+$eventID = $event['EventID'];
 
 if (!isset($_SESSION['BuyingTicketSingle']) AND !isset($_SESSION['BuyingTicketMulti'])) {
   $_SESSION['MsgForUser'] = "Fejl kode: 0x00010500";
