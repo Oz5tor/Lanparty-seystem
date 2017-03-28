@@ -93,10 +93,10 @@ if ( ! empty ($_POST['connection_token']))
                   break;
 
               }
-              header("Location: index.php?page=EditMyProfile");
+              header("Location: ../../index.php?page=EditMyProfile");
             }else{
               $_SESSION['Linked'] = false;
-              header("Location: index.php?page=EditMyProfile");
+              header("Location: ../../index.php?page=EditMyProfile");
             }
           }/*end of sucessfull link */
           elseif ($data->plugin->data->action == 'unlink_identity')
@@ -144,7 +144,7 @@ if ( ! empty ($_POST['connection_token']))
             //echo "<pre>";
             //print_r($data->user);
             //echo "</pre>";
-            header("Location: index.php?page=EditMyProfile");
+            header("Location: ../../index.php?page=EditMyProfile");
           }
         }
         break;
