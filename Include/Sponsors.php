@@ -1,7 +1,7 @@
 <div class="container">
     <div class="text-center">
         <?php
-            if( $result = $db_conn->query( "SELECT Sponsors.Url, Sponsors.Banner FROM Sponsors WHERE MainSponsor = 1" ) ) {
+            if( $result = $db_conn->query( "SELECT Sponsors.Url, Sponsors.Banner FROM Sponsors WHERE MainSponsor = 1 AND Online = 1 ORDER BY RAND() LIMIT 1 " ) ) {
                 if( $result -> num_rows ) {
                     $row = $result->fetch_assoc();
                     echo "<a href='" . $row[ 'Url' ] . "' class='thumbnail hlpf_no_round_border'><img src='Images/Sponsore/" . $row[ 'Banner' ] . "'></a>";

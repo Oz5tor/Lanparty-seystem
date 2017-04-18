@@ -116,7 +116,9 @@ if(!isset($_SESSION['UserToken']) && !isset($_SESSION['UserID'])){
           if($Clanresult = $db_conn->query("SELECT * FROM Clan")){
             while($Clanrow = $Clanresult->fetch_assoc()){
           ?>
-          <option <?php if($Clanrow["ClanID"] == $Clan){echo "selected";} ?>  value='<?php echo $Clanrow["ClanID"]; ?>'>
+          <option <?php if(isset($Clan)){
+                            if ($Clanrow["ClanID"] == $Clan){echo "selected";}
+                        }?>  value='<?php echo $Clanrow["ClanID"]; ?>'>
             <?php echo $Clanrow["Name"]; ?>
           </option>
           <?php
@@ -165,12 +167,12 @@ if(!isset($_SESSION['UserToken']) && !isset($_SESSION['UserID'])){
         <?php if(isset($Bio)){echo $Bio;} ?>
         </textarea>
       </div>
+      <div class="form-group col-xs-12 col-sm-5 col-md-6 col-lg-3">
+        <input type="submit" class="btn btn-default" name="Send_form">
+      </div>
       <?php
       if(isset($_SESSION['UserID'])){
       ?>
-      <div class="form-group col-xs-12 col-sm-5 col-md-6 col-lg-3">
-        <input type="submit" value="Opdater min profil" class="btn btn-default" name="Send_form">
-      </div>
       <div class="visible-lg col-lg-4">
       </div>
       <div class="col-lg-5 col-xs-12 col-sm-7 col-md-6">
