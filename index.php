@@ -1,4 +1,5 @@
 <?php
+$startScriptTime=microtime(TRUE);
 ob_start();
 session_start();
 //session_destroy();
@@ -7,18 +8,16 @@ require_once("Include/CoreParts/DBconn.php");
 require_once("oneall_sdk/config.php");
 require_once("Include/oneall_hlpf/oneall_calls.php");
 require_once("Include/CoreParts/UrlContoller.php");
-include_once("Include/TestArea/DEBUGGIN.php");
+require_once("Include/CoreParts/global_settings.php");
 ?>
 <!DOCTYPE html>
 <html lang="da">
 <head>
-<?php require_once 'Include/CoreParts/head.php'; ?>
+    <?php require_once 'Include/CoreParts/head.php'; ?>
 </head>
 <body>
+    <?php include_once("Include/TestArea/DEBUGGIN.php"); ?>
     <script src="JS/Jquery/jquery.min.js"></script>
-    <!-- jQuery UI -->
-    <link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/themes/smoothness/jquery-ui.css">
-    <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
     <!-- Facebook scocial like code prep start
     <div id="fb-root"></div>
     <script>(function(d, s, id) {
@@ -29,11 +28,11 @@ include_once("Include/TestArea/DEBUGGIN.php");
       fjs.parentNode.insertBefore(js, fjs);
     }(document, 'script', 'facebook-jssdk'));</script>
     Facebook scocial like code prep end -->
-    <!-- Slider start -->
+    <!-- Slider start
     <div class="hlpf_no_margin_padding hidden-xs container-fluid">
        <img src="Images/image-slider-5.jpg" class="img-responsive center-block" >
     </div>
-    <!-- Slider end -->
+    Slider end -->
     <br>
     <header>
         <!-- Top start -->
@@ -45,10 +44,15 @@ include_once("Include/TestArea/DEBUGGIN.php");
         <!-- Nav end -->
     </header>
     <br>
+    <?php
+    if (isset($_SESSION['MsgForUser'])) {
+        include_once 'Include/MsgUser.php';
+    }
+    ?>
     <div class="container">
     <?php require_once("Include/PageCaller.php"); ?>
     </div>
-    <?php require_once("Include/TilesAndTournament.php"); ?>
+    <?php #require_once("Include/TilesAndTournament.php"); ?>
     <!-- Sponsors start -->
     <hr>
     <?php require_once("Include/Sponsors.php"); ?>
@@ -56,7 +60,11 @@ include_once("Include/TestArea/DEBUGGIN.php");
     <!-- Footer start -->
     <?php require_once("Include/Footer.php"); ?>
     <!-- Footer end -->
-    <script src="JS/Bootstrap/bootstrap.min.js"></script>
-   <?php require_once("Include/CoreParts/htmlBottem.php"); ?>
+   <?php require_once("Include/CoreParts/htmlBottom.php"); ?>
+   <?php
+    $endScriptTime=microtime(TRUE);
+    $totalScriptTime=$endScriptTime-$startScriptTime;
+    echo "\n\r".'<!-- Load time: '.number_format($totalScriptTime, 15).' seconds -->'."\n\r";
+   ?>
 </body>
 </html>

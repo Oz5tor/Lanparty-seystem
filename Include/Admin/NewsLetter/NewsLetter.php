@@ -11,27 +11,25 @@ if($action != '') {
       $NewOrEditNewsLetter = true;
       break;
     case 'Send':
-      $LetterResult = $db_conn->query("SELECT * FROM NewsLetter WHERE LetterID = '$URLID'");
+      require_once("class/SendMail.php");
+      $LetterResult = $db_conn->query("SELECT * FROM NewsLetter
+                                        WHERE LetterID = '$URLID'");
       $Lettercount = $LetterResult->num_rows;
       if($Lettercount == 1) {
         $LetterRow = $LetterResult->fetch_assoc();
         $Title = $LetterRow['Subject'];
         $Body = $LetterRow['Body'];
-        $NewsResult = $db_conn->query("SELECT Users.FullName, Users.Email, Users.NewsLetter FROM Users WHERE Users.NewsLetter = 1");
+        $NewsResult = $db_conn->query("SELECT Users.FullName, Users.Email, 
+        Users.NewsLetter FROM Users WHERE Users.NewsLetter = 1");
         while($NewsRow = $NewsResult->fetch_assoc()) {
-          // To send HTML mail, the Content-type header must be set
-          $headers[] = 'MIME-Version: 1.0';
-          $headers[] = 'Content-type: text/html; charset=UTF-8';
-          // Additional headers
-                                // Visual name          // recivers email
-          $headers[] = 'To: '.$NewsRow['FullName'].' <'.$NewsRow['Email'].'>';
-          $headers[] = 'From: HLParty Testin <noreply@hlparty.dk>';
-          // Mailed it!
-          mail($NewsRow['Email'], $Title, $Body, implode("\r\n", $headers));
+          // Send mail
+          echo SendMail($NewsRow["Email"],$NewsRow["FullName"],$Title,$Body,$_GLOBAL);
+          echo "<hr>";
         }// End of Users that want news
         // update news letter to be sent querry
         $sentTime = time();
-        $statement = $db_conn->query("UPDATE NewsLetter SET SentDate = '$sentTime' WHERE LetterID = '$URLID'");
+        $statement = $db_conn->query("UPDATE NewsLetter SET
+        SentDate = '$sentTime' WHERE LetterID = '$URLID'");
         header("Location: index.php?page=Admin&subpage=NewsLetter#admin_menu");
       }// letter count end
       break;

@@ -35,25 +35,27 @@ elseif (! empty( $page ) ) {
         /*case "Gallery": // not in use yet
             include_once("Include/TestArea/FBAlbumAPI.php");
             break;*/
-        case "Paypal":
+        /*case "Paypal":
             include_once("class/PayPalCheckout.php");
-            break;
+            break;*/
         case "Paypalpay":
             include_once("class/PayPalPay.php");
             break;
         case "NewsLetter":
             include_once("ShowNewsLetter.php");
             break;
+        case "Mailtest":
+            include_once("class/SendMail.php");
+            break;
+        case "Buy":
+            include_once("Include/OrderTicket/ChooseSeat.php");
+            break;
+        case "Forum":
+            include_once("Include/Forum/Forum.php");
+            break;
         default:
             include_once("Include/Page.php");
             break;
-    }
-    // Actions
-    switch($action){
-        case "LogOut":
-            session_destroy();
-            header("Location: index.php");
-        break;
     }
 }
 ?>

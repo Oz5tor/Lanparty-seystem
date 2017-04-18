@@ -1,7 +1,7 @@
 <?php
 // "class/seatmap.php" doesn't work here for some reason.
 include_once '../../../class/seatmap.php';
-require_once '../../../Include/CoreParts/DBConn.php';
+require_once '../../../Include/CoreParts/DBconn.php';
 // Check if anything has been send
 if (!empty($_REQUEST['generated_seatmap'])) {
 // Something has been send, let's do some magic!
@@ -56,20 +56,6 @@ $(document).ready(function() {
         [ 'k', 'unavailable', 'Kiosk'],
         [ 'a', 'unavailable', 'Optaget' ]
       ]
-    },
-    click: function () {
-      if (this.status() == 'available') {
-        //do some stuff, i.e. add to the cart
-        return 'selected';
-      } else if (this.status() == 'selected') {
-        //seat has been vacated
-        return 'available';
-      } else if (this.status() == 'unavailable') {
-        //seat has been already booked
-        return 'unavailable';
-      } else {
-        return this.style();
-      }
     }
   });
   // Make all these seats unavailable.

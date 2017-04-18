@@ -56,7 +56,7 @@ if(isset($NewOrEditNews) && $NewOrEditNews != false) {
       <td class="text-center">
         <?php
         if($row['Online'] == 0) {
-          echo '<span class="btn disabled btn-danger">Offline</span'
+          echo '<span class="btn disabled btn-danger">Offline</span>';
         } else {
           echo '<span class="btn disabled btn-success">Online</span>';
         }

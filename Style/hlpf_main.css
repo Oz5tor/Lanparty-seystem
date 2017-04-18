@@ -1,7 +1,5 @@
 body {
-    background-image: url(../Images/background.png);
-    background-color: #e8e8e8;
-    background-repeat: repeat;
+    background-color: #d1d1d1;
     overflow-y: scroll;
     overflow-x: none;
 }
@@ -70,6 +68,10 @@ textarea.hlpf_seatmap-gen {
     color: black;
     padding-top: 10px;
     padding-bottom: 10px;
+}
+
+.hlpf_Black_Border {
+    border: 1px solid black;
 }
 
 .hlpf_facebok_like { min-height: 22px; }
