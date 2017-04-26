@@ -223,7 +223,7 @@ if ( ! empty ($_POST['connection_token']))
                               $_SESSION['Email'] = $data->user->identity->emails[0]->value;
                               $propicture = explode('50',$data->user->identity->pictureUrl);
                               // calling larger picture than what we get from 'pictureUrl'^
-                              $_SESSION['PictureUrl'] = $propicture[0].'250';
+                              $_SESSION['PictureUrl'] = $propicture[0].'100';
 
                         break;
                         // Twitch TV

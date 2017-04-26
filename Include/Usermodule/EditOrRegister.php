@@ -9,6 +9,7 @@ if(!isset($_SESSION['UserToken']) && !isset($_SESSION['UserID'])){
         if(isset($_SESSION['FullName'])){ $FullName = $_SESSION['FullName'];}
         if(isset($_SESSION['Email'])){ $Email       = $_SESSION['Email'];}
         if(isset($_SESSION['PreffereredUsername'])){ $PreffereredUsername    = $_SESSION['PreffereredUsername'];}
+        if(isset($_SESSION['PictureUrl'])){$PictureUrl = $_SESSION['PictureUrl'];}else{$PictureUrl = "Images/Users/nopic.png";}
     }
     if(isset($_SESSION['UserID'])){
         $UserID = $_SESSION['UserID'];
@@ -153,14 +154,61 @@ if(!isset($_SESSION['UserToken']) && !isset($_SESSION['UserID'])){
           <input type="checkbox" <?php if(isset($NewsLetter) && $NewsLetter == 1){ echo 'checked';} ?> id="NewsLetter" value="1"
                  name="NewsLetter">
       </div>
-
+      <?php if($page != 'EditMyProfile'){ ?>
       <div class="form-group form-inline col-lg-3">
-          <?php if($page != 'EditMyProfile'){ ?>
             <label for="ToS">*Brugerbetinelser: </label>
             <input type="checkbox" id="ToS" value="1"  name="ToS">
-          <?php } ?>
       </div>
-
+      <?php } ?>
+      <div class="form-group col-lg-3">
+        <label>Profil Bilede:</label>
+        <div class="input-group">
+          <label class="input-group-btn" for="IMG">
+            <span class="btn btn-primary">
+              V&aelig;lg fil
+              <input class="form-control" style="display:none;" type="file" id="IMG" onchange="ReadFile(this);" name="IMG">
+            </span>
+          </label>
+          <input type="text" id="SelectedFile" class="form-control" readonly>
+        </div>  
+      </div>
+      <div class="form-group col-lg-3">
+            <img width="100" height="100" id="picIMG" style="border:solid black 1px;" src="<?php if(isset($PictureUrl)){echo $PictureUrl;} ?>">
+      </div>
+      <script type="text/javascript">
+        
+        $(function() {
+          // We can attach the `fileselect` event to all file inputs on the page
+          $(document).on('change', ':file', function() {
+            var input = $(this),
+                numFiles = input.get(0).files ? input.get(0).files.length : 1,
+                label = input.val().replace(/\\/g, '/').replace(/.*\//, '');
+            input.trigger('fileselect', [numFiles, label]);
+          });
+          // We can watch for our custom `fileselect` event like this
+          $(document).ready( function() {
+              $(':file').on('fileselect', function(event, numFiles, label) {
+                  var input = $(this).parents('.input-group').find(':text'),
+                      log = numFiles > 1 ? numFiles + ' files selected' : label;
+                  if( input.length ) {
+                      input.val(log);
+                  } else {
+                      if( log ) alert(log);
+                  }
+              });
+          });
+        });
+        
+        function ReadFile(input) {
+            if (input.files && input.files[0]) {
+                var reader = new FileReader();
+                reader.onload = function (e) {
+                  $('#picIMG').attr('src', e.target.result);
+                }
+                reader.readAsDataURL(input.files[0]);
+            }
+        }      
+      </script>
       <div class="form-group col-lg-12">
         <label class="control-label" for="Bio">Profil tekst:</label>
         <textarea id="PublicTinyMCE" class="form-control" rows="5" name="Bio" id="Bio">
@@ -186,6 +234,8 @@ if(!isset($_SESSION['UserToken']) && !isset($_SESSION['UserID'])){
           /* Dynamically add the user_token of the currently logged in user. */
           /* Leave the field blank in case the user has no user_token yet. */
           var user_token = '<?php echo $_SESSION['OneAllToken']; ?>';
+          //var user_token = '3481f41f-a719-4aca-949e-99978817a75c';
+          
 
           /* Embeds the buttons into the oa_social_link_container */
           var _oneall = _oneall || [];
