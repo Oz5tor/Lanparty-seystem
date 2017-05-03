@@ -15,3 +15,14 @@
       showMeridian: 1
     });
 </script>
+
+<script type="text/javascript">
+    $('.birthdayPicker').datetimepicker({
+      language:  'da',
+      startView: 4,
+      minView: 2,
+      maxView: 4,
+      format: 'dd-mm-yyyy',
+      autoclose: 1,
+    });
+</script>
