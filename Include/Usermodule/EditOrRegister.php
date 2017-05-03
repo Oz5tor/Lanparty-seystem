@@ -276,7 +276,7 @@ if(!isset($_SESSION['UserToken']) && !isset($_SESSION['UserID'])){
           <?php 
           echo '<ul class="alert alert-danger" role="alert"><b>Felt kravene er ikke opfyldt:</b>';
           foreach($RegErroMSG as $i){
-            echo '<li style="display:block;">*'.$i.'.</li>';
+            echo '<li">*'.$i.'.</li>';
           }
           echo '</ul>';
           unset($RegErroMSG);
