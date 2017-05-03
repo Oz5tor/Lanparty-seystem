@@ -28,18 +28,6 @@
                   </ul>
                 </li>
                 <li><a href="?page=Kontakt">Kontakt os</a></li>
-                <?php if(isset($_SESSION['UserID'])){ ?>
-                <li class="dropdown" id="hlpf_menu">
-                  <a class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Min profil <span class="caret"></span></a>
-                  <ul class="dropdown-menu">
-                      <li><a href="?page=EditMyProfile">Ret min profil</a></li>
-                      <?php if($_SESSION['Admin'] == 1){ ?> 
-                      <li><a href="?page=Admin">Administration</a></li>
-                      <?php } ?>
-                      <li><a href="?action=LogOut">Logud</a></li>
-                  </ul>
-                </li>
-                <?php } ?>
             </ul>
         </div><!--.nav-collapse -->
     </div>
