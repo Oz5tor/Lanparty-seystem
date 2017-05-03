@@ -8,6 +8,10 @@ hr { border: 1px solid #2060c0; }
 
 p { word-wrap: break-word; }
 
+li {
+  display: block;
+}
+
 textarea.hlpf_seatmap-gen {
   font-family: monospace, Consolas, Monaco, Lucida Console,
                 Liberation Mono, DejaVu Sans Mono,
