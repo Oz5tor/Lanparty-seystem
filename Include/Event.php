@@ -50,7 +50,7 @@
           <hr> <!-- HORIZONTAL LINE -->
           <div>
             <!-- Tickets prices -->
-            <h2>Billet Priser</h2>
+            <h2>Billet Priser <a href="?page=Buy" class="btn btn-primary">Køb billet her &raquo;</a></h2>
             <div class="row">
               <?php
               // Get distinct types //
@@ -105,7 +105,7 @@
           <br>
           <hr> <!-- HORIZONTAL LINE -->
           <!-- Seat map (Patricks magic) -->
-          <h2>Pladsoversigt <a href="?page=Buy" class="btn btn-primary">Køb billet her &raquo;</a></h2>
+          <h2 class="hidden-sm hidden-xs">Pladsoversigt</h2>
 
           <div id="map" class="col-lg-12 hidden-sm hidden-xs">
             <div id="generated-seat-map"></div>
