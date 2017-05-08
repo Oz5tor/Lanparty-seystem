@@ -106,11 +106,12 @@
           <hr> <!-- HORIZONTAL LINE -->
           <!-- Seat map (Patricks magic) -->
           <h2 class="hidden-sm hidden-xs">Pladsoversigt</h2>
-
+          <div id="generated-seat-map-legend" class="col-lg-12 hidden-sm hidden-xs"></div>
+          <br>
           <div id="map" class="col-lg-12 hidden-sm hidden-xs">
             <div id="generated-seat-map"></div>
           </div>
-          <div style="float: left;" id="generated-seat-map-legend" class="col-lg-12 hidden-sm hidden-xs"></div>
+          
           <div>
             <script src="JS/seat-charts/jquery.seat-charts.min.js"></script>
             <script type="text/javascript">
