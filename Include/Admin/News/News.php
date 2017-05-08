@@ -10,6 +10,14 @@ if($action != '') {
     case 'New':
       $NewOrEditNews = true;
       break;
+    case 'Online':
+      $db_conn->query("UPDATE News SET Online = '1' WHERE NewsID = '$URLID'");
+      header("location: index.php?page=Admin&subpage=News#admin_menu");
+      break;
+    case 'Ofline':
+      $db_conn->query("UPDATE News SET Online = '0' WHERE NewsID = '$URLID'");
+      header("location: index.php?page=Admin&subpage=News#admin_menu");
+      break;
   }
 }
 if(isset($NewOrEditNews) && $NewOrEditNews != false) {
@@ -21,13 +29,13 @@ if(isset($NewOrEditNews) && $NewOrEditNews != false) {
 <table class="table table-striped table-hover hlpf_adminmenu">
   <thead>
     <tr>
-      <th class="text-center">ID</th>
+      <!-- <th class="text-center">ID</th> -->
       <th class="text-center">Title</th>
       <th class="text-center">Lavet af</th>
       <th class="text-center">Lavet den</th>
       <th class="text-center">Sidst ændret af</th>
       <th class="text-center">Sidst ændret den</th>
-      <th class="text-center">Offentlig</th>
+      <th class="text-center">Offenlig&oslash;relse</th>
       <th class="text-center">Online</th>
       <th class="text-center">Redigér</th>
     </tr>
@@ -38,7 +46,7 @@ if(isset($NewOrEditNews) && $NewOrEditNews != false) {
   while ($row = $result->fetch_assoc()) {
   ?>
     <tr>
-      <td class="text-center"><?= $row['NewsID']; ?></td>
+      <!-- <td class="text-center"><? #$row['NewsID']; ?></td> -->
       <td class="text-center"><?= $row['Title']; ?></td>
       <td class="text-center"><?= TorGetUserName($row['AuthorID'], $db_conn); ?></td>
       <td class="text-center"><?= date("d M Y", $row['CreatedDate']); ?></td>
@@ -47,27 +55,23 @@ if(isset($NewOrEditNews) && $NewOrEditNews != false) {
       <td class="text-center">
         <?php
         if($row['PublishDate'] <= time()) {
-          echo '<span class="btn disabled btn-success">'.date("d.M.Y - G:i", $row['PublishDate']).'</span>';
+          echo '<span class="btn btn-success">'.date("d.M.Y - G:i", $row['PublishDate']).'</span>';
         } else {
-          echo '<span class="btn disabled btn-danger">'.date("d.M.Y - G:i", $row['PublishDate']).'</span>';
+          echo '<span class="btn btn-danger">'.date("d.M.Y - G:i", $row['PublishDate']).'</span>';
         }
         ?>
       </td>
       <td class="text-center">
         <?php
         if($row['Online'] == 0) {
-          echo '<span class="btn disabled btn-danger">Offline</span>';
+          echo '<a href="index.php?page=Admin&subpage=News&action=Online&id='.$row['NewsID'].'#admin_menu" class="btn btn-danger">Offline</a>';
         } else {
-          echo '<span class="btn disabled btn-success">Online</span>';
+          echo '<a href="index.php?page=Admin&subpage=News&action=Ofline&id='.$row['NewsID'].'#admin_menu" class="btn btn-success">Online</a>';
         }
         ?>
       </td>
       <td class="text-center">
-        <?php if($row["PublishDate"] > time()) { ?>
         <a href="index.php?page=Admin&subpage=News&action=Edit&id=<?= $row['NewsID']; ?>#admin_menu" class="btn btn-warning">Rediger</a>
-        <?php } else { ?>
-        <a href="index.php?page=Admin&subpage=News&action=Edit&id=<?= $row['NewsID']; ?>#admin_menu" class="btn disabled btn-danger">Rediger</a>
-        <?php } ?>
       </td>
     </tr>
   <?php } ?>
