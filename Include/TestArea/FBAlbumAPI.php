@@ -14,7 +14,7 @@ function GetFBIMGS($URl){
   return json_decode ($output, true);
 } // function end
 
-$url = "https://graph.facebook.com/v2.9/1333760126700707?fields=photos%7Bimages%7D&access_token=1713545498907250|yPiB5gfHwm-h0ycYq9HH1kCLh9Q";
+$url = "https://graph.facebook.com/v2.9/1333760126700707?fields=photos.limit(600)%7Bimages%7D&access_token=1713545498907250|yPiB5gfHwm-h0ycYq9HH1kCLh9Q";
 
 // %7B = {
 // %7D = }
@@ -44,6 +44,7 @@ while($BollNP){
     }else{$BollNP = false;}
   }
   $cop++;
+  #echo $cop;
 }
 
 foreach($imgs as $i){
@@ -60,6 +61,7 @@ echo print_r($imgs);
 echo "</pre>";
 echo "<pre>";
 echo print_r($json['photos']['paging']['next']);
+echo print_r($json['paging']['next']);
 echo "</pre>";
 echo "<pre>";
 echo print_r($json);
