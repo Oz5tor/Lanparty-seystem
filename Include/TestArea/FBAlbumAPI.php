@@ -48,7 +48,7 @@ while($BollNP){
 }
 
 foreach($imgs as $i){
-  echo '<img width="100" src="'.$i.'">';
+  echo '<img width="95" src="'.$i.'">';
 }
 
 //echo "<pre>";
