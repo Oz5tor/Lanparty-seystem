@@ -37,9 +37,9 @@ elseif (! empty( $page ) ) {
               include_once("NoPlannedEvents.php");
             }
             break;
-        /*case "Gallery": // not in use yet
+        case "Gallery": // not in use yet
             include_once("Include/TestArea/FBAlbumAPI.php");
-            break;*/
+            break;
         /*case "Paypal":
             include_once("class/PayPalCheckout.php");
             break;*/
