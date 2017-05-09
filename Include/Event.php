@@ -2,7 +2,7 @@
   // Include seatmap //
   include_once 'class/seatmap.php';
   // Get event info //
-  $event = $db_conn->query("SELECT e.Title, e.EventID, e.Poster, e.StartDate, e.EndDate, e.Location, e.Network, e.Seatmap, e.Rules FROM Event as e ORDER BY e.EventID DESC LIMIT 1");
+  $event = $db_conn->query("SELECT * FROM Event ORDER BY EventID DESC LIMIT 1");
   if( $event -> num_rows ) { $eventrows = $event->fetch_assoc(); }
   // Get seatmap info //
   $query = "SELECT Width, SeatString
@@ -50,7 +50,7 @@
           <hr> <!-- HORIZONTAL LINE -->
           <div>
             <!-- Tickets prices -->
-            <h2>Billet Priser</h2>
+            <h2>Billet Priser <a href="?page=Buy" class="btn btn-primary">Køb billet her &raquo;</a></h2>
             <div class="row">
               <?php
               // Get distinct types //
@@ -105,12 +105,13 @@
           <br>
           <hr> <!-- HORIZONTAL LINE -->
           <!-- Seat map (Patricks magic) -->
-          <h2>Pladsoversigt <a href="?page=Buy" class="btn btn-primary">Køb billet her &raquo;</a></h2>
-
-          <div id="map" class="col-lg-12">
+          <h2 class="hidden-sm hidden-xs">Pladsoversigt</h2>
+          <div id="generated-seat-map-legend" class="col-lg-12 hidden-sm hidden-xs"></div>
+          <br>
+          <div id="map" class="col-lg-12 hidden-sm hidden-xs">
             <div id="generated-seat-map"></div>
           </div>
-          <div style="float: left;" id="generated-seat-map-legend" class="col-lg-12"></div>
+          
           <div>
             <script src="JS/seat-charts/jquery.seat-charts.min.js"></script>
             <script type="text/javascript">

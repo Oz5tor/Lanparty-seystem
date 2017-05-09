@@ -126,6 +126,11 @@ textarea.hlpf_seatmap-gen {
 
 .list-group a:hover { text-decoration: none; }
 
+#generated-seat-map-legend ul li {
+  float: left;
+  margin-right: 5px;
+}
+
 /* ========== Temp styles  =============== */
 @-moz-document url-prefix() {
   fieldset { display: table-cell; }
