@@ -30,7 +30,12 @@ elseif (! empty( $page ) ) {
             include_once("Include/News.php");
             break;
         case "Event":
-            include_once("Include/Event.php");
+            $SQL = $db_conn->query("SELECT EventID FROM Event WHERE EndDate >".time());
+            if($SQL -> num_rows){
+              include_once("Include/Event.php");
+            }else {
+              include_once("NoPlannedEvents.php");
+            }
             break;
         /*case "Gallery": // not in use yet
             include_once("Include/TestArea/FBAlbumAPI.php");

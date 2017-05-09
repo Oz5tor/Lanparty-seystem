@@ -2,7 +2,7 @@
   // Include seatmap //
   include_once 'class/seatmap.php';
   // Get event info //
-  $event = $db_conn->query("SELECT e.Title, e.EventID, e.Poster, e.StartDate, e.EndDate, e.Location, e.Network, e.Seatmap, e.Rules FROM Event as e ORDER BY e.EventID DESC LIMIT 1");
+  $event = $db_conn->query("SELECT * FROM Event ORDER BY EventID DESC LIMIT 1");
   if( $event -> num_rows ) { $eventrows = $event->fetch_assoc(); }
   // Get seatmap info //
   $query = "SELECT Width, SeatString
