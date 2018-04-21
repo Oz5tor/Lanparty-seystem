@@ -32,6 +32,7 @@
                     <a href="#"><span class="fa fa-twitter fa-3x"></span></a>&nbsp;
                     <a href="#"><span class="fa fa-youtube fa-3x"></span></a>
                 </div>
-            </div>        
-        </div>
+            </div> <!-- outer col -->        
+        </div> <!-- row -->
+      </div> <!--  container -->
     </footer>
