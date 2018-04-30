@@ -4,6 +4,8 @@
       echo '<pre>'.PHP_EOL;
       echo 'SESSION: ';
       echo print_r($_SESSION).PHP_EOL;
+      echo 'Global Setings: ';
+      echo print_r($_GLOBAL).PHP_EOL;
       echo 'POST: ';
       echo print_r($_POST).PHP_EOL;
       echo 'GET: ';

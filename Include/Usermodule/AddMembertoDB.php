@@ -25,5 +25,5 @@
   $msg = str_replace('$year',$year,$msg);
   $msg = str_replace('$price',$price,$msg);
 
-  SendMail($email,$toname,'HLParty - Tak for dit Medlemsskab',$msg,$_GLOBAL);
+  #SendMail($email,$toname,'HLParty - Tak for dit Medlemsskab',$msg,$_GLOBAL);
 ?>
