@@ -1,4 +1,4 @@
-<footer class="container-fluid" id="hlpf_footer">
+<footer class="container-fluid" id="LanCMSfooter">
         <div class="container">
             <div class="row">
             <!-- Google Maps -->
@@ -8,7 +8,7 @@
             <!-- Generel information, kontaktinformation og sociale medier -->
             <div class="col-sm-12 col-md-6">
                 <!-- Adresse og kontakt -->
-                <div class="col-lg-6 hidden-xs hidden-sm hidden-md" id="hlpf_footer_contact">
+                <div class="col-lg-6 hidden-xs hidden-sm hidden-md" id="LanCMSfooter_contact">
                     <h2>Adresse</h2>
                     <address>
                         Hillerødsholmskolen <br>
@@ -21,7 +21,7 @@
                 <!-- Generelle links -->
                 <div class="col-lg-6">
                     <h2>Nyttige links</h2>
-                    <ul id="hlpf_footer_links">
+                    <ul id="LanCMSfooter_links">
                         <li><a href="#">Regler</a></li>
                         <li><a href="#">Konkurrencer</a></li>
                         <li><a href="#">Kantinen</a></li>

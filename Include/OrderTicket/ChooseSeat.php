@@ -137,7 +137,7 @@ if (isset($_POST['checkoutCart']) AND !empty($_POST['checkoutCart'])) {
       $db_conn->query($query);
     }
 ?>
-<div class="hlpf_contentbox row col-lg-12">
+<div class="LanCMScontentbox row col-lg-12">
   <h1>Hvem skal side hvor?</h1>
   <p>Skriv brugernanvet på den person der skal side på den enkelte plads.</p>
   <div class="row" id="namesForSeats">
@@ -251,7 +251,7 @@ function checkName() {
       $query = "UPDATE Tickets SET Tickets.UserID = " . GetIDFromUsername($value, $db_conn) .
         " WHERE Tickets.UserID = " . $_SESSION['UserID'] .
           " AND Tickets.RevokeDate IS NULL AND Tickets.TransactionCode IS NULL AND Tickets.SeatNumber = " . $key;
-          $_SESSION['SQL'] = $query;
+          //$_SESSION['SQL'] = $query;
       $db_conn->query($query);
     }
     $cart = [];
@@ -304,7 +304,7 @@ function checkName() {
   $theEvent = $db_conn->query($query)->fetch_assoc();
 ?>
 
-<div class="hlpf_contentbox row">
+<div class="LanCMScontentbox row">
   <div id="map" class="col-lg-9 col-md-12 col-sm-12 col-xs-12">
     <div id="Seatmap"></div>
   </div>

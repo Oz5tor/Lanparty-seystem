@@ -1,4 +1,4 @@
-<nav class="navbar navbar-fixed" id="hlpf_menu" role="navigation">
+<nav class="navbar navbar-fixed" id="LanCMSmenu" role="navigation">
     <div class="container">
         <div class="navbar-header">
             <a class="visible-xs navbar-brand" href="#">
@@ -9,11 +9,11 @@
                 <i class="fa fa-bars fa-2x" aria-hidden="true" style="color: white;"></i>
             </button>
         </div>
-        <div class="collapse navbar-collapse hlpf_white_text">
+        <div class="collapse navbar-collapse LanCMSwhite_text">
             <ul class="nav navbar-nav ">
                 <li class="active"><a href="index.php">Forside</a></li>
                 <li><a href="?page=Om_Os">Om os</a></li>
-                <li class="dropdown" id="hlpf_menu">
+                <li class="dropdown" id="LanCMSmenu">
                   <a class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">HLParty <span class="caret"></span></a>
                   <ul class="dropdown-menu">
                     <li><a href="?page=Event">Information</a></li>

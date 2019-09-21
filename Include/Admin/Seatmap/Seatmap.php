@@ -6,7 +6,7 @@ if (isset($action) && !empty($action)) {
 ?>
 <a href="?page=Admin&subpage=Seatmap&action=New" alt="Nyt seatmap" type="button" class="btn btn-info">Nyt Seatmap</a>
 <hr>
-<table class="table table-striped table-condensed table-hover hlpf_adminmenu">
+<table class="table table-striped table-condensed table-hover LanCMSadminmenu">
   <thead>
     <tr>
       <th class="text-center hidden-xs hidden-sm">ID</th>

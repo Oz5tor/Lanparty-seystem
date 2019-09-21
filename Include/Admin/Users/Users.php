@@ -18,7 +18,7 @@ if($action != ''){
  // create the Lsit over pages
 $result = $db_conn->query("SELECT Users.UserID, Users.Username, Users.FullName, Users.Created, Users.LastLogin, Users.Email, Users.Admin, Users.Phone FROM Users WHERE Inactive = 0 AND UserID NOT BETWEEN 2 AND 20");
 ?>
-<table class="table table-striped table-condensed table-hover hlpf_adminmenu">
+<table class="table table-striped table-condensed table-hover LanCMSadminmenu">
   <thead>
     <tr>
       <th class="text-center">ID</th>

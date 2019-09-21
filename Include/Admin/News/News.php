@@ -26,7 +26,7 @@ if(isset($NewOrEditNews) && $NewOrEditNews != false) {
 ?>
 <a href="?page=Admin&subpage=News&action=New#admin_menu" class="btn btn-info">Opret nyhed</a>
 <hr>
-<table class="table table-striped table-hover hlpf_adminmenu">
+<table class="table table-striped table-hover LanCMSadminmenu">
   <thead>
     <tr>
       <!-- <th class="text-center">ID</th> -->

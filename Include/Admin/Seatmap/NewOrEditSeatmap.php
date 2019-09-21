@@ -60,7 +60,7 @@ if(!empty($_POST)) {
     <h3 class="panel-title">Betegnelser</h3>
   </div>
   <div class="panel-body">
-    <ul class="hlpf_admin_seatmap">
+    <ul class="LanCMSadmin_seatmap">
       <li><code>a</code> En plads der er tilgængelig / kan købes.</li>
       <li><code>c</code> En plads der kun er til crew / kan ikke købes.</li>
       <li><code>k</code> Kiosk / kantine område.</li>
@@ -80,7 +80,7 @@ if(!empty($_POST)) {
   } else { echo "<h3>Nyt seatmap</h3>"; } ?>
   <form action="" method="POST">
     <div class="form-group">
-      <textarea id="generate-seat-map" class="form-control hlpf_seatmap-gen"
+      <textarea id="generate-seat-map" class="form-control LanCMSseatmap-gen"
             name="generate-seat-map" rows="10" autofocus><?php // Keep this PHP-tag close to the textarea!
       if ($action == "Edit" AND !empty($SeatmapID)) {
         // If we are editing a seatmap...

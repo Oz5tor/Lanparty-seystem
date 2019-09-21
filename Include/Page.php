@@ -1,5 +1,5 @@
 <div class="row">
-    <div class="col-lg-12 hlpf_contentbox">
+    <div class="col-lg-12 LanCMScontentbox">
         <?php
           if( ctype_digit( strval( $page ) ) ) {
             $result = $db_conn->query( "
@@ -48,12 +48,12 @@
         }else{
         ?>
         <div class="row">
-            <div class="col-lg-12 hlpf_large_news_box">
+            <div class="col-lg-12 LanCMSlarge_news_box">
                 <h3>
                     <?php echo str_replace('_',' ',$row[ 'PageTitle' ]); ?>
                 </h3>
                 <hr/>
-                <div class="hlpf_flex">
+                <div class="LanCMSflex">
                         <!-- Content -->
                         <?php echo "<p>" . $row[ 'Content' ] . "</p>"; ?>
                 </div>
