@@ -1,7 +1,7 @@
 <?php
 // ======================================================================
 
-$ROOTURL = $_SERVER['SERVER_NAME'].'/Website-2017/';
+$ROOTURL = $_SERVER['SERVER_NAME'].'/Website-2017';
 
 // ======================================================================
 // page // hvilken side er det man står på

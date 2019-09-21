@@ -251,7 +251,7 @@ function checkName() {
       $query = "UPDATE Tickets SET Tickets.UserID = " . GetIDFromUsername($value, $db_conn) .
         " WHERE Tickets.UserID = " . $_SESSION['UserID'] .
           " AND Tickets.RevokeDate IS NULL AND Tickets.TransactionCode IS NULL AND Tickets.SeatNumber = " . $key;
-          $_SESSION['SQL'] = $query;
+          //$_SESSION['SQL'] = $query;
       $db_conn->query($query);
     }
     $cart = [];

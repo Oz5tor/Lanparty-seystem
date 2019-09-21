@@ -11,3 +11,8 @@
 
 <!-- Style override -->
 <link rel="stylesheet" href="Style/hlpf_main.css">
+
+<?php if(@page == 'Gallery'){?> 
+  <link rel="stylesheet" href="MagnificPopup/src/css/main.scss">
+  <link rel="stylesheet" href="MagnificPopup/src/css/_settings.scss">
+<?php } ?>

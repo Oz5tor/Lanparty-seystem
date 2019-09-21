@@ -1,4 +1,5 @@
 <?php
+    //unset($_SESSION['SQL']);
     // sessions
     if (true) {
       echo '<pre>'.PHP_EOL;

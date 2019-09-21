@@ -38,3 +38,12 @@
   var s = document.getElementsByTagName('script')[0];
   s.parentNode.insertBefore(oa, s);
 </script>
+
+<?php if(@page == 'Gallery'){?> 
+  <link rel="stylesheet" href="MagnificPopup/src/js/core.js">
+  <link rel="stylesheet" href="MagnificPopup/src/js/ajax.js">
+  <link rel="stylesheet" href="MagnificPopup/src/js/gallery.js">
+  <link rel="stylesheet" href="MagnificPopup/src/js/image.js">
+  <link rel="stylesheet" href="MagnificPopup/src/js/zoom.js">
+  <link rel="stylesheet" href="MagnificPopup/src/js/retina.js">
+<?php } ?>

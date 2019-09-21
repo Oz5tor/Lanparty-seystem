@@ -57,13 +57,13 @@ else{
       echo '</pre>';
       echo '</div>';
       $retunto = $_GET['returnto'];
-    echo "
+    /*echo "
       <script type='text/javascript'> setTimeout(
         function() {
             window.location = '$retunto';
         }, 5000);
       </script>
-      ";
+      ";*/
     }catch(Exception $ex){
       $data = json_decode($ex->getData());
       echo $data->message;
