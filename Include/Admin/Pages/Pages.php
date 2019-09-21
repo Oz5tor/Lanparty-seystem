@@ -37,7 +37,7 @@ $result = $db_conn->query("Select * from Pages ORDER BY AdminOnly ASC, Online DE
 ?>
 <a href="?page=Admin&subpage=Pages&action=New#admin_menu" alt="Ny Side" type="button" class="text-center btn btn-info">Opret Ny Side</a>
 <hr>
-<table class="table table-striped table-condensed table-hover hlpf_adminmenu">
+<table class="table table-striped table-condensed table-hover LanCMSadminmenu">
   <thead>
     <tr>
       <th class="text-center">ID</th>

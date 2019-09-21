@@ -49,7 +49,7 @@ $result = $db_conn->query("SELECT * FROM NewsLetter ORDER BY SentDate DESC, Lett
   Nyt Nyhedsbrev
 </a>
 <hr>
-<table class="table table-striped table-condensed table-hover hlpf_adminmenu">
+<table class="table table-striped table-condensed table-hover LanCMSadminmenu">
   <thead>
     <tr>
       <th class="text-center">Title</th>

@@ -69,7 +69,7 @@ if(isset($NewOrEditSponsor) && $NewOrEditSponsor != false) {
 ?>
 <a href="?page=Admin&subpage=Sponsors&action=New#admin_menu" alt="Ny Side" type="button" class="text-center btn btn-info">Opret Ny Sponsor</a>
 <hr>
-<table class="table table-striped table-condensed table-hover hlpf_adminmenu">
+<table class="table table-striped table-condensed table-hover LanCMSadminmenu">
   <thead>
     <tr>
       <th width="15%" class="text-center hidden-xs hidden-sm">Image</th>

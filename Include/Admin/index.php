@@ -4,7 +4,7 @@ require_once("class/GetUsernameFromID.php");
 ?>
 <?php if (!empty($_SESSION['SQLStatus'])) { ?>
   <div class="row">
-    <div class="hlpf_contentbox col-lg-12 col-sm-12">
+    <div class="LanCMScontentbox col-lg-12 col-sm-12">
       <h4>SQL Message</h4>
       <pre><?= $_SESSION['SQLStatus']; ?></pre>
     </div>
@@ -14,7 +14,7 @@ require_once("class/GetUsernameFromID.php");
 }
 ?>
 <div class="row">
-  <div id="admin_menu" class="col-lg-12 col-sm-12 hlpf_contentbox hlpf_adminmenu">
+  <div id="admin_menu" class="col-lg-12 col-sm-12 LanCMScontentbox LanCMSadminmenu">
     <ul class="list-group">
       <?php
       $adminTabs= [
@@ -55,7 +55,7 @@ require_once("class/GetUsernameFromID.php");
       ?>
     </ul>
   </div>
-  <div class="col-lg-12 col-sm-12 hlpf_contentbox">
+  <div class="col-lg-12 col-sm-12 LanCMScontentbox">
     <div id="admin_panel" class="table-responsive">
       <!-- Load pages here... -->
       <?php

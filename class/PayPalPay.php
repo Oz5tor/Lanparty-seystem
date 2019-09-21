@@ -49,7 +49,7 @@ else{
         $_SESSION['payPalSuccess'] = $sucess;
         require_once("Include/ORderTicket/PayPalConfirmation.php");
       }
-      echo '<div class="hlpf_contentborder">';
+      echo '<div class="LanCMScontentborder">';
       echo '<p>Betaling Gemmenført, du vil blive sendt til forsiden om 5 sekunder...</p>';
       echo '<p><a href="index.php">Klik her for at komme til forsiden</a></p>';
       echo '<pre>';

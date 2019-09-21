@@ -37,7 +37,7 @@ if($action == 'Edit'){
 }
 ?>
 <!-- Missing the form -->
-<table class="table hlpf_adminmenu">
+<table class="table LanCMSadminmenu">
   <form method="post" class="form-group" action="">
     <div class="form-group col-lg-6">
       <label class="control-label" for="Title">Title:</label>

@@ -29,7 +29,7 @@ require_once("Include/CoreParts/global_settings.php");
     }(document, 'script', 'facebook-jssdk'));</script>
     Facebook scocial like code prep end -->
     <!-- Slider start
-    <div class="hlpf_no_margin_padding hidden-xs container-fluid">
+    <div class="LanCMSno_margin_padding hidden-xs container-fluid">
        <img src="Images/image-slider-5.jpg" class="img-responsive center-block" >
     </div>
     Slider end -->

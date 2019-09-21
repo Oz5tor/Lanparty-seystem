@@ -23,7 +23,7 @@
 	$kgPagerOBJ -> pager_set($pager_url , $total_records , $scroll_page , $per_page , $current_page , $inactive_page_tag , $previous_page_text , $next_page_text , $first_page_text , $last_page_text , $pager_url_last);
 	$albums_result = mysqli_query($db_conn,$news_sql." ORDER BY PublishDate DESC LIMIT ".$kgPagerOBJ -> start.", ".$kgPagerOBJ -> per_page."");
 ?>
-	<div class="col-lg-12 hlpf_contentbox">
+	<div class="col-lg-12 LanCMScontentbox">
 <?php
 	while ($news_row = mysqli_fetch_assoc($albums_result))
 	{

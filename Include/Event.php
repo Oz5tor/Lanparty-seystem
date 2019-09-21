@@ -35,7 +35,7 @@
   }
 ?>
 
-<div class="col-lg-12 hlpf_contentbox">
+<div class="col-lg-12 LanCMScontentbox">
   <div class="row">
     <!-- Basic info -->
     <div class="col-lg-12">
@@ -91,7 +91,7 @@
                           $theB = 0;
                         }
                         // Create divs //
-                        echo "<div style='display: inline-block; background-color: rgb(" . $theR . ", " . $theG . ", " . $theB . "); width: " . $colwidth . "&#37;' class='text-center hlpf_Black_Border'>" .
+                        echo "<div style='display: inline-block; background-color: rgb(" . $theR . ", " . $theG . ", " . $theB . "); width: " . $colwidth . "&#37;' class='text-center LanCMSBlack_Border'>" .
                         date("d/m",$row["StartTime"]) . " - " . date("d/m",$row["EndTime"]) . "<br>" . $row["Price"] . ",-" . "</div>";
                         $i++;
                       }
@@ -158,7 +158,7 @@
         <h4>Arrangør</h4>
         <p>
           HLParty arrangeres af foreningen Hovedstadens LanParty Forening. Foreningen er en folkeoplysende forening, godkendt i Hillerød kommune. Foreningens formål er (uddrag af vedtægter):
-          <blockquote class="hlpf_smallerquote">
+          <blockquote class="LanCMSsmallerquote">
             <i>Foreningens formål er at samle unge mennesker, primært i hovedstadsområdet, med interesse for computere og IT, for derved at medvirke til at styrke medlemmernes sociale kompetencer, skabe kontakt på tværs af kommunegrænser, etnicitet, køn og alder og styrke medlemmernes almennyttige IT kundskaber til glæde for den enkelte, såvel som for samfundet.</i>
             <small>Hovedstadens LANParty Forening</small>
           </blockquote>

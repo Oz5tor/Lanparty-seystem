@@ -38,7 +38,7 @@ if(!isset($_SESSION['UserToken']) && !isset($_SESSION['UserID'])){
     }// Form submit end
     ?>
     <!-- Form Start -->
-<div class="row hlpf_contentbox">
+<div class="row LanCMScontentbox">
     <div class="col-lg-12">
       <img class="img-responsive" src="Images/image-slider-5.jpg">
     </div>
