@@ -10,7 +10,7 @@ class ChallongeFunctions{
   function ChallongeCurlPost($params, $what){
     $data_json = json_encode($params);
     $ch = curl_init();
-    curl_setopt($ch, CURLOPT_URL,'https://hlpf:n2aigDz8ofsnCwpHSZqapJzIf84f3C5rS4tYh6iL@api.challonge.com/v1/'.$what.'.json');
+    curl_setopt($ch, CURLOPT_URL,'https://oz5tor:dkijyzF3VeQdBxxX713xO6UzofqGbAfjN2jdWHlb@api.challonge.com/v1/'.$what.'.json');
     curl_setopt($ch, CURLOPT_HTTPHEADER, array('Content-Type: application/json','Content-Length: ' . strlen($data_json)));
     curl_setopt($ch, CURLOPT_CUSTOMREQUEST, 'POST');
     curl_setopt($ch, CURLOPT_POSTFIELDS,$data_json);
@@ -60,23 +60,30 @@ class ChallongeFunctions{
     return ChallongeFunctions::ChallongeCurlGet($atributes);
   }
   # ================================================
-  function CreateTournament($TName, $TUrl, $TSubdomain, $TDescription, $TSignUpOpen, $TThirdPlaceMatch, $TSignupCap, $TStartTime){
-    $params = array(
-      "name" => $TName,
-      //"tournament_type" => $TType,
-      "url" => $TUrl,
-      "subdomain" => $TSubdomain,
-      "description" => $TDescription,
-      "open_signup" => $TSignUpOpen,
-      "hold_third_place_match" => $TThirdPlaceMatch,
-      "hide_forum" => true,
-      "show_rounds" => true,
-      "open_signup" => false,
-      "allow_participant_match_reporting" => 0,
-      "signup_cap" => $TSignupCap
-    );    
-    return ChallongeFunctions::ChallongeCurlPost($params, "tournaments");
-  }
+  function CreateTournament($att, $api_key, $postFields){
+    $curl = curl_init();
+
+    curl_setopt_array($curl, array(
+      CURLOPT_URL => "https://api.challonge.com/v1/tournaments?".$api_key."&".$att,
+      CURLOPT_RETURNTRANSFER => true,
+      CURLOPT_ENCODING => "",
+      CURLOPT_MAXREDIRS => 10,
+      CURLOPT_TIMEOUT => 30,
+      CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+      CURLOPT_CUSTOMREQUEST => "POST",
+      CURLOPT_POSTFIELDS => $postFields
+    )); 
+    $response = curl_exec($curl);
+    $err = curl_error($curl);
+
+    $xmlelement = new SimpleXMLElement($response);
+    curl_close($curl);
+    if ($err) {
+      return false;
+    } else {
+      return $xmlelement;
+    }
+}
   # ================================================
   /*function SetTournamentCheckIn($TournamentID){
     $what = "tournaments/".$TournamentID.'/process_check_ins.json';
