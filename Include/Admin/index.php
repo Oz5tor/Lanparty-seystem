@@ -27,7 +27,7 @@ require_once("class/GetUsernameFromID.php");
         "News"        => "Nyheder",
         "NewsLetter"  => "Nyheds Brev",
         "Event"       => "Arrangementer",
-        #"Competitions" =>  "Konkurrencer",
+        "Competitions" =>  "Konkurrencer",
         "Seatmap"     => "Seatmaps",
         "Sponsors"    => "Sponsore",
       ];
@@ -38,7 +38,7 @@ require_once("class/GetUsernameFromID.php");
         ( SELECT COUNT(*) FROM NewsLetter ) as NewsLetter,
         ( SELECT COUNT(*) FROM Event ) as Event,
         ( SELECT COUNT(*) FROM Sponsors ) as Sponsors,
-        #( SELECT COUNT(*) FROM Competitions ) as Competitions,
+        ( SELECT COUNT(*) FROM Competitions ) as Competitions,
         ( SELECT COUNT(*) FROM Seatmap ) as Seatmap
       ");
       if( $result -> num_rows ) {
