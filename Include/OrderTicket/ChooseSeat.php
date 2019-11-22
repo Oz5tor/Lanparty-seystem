@@ -80,7 +80,7 @@ if (isset($_POST['checkoutCart']) AND !empty($_POST['checkoutCart'])) {
   if (count($json) == 1) {
     // Only one seat chosen...
     $seat = preg_replace("(cart-item-)", "", $json[0]);
-    $query = "INSERT INTO hlparty.Tickets (UserID, EventID, SeatNumber, OderedDate)
+    $query = "INSERT INTO Tickets (UserID, EventID, SeatNumber, OderedDate)
         VALUES (" . $_SESSION['UserID'] . ", " . $event['EventID'] . ", " . $seat . ", " . time() . ")";
     if (!$db_conn->query($query)) {
       $_SESSION['MsgForUser'] = "Fejl ved resevering af sæde...";
@@ -132,7 +132,7 @@ if (isset($_POST['checkoutCart']) AND !empty($_POST['checkoutCart'])) {
     sort($json);
     $timeNow = time();
     for ($i=0; $i < count($json); $i++) {
-      $query = "INSERT INTO hlparty.Tickets (UserID, EventID, SeatNumber, OderedDate)
+      $query = "INSERT INTO Tickets (UserID, EventID, SeatNumber, OderedDate)
           VALUES (" . $_SESSION['UserID'] . ", " . $event['EventID'] . ", " . substr($json[$i], -3) . ", " . $timeNow . ")";
       $db_conn->query($query);
     }
@@ -190,7 +190,7 @@ function checkName() {
     // Same name was used twice
     $_SESSION['MsgForUser'] = "En person kan ikke have to sæder...";
     // Remove the resevation, so the user can pick the seats again.
-    $query = "DELETE FROM hlparty.Tickets WHERE Tickets.UserID = " . $_SESSION['UserID'] .
+    $query = "DELETE FROM Tickets WHERE Tickets.UserID = " . $_SESSION['UserID'] .
         " AND Tickets.EventID = " . $event['EventID'] .
         " AND Tickets.RevokeDate IS NULL AND Tickets.TransactionCode IS NULL";
     $db_conn->query($query);
@@ -213,7 +213,7 @@ function checkName() {
         $_SESSION['MsgForUser'] = $_SESSION['MsgForUser'] . $naughtyUsers[$i] . " ";
       }
       // Remove the resevation, so the user can pick the seats again.
-      $query = "DELETE FROM hlparty.Tickets WHERE Tickets.UserID = " . $_SESSION['UserID'] .
+      $query = "DELETE FROM Tickets WHERE Tickets.UserID = " . $_SESSION['UserID'] .
           " AND Tickets.EventID = " . $event['EventID'] .
           " AND Tickets.RevokeDate IS NULL";
       $db_conn->query($query);
@@ -236,7 +236,7 @@ function checkName() {
         $_SESSION['MsgForUser'] = $_SESSION['MsgForUser'] . $naughtyUsers[$i] . " ";
       }
       // Remove the resevation, so the user can pick the seats again.
-      $query = "DELETE FROM hlparty.Tickets WHERE Tickets.UserID = " . $_SESSION['UserID'] .
+      $query = "DELETE FROM Tickets WHERE Tickets.UserID = " . $_SESSION['UserID'] .
           " AND Tickets.EventID = " . $event['EventID'] .
           " AND Tickets.RevokeDate IS NULL";
       $db_conn->query($query);
@@ -295,7 +295,8 @@ function checkName() {
   /*
     STEP ONE - CHOOSE SEATS
   */
-  include_once 'class/seatmap.php';
+  require_once 'class/seatmap.php';
+  
   $query = "SELECT Seatmap.Width AS Width, Seatmap.SeatString AS SeatString
       FROM Event
       INNER JOIN Seatmap
@@ -334,7 +335,9 @@ $(document).ready(function() {
       $counter = $('#Seatmap-Counter'),
       $total = $('#Seatmap-Total'),
       sc = $('#Seatmap').seatCharts({
-      map: [<?php seatmap_generation($theEvent['SeatString'], $theEvent['Width']) ?>],
+      map: [<?php
+              seatmap_generation($theEvent['SeatString'], $theEvent['Width']) 
+            ?>],
       seats: {
         a: {
           price: <?php if (isset($eventPrice)) { echo $eventPrice; } ?>,
