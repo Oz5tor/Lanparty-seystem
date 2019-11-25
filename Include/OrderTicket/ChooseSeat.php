@@ -11,9 +11,7 @@ if (!isset($_SESSION['UserID'])) {
 require 'class/PayPalCheckout.php';
 $event = $db_conn->query("SELECT e.EventID, e.Seatmap, e.Title FROM Event as e
                           ORDER BY e.EventID DESC LIMIT 1")->fetch_assoc();
-
-$query = "SELECT * FROM TicketPrices WHERE TicketPrices.EventID = " . $event['EventID'] .
-    " AND TicketPrices.Type = 'Ikke medlem' AND " .
+$query = "SELECT * FROM TicketPrices WHERE TicketPrices.EventID = " . $event['EventID'] . " AND TicketPrices.Type = 'Ikke-medlem' AND " .
     time() . " BETWEEN TicketPrices.StartTime AND TicketPrices.EndTime";
 $result = $db_conn->query($query)->fetch_assoc();
 $eventPrice = $result['Price'];
