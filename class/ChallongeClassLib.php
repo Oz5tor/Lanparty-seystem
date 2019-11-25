@@ -60,7 +60,7 @@ class ChallongeFunctions{
     return ChallongeFunctions::ChallongeCurlGet($atributes);
   }
   # ================================================
-  function CreateTournament($att, $api_key, $postFields){
+  function CreateTournament($att, $api_key){
     $curl = curl_init();
 
     curl_setopt_array($curl, array(
@@ -71,7 +71,7 @@ class ChallongeFunctions{
       CURLOPT_TIMEOUT => 30,
       CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
       CURLOPT_CUSTOMREQUEST => "POST",
-      CURLOPT_POSTFIELDS => $postFields
+      #CURLOPT_POSTFIELDS => $postFields
     )); 
     $response = curl_exec($curl);
     $err = curl_error($curl);
@@ -79,7 +79,7 @@ class ChallongeFunctions{
     $xmlelement = new SimpleXMLElement($response);
     curl_close($curl);
     if ($err) {
-      return false;
+      echo "cURL Error #:" . $err;
     } else {
       return $xmlelement;
     }
