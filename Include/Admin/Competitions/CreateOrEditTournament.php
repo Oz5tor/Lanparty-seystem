@@ -28,8 +28,9 @@ if(isset($_POST['CreateTournament'])){
   $atts = str_replace(" ", "%20", $atts);
   
   if(ChallongeFunctions::CreateTournament($atts, $key) == True){
-    echo $db_conn->query("INSERT Competitions (EventID, GameID, CompStart, SignupOpen, SignupClose, MaxSignups, TeamSize, BracketsLink, DescText, Online)
+    $db_conn->query("INSERT Competitions (EventID, GameID, CompStart, SignupOpen, SignupClose, MaxSignups, TeamSize, BracketsLink, DescText, Online)
                             VALUES ('$eventID', '$Game', '$CompStart', '$SignUpOpen', '$SignUpClose','$MaxSignups','$TeamSize','$URL', '$Desc', '$Online')");  
+    header("Location: Index.php?pageAdmin&subpage=Competitions#admin_menu");
   }// If Func true end
 }// Post Form End
 ?>
@@ -39,10 +40,16 @@ if(isset($_POST['CreateTournament'])){
           <label class="control-label" for="Game">Hvilket Spil:</label>
           <select name="Game" class="form-control">
             <option>Vælg Spil</option>
-            <option value="Counter-Strike: Global Offensive">
-              Counter-Strike: Global Offensive
-            </option>
-            <option value="League Of Legends">League Of Legends</option>
+            <?php
+              $GamesReuslt = $db_conn->query("Select * From CompetitionGames");
+              while ($Games = $GamesReuslt->fetch_assoc()){
+            ?>
+              <option value="<?php echo $Games['GameID']; ?>">
+                <?php echo $Games['GameName']; ?>
+              </option>
+              <?php
+              }
+            ?>
           </select>
       </div>
       <div class="form-group col-lg-3">
