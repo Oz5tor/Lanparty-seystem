@@ -24,14 +24,14 @@ if (isset($newOrEdit) && $newOrEdit != '') {
 }
 else {
 ?>
-<div class="row">
   <div class="col-lg-6 col-sm-6 col-xs-6">
     <a href="?page=Admin&subpage=Competitions&action=NewT#admin_menu" alt="Ny Konkurrence" type="button" class="text-center btn btn-info">Opret ny konkurrence</a>
   </div>
+  
   <div class="col-lg-6 col-sm-6 col-xs-6">
     <a href="?page=Admin&subpage=Competitions&action=NewG#admin_menu" alt="Nyt Spil" type="button" class="text-center btn btn-info">Opret nyt spil</a>
   </div>
-</div>
+<br />
 
 <hr>
 <div class="text-center alert alert-info" role="alert">
@@ -43,7 +43,7 @@ else {
       <th class="text-center">Spil</th>
       <th class="text-center">Tunerings start</th>
       <th class="text-center">Tilmeldte</th>
-      <th class="text-center">Hold størrelse</th>
+      <th class="text-center">Hold Størrelse</th>
       <th class="text-center">Tilmeldning</th>
       <th class="text-center">synlig</th>
       <th class="text-center">Challonge</th> <!-- Link to the Tournament on challonge -->
@@ -64,15 +64,20 @@ else {
     $GName = $GameName->fetch_assoc();
     # Get Matching Game Image from DB END
     ?>
+    
     <tr>
       <td align="center">
         <img class=" img-responsive" width="35" src="Images/games/<?= $GName['Image']; ?>"/>
       </td>
       <td>
         <?php if(time() >= $Comps['CompStart']){ ?>
-        <button class="disabled btn btn-danger">Startet</button>
+        <button class="disabled btn btn-danger">
+          Startet: <?php echo date("d M Y - H:i", $Comps['CompStart']); ?>
+        </button>
         <?php }else if(time() <= $Comps['CompStart']) { ?>
-        <button class="btn btn-success">Åben</button>
+        <button class="btn btn-success">
+          Starter: <?php echo date("d M Y - H:i", $Comps['CompStart']); ?>
+        </button>
         <?php } ?>
       </td>
       <td class="text-center">
@@ -102,11 +107,14 @@ else {
         <a href="index.php?page=Admin&subpage=Competitions&action=EditT&id=<?= $Comps['ID']; ?>#admin_menu" style="display:block;" class="btn btn-warning">Rediger</a>
       </td>
       <td>
-        <a href="index.php?page=Competittion=<?= $Comps['ID']; ?>" class="btn btn-primary">
+        <button class="btn btn-primary" data-toggle="collapse" data-target="#Comp<?= $Comps['ID']; ?>">
           Mere
-        </a>
+        </button>
       </td>
     </tr>
+    
+    
+    
     
     <?php } ?>
   </tbody>
