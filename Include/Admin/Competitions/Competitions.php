@@ -112,10 +112,24 @@ else {
         </button>
       </td>
     </tr>
-    
-    
-    
-    
+    <tr>
+      <td colspan="9">
+        <table id="Comp<?= $Comps['ID']; ?>" class="collapse LanCMSadminmenu">
+          <tr>
+            <td>
+              <div class="row">
+                <div class="col-lg-12">
+                  Tilmeldte hold/spiller,
+                  Send Tilmeldte hold til Challonge,
+                  Comp Desc,
+                  Tunering skal startes manuelt på Challong, det samme gældero pdatering af Kamp resultater
+                </div>
+              </div>
+            </td>
+          </tr>
+        </table>
+      </td>
+    </tr>
     <?php } ?>
   </tbody>
 </table>
