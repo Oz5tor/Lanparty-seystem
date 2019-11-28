@@ -32,7 +32,7 @@ require_once("class/GetUsernameFromID.php");
         "Sponsors"    => "Sponsore",
       ];
       $result = $db_conn->query( "SELECT
-        ( SELECT COUNT(*) FROM Users WHERE Inactive = 0 AND UserID NOT BETWEEN 2 AND 20  ) as Users,
+        ( SELECT COUNT(*) FROM Users WHERE Inactive = 0  ) as Users,
         ( SELECT COUNT(*) FROM News ) as News,
         ( SELECT COUNT(*) FROM Pages ) as Pages,
         ( SELECT COUNT(*) FROM NewsLetter ) as NewsLetter,
