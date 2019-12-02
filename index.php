@@ -52,9 +52,8 @@ require_once("Include/CoreParts/global_settings.php");
     <div class="container">
     <?php require_once("Include/PageCaller.php"); ?>
     </div>
-    <?php #require_once("Include/TilesAndTournament.php"); ?>
+    <?php require_once("Include/TilesAndTournament.php"); ?>
     <!-- Sponsors start -->
-    <hr>
     <?php require_once("Include/Sponsors.php"); ?>
     <!-- Sponsors end -->
     <!-- Footer start -->
