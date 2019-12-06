@@ -7,14 +7,9 @@ if(isset($_POST['CreateGame'])){
   $GameName = $db_conn->real_escape_string($_POST['GameName']);
   
   $db_conn->query("Insert Into CompetitionGames (GameName, Image ) VALUES ('$GameName','$GImage')");
-  header("Location: index.php?page=Admin&subpage=Competitions&action=NewG");
-  
+  header("Location: index.php?page=Admin&subpage=Competitions&action=NewG"); 
 }
-
-
-
 ?>
-
 
 <h3>Opret Nyt Spil</h3>
 <form action="" method="post" enctype="multipart/form-data">
