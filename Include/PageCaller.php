@@ -56,7 +56,7 @@ elseif (! empty( $page ) ) {
             include_once("Include/OrderTicket/ChooseSeat.php");
             break;
         case "Competitions":
-            include_once("Include/CompetitionsList.php");
+            include_once("Include/Competitions/CompetitionsList.php");
             break;
         default:
             include_once("Include/Page.php");
