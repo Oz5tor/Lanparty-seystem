@@ -37,10 +37,9 @@ $row = $comps->fetch_assoc();
     <?= $row['DescText']; ?>  
 </div>
   <div class="row">
-    
     <div class="text-center col-lg-12">
       <hr>
-      <iframe id="challonge" src="https://challonge.com/PostmandTest47/module?theme=7575&show_final_results=0&show_standings=0?multiplier=1&match_width_multiplier=1&subdomain=&_=157621804462" width="100%" height="600" frameborder="0" allowtransparency="true"></iframe>
+      <iframe frameborder="0" class="col-lg-12" height="600" src="https://challonge.com/<?= $row['BracketsLink']; ?>/module?theme=7575&show_final_results=1"></iframe>
     </div>
   </div>
 </div>
