@@ -16,7 +16,6 @@ if($action != ''){
       $EventID = $_GLOBAL["EventID"];
       $comps = $db_conn->query("Select * From Competitions 
       Inner Join CompetitionGames On Competitions.GameID = CompetitionGames.GameID Where EventID = $EventID Order by ID Desc");
-        
       while($row = $comps->fetch_assoc()){
     ?>
     <div class="text-center col-lg-3 col-md-6 col-xs-6 thumbnail">

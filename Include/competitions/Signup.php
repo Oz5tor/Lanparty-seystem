@@ -15,18 +15,21 @@ $MaxTeamSize = $row['TeamSize'];
 if(isset($_POST['Save'])){
   
   $TeamName       = $db_conn->real_escape_string($_POST['TeamName']);
-  $TeamMembers[]  = $_POST['TeamList'];
-  $TeamMembers    = $TeamMembers[0]; // get inner array
+  $TeamMembers    = $_POST['TeamList'];
   $PostCount = count($TeamMembers);
-  if ($PostCount < $MaxTeamSize){
-    
-  } // end of less than $MaxTeamSize
-  else if ($PostCount > $MaxTeamSize){
-    
-  } // end of Larger than $MaxTeamSize
-  else if ($PostCount == $MaxTeamSize){ // Finaly lets do something xD
-    
+  
+  
+  
+  # =============== Insert Team and Team Members Start =======================
+  $db_conn->query("Insert into CompTeams (TeamName, CompID) VALUES ('$TeamName', '$CompID')");
+  $GetTeamID = $db_conn->query("Select TeamID From CompTeams Where TeamName = '$TeamName' AND CompID = '$CompID'");
+  $TempTeamID = $GetTeamID->fetch_assoc();
+  $TempTeamID = $TempTeamID['TeamID'];  
+  foreach($TeamMembers as $Player){
+    echo $Player.'<br>';
+    $db_conn->query("Insert into CompTeamsMember (TeamID, UserName) VALUES ('$TempTeamID', '$Player')");
   }
+  # =============== Insert Team and Team Members End =======================
   
   
 } // end of post
@@ -59,6 +62,7 @@ if(isset($_POST['Save'])){
   
   <div class="col-lg-12">
     <hr />
+    <?php require_once("Include/MsgUser.php"); ?>
     <?php if ($MaxTeamSize == 1){ ?>
     <?php }else { ?>
     <form action="" method="post" enctype="multipart/form-data">
