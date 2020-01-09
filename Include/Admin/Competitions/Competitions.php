@@ -114,20 +114,62 @@ else {
     </tr>
     <tr>
       <td colspan="9">
-        <table id="Comp<?= $Comps['ID']; ?>" class="collapse LanCMSadminmenu">
-          <tr>
-            <td>
+        <div id="Comp<?= $Comps['ID']; ?>" class="collapse">
               <div class="row">
-                <div class="col-lg-12">
-                  Tilmeldte hold/spiller,
-                  Send Tilmeldte hold til Challonge,
-                  Comp Desc,
-                  Tunering skal startes manuelt på Challong, det samme gældero pdatering af Kamp resultater
+                <button class="btn btn-info" data-toggle="collapse" data-target="#DescComp<?= $Comps['ID']; ?>" >Tunernings Beskrivelse</button>
+                <div id="DescComp<?= $Comps['ID']; ?>" class="col-lg-12 collapse">
+                  <?= $Comps['DescText']; ?>
                 </div>
               </div>
-            </td>
-          </tr>
-        </table>
+              <hr>
+              <div class="row">
+                <div class="col-lg-12">
+                  Tilmeldte Hold:
+                </div>
+                  <!-- <div class="col-lg-3">
+                    <button class="btn btn-info" data-toggle="collapse" data-target="#teamx" >Static Team</button>
+                    <div id="teamx" class="collapse">Static Team</div>
+                  </div>
+                  <div  class="col-lg-3">
+                    <button class="btn btn-info" data-toggle="collapse" data-target="#teamx1">Static Team</button>
+                    <div id="teamx1" class="collapse">Static Team</div>
+                  </div>
+                  <div  class="col-lg-3">
+                    <button class="btn btn-info" data-toggle="collapse" data-target="#teamx2">Static Team</button>
+                    <div id="teamx2" class="collapse">Static Team</div>
+                  </div>
+                  <div  class="col-lg-3">
+                    <button class="btn btn-info" data-toggle="collapse" data-target="#teamx3">Static Team</button>
+                    <div id="teamx3" class="collapse">Static Team</div>
+                  </div>
+                  <div class="col-lg-3">
+                    <button class="btn btn-info" data-toggle="collapse" data-target="#teamx4" >Static Team</button>
+                    <div id="teamx4" class="collapse">Static Team</div>
+                  </div>
+                  <div  class="col-lg-3">
+                    <button class="btn btn-info" data-toggle="collapse" data-target="#teamx5">Static Team</button>
+                    <div id="teamx5" class="collapse">Static Team</div>
+                  </div>
+                  <div  class="col-lg-3">
+                    <button class="btn btn-info" data-toggle="collapse" data-target="#teamx6">Static Team</button>
+                    <div id="teamx6" class="collapse">Static Team</div>
+                  </div>
+                  <div  class="col-lg-3">
+                    <button class="btn btn-info" data-toggle="collapse" data-target="#teamx7">Static Team</button>
+                    <div id="teamx7" class="collapse">Static Team</div>
+                  </div>  Really want this to work but dont bother at the moment 09/01/2020 -->
+              </div>
+              <hr>
+                  <?php 
+                    if(time() >= $Comps['CompStart']){
+                  ?>
+                  <div class="row">
+                    <iframe frameborder="0" class="col-lg-12" height="600" src="https://challonge.com/<?= $Comps['BracketsLink']; ?>/module?theme=7575&show_final_results=1"></iframe>
+                  </div>
+                  <?php
+                    } // end if comp is started
+                  ?>          
+        </div>
       </td>
     </tr>
     <?php } ?>
