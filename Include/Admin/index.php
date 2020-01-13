@@ -55,8 +55,9 @@ require_once("class/GetUsernameFromID.php");
       ?>
     </ul>
   </div>
-  <div class="col-lg-12 col-sm-12 LanCMScontentbox">
-    <div id="admin_panel" class="table-responsive">
+</div>
+<div class="row">
+  <div id="admin_panel" class="col-lg-12 col-sm-12 LanCMScontentbox">
       <!-- Load pages here... -->
       <?php
       if($subpage !=''){
@@ -65,6 +66,5 @@ require_once("class/GetUsernameFromID.php");
         echo "<h3 class='text-center'>Velkommen til administrationen, Sir. Admin</h3>";
       }
       ?>
-    </div>
   </div>
 </div>

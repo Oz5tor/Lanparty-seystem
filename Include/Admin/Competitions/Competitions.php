@@ -23,6 +23,30 @@ if (isset($newOrEdit) && $newOrEdit != '') {
   include_once("Include/Admin/Competitions/CreateNewGame.php");
 }
 else {
+  
+  
+function ChallongeStarted ($ApiKey, $ChallongeLink){
+$curl = curl_init();
+curl_setopt_array($curl, array(
+  CURLOPT_URL => "https://api.challonge.com/v1/tournaments/$ChallongeLink/matches.json?api_key=$ApiKey",
+  CURLOPT_RETURNTRANSFER => true,
+  CURLOPT_ENCODING => "",
+  CURLOPT_MAXREDIRS => 10,
+  CURLOPT_TIMEOUT => 0,
+  CURLOPT_FOLLOWLOCATION => true,
+  CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+  CURLOPT_CUSTOMREQUEST => "GET",
+));
+
+$response = curl_exec($curl);
+
+curl_close($curl);
+if($response == "[]"){
+  return false;
+}else {return true;}
+  
+  
+}
 ?>
   <div class="col-lg-6 col-sm-6 col-xs-6">
     <a href="?page=Admin&subpage=Competitions&action=NewT#admin_menu" alt="Ny Konkurrence" type="button" class="text-center btn btn-info">Opret ny konkurrence</a>
@@ -34,9 +58,9 @@ else {
 <br />
 
 <hr>
-<div class="text-center alert alert-info" role="alert">
-  Der vises kun Tuneringer for aktuelt Event ( <?= $_GLOBAL['EventName']; ?> )
-</div>
+  <div class="col-lg-12 text-center alert alert-info" role="alert">
+    Der vises kun Tuneringer for aktuelt Event ( <?= $_GLOBAL['EventName']; ?> )
+  </div>
 <table class="table table-striped table-condensed table-hover LanCMSadminmenu">
   <thead>
     <tr>
@@ -116,12 +140,47 @@ else {
       <td colspan="9">
         <div id="Comp<?= $Comps['ID']; ?>" class="collapse">
               <div class="row">
-                <button class="btn btn-info" data-toggle="collapse" data-target="#DescComp<?= $Comps['ID']; ?>" >Tunernings Beskrivelse</button>
-                <div id="DescComp<?= $Comps['ID']; ?>" class="col-lg-12 collapse">
+                  <div class="col-lg-4">
+                    <button class=" btn btn-info" data-toggle="collapse" data-target="#DescComp<?= $Comps['ID']; ?>" >Tunernings Beskrivelse</button>
+                  </div>
+                
+                <?php
+                  $Akey = $_GLOBAL['ChallongeApiKey'];
+                  $Link  = $Comps['BracketsLink'];
+                  $Sub   = $_GLOBAL['ChallongeSubDomain'];
+                  $ChallongeStarted = ChallongeStarted($Akey, $Sub.'-'.$Link);
+                  
+                  if($ChallongeStarted == true){
+                    ?>
+                    <div class="col-lg-4">
+                      <button disabled class=" btn btn-primary">Send tilmelte hold til Challonge</button>
+                    </div>
+                    <div class="col-lg-4">
+                      <button disabled class=" btn btn-primary">Start Tunering i challonge systemet</button>
+                    </div>
+                    <?php
+                  }else {
+                    ?>
+                    <div class="col-lg-4">
+                      <button class=" btn btn-primary">Send tilmelte hold til Challonge</button>
+                    </div>
+                    <div class="col-lg-4">
+                      <button class=" btn btn-primary">Start Tunering i challonge systemet</button>
+                    </div>
+                    <?php
+                  }
+                ?>
+              </div>
+          <hr>
+              <div class="row">
+                <div class="col-lg-12">
+                  <div id="DescComp<?= $Comps['ID']; ?>" class="collapse">
                   <?= $Comps['DescText']; ?>
+                  <hr>
+                  </div>
                 </div>
               </div>
-              <hr>
+              
               <div class="row">
                 <div class="col-lg-12">
                   Tilmeldte Hold:
@@ -159,9 +218,9 @@ else {
                     <div id="teamx7" class="collapse">Static Team</div>
                   </div>  Really want this to work but dont bother at the moment 09/01/2020 -->
               </div>
-              <hr>
-                  <?php 
-                    if(time() >= $Comps['CompStart']){
+              <!-- <hr> -->
+                  <?php
+                    if((time() >= $Comps['CompStart']) && ($ChallongeStarted == true)){
                   ?>
                   <div class="row">
                     <iframe frameborder="0" class="col-lg-12" height="600" src="https://challonge.com/<?= $Comps['BracketsLink']; ?>/module?theme=7575&show_final_results=1"></iframe>
