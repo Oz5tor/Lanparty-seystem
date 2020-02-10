@@ -182,10 +182,7 @@ if($response == "[]"){
               </div>
               
               <div class="row">
-                <div class="col-lg-12">
-                  Tilmeldte Hold:
-                </div>
-                  <!-- <div class="col-lg-3">
+                  <div class="col-lg-3">
                     <button class="btn btn-info" data-toggle="collapse" data-target="#teamx" >Static Team</button>
                     <div id="teamx" class="collapse">Static Team</div>
                   </div>
@@ -201,6 +198,8 @@ if($response == "[]"){
                     <button class="btn btn-info" data-toggle="collapse" data-target="#teamx3">Static Team</button>
                     <div id="teamx3" class="collapse">Static Team</div>
                   </div>
+                </div>
+                <div class="row">
                   <div class="col-lg-3">
                     <button class="btn btn-info" data-toggle="collapse" data-target="#teamx4" >Static Team</button>
                     <div id="teamx4" class="collapse">Static Team</div>
@@ -216,9 +215,9 @@ if($response == "[]"){
                   <div  class="col-lg-3">
                     <button class="btn btn-info" data-toggle="collapse" data-target="#teamx7">Static Team</button>
                     <div id="teamx7" class="collapse">Static Team</div>
-                  </div>  Really want this to work but dont bother at the moment 09/01/2020 -->
+                  </div>
               </div>
-              <!-- <hr> -->
+              <hr>
                   <?php
                     if((time() >= $Comps['CompStart']) && ($ChallongeStarted == true)){
                   ?>
@@ -234,10 +233,6 @@ if($response == "[]"){
     <?php } ?>
   </tbody>
 </table>
-
-
-
-
 <?php 
 }
 ?>
