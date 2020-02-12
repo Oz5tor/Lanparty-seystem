@@ -140,8 +140,11 @@ if($response == "[]"){
       <td colspan="9">
         <div id="Comp<?= $Comps['ID']; ?>" class="collapse">
               <div class="row">
-                  <div class="col-lg-4">
+                  <div class="col-lg-3">
                     <button class=" btn btn-info" data-toggle="collapse" data-target="#DescComp<?= $Comps['ID']; ?>" >Tunernings Beskrivelse</button>
+                  </div>
+                  <div class="col-lg-3">
+                    <button class=" btn btn-info" data-toggle="collapse" data-target="#Teams" >Tilmeldte Teams</button>
                   </div>
                 
                 <?php
@@ -152,10 +155,10 @@ if($response == "[]"){
                   
                   if($ChallongeStarted == true){
                     ?>
-                    <div class="col-lg-4">
+                    <div class="col-lg-3">
                       <button disabled class=" btn btn-primary">Send tilmelte hold til Challonge</button>
                     </div>
-                    <div class="col-lg-4">
+                    <div class="col-lg-3">
                       <button disabled class=" btn btn-primary">Start Tunering i challonge systemet</button>
                     </div>
                     <?php
@@ -180,7 +183,8 @@ if($response == "[]"){
                   </div>
                 </div>
               </div>
-              
+              <!-- class="collapse" -->
+              <div id="Teams">
               <div class="row">
                   <div class="col-lg-3">
                     <button class="btn btn-info" data-toggle="collapse" data-target="#teamx" >Static Team</button>
@@ -217,7 +221,9 @@ if($response == "[]"){
                     <div id="teamx7" class="collapse">Static Team</div>
                   </div>
               </div>
-              <hr>
+                <hr>
+              </div> <!-- End of signed teams colapse -->
+              
                   <?php
                     if((time() >= $Comps['CompStart']) && ($ChallongeStarted == true)){
                   ?>
