@@ -1,5 +1,5 @@
 <?php
-require_once("class/GetUserNameFromID.php");
+require_once("class/GetUsernameFromID.php");
 $CompID = mysqli_real_escape_string($db_conn,strip_tags($_GET['id']));
 $comps = $db_conn->query("Select * From CompetitionGames Inner Join Competitions On Competitions.GameID = CompetitionGames.GameID
                           Inner Join Event On Competitions.EventID = Event.EventID Where ID  = $CompID LIMIT 1");

@@ -2,10 +2,10 @@
 if($action != ''){
     switch($action){
       case 'Info':
-        include_once("Include/competitions/Compinfo.php");
+        include_once("Include/Competitions/Compinfo.php");
         break;
       case 'Signup':
-        include_once("Include/competitions/Signup.php");
+        include_once("Include/Competitions/Signup.php");
         break;
     } 
 }else{
