@@ -12,6 +12,8 @@ $query2 = "Select * from Event Where StartDate >= $now LIMIT 1";
 $result2 = $db_conn->query($query2);
 $row2 = $result2->fetch_assoc();
 
-$_GLOBAL['EventID'] = $row2['EventID'];
-$_GLOBAL['EventName'] = $row2['Title'];
-$_GLOBAL['OneAllActive'] = 0;
+if(!$result2->num_rows == 0){
+    $_GLOBAL['EventID'] = $row2['EventID'];
+    $_GLOBAL['EventName'] = $row2['Title'];
+}
+$_GLOBAL['OneAllActive'] = 1;
