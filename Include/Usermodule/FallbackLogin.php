@@ -82,8 +82,8 @@ if(isset($_POST["Login"])){
           <!-- List of Zipcodes in Denmark End -->
           <!-- For Reset password end -->
         <span class="col-lg-1"></span>
-        <a onclick="showStuff()" id="forgotPass" class="col-lg-5">Glemt Kodeord</a>
-        <input class="col-lg-5 btn btn-success form-control" type="submit" name="Login"  id="knap" value="Logind">
+        <a onclick="showStuff()" id="forgotPass" class="col-lg-6">Glemt Kodeord</a>
+        <input class="col-lg-6 btn btn-success form-control" type="submit" name="Login"  id="knap" value="Logind">
         <span class="col-lg-1"></span>
         <script type="text/javascript">
         function showStuff(){
