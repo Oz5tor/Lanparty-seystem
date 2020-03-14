@@ -22,9 +22,9 @@
 // You get these values in your OneAll account at: https://app.oneall.com/
 // Login >> Site Configuration > Click on a Site Name
 //
-define ('SITE_SUBDOMAIN', 'localhosttest2kage');
-define ('SITE_PUBLIC_KEY', '9a53bb86-36a4-4cab-a51b-b3ad7b6219ab');
-define ('SITE_PRIVATE_KEY', 'd494d291-c421-4272-9d8c-737573c65a38');
+define ('SITE_SUBDOMAIN', 'topper-tordk');
+define ('SITE_PUBLIC_KEY', '679f7a14-2083-41d0-9944-9d6b2643ec10');
+define ('SITE_PRIVATE_KEY', '0a29a223-c956-4504-9a3d-fe3c15c5382c');
 
 
 //
