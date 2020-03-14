@@ -3,7 +3,7 @@
 require_once("Include/Usermodule/BecomeMember.php");
 
 if(!isset($_SESSION['UserToken']) && !isset($_SESSION['UserID'])){
-    header("Location: /Website-2017/index.php");
+    header("Location: index.php");
 }else{
     if(isset($_SESSION['UserToken'])){
         if(isset($_SESSION['FullName'])){ $FullName = $_SESSION['FullName'];}
