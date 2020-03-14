@@ -10,9 +10,9 @@ if ( ! empty ($_POST['connection_token']))
     $token = $_POST['connection_token'];
 
     // Your Site Settings
-    $site_subdomain = 'topper-tordk';
-    $site_public_key = '679f7a14-2083-41d0-9944-9d6b2643ec10';
-    $site_private_key = '0a29a223-c956-4504-9a3d-fe3c15c5382c';
+    $site_subdomain = 'localhosttest2kage';
+    $site_public_key = '9a53bb86-36a4-4cab-a51b-b3ad7b6219ab';
+    $site_private_key = 'd494d291-c421-4272-9d8c-737573c65a38';
 
     // API Access domain
     $site_domain = $site_subdomain.'.api.oneall.com';
@@ -54,10 +54,6 @@ if ( ! empty ($_POST['connection_token']))
 
     // Extract data
     $data = $json->response->result->data;
-        
-    echo '<pre>';
-    print_r($data);
-    echo '</pre>';
 
     // Check for service
     switch ($data->plugin->key)
@@ -187,10 +183,6 @@ if ( ! empty ($_POST['connection_token']))
                 case "twitch":
                   $user_id = get_user_id_for_user_token($user_token, 'OneallUserToken', $db_conn);
                 break;
-                // Discord
-                case "discord":
-                  $user_id = get_user_id_for_user_token($user_token, 'OneallUserToken', $db_conn);
-                break;
             }
                 if ($user_id == null)
                 {
@@ -239,14 +231,6 @@ if ( ! empty ($_POST['connection_token']))
                               $_SESSION['SocialNetwork'] = 'twitch';
                               $_SESSION['UserToken'] = $user_token;
                               $_SESSION['ProfileUrl'] = $data->user->identity->profileUrl;
-                              $_SESSION['PreffereredUsername'] = $data->user->identity->preferredUsername;
-                              $_SESSION['Email'] = $data->user->identity->emails[0]->value;
-                              $_SESSION['PictureUrl'] = $data->user->identity->pictureUrl;
-                        break;
-                        // Discord
-                        case "discord":
-                              $_SESSION['SocialNetwork'] = 'discord';
-                              $_SESSION['UserToken'] = $user_token;
                               $_SESSION['PreffereredUsername'] = $data->user->identity->preferredUsername;
                               $_SESSION['Email'] = $data->user->identity->emails[0]->value;
                               $_SESSION['PictureUrl'] = $data->user->identity->pictureUrl;
