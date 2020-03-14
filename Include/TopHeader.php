@@ -9,7 +9,9 @@
             if($_GLOBAL['OneAllActive'] != 1){
               require_once("Include/Usermodule/FallbackLogin.php");
             }else{
-              require_once("Include/Usermodule/OneAllLoginBox.php");
+                if(!isset($_SESSION['SocialNetwork'])){
+                 require_once("Include/Usermodule/OneAllLoginBox.php");   
+                }
             }
           }else{
             require_once("Include/Usermodule/Userbox.php");
