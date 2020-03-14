@@ -41,7 +41,7 @@
             $row = $result->fetch_assoc();
           } else {
             // TO THE FRONT-PAGE!
-            header("Location: /Website-2017/index.php");
+            header("Location: index.php");
           }
         if($row['AdminOnly'] == 1){
               header("Location: index.php");
