@@ -20,6 +20,12 @@ textarea.LanCMSseatmap-gen {
   resize: vertical;
 }
 
+.LanCMSequal {
+  display: flex;
+  display: -webkit-flex;
+  flex-wrap: wrap;
+}
+
 #LanCMSbottom_margin { margin-bottom: 15px; }
 
 #LanCMSfooter {
