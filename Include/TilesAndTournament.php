@@ -25,7 +25,6 @@
 <!-- Tournaments end -->
     
 <!-- Menu tiles start -->
-    <div class="container">
         <div class="row">
             <div class="col-xs-6 col-md-3 col-sm-3 LanCMSmargin_botom">
                 <a href="index.php?page=Competitions" class="">
@@ -48,6 +47,5 @@
                 </a>    
             </div>
         </div>
-    </div>
     <hr>
 <!-- Menu tiles end -->
