@@ -27,26 +27,58 @@ if($page != 'EditMyProfile')
     $RegErroMSG[] .= 'Kodeord & Bekræft Kodeord passed ikke sammen';
   }
 }
-if($page != 'EditMyProfile'){
-  $tempUsername = $_POST['Username'];
-  if($result = $db_conn ->query("SELECT Username FROM Users Where Username = '$tempUsername' AND Inactive = '0'")){
-    if($result -> num_rows){
-        $RegErroMSG[] .='Brugernavnet findes, beklager';
-        $FormAOKAY = 1;
+# === SQL to check for if its the same as currunt for user is submitted === #
+if(isset($_SESSION['UserID'])){
+    $tempUserID = $_SESSION['UserID'];
+    if($CurruntUserResult = $db_conn ->query("SELECT * FROM Users Where UserID = '$tempUserID' AND Inactive = '0'")){
+        $TTempUser = $CurruntUserResult->fetch_assoc();
+        if($TTempUser['Username'] != $_POST['Username']){
+            $tempUsername = $_POST['Username'];
+            if($result = $db_conn ->query("SELECT Username FROM Users Where Username = '$tempUsername' AND Inactive = '0'")){
+                if($result -> num_rows){
+                    $RegErroMSG[] .='Brugernavnet findes, beklager';
+                    $FormAOKAY = 1;
+                }
+            }
+        }
+        if($TTempUser['Email'] != $_POST['Email']){
+            $tempEmail = $_POST['Email'];
+            if($result = $db_conn ->query("SELECT Username FROM Users Where Email = '$tempEmail' AND Inactive = '0'")){
+                if($result -> num_rows){
+                    $RegErroMSG[] .='Email adressen findes, beklager';
+                    $FormAOKAY = 1;
+                }
+            }
+        }    
     }
-  }
+    
+}else{
+    $tempUsername = $_POST['Username'];
+    if($result = $db_conn ->query("SELECT Username FROM Users Where Username = '$tempUsername' AND Inactive = '0'")){
+        if($result -> num_rows){
+            $RegErroMSG[] .='Brugernavnet findes, beklager';
+            $FormAOKAY = 1;
+        }
+    }
+    $tempEmail = $_POST['Email'];
+    if($result = $db_conn ->query("SELECT Username FROM Users Where Email = '$tempEmail' AND Inactive = '0'")){
+        if($result -> num_rows){
+            $RegErroMSG[] .='Email adressen findes, beklager';
+            $FormAOKAY = 1;
+        }
+    }
 }
 
 ##################### Rember Submitted feilds content ###########################
 $PreffereredUsername    = $_POST['Username'];
 $FullName               = $_POST['FullName'];
-$Birthday               = strtotime($_POST['Birthday']);
+$Birthday               = $_POST['Birthday'];
 $Address                = $_POST['Address'];
 $Zipcode                = $_POST['Zipcode'];
 $NewClan                = $db_conn->real_escape_string($_POST['NewClan']);
 $Email                  = $_POST['Email'];
 $Phone                  = $_POST['Phone'];
-$Clan                   = $db_conn->real_escape_string($_POST['Clan']);
+if(!isset($_POST['NewClan'])){$Clan = $db_conn->real_escape_string($_POST['Clan']);}else { $Clan = 0;}
 $Bio                    = $_POST['Bio'];
 
 ######################## Clans ##################################################
@@ -57,13 +89,13 @@ $finalClan = 0;
 if($Clan != 0){
 $finalClan = $Clan;
 }else{
-  if($NewClanExist = $db_conn->query("SELECT * FROM Clan WHERE Name = '$NewClan'")){
+  if($NewClanExist = $db_conn->query("SELECT * FROM Clan WHERE ClanName = '$NewClan'")){
     if($NewClanExist->num_rows == 1){
       $NewClanExistRow = $NewClanExist->fetch_assoc();
       $finalClan = $NewClanExistRow['ClanID'];
     }else{
-      if($db_conn->query("INSERT INTO Clan (Name) VALUES ('$NewClan')")){
-        if($NewClanResult = $db_conn->query("SELECT * FROM Clan WHERE Name = '$NewClan'")){
+      if($db_conn->query("INSERT INTO Clan (ClanName) VALUES ('$NewClan')")){
+        if($NewClanResult = $db_conn->query("SELECT * FROM Clan WHERE ClanName = '$NewClan'")){
           $NewClanRow = $NewClanResult->fetch_assoc();
           $finalClan = $NewClanRow['ClanID'];
         }
@@ -94,7 +126,7 @@ if($FormAOKAY == 0){ // For sucessfull filled
     if(isset($_SESSION['PictureUrl'])){
       $PictureName = $_SESSION['PictureUrl'];
     }else{
-      $PictureName = '';
+      $PictureName = $row['ProfileIMG'];
     } 
   }
       
@@ -114,7 +146,7 @@ if($FormAOKAY == 0){ // For sucessfull filled
     $Zipcode    = $db_conn->real_escape_string($_POST['Zipcode']);
     $Bio        = $db_conn->real_escape_string($_POST['Bio']);
     if(isset($_POST['NewsLetter'])){ $NewsLetter = $_POST['NewsLetter'];} else{$NewsLetter = 0;}
-    $Birthday = strtotime($Birthday);
+    $Birthday = $Birthday;
 
     if(isset($_SESSION['SocialNetwork'])){
         switch($_SESSION['SocialNetwork']){
@@ -143,6 +175,11 @@ if($FormAOKAY == 0){ // For sucessfull filled
                 $profileURLCol = 'BattlenetID';
                 $profileURL = $_SESSION['BattleTag'];
             break;
+            case 'discord':
+                #$TokenRow      = 'BattlenetToken';
+                $profileURLCol = 'DiscordName';
+                $profileURL = $_SESSION['ProfileUrl'];
+            break;
         }
     }
     if($page == 'EditMyProfile'){ // user edits own informations
@@ -152,7 +189,7 @@ if($FormAOKAY == 0){ // For sucessfull filled
                                           Address = '$Address', Phone = '$Phone', NewsLetter = '$NewsLetter',
                                           ClanID = '$finalClan', ProfileIMG = '$PictureName'
                           WHERE UserID = '$UserID'")){}
-          header("Location: index.php?page=EditMyProfile");
+         header("Location: index.php?page=EditMyProfile");
     }
     else // user creation
     {
@@ -183,10 +220,21 @@ if($FormAOKAY == 0){ // For sucessfull filled
               echo $_SESSION['Admin'] = $row['Admin'];
               echo $_SESSION['OneAllToken'] = $token;
               $LastLogin = time();
-              if($db_conn->query("UPDATE Users SET LastLogin = '$LastLogin' WHERE UserID = '$tempUserID'")){ echo 'Senest login opdatert';}else{echo 'Senest login Ikke opdatert';}
+              if($db_conn->query("UPDATE Users SET LastLogin = '$LastLogin' WHERE UserID = '$tempUserID'")){ echo 'Senest login opdateret';}else{echo 'Senest login Ikke opdatert';}
               header("Location: index.php?page=EditMyProfile");
             }else{echo 'find ny bruger fejled';}
-        }else {echo 'opret fejled';}
+        }else {
+            echo 'opret fejled';
+        }
     }
-} // if formOKAY end
+// if formOKAY end
+}else{
+    $FormErros = "Disse felter er var ikke gyldige!!!";
+    $FormErros .= '<ul>';
+    foreach($RegErroMSG as $err){
+        $FormErros .= "<li>$err</li>";
+    }
+    $FormErros .= '</ul>';
+    $_SESSION['MsgForUser'] = $FormErros;
+}
 ?>

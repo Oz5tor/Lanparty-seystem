@@ -55,9 +55,9 @@ if ( ! empty ($_POST['connection_token']))
     // Extract data
     $data = $json->response->result->data;
         
-    echo '<pre>';
-    print_r($data);
-    echo '</pre>';
+    #echo '<pre>';
+    #print_r($data);
+    #echo '</pre>';
 
     // Check for service
     switch ($data->plugin->key)
@@ -80,6 +80,7 @@ if ( ! empty ($_POST['connection_token']))
               $identity_token = $data->user->identity->source->key;
               switch($identity_token){
                 case "facebook":
+                  $ProfileURL = $data->user->identity->displayName;
                   $db_conn->query("Update Users SET FacebookURL = '$ProfileURL' WHERE OneallUserToken = '$temptoken'");
                   break;
                 case "battlenet":
@@ -94,6 +95,10 @@ if ( ! empty ($_POST['connection_token']))
                   break;
                 case "steam":
                   $db_conn->query("Update Users SET SteamURL = '$ProfileURL' WHERE OneallUserToken = '$temptoken'");
+                  break;
+                case "discord":
+                  $ProfileURL = $data->user->identity->displayName;    
+                  $db_conn->query("Update Users SET DiscordName = '$ProfileURL' WHERE OneallUserToken = '$temptoken'");
                   break;
 
               }
@@ -118,36 +123,55 @@ if ( ! empty ($_POST['connection_token']))
             #echo "</pre>";
 
             if(!in_array('google',$providers)){
+                #echo "Google";
               $db_conn->query("UPDATE Users SET GoogleURL = 'NULL' WHERE OneallUserToken = '$temptoken'");
             }
             if(!in_array('facebook',$providers)){
+                #echo "Facebook";
               $db_conn->query("UPDATE Users SET FacebookURL = 'NULL' WHERE OneallUserToken = '$temptoken'");
             }
             if(!in_array('battlenet',$providers)){
+                #echo "Battlenet";
               $db_conn->query("UPDATE Users SET BattlenetID = 'NULL' WHERE OneallUserToken = '$temptoken'");
             }
             if(!in_array('twitch',$providers)){
+                #echo "Twitch";
               $db_conn->query("UPDATE Users SET TwitchURL = 'NULL' WHERE OneallUserToken = '$temptoken'");
             }
             if(!in_array('steam',$providers)){
+                #echo "Steam";
               $db_conn->query("UPDATE Users SET SteamURL = 'NULL' WHERE OneallUserToken = '$temptoken'");
             }
+            if(!in_array('discord',$providers)){
+                #echo "Discord";
+              $db_conn->query("UPDATE Users SET DiscordName = 'NULL' WHERE OneallUserToken = '$temptoken'");
+            }
 
-            if($urlResult = $db_conn->query("SELECT SteamURL, GoogleURL, FacebookURL, TwitchURL, BattlenetID FROM Users WHERE OneallUserToken = '$temptoken' LIMIT 1")){
-              $urlRow = $urlResult->fetch_assoc();
+            if($urlResult = $db_conn->query("SELECT SteamURL, GoogleURL, FacebookURL, TwitchURL, BattlenetID, DiscordName FROM Users WHERE OneallUserToken = '$temptoken' LIMIT 1")){
+              $urlRow = $urlResult->fetch_assoc();  
+             #echo $urlRow["SteamURL"];
+             #echo #$urlRow["GoogleURL"];
+             #echo $urlRow["FacebookURL"];
+             #echo $urlRow["TwitchURL"];
+             #echo $urlRow["BattlenetID"];
+             #echo $urlRow["DiscordName"];
+                
+              
               if($urlRow["SteamURL"] == 'NULL' &&
-                 $urlRow["GoogleURL"] == 'NULL' &&
+                 #$urlRow["GoogleURL"] == 'NULL' &&
                  $urlRow["FacebookURL"] == 'NULL' &&
                  $urlRow["TwitchURL"] == 'NULL' &&
-                 $urlRow["BattlenetID"] == 'NULL'
+                 $urlRow["BattlenetID"] == 'NULL' &&
+                 $urlRow["DiscordName"] == 'NULL'
               ){
+                #echo 'der er ikke nogen sociale netværk tilsluttet';
                 session_destroy();
-                $_SESSION['SQLStatus'] = $db_conn->query("UPDATE Users SET Inactive = '1' WHERE OneallUserToken = '$temptoken'");
+               $_SESSION['SQLStatus'] = $db_conn->query("UPDATE Users SET Inactive = '1' WHERE OneallUserToken = '$temptoken'");
               }
             }
-            //echo "<pre>";
-            //print_r($data->user);
-            //echo "</pre>";
+            #echo "<pre>";
+            #print_r($data);
+            #echo "</pre>";
             header("Location: ../../index.php?page=EditMyProfile");
           }
         }
@@ -206,7 +230,7 @@ if ( ! empty ($_POST['connection_token']))
                         case "facebook":
                               $_SESSION['SocialNetwork'] = 'facebook';
                               $_SESSION['UserToken'] = $user_token;
-                              $_SESSION['ProfileUrl'] = $data->user->identity->profileUrl;
+                              $_SESSION['ProfileUrl'] = $ProfileURL = $data->user->identity->displayName;
                               $_SESSION['FullName'] = $data->user->identity->name->formatted;
                               $_SESSION['PreffereredUsername'] = $data->user->identity->preferredUsername;
                               $_SESSION['Email'] = $data->user->identity->emails[0]->value;
@@ -247,15 +271,16 @@ if ( ! empty ($_POST['connection_token']))
                         case "discord":
                               $_SESSION['SocialNetwork'] = 'discord';
                               $_SESSION['UserToken'] = $user_token;
+                              $_SESSION['ProfileUrl'] = $data->user->identity->displayName;
                               $_SESSION['PreffereredUsername'] = $data->user->identity->preferredUsername;
                               $_SESSION['Email'] = $data->user->identity->emails[0]->value;
                               $_SESSION['PictureUrl'] = $data->user->identity->pictureUrl;
                         break;
                     }
                     header("Location: ../../index.php");
-                    #echo "<pre>";
-                    #print_r($data->user);
-                    #echo "</pre>";
+                    echo "<pre>";
+                    print_r($data->user);
+                    echo "</pre>";
                 }
                 else // if user exist.
                 {

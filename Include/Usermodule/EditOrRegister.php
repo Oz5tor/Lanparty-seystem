@@ -1,6 +1,7 @@
 <?php
 
 require_once("Include/Usermodule/BecomeMember.php");
+require_once("class/GetUsernameFromID.php");
 
 if(!isset($_SESSION['UserToken']) && !isset($_SESSION['UserID'])){
     header("Location: index.php");
@@ -40,29 +41,29 @@ if(!isset($_SESSION['UserToken']) && !isset($_SESSION['UserID'])){
     <!-- Form Start -->
 <div class="row LanCMScontentbox">
     <div class="col-lg-12">
-      <img class="img-responsive" src="Images/image-slider-5.jpg">
+      <?php require_once("Include/MsgUser.php"); ?>
     </div>
   &nbsp;
     <form action="" method="post" enctype="multipart/form-data" >
       <div class="form-group col-lg-3">
         <label class="control-label" for="FullName">Fulde Navn:*</label>
-        <input type="text" class="form-control" placeholder="Santa Claus" id="FullName"
+        <input type="text" class="form-control" required placeholder="Santa Claus" id="FullName"
                value="<?php if(isset($FullName)){ echo $FullName;} ?>"  name="FullName">
       </div>
       <div class="form-group col-lg-3">
         <label class="control-label" for="Email">Email:*</label>
-        <input type="email" class="form-control" id="Email" placeholder="Workshop@santa.chrismas"
+        <input type="email" class="form-control" required id="Email" placeholder="Workshop@santa.chrismas"
                value="<?php if(isset($Email)){ echo $Email;} ?>"  name="Email">
       </div>
 
       <div class="form-group col-lg-3">
         <label class="control-label" for="Birthday">F&oslash;dselsdag:*</label>
-        <input type="text" class="form-control birthdayPicker" placeholder="dd-mm-yyyy" id="Birthday" value="<?php if(isset($Birthday)){ echo date("d-m-Y",$Birthday);} ?>"
+        <input type="text" readonly required class="form-control birthdayPicker" placeholder="dd-mm-yyyy" id="Birthday" value="<?php if(isset($Birthday)){ echo $Birthday;} ?>"
                name="Birthday" title="dd-mm-yyyy" data-date-format="dd-mm-yyyy">
       </div>
       <div class="form-group col-lg-3">
         <label class="control-label" for="Username">Brugernavn:*</label>
-        <input type="text" placeholder="ImNotSanta" class="form-control" id="Username"
+        <input type="text" required placeholder="ImNotSanta" class="form-control" id="Username"
                value="<?php if(isset($PreffereredUsername)){echo $PreffereredUsername; } ?>"  name="Username">
       </div>
 
@@ -71,35 +72,35 @@ if(!isset($_SESSION['UserToken']) && !isset($_SESSION['UserID'])){
       ?>
       <div class="form-group col-lg-3">
         <label class="control-label" for="Password">Kodeord:*</label>
-        <input type="password" class="form-control" pattern=".{4,18}" title="4 til 18 karaktere" id="Password" placeholder="Kodeord"  name="Password">
+        <input type="password" required class="form-control" pattern=".{4,18}" title="4 til 18 karaktere" id="Password" placeholder="Kodeord"  name="Password">
       </div>
       <div class="form-group col-lg-3">
         <label class="control-label" for="CPassword">Bekr&aelig;ft Kodeord:*</label>
-        <input type="password" class="form-control" pattern=".{4,18}" title="4 til 18 karaktere" id="CPassword" placeholder="Gentag Kodeord"  name="CPassword">
+        <input type="password" required class="form-control" pattern=".{4,18}" title="4 til 18 karaktere" id="CPassword" placeholder="Gentag Kodeord"  name="CPassword">
       </div>
       <?php
       }
       ?>
       <div class="form-group col-lg-3">
         <label class="control-label" for="Phone">Telefon:*</label>
-        <input type="text" class="form-control" id="Phone" value="<?php if(isset($Phone)){echo $Phone;} ?>"
+        <input type="text" maxlength="8" required class="form-control" id="Phone" value="<?php if(isset($Phone)){echo $Phone;} ?>"
                placeholder="feks: 11223344 eller +4511223344"  name="Phone">
       </div>
       <div class="form-group col-lg-3">
         <label class="control-label" for="Address">Adresse:*</label>
-        <input type="text" placeholder="feks Norpolen 42, 6.sal tv" class="form-control" id="Address"
+        <input type="text" placeholder="feks Norpolen 42, 6.sal tv" required class="form-control" id="Address"
                value="<?php if(isset($Address)){echo $Address;} ?>"  name="Address">
       </div>
       <div class="form-group col-lg-3">
         <label class="control-label" for="Zipcode">Postnumber:*</label>
-        <input type="text" list="DBZipcodes" placeholder="1337 Awesome city" class="form-control" id="Zipcode"
+        <input type="text" list="DBZipcodes" placeholder="1337 Awesome city" required class="form-control" id="Zipcode"
         value="<?php if(isset($Zipcode)){echo $Zipcode;} ?>"  name="Zipcode">
         <!-- List of Zipcodes in Denmark -->
         <datalist id="DBZipcodes">
         <?php
         if($result = $db_conn->query("SELECT * FROM ZipCodes")){
           while($row = $result->fetch_assoc()){
-          echo '<option value=',$row["Zipcode"],'>',$row["Zipcode"],' ',$row["City"],'</option>';
+          echo '<option value=',$row["zipcode"],'>',$row["zipcode"],' ',$row["city"],'</option>';
           }
         }
         ?>
@@ -120,10 +121,8 @@ if(!isset($_SESSION['UserToken']) && !isset($_SESSION['UserID'])){
           if($Clanresult = $db_conn->query("SELECT * FROM Clan")){
             while($Clanrow = $Clanresult->fetch_assoc()){
           ?>
-          <option <?php if(isset($Clan)){
-                            if ($Clanrow["ClanID"] == $Clan){echo "selected";}
-                        }?>  value='<?php echo $Clanrow["ClanID"]; ?>'>
-            <?php echo $Clanrow["Name"]; ?>
+          <option <?php if(isset($Clan)){if ($Clanrow["ClanID"] == $Clan){echo "selected";}}?>  value='<?php echo $Clanrow["ClanID"]; ?>'>
+            <?php echo $Clanrow["ClanName"]; ?>
           </option>
           <?php
             }
@@ -160,7 +159,7 @@ if(!isset($_SESSION['UserToken']) && !isset($_SESSION['UserID'])){
       <?php if($page != 'EditMyProfile'){ ?>
       <div class="form-group form-inline col-lg-3">
             <label for="ToS">*Brugerbetinelser: </label>
-            <input type="checkbox" id="ToS" value="1"  name="ToS">
+            <input type="checkbox" id="ToS" value="1" required name="ToS">
       </div>
       <?php } ?>
       <div class="form-group col-lg-3">
@@ -219,19 +218,27 @@ if(!isset($_SESSION['UserToken']) && !isset($_SESSION['UserID'])){
         </textarea>
       </div>
       <div class="form-group col-xs-12 col-sm-5 col-md-6 col-lg-3">
-        <input type="submit" class="btn btn-default" name="Send_form">
+        <?php
+        if($page == 'EditMyProfile'){
+        ?>
+            <input type="submit" class="btn btn-default" value="Opdater Information" name="Send_form">
+        <?php
+        }else {
+        ?>
+        <input type="submit" class="btn btn-default" value="Opret bruger" name="Send_form">
+        <?php } ?>
       </div>
       <?php if($page != 'EditMyProfile'){ ?>
       <div class="form-group col-xs-12 col-sm-5 col-md-6 col-lg-3">
         <!-- href="index.php?action=LogOut" -->
-        <a id="CancleUser" class="btn btn-warning">Fortryd oprettelse</a>
+        <a id="CancleUser" onclick="window.location.href = 'index.php?action=LogOut'" class="btn btn-warning">Fortryd oprettelse</a>
          <script type="text/javascript">
             /* Replace #your_callback_uri# with the url to your own callback script */
           var your_callback_script = 'http://<?php echo $ROOTURL; ?>Include/oneall_hlpf/oneall_callback_handler.php';
           /* Embeds the buttons into the oa_social_link_container */
           var _oneall = _oneall || [];
           //_oneall.push(['social_link', 'set_providers', ['facebook', 'Google', 'Battlenet', 'Steam', 'Twitch']]);
-          _oneall.push(['social_link', 'set_providers', ['facebook', 'Google', 'Battlenet', 'Steam', 'Twitch']]);
+          _oneall.push(['social_link', 'set_providers', ['facebook', 'Discord', 'Battlenet', 'Steam', 'Twitch']]);
           _oneall.push(['social_link', 'set_callback_uri', your_callback_script]);
           _oneall.push(['social_link', 'set_user_token', <?php echo $_SESSION['OneAllToken']; ?>]);
           _oneall.push(['social_link', 'attach_onclick_popup_ui', 'CancleUser']);
@@ -257,7 +264,7 @@ if(!isset($_SESSION['UserToken']) && !isset($_SESSION['UserID'])){
           //var user_token = 'bf7d64a9-94d4-4f77-92d8-c64e982e682a';
           /* Embeds the buttons into the oa_social_link_container */
           var _oneall = _oneall || [];
-          _oneall.push(['social_link', 'set_providers', ['facebook', 'Google', 'Battlenet', 'Steam', 'Twitch']]);
+          _oneall.push(['social_link', 'set_providers', ['facebook', 'Discord', 'Battlenet', 'Steam', 'Twitch']]);
           _oneall.push(['social_link', 'set_callback_uri', your_callback_script]);
           _oneall.push(['social_link', 'set_user_token', user_token]);
           _oneall.push(['social_link', 'do_render_ui', 'oa_social_link_container']);
@@ -267,25 +274,6 @@ if(!isset($_SESSION['UserToken']) && !isset($_SESSION['UserID'])){
       <?php
       }
       ?>
-      
-      <?php
-      if((isset($RegErroMSG)) && ($RegErroMSG != '')){
-      ?>
-      <div class="row">
-        <div class="col-lg-10 col-lg-offset-1">
-          <?php 
-          echo '<ul class="alert alert-danger" role="alert"><b>Felt kravene er ikke opfyldt:</b>';
-          foreach($RegErroMSG as $i){
-            echo '<li">*'.$i.'.</li>';
-          }
-          echo '</ul>';
-          unset($RegErroMSG);
-          ?>
-        </div>
-      </div>
-      <?php
-      }
-        ?>
     </form><!-- Form end -->
     <?php 
     if(isset($_SESSION['UserID'])){
@@ -293,7 +281,7 @@ if(!isset($_SESSION['UserToken']) && !isset($_SESSION['UserID'])){
     <div id="" class="form-group col-lg-12">
       <hr>
       <?php
-        $MemberTextResult = $db_conn->query("SELECT Content From Pages WHERE PageID = '11'");
+        $MemberTextResult = $db_conn->query("SELECT Content From Pages WHERE PageTitle = 'Membership'");
         $MemberTextRow = $MemberTextResult->fetch_assoc();
         $tempText = str_replace("MembershipPrice", $_GLOBAL['MembershipPrice'],$MemberTextRow['Content']);
         
