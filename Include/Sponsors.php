@@ -1,19 +1,19 @@
 <div class="container">
     <div class="text-center">
         <?php
-            if( $result = $db_conn->query( "SELECT Sponsors.Url, Sponsors.Banner FROM Sponsors WHERE MainSponsor = 1 AND Online = 1 ORDER BY RAND() LIMIT 1 " ) ) {
+         /*   if( $result = $db_conn->query( "SELECT Sponsors.Url, Sponsors.Banner FROM Sponsors WHERE MainSponsor = 1 AND Online = 1 ORDER BY RAND() LIMIT 1 " ) ) {
                 if( $result -> num_rows ) {
                     $row = $result->fetch_assoc();
                     echo "<a href='" . $row[ 'Url' ] . "' class='thumbnail LanCMSno_round_border'><img src='Images/Sponsore/" . $row[ 'Banner' ] . "'></a>";
                 } else { return null; }
             $result -> close();
-            }
+            }*/
         ?>
     </div>
 </div>
 <div class="container">
     <div class="row">
-      <?php
+      <?php /*
         $SmallSponsResult = $db_conn->query("Select * From Sponsors Where Sponsors.Online = '1' And Sponsors.MainSponsor = '0' Order By RAND() Limit 3");
         while($row = $SmallSponsResult->fetch_assoc())
         {
@@ -24,7 +24,7 @@
             </a>
         </div>
       <?php
-        }
+        } */
       ?>
     </div>
 </div>
