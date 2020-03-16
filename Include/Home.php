@@ -1,12 +1,34 @@
+<?php
+# ========= Check if any sticky news ================
+$OldestNewsQ = $db_conn->query("Select NewsID From News Order by NewsID ASC Limit 1");
+$LowesNewsID = $OldestNewsQ->fetch_assoc();
+$LowesNewsID = $LowesNewsID['NewsID'];
+$LowesNewsID;
+
+$i = $LowesNewsID;
+$amountOfNewsQ = $db_conn->query("Select NewsID From News");
+$amountOfNews = $amountOfNewsQ->num_rows;
+while($i <= $amountOfNews+$LowesNewsID-1){
+    $NewsQ = $db_conn->query("Select * From News Where NewsID = '$i' AND Online = 1");
+    $NewsRow = $NewsQ->fetch_assoc();
+    $NewspupTime = $NewsRow['PublishDate'];
+    $NoneStickyNews[$NewspupTime] = $NewsRow['Content'];
+    $i++;
+}
+$NoneStickyNews[] = krsort($NoneStickyNews);
+#echo "<pre>";
+#print_r($NoneStickyNews);
+#echo "</pre>";
+?>
+   
+
+   
 <div class="row LanCMSequal">
     <!-- Main News Start -->
     <div class="col-lg-5 LanCMScontentbox">
-        <img class="img-responsive" src=Images/image-slider-5.jpg />
-        <div class="LanCMSflex">
-            <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.</p>
-            <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.</p>
-            <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.</p>
-        </div>
+       <?php
+        echo array_values($NoneStickyNews)[0];
+        ?>
     </div>
     <!-- Main News End -->
     <!-- Spacer start -->
@@ -15,28 +37,22 @@
     <!-- Spacer end -->
     <!-- Lastest News start -->
     <div class="col-lg-5 LanCMScontentbox">
-        <img class="img-responsive" src=Images/image-slider-5.jpg />
-        <div class="LanCMSflex">
-            <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.</p>
-        </div>
+        <?php echo array_values($NoneStickyNews)[1]; ?>
     </div>
     <!-- Lastest News End -->
 </div>
 <!-- =========================== -->
 <?php require_once("Include/TilesAndTournament.php"); ?>
 <!-- =========================== -->
-<div class="row">
+<div class="row LanCMSequal">
     <div class="col-lg-4  LanCMScontentbox img-thumbnail">
-        <center><h5>kage</h5></center>
-        <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.</p>
+        <?php echo array_values($NoneStickyNews)[2]; ?>
     </div>
     <div class="col-lg-4 LanCMScontentbox img-thumbnail">
-        <center><h5>kage</h5></center>
-        <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.</p>
+        <?php echo array_values($NoneStickyNews)[3]; ?>
     </div>
     <div class="col-lg-4 LanCMScontentbox img-thumbnail">
-        <center><h5>kage</h5></center>
-        <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.</p>
+        <?php echo array_values($NoneStickyNews)[4]; ?>
     </div>
 </div>
 <hr>
