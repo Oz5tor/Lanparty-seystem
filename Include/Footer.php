@@ -1,4 +1,5 @@
-<footer class="container-fluid" id="LanCMSfooter">
+<br>
+   <footer class="container-fluid" id="LanCMSfooter">
     <div class="row">
         <!-- Google Maps -->
         <div class="hidden-xs col-sm-12 col-md-6">
