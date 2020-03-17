@@ -1,23 +1,17 @@
 <?php
-# ========= Check if any sticky news ================
-$OldestNewsQ = $db_conn->query("Select NewsID From News Order by NewsID ASC Limit 1");
-$LowesNewsID = $OldestNewsQ->fetch_assoc();
-$LowesNewsID = $LowesNewsID['NewsID'];
-$LowesNewsID;
-
-$i = $LowesNewsID;
-$amountOfNewsQ = $db_conn->query("Select NewsID From News");
-$amountOfNews = $amountOfNewsQ->num_rows;
-while($i <= $amountOfNews+$LowesNewsID-1){
-    $NewsQ = $db_conn->query("Select * From News Where NewsID = '$i' AND Online = 1");
-    $NewsRow = $NewsQ->fetch_assoc();
-    $NewspupTime = $NewsRow['PublishDate'];
-    $NoneStickyNews[$NewspupTime] = $NewsRow['Content'];
-    $i++;
+$GetNews = $db_conn->query("Select * From News Where Online = '1' ORDER By PublishDate DESC LIMIT 5");
+while ($Newsrow = $GetNews->fetch_assoc()) {
+    $LatestNewsSet[] = array('content' => $Newsrow['Content'],
+                                          'ID'      => $Newsrow['NewsID'],
+                                          'Title'   => $Newsrow['Title'],
+                                          'Author'  => $Newsrow['AuthorID'],
+                                          'Publish' => $Newsrow['PublishDate']);
+    
 }
-$NoneStickyNews[] = krsort($NoneStickyNews);
+
+#$NoneStickyNews[] = krsort($NoneStickyNews);
 #echo "<pre>";
-#print_r($NoneStickyNews);
+#print_r($LatestNewsSet);
 #echo "</pre>";
 ?>
    
@@ -26,9 +20,10 @@ $NoneStickyNews[] = krsort($NoneStickyNews);
 <div class="row LanCMSequal">
     <!-- Main News Start -->
     <div class="col-lg-5 LanCMScontentbox">
-       <?php
-        echo array_values($NoneStickyNews)[0];
-        ?>
+       <h4 style="float:left"><?php echo $LatestNewsSet[0]['Title'];?></h4>
+       <h6 style="float:right"><?php echo date('d.M Y',$LatestNewsSet[0]['Publish']);?></h6>
+       <hr style=" clear:both">
+       <?php echo $LatestNewsSet[0]['content']; ?>
     </div>
     <!-- Main News End -->
     <!-- Spacer start -->
@@ -37,7 +32,10 @@ $NoneStickyNews[] = krsort($NoneStickyNews);
     <!-- Spacer end -->
     <!-- Lastest News start -->
     <div class="col-lg-5 LanCMScontentbox">
-        <?php echo array_values($NoneStickyNews)[1]; ?>
+       <h4 style="float:left"><?php echo $LatestNewsSet[1]['Title'];?></h4>
+       <h6 style="float:right"><?php echo date('d.M Y',$LatestNewsSet[1]['Publish']);?></h6>
+       <hr style=" clear:both">
+        <?php echo $LatestNewsSet[1]['content']; ?>
     </div>
     <!-- Lastest News End -->
 </div>
@@ -46,13 +44,22 @@ $NoneStickyNews[] = krsort($NoneStickyNews);
 <!-- =========================== -->
 <div class="row LanCMSequal">
     <div class="col-lg-4  LanCMScontentbox img-thumbnail">
-        <?php echo array_values($NoneStickyNews)[2]; ?>
+       <h4 style="float:left"><?php echo $LatestNewsSet[2]['Title'];?></h4>
+       <h6 style="float:right"><?php echo date('d.M Y',$LatestNewsSet[2]['Publish']);?></h6>
+       <hr style=" clear:both">
+        <?php echo substr($LatestNewsSet[2]['content'], 0, 256); ?>
     </div>
     <div class="col-lg-4 LanCMScontentbox img-thumbnail">
-        <?php echo array_values($NoneStickyNews)[3]; ?>
+       <h4 style="float:left"><?php echo $LatestNewsSet[3]['Title'];?></h4>
+       <h6 style="float:right"><?php echo date('d.M Y',$LatestNewsSet[3]['Publish']);?></h6>
+       <hr style=" clear:both">
+        <?php echo substr($LatestNewsSet[3]['content'], 0, 256); ?>
     </div>
     <div class="col-lg-4 LanCMScontentbox img-thumbnail">
-        <?php echo array_values($NoneStickyNews)[4]; ?>
+       <h4 style="float:left"><?php echo $LatestNewsSet[4]['Title'];?></h4>
+       <h6 style="float:right"><?php echo date('d.M Y',$LatestNewsSet[4]['Publish']);?></h6>
+       <hr style=" clear:both">
+        <?php echo substr($LatestNewsSet[4]['content'], 0, 256); ?>
     </div>
 </div>
 <hr>
