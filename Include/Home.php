@@ -47,19 +47,19 @@ while ($Newsrow = $GetNews->fetch_assoc()) {
        <h4 style="float:left"><?php echo $LatestNewsSet[2]['Title'];?></h4>
        <h6 style="float:right"><?php echo date('d.M Y',$LatestNewsSet[2]['Publish']);?></h6>
        <hr style=" clear:both">
-        <?php echo substr($LatestNewsSet[2]['content'], 0, 256); ?>
+        <?php echo substr($LatestNewsSet[2]['content'], 0, strpos($LatestNewsSet[4]['content'],'</p>')).'</p>'; ?>
     </div>
     <div class="col-lg-4 LanCMScontentbox img-thumbnail">
        <h4 style="float:left"><?php echo $LatestNewsSet[3]['Title'];?></h4>
        <h6 style="float:right"><?php echo date('d.M Y',$LatestNewsSet[3]['Publish']);?></h6>
        <hr style=" clear:both">
-        <?php echo substr($LatestNewsSet[3]['content'], 0, 256); ?>
+        <?php echo substr($LatestNewsSet[3]['content'], 0, strpos($LatestNewsSet[4]['content'],'</p>')).'</p>'; ?>
     </div>
     <div class="col-lg-4 LanCMScontentbox img-thumbnail">
        <h4 style="float:left"><?php echo $LatestNewsSet[4]['Title'];?></h4>
        <h6 style="float:right"><?php echo date('d.M Y',$LatestNewsSet[4]['Publish']);?></h6>
        <hr style=" clear:both">
-        <?php echo substr($LatestNewsSet[4]['content'], 0, 256); ?>
+        <?php echo substr($LatestNewsSet[4]['content'], 0, strpos($LatestNewsSet[4]['content'],'</p>')).'</p>'; ?>
     </div>
 </div>
 <hr>
