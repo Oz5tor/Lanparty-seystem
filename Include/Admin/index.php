@@ -1,4 +1,4 @@
-<?php if($_SESSION['Admin'] != 1) { header("Location: /Website-2017/index.php"); } /* Fuck off... */
+<?php if($_SESSION['Admin'] != 1) { header("Location: index.php"); } /* Fuck off... */
 require_once("class/FileUpload.php");
 require_once("class/GetUsernameFromID.php");
 ?>
