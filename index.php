@@ -13,11 +13,12 @@ require_once("Include/CoreParts/global_settings.php");
 <!DOCTYPE html>
 <html lang="da">
 <head>
+  <script src="JS/Jquery/jquery.min.js"></script>
     <?php require_once 'Include/CoreParts/head.php'; ?>
 </head>
 <body>
     <?php include_once("Include/TestArea/DEBUGGIN.php"); ?>
-    <script src="JS/Jquery/jquery.min.js"></script>
+
     <!-- Facebook scocial like code prep start
     <div id="fb-root"></div>
     <script>(function(d, s, id) {
