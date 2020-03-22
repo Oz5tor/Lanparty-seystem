@@ -22,8 +22,9 @@ if(isset($SaleHasStarted)){
 
 if(isset($_POST['Save'])) {
     if(!isset($SaleHasStarted)){
-      $StartDate = strtotime($db_conn->real_escape_string($_POST['StartDate']));
-      $EndDate   = strtotime($db_conn->real_escape_string($_POST['EndDate']));
+        
+     $StartDate = strtotime(str_replace('/', '-',$db_conn->real_escape_string($_POST['StartDate'])));
+     $EndDate2   = strtotime(str_replace('/', '-',$db_conn->real_escape_string($_POST['EndDate2'])));
       $Location  = $db_conn->real_escape_string($_POST['Location']);
       $Rules_ID  = $db_conn->real_escape_string($_POST['Rules']);
       $Title     = $db_conn->real_escape_string($_POST['Title']);
@@ -42,7 +43,7 @@ if(isset($_POST['Save'])) {
       $temptGroup = array();
       $tempCount = 0;
       foreach($Pricegroups as $groupItem){
-
+            
         $group = explode('|',$groupItem);
 
         $temptGroup['Type'] = $group[0];
@@ -52,6 +53,9 @@ if(isset($_POST['Save'])) {
         $PricegroupList[$tempCount] = $temptGroup;
         $tempCount++;
       }
+    #echo '<pre>';
+    #print_r($PricegroupList);
+    #echo '</pre>';
     }
     $PostCrewgroups[] = $_POST['CrewList'];
     $PostCrewgroups = $PostCrewgroups[0]; // get the inner arrays
@@ -69,6 +73,7 @@ if(isset($_POST['Save'])) {
       $temptGroup['Group'] = $group[1];
       $CrewgroupList[$tempCount] = $temptGroup;
       $tempCount++;
+        
     }
 
     if($action == 'Edit') {
@@ -86,7 +91,7 @@ if(isset($_POST['Save'])) {
         // edit Query
 
       if( $db_conn->query( "UPDATE Event
-                             SET Title = '$Title', StartDate = '$StartDate', EndDate = '$EndDate', Location = '$Location',
+                             SET Title = '$Title', StartDate = '$StartDate', EndDate = '$EndDate2', Location = '$Location',
                                  Network = '$WanSpeed/$LanSpeed', Rules = '$Rules_ID', Seatmap = '$SelectedSeatmap', Poster = '$Poster'
                              WHERE EventID = '$tempID'"
                          ))
@@ -115,10 +120,10 @@ if(isset($_POST['Save'])) {
       }
       }
     } else {
+        
       // Create Query
       if($db_conn->query("INSERT INTO Event (Title,StartDate,EndDate,Location,Rules, Network, Seatmap, Poster)
-                          VALUES ('$Title', '$StartDate', '$EndDate', '$Location', '$Rules_ID','$WanSpeed/$LanSpeed','$SelectedSeatmap','$Poster')")){
-
+                          VALUES ('$Title', '$StartDate', '$EndDate2', '$Location', '$Rules_ID','$WanSpeed/$LanSpeed','$SelectedSeatmap','$Poster')")){
         $TempEventIDResult = $db_conn->query("Select EventID FROM Event ORDER BY EventID DESC LIMIT 1");
         $TempEventID = $TempEventIDResult->fetch_assoc();
         $TempEventID = $TempEventID['EventID'];
@@ -156,18 +161,15 @@ if(isset($_POST['Save'])) {
   <div class="form-group col-lg-3">
     <label class="control-label" for="StartDate">Start Dato</label>
     <div class="input-group">
-      <input class="form-control picker" readonly placeholder="dd-mm-yyyy hh:mm" data-date-format="dd-mm-yyyy hh:ii"
-             <?php if(isset($SaleHasStarted)){echo 'disabled';} ?> required type="text" name="StartDate" id="StartDate"
-             value="<?php if(isset($EventExist)){echo date("d-m-Y H:i", $row['StartDate']);} ?>" />
+     
+      <input class="form-control datetimepicker1" placeholder="dd/mm/yyyy hh:mm" <?php if(isset($SaleHasStarted)){echo 'disabled';} ?> required type="text" name="StartDate" id="StartDate" value="<?php if(isset($EventExist)){echo date("d/m/Y H:i", $row['StartDate']);} ?>" data-target="#StartDate"	data-toggle="datetimepicker" />
       <div class="input-group-addon">&#x1f4c5;</div>
     </div>
   </div>
   <div class="form-group col-lg-3">
-    <label class="control-label" for="EndDate">Slut Dato</label>
+    <label class="control-label" for="EndDate2">Slut Dato</label>
     <div class="input-group">
-      <input class="form-control picker" readonly placeholder="dd-mm-yyyy hh:mm" data-date-format="dd-mm-yyyy hh:ii"
-             <?php if(isset($SaleHasStarted)){echo 'disabled';} ?> required type="datetime" name="EndDate"
-             id="EndDate" value="<?php if(isset($EventExist)){echo date("d-m-Y H:i", $row['EndDate']);} ?>" />
+       <input class="form-control datetimepicker1" placeholder="dd/mm/yyyy hh:mm" <?php if(isset($SaleHasStarted)){echo 'disabled';} ?> required type="text" name="EndDate2" id="EndDate2" value="<?php if(isset($EventExist)){echo date("d/m/Y H:i", $row['EndDate']);} ?>" data-target="#EndDate2" data-toggle="datetimepicker" />
       <div class="input-group-addon">&#x1f4c5;</div>
     </div>
   </div>
@@ -207,14 +209,14 @@ if(isset($_POST['Save'])) {
     </select>
   </div>
   <div class="form-group col-lg-3">
-    <label class="control-label" for="StartDate">Internet Hastighed</label>
+    <label class="control-label">Internet Hastighed</label>
     <div class="input-group">
       <input class="form-control" name="wan" required id="wan" placeholder="1024" type="text" value="<?php if(isset($EventExist)){ $temp = explode('/',$row['Network']); echo $temp[0];} ?>">
       <div class="input-group-addon">Mb</div>
     </div>
   </div>
   <div class="form-group col-lg-3">
-    <label class="control-label" for="EndDate">Lokalt Netværks Hastighed</label>
+    <label class="control-label">Lokalt Netværks Hastighed</label>
     <div class="input-group">
       <input class="form-control" name="lan" required id="lan" placeholder="100" type="text" value="<?php if(isset($EventExist)){ $temp = explode('/',$row['Network']); echo $temp[1];} ?>">
       <div class="input-group-addon">Mb</div>
@@ -237,19 +239,16 @@ if(isset($_POST['Save'])) {
     </div>
 
     <div class="form-inline">
-      <div class="col-lg-2 input-group">
+      <div class="col-lg-3 input-group">
         <input <?php if(isset($SaleHasStarted)){echo 'disabled';} ?> class="form-control" type="text" pattern="[0-9]{4}" placeholder="150" size="2" class="" name="region" id="TypePrice" />
         <div class="input-group-addon">,-</div>
       </div>
       <div class="col-lg-4 input-group">
-      <input class="form-control picker" placeholder="dd-mm-yyyy hh:mm" readonly data-date-format="dd/mm/yyyy hh:ii"
-             <?php if(isset($SaleHasStarted)){echo 'disabled';} ?> type="datetime" name="region" id="TypeStart" />
-      <div class="input-group-addon">&#x1f4c5;</div>
+      <input type="text" class="form-control datetimepicker-input datetimepicker2" id="TypeStart" placeholder="dd/mm/yyyy hh:mm:ss" data-toggle="datetimepicker" data-target="#TypeStart" <?php if(isset($SaleHasStarted)){echo 'disabled';} ?>/>
       </div>
       <div class="col-lg-4 input-group">
-      <input class="form-control picker" placeholder="dd-mm-yyyy hh:mm" readonly data-date-format="dd/mm/yyyy hh:ii"
-             <?php if(isset($SaleHasStarted)){echo 'disabled';} ?> type="datetime" name="region" id="TypeEnd" />
-      <div class="input-group-addon">&#x1f4c5;</div>
+      <input class="form-control datetimepicker-input datetimepicker2" placeholder="dd/mm/yyyy hh:mm:ss" data-target="#TypeEnd" data-toggle="datetimepicker" <?php if(isset($SaleHasStarted)){echo 'disabled';} ?> type="text" name="region" id="TypeEnd" />
+      
       </div>
     </div>
     <br>
@@ -260,8 +259,8 @@ if(isset($_POST['Save'])) {
       $Currentticketgroups = $db_conn->query("Select * From TicketPrices WHERE EventID = '$tempID'");
       while($ticketgroupsRow = $Currentticketgroups->fetch_assoc()){
       ?>
-      <option value="<?php echo $ticketgroupsRow['Type'].'|'.$ticketgroupsRow['Price'].'|'.date("d-m-Y H:i",$ticketgroupsRow['StartTime']).'|'.date('d-m-Y H:i',$ticketgroupsRow['EndTime']); ?>">
-        <?php echo $ticketgroupsRow['Type'].' | '.$ticketgroupsRow['Price'].' | '.date('d-m-Y H:i',$ticketgroupsRow['StartTime']).' | '.date('d-m-Y H:i',$ticketgroupsRow['EndTime']); ?>
+      <option value="<?php echo $ticketgroupsRow['Type'].'|'.$ticketgroupsRow['Price'].'|'.date("d-m-Y H:i:s",$ticketgroupsRow['StartTime']).'|'.date('d-m-Y H:i:s',$ticketgroupsRow['EndTime']); ?>">
+        <?php echo $ticketgroupsRow['Type'].' | '.$ticketgroupsRow['Price'].' | '.date('d-m-Y H:i:s',$ticketgroupsRow['StartTime']).' | '.date('d-m-Y H:i:s',$ticketgroupsRow['EndTime']); ?>
       </option>
       <?php
       }
