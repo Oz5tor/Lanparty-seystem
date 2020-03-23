@@ -1,27 +1,23 @@
 <!-- TinyMCE -->
 <script type="text/javascript" src="JS/tinymce/tinymce.min.js"></script>
+<!--<script src="https://cdn.tiny.cloud/1/8dm4ddylkyjb6i9yba5v72nyrciup3v3r0mwn53ttollapk5/tinymce/5/tinymce.min.js" referrerpolicy="origin"></script>-->
 <script>
-    // Public Editor for use at places like Forum, Profile text and so on.
-  tinymce.init({
-    selector: '#PublicTinyMCE',
-    menubar: '',
-    toolbar: 'undo redo | bold | blod italic | underline |',
-    browser_spellcheck: true
-  });
     // Administration Editor for use at places like news, pages, event and so on.
   tinymce.init({
-    selector: '#AdminTinyMCE',
-    menubar:'',
+    selector: "#AdminTinyMCE",
     plugins: [
-    'advlist autolink lists link image charmap print preview hr anchor pagebreak',
-    'searchreplace wordcount visualblocks visualchars code fullscreen',
-    'insertdatetime media nonbreaking save table contextmenu directionality',
-    'emoticons template paste textcolor colorpicker textpattern imagetools codesample toc'
-  ],
-  toolbar1: 'undo redo | insert | styleselect | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | link image',
-  toolbar2: 'print preview media | forecolor backcolor emoticons | codesample | code',
-    browser_spellcheck: true
-  });
+         "advlist autolink link image lists charmap print preview hr anchor pagebreak",
+         "searchreplace wordcount visualblocks visualchars insertdatetime media nonbreaking",
+         "table contextmenu directionality emoticons paste textcolor responsivefilemanager code"
+   ],
+   toolbar1: "undo redo | bold italic underline | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | styleselect",
+   toolbar2: "| responsivefilemanager | link unlink anchor | image media | forecolor backcolor  | print preview code ",
+   image_advtab: true ,
+   
+   external_filemanager_path:"JS/filemanager/",
+   filemanager_title:"Responsive Filemanager" ,
+   external_plugins: { "filemanager" : "JS/filemanager/plugin.min.js"}
+ });
 </script>
 <!--[if IE]>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv.min.js"></script>
