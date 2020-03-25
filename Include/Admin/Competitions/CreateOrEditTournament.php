@@ -5,9 +5,9 @@ if(isset($_POST['CreateTournament'])){
   
   $MaxSignups       = $db_conn->real_escape_string($_POST['MaxSignups']);
   $TeamSize         = $db_conn->real_escape_string($_POST['TeamSize']);
-  $SignUpOpen       = time($db_conn->real_escape_string($_POST['SignUpOpen']));
-  $SignUpClose      = time($db_conn->real_escape_string($_POST['SignUpClose']));
-  $CompStart        = time($db_conn->real_escape_string($_POST['CompStart']));
+  $SignUpOpen       = strtotime(str_replace('/', '-',$db_conn->real_escape_string($_POST['SignUpOpen']))).'<br>';
+  $SignUpClose      = strtotime(str_replace('/', '-',$db_conn->real_escape_string($_POST['SignUpClose']))).'<br>';
+  $CompStart        = strtotime(str_replace('/', '-',$db_conn->real_escape_string($_POST['CompStart']))).'<br>';
   if(isset($_POST['RoundRobin'])){
     $RoundRobin = $db_conn->real_escape_string($_POST['RoundRobin']);
   }
@@ -18,8 +18,11 @@ if(isset($_POST['CreateTournament'])){
   $Game             = $db_conn->real_escape_string($_POST['Game']);
   $Online           = '1';
   $eventID          = $_GLOBAL['EventID'];
+    $GameNameResult = $db_conn->query("SELECT * FROM CompetitionGames Where GameID = '$Game'")->fetch_assoc();
+    #echo $GameNameResult['GameName'];
+
   $URL = time().'ID'.$_GLOBAL['EventID'].''.str_replace(array(" ","-",":"), "",$Game);
-  $TournamentName   = $_GLOBAL['EventName'].' '.$Game.time();
+  $TournamentName   = $_GLOBAL['EventName'].' '.$GameNameResult['GameName'].' '.time();
   
   $key = "api_key=".$_GLOBAL['ChallongeApiKey'];
   $atts = "tournament[name]=$TournamentName"; # EventName + Game
@@ -33,7 +36,7 @@ if(isset($_POST['CreateTournament'])){
   }else if(ChallongeFunctions::CreateTournament($atts, $key) == True){
     $db_conn->query("INSERT Competitions (EventID, GameID, CompStart, SignupOpen, SignupClose, MaxSignups, TeamSize, BracketsLink, DescText, Online)
                             VALUES ('$eventID', '$Game', '$CompStart', '$SignUpOpen', '$SignUpClose','$MaxSignups','$TeamSize','$URL', '$Desc', '$Online')");  
-    header("Location: Index.php?pageAdmin&subpage=Competitions#admin_menu");
+    header("Location: Index.php?page=Admin&subpage=Competitions#admin_menu");
   }// If Func true end
   else{
     echo '<div class="alert alert-info" role="alert">Tuneringen Blev ikke Oprettet</div>';
@@ -61,22 +64,22 @@ if(isset($_POST['CreateTournament'])){
       <div class="form-group col-lg-3">
         <label class="control-label" for="CompStart">Tunering Start</label>
         <div class="input-group">
-          <input class="form-control picker" readonly placeholder="dd-mm-yyyy hh:mm" data-date-format="dd-mm-yyyy hh:ii" required type="datetime" name="CompStart"
-                 id="CompStart" value="<?php if(isset($_POST['CompStart'])){echo $_POST['CompStart'];} ?>" />
+          <input class="form-control datetimepicker1" placeholder="dd-mm-yyyy hh:mm" required type="text" name="CompStart"
+                 id="CompStart" value="<?php if(isset($_POST['CompStart'])){echo $_POST['CompStart'];} ?>"data-target="#CompStart" data-toggle="datetimepicker" />
           <div class="input-group-addon">&#x1f4c5;</div>
         </div>
       </div>
       <div class="form-group col-lg-3">
         <label class="control-label" for="SignUpOpen">Tilmeldning Open</label>
         <div class="input-group">
-          <input class="form-control picker" readonly placeholder="dd-mm-yyyy hh:mm" data-date-format="dd-mm-yyyy hh:ii" required type="text" name="SignUpOpen" id="SignUpOpen" value="<?php if(isset($_POST['SignUpOpen'])){echo $_POST['SignUpOpen'];} ?>" />
+          <input class="form-control datetimepicker1" placeholder="dd/mm/yyyy hh:mm" required type="text" name="SignUpOpen" id="SignUpOpen" value="<?php if(isset($_POST['SignUpOpen'])){echo $_POST['SignUpOpen'];} ?>" data-target="#SignUpOpen" data-toggle="datetimepicker"  />
           <div class="input-group-addon">&#x1f4c5;</div>
         </div>
       </div>
       <div class="form-group col-lg-3">
         <label class="control-label" for="SignUpClose">Tilmeldning Luk</label>
         <div class="input-group">
-          <input class="form-control picker" readonly placeholder="dd-mm-yyyy hh:mm" data-date-format="dd-mm-yyyy hh:ii" required type="datetime" name="SignUpClose" id="SignUpClose" value="<?php if(isset($_POST['SignUpClose'])){echo $_POST['SignUpClose'];} ?>" />
+          <input class="form-control datetimepicker1" placeholder="dd-mm-yyyy hh:mm" required type="text" name="SignUpClose" id="SignUpClose" value="<?php if(isset($_POST['SignUpClose'])){echo $_POST['SignUpClose'];} ?>" data-target="#SignUpClose" data-toggle="datetimepicker"/>
           <div class="input-group-addon">&#x1f4c5;</div>
         </div>
       </div>

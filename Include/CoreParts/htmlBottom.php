@@ -9,13 +9,19 @@
  $(function() {
     $('.datetimepicker1').datetimepicker({
         locale: 'da',
-        format: 'D/M/YYYY HH:mm'
+        format: 'DD/MM/YYYY HH:mm'
     });
    });
    $(function() {
     $('.datetimepicker2').datetimepicker({
         locale: 'da',
         format: 'D/M/YYYY HH:mm:ss'
+    });
+   });
+    $(function() {
+    $('.birthday').datetimepicker({
+        locale: 'da',
+        format: 'DD-MM-YYYY'
     });
    });
 </script>
