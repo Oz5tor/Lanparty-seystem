@@ -24,7 +24,6 @@ if (isset($newOrEdit) && $newOrEdit != '') {
 }
 else {
   
-  
 function ChallongeStarted ($ApiKey, $ChallongeLink){
 $curl = curl_init();
 curl_setopt_array($curl, array(
@@ -87,6 +86,10 @@ if($response == "[]"){
     $GameName = $db_conn->query("SELECT * FROM CompetitionGames WHERE GameID = '$TempGameID'");
     $GName = $GameName->fetch_assoc();
     # Get Matching Game Image from DB END
+        
+  #echo 'CompStart'.$Comps['CompStart'].'<br>';
+  #echo 'SignupClose'.$Comps['SignupClose'].'<br>';
+  #echo 'SignupOpen'.$Comps['SignupOpen'].'<br>';
     ?>
     
     <tr>
@@ -111,9 +114,9 @@ if($response == "[]"){
         <?php echo $Comps['TeamSize']; ?>
       </td>
       <td>
-        <?php if($Comps['SignupClose'] >= time()){ ?>
+        <?php if(time() >= $Comps['SignupClose'] ){ ?>
         <button class="disabled btn btn-danger">Lukket</button>
-        <?php }else if(time() >= $Comps['SignupOpen']) { ?>
+        <?php }else if(time() >= $Comps['SignupOpen']  ) { ?>
         <button class="disabled btn btn-success">Åben</button>
         <?php } ?>
       </td>
@@ -164,10 +167,10 @@ if($response == "[]"){
                     <?php
                   }else {
                     ?>
-                    <div class="col-lg-4">
+                    <div class="col-lg-3">
                       <button class=" btn btn-primary">Send tilmelte hold til Challonge</button>
                     </div>
-                    <div class="col-lg-4">
+                    <div class="col-lg-3">
                       <button class=" btn btn-primary">Start Tunering i challonge systemet</button>
                     </div>
                     <?php
@@ -184,7 +187,7 @@ if($response == "[]"){
                 </div>
               </div>
               <!-- class="collapse" -->
-              <div id="Teams">
+              <div id="Teams" class="collapse">
               <div class="row">
                   <div class="col-lg-3">
                     <button class="btn btn-info" data-toggle="collapse" data-target="#teamx" >Static Team</button>
@@ -225,13 +228,13 @@ if($response == "[]"){
               </div> <!-- End of signed teams colapse -->
               
                   <?php
-                    if((time() >= $Comps['CompStart']) && ($ChallongeStarted == true)){
+                    #if((time() >= $Comps['CompStart']) && ($ChallongeStarted == true)){
                   ?>
                   <div class="row">
                     <iframe frameborder="0" class="col-lg-12" height="600" src="https://challonge.com/<?= $Comps['BracketsLink']; ?>/module?theme=7575&show_final_results=1"></iframe>
                   </div>
                   <?php
-                    } // end if comp is started
+                    #} // end if comp is started
                   ?>          
         </div>
       </td>
