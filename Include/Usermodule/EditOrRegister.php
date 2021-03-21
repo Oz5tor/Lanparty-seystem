@@ -232,17 +232,6 @@ if(!isset($_SESSION['UserToken']) && !isset($_SESSION['UserID'])){
       <div class="form-group col-xs-12 col-sm-5 col-md-6 col-lg-3">
         <!-- href="index.php?action=LogOut" -->
         <a id="CancleUser" onclick="window.location.href = 'index.php?action=LogOut'" class="btn btn-warning">Fortryd oprettelse</a>
-         <script type="text/javascript">
-            /* Replace #your_callback_uri# with the url to your own callback script */
-          var your_callback_script = 'http://<?php echo $ROOTURL; ?>Include/oneall_hlpf/oneall_callback_handler.php';
-          /* Embeds the buttons into the oa_social_link_container */
-          var _oneall = _oneall || [];
-          //_oneall.push(['social_link', 'set_providers', ['facebook', 'Google', 'Battlenet', 'Steam', 'Twitch']]);
-          _oneall.push(['social_link', 'set_providers', ['facebook', 'Discord', 'Battlenet', 'Steam', 'Twitch']]);
-          _oneall.push(['social_link', 'set_callback_uri', your_callback_script]);
-          _oneall.push(['social_link', 'set_user_token', <?php echo $_SESSION['OneAllToken']; ?>]);
-          _oneall.push(['social_link', 'attach_onclick_popup_ui', 'CancleUser']);
-        </script>
       </div>
       <?php
       }
