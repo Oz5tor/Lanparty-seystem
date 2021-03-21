@@ -2,7 +2,9 @@
 $startScriptTime=microtime(TRUE);
 ob_start();
 session_start();
-//session_destroy();
+#$_SESSION['Admin'] = 1;
+#$_SESSION['UserID'] = 736;
+#session_destroy();
 date_default_timezone_set ('Europe/Copenhagen');
 require_once("Include/CoreParts/DBconn.php");
 require_once("oneall_sdk/config.php");
@@ -34,8 +36,7 @@ require_once("Include/CoreParts/global_settings.php");
        <img src="Images/image-slider-5.jpg" class="img-responsive center-block" >
     </div>
     Slider end -->
-    <br>
-    <header>
+    <header id="header">
         <!-- Top start -->
         <?php require_once("Include/TopHeader.php"); ?>
         <!-- Top end -->
