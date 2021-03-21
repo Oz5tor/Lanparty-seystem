@@ -73,7 +73,7 @@ if(isset($_SESSION['UserID'])){
 $PreffereredUsername    = $_POST['Username'];
 $FullName               = $_POST['FullName'];
 $Birthday               = $_POST['Birthday'];
-$revBirthday            = date('Y-m-d,',strtotime($Birthday));
+echo $revBirthday            = date('Y-m-d,',strtotime($Birthday));
 $Address                = $_POST['Address'];
 $Zipcode                = $_POST['Zipcode'];
 $NewClan                = $db_conn->real_escape_string($_POST['NewClan']);
@@ -190,7 +190,7 @@ if($FormAOKAY == 0){ // For sucessfull filled
                                           Address = '$Address', Phone = '$Phone', NewsLetter = '$NewsLetter',
                                           ClanID = '$finalClan', ProfileIMG = '$PictureName'
                           WHERE UserID = '$UserID'")){}
-         header("Location: index.php?page=EditMyProfile");
+         #header("Location: index.php?page=EditMyProfile");
     }
     else // user creation
     {
