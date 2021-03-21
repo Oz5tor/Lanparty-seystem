@@ -151,7 +151,7 @@ if($response == "[]"){
                   </div>
                 
                 <?php
-                  $Akey = $_GLOBAL['ChallongeApiKey'];
+                  $Akey  = $_GLOBAL['ChallongeApiKey'];
                   $Link  = $Comps['BracketsLink'];
                   $Sub   = $_GLOBAL['ChallongeSubDomain'];
                   $ChallongeStarted = ChallongeStarted($Akey, $Sub.'-'.$Link);
