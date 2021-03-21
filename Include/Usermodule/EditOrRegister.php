@@ -246,7 +246,7 @@ if(!isset($_SESSION['UserToken']) && !isset($_SESSION['UserID'])){
         <div id="oa_social_link_container" class="form-group col-lg-12"></div>
         <script type="text/javascript">
           /* Replace #your_callback_uri# with the url to your own callback script */
-          var your_callback_script = 'http://<?php echo $ROOTURL; ?>Include/oneall_hlpf/oneall_callback_handler.php';
+          var your_callback_script = 'https://<?php echo $ROOTURL; ?>Include/oneall_hlpf/oneall_callback_handler.php';
           /* Dynamically add the user_token of the currently logged in user. */
           /* Leave the field blank in case the user has no user_token yet. */
           var user_token = '<?php echo $_SESSION['OneAllToken']; ?>';
