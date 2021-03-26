@@ -20,7 +20,7 @@ function MailGunSender($From, $To, $Subject, $HTML, $Key){
     $response = curl_exec($curl);
 
     curl_close($curl);
-    echo $response;
+    return $response;
 }
 // //$text       = "Dette er en test 1..2..3.. <br/> Jeg gik mig en gang over sø og land, <b> der mødte jeg en gamel mand</b>";
 // $From       = "tos@hlpf.dk";
