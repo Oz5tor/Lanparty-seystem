@@ -58,6 +58,9 @@ elseif (! empty( $page ) ) {
         case "Competitions":
             include_once("Include/Competitions/CompetitionsList.php");
             break;
+            case "OSU":
+                include_once("Include/Usermodule/OldSiteUser.php");
+                break;
         default:
             include_once("Include/Page.php");
             break;
