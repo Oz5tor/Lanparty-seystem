@@ -141,7 +141,6 @@ function MailGunSender($From, $To, $Subject, $HTML, $Key){
 //     </tr>
 // </tbody>
 // </table>';
-// $Key        = "YXBpOmYxMWIzNzY1OWQ1NDdlOWU0Nzk1MWIzZTBlYjY3NWQ3LWY4NzdiZDdhLWYzMjBhM2Q2";
 
 
 // echo MailGunSender($From, $To, $Subject, $HTML, $Key);
