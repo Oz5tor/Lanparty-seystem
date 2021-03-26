@@ -42,8 +42,8 @@
                 </a>    
             </div>
             <div class="col-xs-6 col-md-3 col-sm-3 LanCMSmargin_botom">
-                <a href="#" class="">
-                  <img class="img-responsive img-thumbnail center-block" src="Images/games/turneringer.jpg">
+                <a href="https://discord.gg/KE9ybkAwp8" class="" target="_blank">
+                  <img class="img-responsive img-thumbnail center-block" src="Images/JoinDiscord.png">
                 </a>    
             </div>
         </div>
