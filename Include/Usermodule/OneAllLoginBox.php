@@ -1,3 +1,4 @@
+<?php if ($page == "OSU") {}else{?>
 <!-- ===================================== -->
 <div id="oa_social_login_container"></div>
 <script type="text/javascript">
@@ -10,3 +11,4 @@
   _oneall.push(['social_login', 'do_render_ui', 'oa_social_login_container']);
 </script>
 <!-- ===================================== -->
+<?php }?>
