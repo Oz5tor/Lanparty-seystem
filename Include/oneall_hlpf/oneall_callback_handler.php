@@ -135,13 +135,13 @@ if ( ! empty ($_POST['connection_token']))
 
                 $_SESSION['UserID'] = $OSUID;
                 $_SESSION['OneAllToken'] = $TempOneallToken;
-                if($Result = $db_conn ->query("Select Admin From Users Where UserID = '$user_id'")){
+                if($Result = $db_conn ->query("Select Admin From Users Where UserID = '$OSUID'")){
                     $row = $Result->fetch_assoc();
                     $_SESSION['Admin'] = $row['Admin'];
                 }
 
                 $LastLogin = time();
-                if($db_conn->query("UPDATE Users SET LastLogin = '$LastLogin' WHERE UserID = '$user_id'")){
+                if($db_conn->query("UPDATE Users SET LastLogin = '$LastLogin' WHERE UserID = '$OSUID'")){
                   unset($_SESSION["OSUID"]);
                   header("Location: ../../index.php");
                 }
