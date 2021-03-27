@@ -8,7 +8,7 @@ $Mailsend = 0;
      $OSUresult = $db_conn->query("SELECT * FROM Users WHERE Username = '$Username' AND Email = '$Email' AND OSUVerLinkUsed != '1'");
      #print_r($OSUresult->fetch_assoc());
      if($OSUresult->fetch_assoc()){
-        echo "User exists";
+        #echo "User exists";
         $OSUrow = $OSUresult->fetch_assoc();
         if ($db_conn->query("UPDATE Users SET OSUVeriLink='$VCode', OSUVerLinkUsed='0' Where Username ='$Username' && Email ='$Email' ")) {
         
@@ -55,9 +55,6 @@ $Mailsend = 0;
     <?php
     unset($_SESSION['MsgForUser']);
     } ?>
-
-
-
         <div>
             <form method="post">
                 <div class="form-group col-lg-12 col-md-12 col-sm-12 col-xs-12">
