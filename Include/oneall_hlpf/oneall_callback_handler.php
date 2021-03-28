@@ -1,4 +1,5 @@
 <?php
+ob_start();
 session_start();
 require_once("oneall_calls.php");
 require_once("../CoreParts/DBconn.php");
@@ -55,9 +56,9 @@ if ( ! empty ($_POST['connection_token']))
     // Extract data
     $data = $json->response->result->data;
         
-    #echo '<pre>';
-    #print_r($data);
-    #echo '</pre>';
+    echo '<pre>';
+    print_r($data);
+    echo '</pre>';
 
     // Check for service
     switch ($data->plugin->key)
@@ -66,15 +67,22 @@ if ( ! empty ($_POST['connection_token']))
       case "social_link":
         if ($data->plugin->data->status == 'success')
         {
-          $temptoken = $_SESSION['OneAllToken'];
+          if (isset($_SESSION['OSUID'])) {
+            $OSUID = $_SESSION['OSUID'];
+            $temptoken = $data->user->user_token;
+            $_SESSION['OneAllToken'] = $data->user->user_token;
+            link_user_token_to_user_id($temptoken, $OSUID, $db_conn);
+            //unset($_SESSION['OSUID']);
+          }else{
+            $temptoken = $_SESSION['OneAllToken'];
+          }
           //Identity linked
-          if ($data->plugin->data->action == 'link_identity')
-          {
+          if ($data->plugin->data->action == 'link_identity'){
             //The identity <identity_token> has been linked to the user <user_token>
             $user_token = $data->user->user_token;
             $identity_token = $data->user->identity->identity_token;
             if($user_token === $_SESSION['OneAllToken']){
-
+              echo "bob";
               $_SESSION['Linked'] = true;
               $ProfileURL = $data->user->identity->profileUrl;
               $identity_token = $data->user->identity->source->key;
@@ -102,50 +110,27 @@ if ( ! empty ($_POST['connection_token']))
                   break;
 
               }
-              header("Location: ../../index.php?page=EditMyProfile");
-            }else{
-              $_SESSION['Linked'] = false;
-              $OSUID = $_SESSION["OSUID"];
-              $TempOneallToken = $data->user->user_token;
-              if(link_user_token_to_user_id($TempOneallToken, $OSUID, $db_conn)){
 
-                switch($identity_token){
-                  case "facebook":
-                    $ProfileURL = $data->user->identity->displayName;
-                    $db_conn->query("Update Users SET FacebookURL = '$ProfileURL' WHERE OneallUserToken = '$TempOneallToken'");
-                    break;
-                  case "battlenet":
-                    $ProfileURL = $data->user->identity->accounts[0]->username;
-                    $db_conn->query("Update Users SET BattlenetID = '$ProfileURL' WHERE OneallUserToken = '$TempOneallToken'");
-                    break;
-                  case "google":
-                    $db_conn->query("Update Users SET GoogleURL = '$ProfileURL' WHERE OneallUserToken = '$TempOneallToken'");
-                    break;
-                  case "twitch":
-                    $db_conn->query("Update Users SET TwitchURL = '$ProfileURL' WHERE OneallUserToken = '$TempOneallToken'");
-                    break;
-                  case "steam":
-                    $db_conn->query("Update Users SET SteamURL = '$ProfileURL' WHERE OneallUserToken = '$TempOneallToken'");
-                    break;
-                  case "discord":
-                    $ProfileURL = $data->user->identity->displayName;    
-                    $db_conn->query("Update Users SET DiscordName = '$ProfileURL' WHERE OneallUserToken = '$TempOneallToken'");
-                    break;
-                }
-
-                $_SESSION['UserID'] = $OSUID;
-                $_SESSION['OneAllToken'] = $TempOneallToken;
-                if($Result = $db_conn ->query("Select Admin From Users Where UserID = '$OSUID'")){
+              if (isset($_SESSION['OSUID'])) {
+                $user_id = $_SESSION['OSUID'];
+                $_SESSION['UserID'] = $user_id;
+                $_SESSION['OneAllToken'] = $user_token;
+                if($Result = $db_conn ->query("Select Admin From Users Where UserID = '$user_id'")){
                     $row = $Result->fetch_assoc();
                     $_SESSION['Admin'] = $row['Admin'];
                 }
 
                 $LastLogin = time();
-                if($db_conn->query("UPDATE Users SET LastLogin = '$LastLogin' WHERE UserID = '$OSUID'")){
-                  unset($_SESSION["OSUID"]);
+                if($db_conn->query("UPDATE Users SET LastLogin = '$LastLogin' WHERE UserID = '$user_id'")){
+                  unset($_SESSION['OSUID']);
                   header("Location: ../../index.php");
                 }
+              }else{
+                header("Location: ../../index.php?page=EditMyProfile");
               }
+            }else{
+             # echo "the Builder";
+              $_SESSION['Linked'] = false;
             }
           }/*end of sucessfull link */
           elseif ($data->plugin->data->action == 'unlink_identity')
