@@ -17,7 +17,7 @@ $Mailsend = 0;
             $Key        = $_GLOBAL['MailgunKey'];
             $VCode      = md5(($Email.time()));
             $HTML       = "Hej $Username, Her er en Verificerings kode: $VCode, for din bruger";
-            $To         = "bestyrelsen@hlpf.dk";
+            $To         = "bestyrelsen@hlpf.dk"; # change to  $Email when moving off sandbox
             $From       = $_GLOBAL['SendMailFrom'];
             $Subject    = "HLParty.dk Verificerings Kode";
 
