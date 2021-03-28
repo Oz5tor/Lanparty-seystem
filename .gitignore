@@ -149,3 +149,4 @@ Temporary Items
 JS/tinymce/langs/readme.md
 JS/tinymce/license.txt
 Include/CoreParts/DBconn.php
+Include/TestArea/Convert.php
