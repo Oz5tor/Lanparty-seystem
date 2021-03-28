@@ -13,9 +13,9 @@ $eventID = $_GLOBAL["EventID"];
 $event = $db_conn->query("SELECT e.EventID, e.Seatmap, e.Title FROM Event as e WHERE EventID = '$eventID' ORDER BY e.EventID DESC LIMIT 1")->fetch_assoc();
 
 # SQL if more than only member tickets is avaible else use active none memberprice
-$OnlyOneTypeActive = $db_conn->query("SELECT * FREOM TicketPrices WHERE". time() ." BETWEEN StartTime AND EndTime")->num_rows;
+$activePricesNum = $db_conn->query("SELECT * FROM TicketPrices WHERE". time() ." BETWEEN StartTime AND EndTime AND EventID = '$eventID'");
 
-if($OnlyOneTypeActive == 1){
+if($activePricesNum->num_rows == 1){
     $query = "SELECT * FROM TicketPrices WHERE TicketPrices.EventID = " . $event['EventID'] . " AND TicketPrices.Type = 'Medlem' AND " .
     time() . " BETWEEN TicketPrices.StartTime AND TicketPrices.EndTime";
 }else{

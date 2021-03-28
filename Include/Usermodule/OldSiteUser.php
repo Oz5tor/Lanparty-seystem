@@ -6,7 +6,7 @@ $Mailsend = 0;
      $Username   = $db_conn->real_escape_string($_POST['Username']);
      $Email      = $db_conn->real_escape_string($_POST['email']);
      $VCode      = md5(($Email.time()));
-     $OSUresult = $db_conn->query("SELECT * FROM Users WHERE Username = '$Username' AND Email = '$Email' AND OSUVerLinkUsed <> '1'");
+     $OSUresult = $db_conn->query("SELECT * FROM Users WHERE Username = '$Username' AND Email = '$Email' AND OSUVerLinkUsed IS NULL");
      #print_r($OSUresult);
      #print_r($OSUresult->fetch_assoc());
      if($OSUresult->fetch_assoc()){
@@ -16,10 +16,10 @@ $Mailsend = 0;
         
             $Key        = $_GLOBAL['MailgunKey'];
             $VCode      = md5(($Email.time()));
-            $HTML       = "Hej $Username, Her er en aktiverings kode: $VCode, for din bruger";
+            $HTML       = "Hej $Username, Her er en Verificerings kode: $VCode, for din bruger";
             $To         = "bestyrelsen@hlpf.dk";
             $From       = $_GLOBAL['SendMailFrom'];
-            $Subject    = "Dette er en kode test 1..2..3..4..";
+            $Subject    = "HLParty.dk Verificerings Kode";
 
             MailGunSender($From, $To, $Subject, $HTML, $Key);
             $_SESSION['MsgForUser'] = 'Vi har sendt dig en code som du bedet indtaste i "Verificerings kode" feltet, HUSK!! at tjekke din spam mappe';
