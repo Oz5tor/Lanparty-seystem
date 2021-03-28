@@ -19,7 +19,7 @@ $Mailsend = 0;
             $HTML       = "Hej $Username, Her er en Verificerings kode: $VCode, for din bruger";
             $To         = "bestyrelsen@hlpf.dk"; # change to  $Email when moving off sandbox
             $From       = $_GLOBAL['SendMailFrom'];
-            $Subject    = "HLParty.dk Verificerings Kode";
+            $Subject    = "Dette er en kode test 1..2..3..4..";
 
             MailGunSender($From, $To, $Subject, $HTML, $Key);
             $_SESSION['MsgForUser'] = 'Vi har sendt dig en code som du bedet indtaste i "Verificerings kode" feltet, HUSK!! at tjekke din spam mappe';
