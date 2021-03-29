@@ -1,5 +1,6 @@
 <?php
 ob_start();
+session_set_cookie_params(['samesite' => 'None', 'secure' => true]); 
 session_start();
 require_once("oneall_calls.php");
 require_once("../CoreParts/DBconn.php");
@@ -57,6 +58,7 @@ if ( ! empty ($_POST['connection_token']))
     $data = $json->response->result->data;
         
     echo '<pre>';
+    print_r($_SESSION);
     print_r($data);
     echo '</pre>';
 
@@ -68,6 +70,7 @@ if ( ! empty ($_POST['connection_token']))
         if ($data->plugin->data->status == 'success')
         {
           if (isset($_SESSION['OSUID'])) {
+            echo "bob1";
             $OSUID = $_SESSION['OSUID'];
             $temptoken = $data->user->user_token;
             $_SESSION['OneAllToken'] = $data->user->user_token;
