@@ -7,7 +7,7 @@ if (!empty($action) AND $action == "LogOut") {
     exit(); // No need for data grinding when you know where they are going.
 }
 
-if(!empty($_SESSION['UserToken'])){
+if(!empty($_SESSION['UserToken']) & ($page != 'Bruger Betingelser')){
     include_once("Include/Usermodule/EditOrRegister.php");
 }
 elseif (! empty( $page ) ) {
