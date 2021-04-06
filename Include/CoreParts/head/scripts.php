@@ -18,6 +18,20 @@
    filemanager_title:"Responsive Filemanager" ,
    external_plugins: { "filemanager" : "JS/filemanager/plugin.min.js"}
  });
+
+
+ tinymce.init({
+    selector: "#PublicTinyMCE",
+    height: "500",
+    plugins: [
+         "advlist autolink link image lists charmap print preview hr",
+         "searchreplace wordcount visualblocks insertdatetime media nonbreaking",
+         "table contextmenu directionality emoticons paste textcolor responsivefilemanager code"
+   ],
+   toolbar1: "undo redo | bold italic underline | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | styleselect",
+   toolbar2: "link unlink anchor | image media | forecolor backcolor",
+ });
+
 </script>
 <!--[if IE]>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv.min.js"></script>
@@ -35,7 +49,7 @@
   s.parentNode.insertBefore(oa, s);
 </script>
 
-<?php if(@page == 'Gallery'){?> 
+<?php if($page == 'Gallery'){?> 
   <link rel="stylesheet" href="MagnificPopup/src/js/core.js">
   <link rel="stylesheet" href="MagnificPopup/src/js/ajax.js">
   <link rel="stylesheet" href="MagnificPopup/src/js/gallery.js">
