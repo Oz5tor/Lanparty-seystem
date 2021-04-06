@@ -55,10 +55,10 @@ if(!isset($_SESSION['UserToken']) && !isset($_SESSION['UserID'])){
         <input type="email" class="form-control" required id="Email" placeholder="Workshop@santa.chrismas"
                value="<?php if(isset($Email)){ echo $Email;} ?>"  name="Email">
       </div>
-
+        
       <div class="form-group col-lg-3">
         <label class="control-label" for="Birthday">F&oslash;dselsdag:*</label>
-        <input id="Birthday" class="form-control birthday" type="text" required data-target="#Birthday" placeholder="dd-mm-yyyy" data-toggle="datetimepicker" onfocus="datetimepicker()"  value="<?php if(isset($Birthday)){ echo date('d-m-Y',strtotime($Birthday));} ?>"
+        <input id="Birthday" class="form-control birthday " type="text" readonly required data-target="#Birthday" placeholder="dd-mm-yyyy" data-toggle="datetimepicker"  value="<?php if(isset($Birthday)){ echo date('d-m-Y',strtotime($Birthday));} ?>"
                name="Birthday">
       </div>
       <div class="form-group col-lg-3">
@@ -158,7 +158,7 @@ if(!isset($_SESSION['UserToken']) && !isset($_SESSION['UserID'])){
       </div>
       <?php if($page != 'EditMyProfile'){ ?>
       <div class="form-group form-inline col-lg-3">
-            <label for="ToS">*Brugerbetinelser: </label>
+            <label for="ToS"><a target="_blank" href="?page=Bruger Betingelser" title="Læs bruger betingelser her">*Bruger Betingelser:</a></label>
             <input type="checkbox" id="ToS" value="1" required name="ToS">
       </div>
       <?php } ?>
@@ -213,9 +213,7 @@ if(!isset($_SESSION['UserToken']) && !isset($_SESSION['UserID'])){
       </script>
       <div class="form-group col-lg-12">
         <label class="control-label" for="Bio">Profil tekst:</label>
-        <textarea id="PublicTinyMCE" class="form-control" rows="5" name="Bio" id="Bio">
-        <?php if(isset($Bio)){echo $Bio;} ?>
-        </textarea>
+        <textarea id="PublicTinyMCE" class="form-control" rows="5" name="Bio" id="Bio"><?php if(isset($Bio)){echo trim($Bio);} ?></textarea>
       </div>
       <div class="form-group col-xs-12 col-sm-5 col-md-6 col-lg-3">
         <?php
