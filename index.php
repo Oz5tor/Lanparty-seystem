@@ -22,17 +22,6 @@ require_once("Include/CoreParts/global_settings.php");
 </head>
 <body>
     <?php include_once("Include/TestArea/DEBUGGIN.php"); ?>
-
-    <!-- Facebook scocial like code prep start
-    <div id="fb-root"></div>
-    <script>(function(d, s, id) {
-      var js, fjs = d.getElementsByTagName(s)[0];
-      if (d.getElementById(id)) return;
-      js = d.createElement(s); js.id = id;
-      js.src = "//connect.facebook.net/da_DK/sdk.js#xfbml=1&version=v2.7&appId=1480239178911395";
-      fjs.parentNode.insertBefore(js, fjs);
-    }(document, 'script', 'facebook-jssdk'));</script>
-    Facebook scocial like code prep end -->
     <!-- Slider start
     <div class="LanCMSno_margin_padding hidden-xs container-fluid">
        <img src="Images/image-slider-5.jpg" class="img-responsive center-block" >
