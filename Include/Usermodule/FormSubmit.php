@@ -5,11 +5,10 @@ require_once("class/FileUpload.php");
 # Standard Feils
 $RegErroMSG = array();
 $FormAOKAY = 0;
-if($_POST['FullName'] == '')  {$RegErroMSG[] .='Fulde Navn'; $FormAOKAY = 1;}
-if($_POST['Email'] == '')     {$RegErroMSG[] .='Email'; $FormAOKAY = 1;}
-if($_POST['Birthday'] == '')  {$RegErroMSG[] .='Fødselsdag'; $FormAOKAY = 1;}
-if($_POST['Username'] == '')  {$RegErroMSG[] .='Brugernavn'; $FormAOKAY = 1;}
-
+if(trim($_POST['FullName']) == '')  {$RegErroMSG[] .='Fulde Navn'; $FormAOKAY = 1;}
+if(trim($_POST['Email']) == '')     {$RegErroMSG[] .='Email'; $FormAOKAY = 1;}
+if(trim($_POST['Birthday']) == '')  {$RegErroMSG[] .='Fødselsdag'; $FormAOKAY = 1;}
+if(trim($_POST['Username']) == '')  {$RegErroMSG[] .='Brugernavn'; $FormAOKAY = 1;}
 
 if($page != 'EditMyProfile'){
   if($_POST['Password'] == '')  {$RegErroMSG[] .='Kodeord'; $FormAOKAY = 1;}
@@ -17,9 +16,9 @@ if($page != 'EditMyProfile'){
   if(!isset($_POST['ToS']))     {$RegErroMSG[] .='Bekræfte betingelserne'; $FormAOKAY = 1;}
 }
 
-if($_POST['Phone'] == '')     {$RegErroMSG[] .='Telefonnummer'; $FormAOKAY = 1;}
-if($_POST['Address'] == '')   {$RegErroMSG[] .='Adresse'; $FormAOKAY = 1;}
-if($_POST['Zipcode'] == '')   {$RegErroMSG[] .='Postnummer'; $FormAOKAY = 1;}
+if(trim($_POST['Phone']) == '')     {$RegErroMSG[] .='Telefonnummer'; $FormAOKAY = 1;}
+if(trim($_POST['Address']) == '')   {$RegErroMSG[] .='Adresse'; $FormAOKAY = 1;}
+if(trim($_POST['Zipcode']) == '')   {$RegErroMSG[] .='Postnummer'; $FormAOKAY = 1;}
 if($page != 'EditMyProfile')
 {
   if($_POST['Password'] != $_POST['CPassword']){
@@ -70,17 +69,17 @@ if(isset($_SESSION['UserID'])){
 }
 
 ##################### Rember Submitted feilds content ###########################
-$PreffereredUsername    = $_POST['Username'];
-$FullName               = $_POST['FullName'];
-$Birthday               = $_POST['Birthday'];
-echo $revBirthday            = date('Y-m-d,',strtotime($Birthday));
-$Address                = $_POST['Address'];
-$Zipcode                = $_POST['Zipcode'];
-$NewClan                = $db_conn->real_escape_string($_POST['NewClan']);
-$Email                  = $_POST['Email'];
-$Phone                  = $_POST['Phone'];
-$Clan                   = $db_conn->real_escape_string($_POST['Clan']);
-$Bio                    = $_POST['Bio'];
+$PreffereredUsername    = trim($_POST['Username']);
+$FullName               = trim($_POST['FullName']);
+$Birthday               = trim($_POST['Birthday']);
+$revBirthday            = date('Y-m-d,',strtotime($Birthday));
+$Address                = trim($_POST['Address']);
+$Zipcode                = trim($_POST['Zipcode']);
+$NewClan                = $db_conn->real_escape_string(trim($_POST['NewClan']));
+$Email                  = trim($_POST['Email']);
+$Phone                  = trim($_POST['Phone']);
+$Clan                   = $db_conn->real_escape_string(trim($_POST['Clan']));
+$Bio                    = trim($_POST['Bio']);
 
 ######################## Clans ##################################################
 if($NewClan == '' && $Clan == 0){
