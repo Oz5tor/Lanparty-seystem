@@ -6,7 +6,7 @@
         $PreffereredUsername    = $row['Username'];
         $FullName               = $row['FullName'];
         $Clan                   = $row['ClanID'];
-        if($row['ProfileIMG'] == ''){ $PictureUrl = "Images/Users/nopic.png";} else { $PictureUrl = "Images/Users/nopic.png"; }
+        if($row['ProfileIMG'] == ''){ $PictureUrl = "Images/Users/nopic.png";} else { $PictureUrl = $row['ProfileIMG']; }
       }
     }
     ?>
