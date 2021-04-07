@@ -11,7 +11,7 @@
     }
     ?>
 
-<div class="row LanCMScontentbox">
+<div class="row LanCMScontentbox align-items-center">
   <div class="col-lg-2 col-md-2 col-sm-2 col-xs-7 ">
   <img height="75" src="<?php echo $PictureUrl; ?>">
     <?php
@@ -20,18 +20,18 @@
 #    echo $Clan;
     ?>
   </div>
-  <div class="col-lg-9 col-md-10 col-sm-10 col-xs-7 col-lg-offset-1 ">
-      <a class="btn btn-info" style="margin-bottom: 5px;" href="">Min billet</a>
-      <a class="btn btn-primary" style="margin-bottom: 5px;" href="?page=EditMyProfile">Ret min profil</a>
-      <a class="btn btn-danger" style="margin-bottom: 5px;" href="?action=LogOut">Logud</a>
+  <div class="col-lg-10 col-md-10 col-sm-10 col-xs-7  ">
+      <a class="btn btn-info" style="margin-bottom: 10px;" href="">Min billet</a>
+      <a class="btn btn-primary" style="margin-bottom: 10px;" href="?page=EditMyProfile">Ret min profil</a>
+      <a class="btn btn-danger" style="margin-bottom: 10px;" href="?action=LogOut">Logud</a>
   <?php if($_SESSION['Admin'] == 1){ ?> 
-      <a class="btn btn-warning" style="margin-bottom: 5px;" href="?page=Admin">Administration</a>
+      <a class="btn btn-warning" style="margin-bottom: 10px;" href="?page=Admin">Admin</a>
       <?php } ?>
-    
-    
-    
-    
-    
+      <p>
+      <?php 
+          echo "Hej ".$PreffereredUsername.".";
+      ?>
+      </p> 
   </div>  
 </div>
 
