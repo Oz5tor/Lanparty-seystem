@@ -37,8 +37,8 @@
                 </a>    
             </div>
             <div class="col-xs-6 col-md-3 col-sm-3 LanCMSmargin_botom">
-                <a href="#" class="">
-                  <img class="img-responsive img-thumbnail center-block" src="Images/games/turneringer.jpg">
+                <a href="https://www.facebook.com/HLParty/photos" target="_blank" class="">
+                  <img class="img-responsive img-thumbnail center-block" src="Images/Galleri.jpg">
                 </a>    
             </div>
             <div class="col-xs-6 col-md-3 col-sm-3 LanCMSmargin_botom">
