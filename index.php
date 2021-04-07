@@ -2,7 +2,7 @@
 session_set_cookie_params(['samesite' => 'None', 'secure' => true]);
 $startScriptTime=microtime(TRUE);
 ob_start();
-ini_set('session.cookie_samesite', 'None');
+//ini_set('session.cookie_samesite', 'None');
 session_start();
 #$_SESSION['Admin'] = 1;
 #$_SESSION['UserID'] = 736;
