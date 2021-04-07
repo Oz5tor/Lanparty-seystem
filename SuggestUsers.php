@@ -10,8 +10,8 @@ if (isset($_REQUEST['query'])) {
 	$array = array();
     while ($row = mysql_fetch_array($result)) {
         $array[] = array (
-            'label' => $row
-            'value' => $row,
+            'label' => $row,
+            'value' => $row
         );
     }
     //RETURN JSON ARRAY

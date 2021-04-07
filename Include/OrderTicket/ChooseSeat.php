@@ -9,10 +9,19 @@ if (!isset($_SESSION['UserID'])) {
 }
 
 require 'class/PayPalCheckout.php';
-$event = $db_conn->query("SELECT e.EventID, e.Seatmap, e.Title FROM Event as e
-                          ORDER BY e.EventID DESC LIMIT 1")->fetch_assoc();
-$query = "SELECT * FROM TicketPrices WHERE TicketPrices.EventID = " . $event['EventID'] . " AND TicketPrices.Type = 'Ikke-medlem' AND " .
+$eventID = $_GLOBAL["EventID"];
+$event = $db_conn->query("SELECT e.EventID, e.Seatmap, e.Title FROM Event as e WHERE EventID = '$eventID' ORDER BY e.EventID DESC LIMIT 1")->fetch_assoc();
+
+# SQL if more than only member tickets is avaible else use active none memberprice
+$OnlyOneTypeActive = $db_conn->query("SELECT * FREOM TicketPrices WHERE". time() ." BETWEEN StartTime AND EndTime")->num_rows;
+
+if($OnlyOneTypeActive == 1){
+    $query = "SELECT * FROM TicketPrices WHERE TicketPrices.EventID = " . $event['EventID'] . " AND TicketPrices.Type = 'Medlem' AND " .
     time() . " BETWEEN TicketPrices.StartTime AND TicketPrices.EndTime";
+}else{
+    $query = "SELECT * FROM TicketPrices WHERE TicketPrices.EventID = " . $event['EventID'] . " AND TicketPrices.Type = 'Ikke-medlem' AND " .
+    time() . " BETWEEN TicketPrices.StartTime AND TicketPrices.EndTime";
+}
 $result = $db_conn->query($query)->fetch_assoc();
 $eventPrice = $result['Price'];
 
@@ -78,8 +87,8 @@ if (isset($_POST['checkoutCart']) AND !empty($_POST['checkoutCart'])) {
   if (count($json) == 1) {
     // Only one seat chosen...
     $seat = preg_replace("(cart-item-)", "", $json[0]);
-    $query = "INSERT INTO Tickets (UserID, EventID, SeatNumber, OderedDate)
-        VALUES (" . $_SESSION['UserID'] . ", " . $event['EventID'] . ", " . $seat . ", " . time() . ")";
+    $query = "INSERT INTO Tickets (UserID, EventID, SeatNumber, OrderedDate)
+        VALUES (" . $_SESSION['UserID'] . ", " . $eventID . ", " . $seat . ", " . time() . ")";
     if (!$db_conn->query($query)) {
       $_SESSION['MsgForUser'] = "Fejl ved resevering af sæde...";
       header("Location: index.php?page=Buy");
@@ -130,7 +139,7 @@ if (isset($_POST['checkoutCart']) AND !empty($_POST['checkoutCart'])) {
     sort($json);
     $timeNow = time();
     for ($i=0; $i < count($json); $i++) {
-      $query = "INSERT INTO Tickets (UserID, EventID, SeatNumber, OderedDate)
+      $query = "INSERT INTO Tickets (UserID, EventID, SeatNumber, OrderedDate)
           VALUES (" . $_SESSION['UserID'] . ", " . $event['EventID'] . ", " . substr($json[$i], -3) . ", " . $timeNow . ")";
       $db_conn->query($query);
     }
@@ -268,7 +277,7 @@ function checkName() {
         }
       } else {
         $query = "SELECT TicketPrices.Price FROM TicketPrices WHERE TicketPrices.EventID = " . $event['EventID'] .
-            " AND TicketPrices.Type = 'Ikke medlem' AND " . time() . " BETWEEN TicketPrices.StartTime AND TicketPrices.EndTime";
+            " AND TicketPrices.Type = 'Ikke-medlem' AND " . time() . " BETWEEN TicketPrices.StartTime AND TicketPrices.EndTime";
         if ($ticket = $db_conn->query($query)->fetch_assoc()) {
           $ticketPrice = $ticket['Price'];
         } else {

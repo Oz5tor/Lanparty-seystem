@@ -16,4 +16,4 @@ if(!$result2->num_rows == 0){
     $_GLOBAL['EventID'] = $row2['EventID'];
     $_GLOBAL['EventName'] = $row2['Title'];
 }
-$_GLOBAL['OneAllActive'] = 1;
+#$_GLOBAL['OneAllActive'] = 1;

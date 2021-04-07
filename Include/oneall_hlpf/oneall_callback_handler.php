@@ -1,4 +1,6 @@
 <?php
+ob_start();
+session_set_cookie_params(['samesite' => 'None', 'secure' => true]); 
 session_start();
 require_once("oneall_calls.php");
 require_once("../CoreParts/DBconn.php");
@@ -55,9 +57,10 @@ if ( ! empty ($_POST['connection_token']))
     // Extract data
     $data = $json->response->result->data;
         
-    #echo '<pre>';
-    #print_r($data);
-    #echo '</pre>';
+    echo '<pre>';
+    print_r($_SESSION);
+    print_r($data);
+    echo '</pre>';
 
     // Check for service
     switch ($data->plugin->key)
@@ -66,15 +69,23 @@ if ( ! empty ($_POST['connection_token']))
       case "social_link":
         if ($data->plugin->data->status == 'success')
         {
-          $temptoken = $_SESSION['OneAllToken'];
+          if (isset($_SESSION['OSUID'])) {
+            echo "bob1";
+            $OSUID = $_SESSION['OSUID'];
+            $temptoken = $data->user->user_token;
+            $_SESSION['OneAllToken'] = $data->user->user_token;
+            link_user_token_to_user_id($temptoken, $OSUID, $db_conn);
+            //unset($_SESSION['OSUID']);
+          }else{
+            $temptoken = $_SESSION['OneAllToken'];
+          }
           //Identity linked
-          if ($data->plugin->data->action == 'link_identity')
-          {
+          if ($data->plugin->data->action == 'link_identity'){
             //The identity <identity_token> has been linked to the user <user_token>
             $user_token = $data->user->user_token;
             $identity_token = $data->user->identity->identity_token;
             if($user_token === $_SESSION['OneAllToken']){
-
+              echo "bob";
               $_SESSION['Linked'] = true;
               $ProfileURL = $data->user->identity->profileUrl;
               $identity_token = $data->user->identity->source->key;
@@ -102,10 +113,27 @@ if ( ! empty ($_POST['connection_token']))
                   break;
 
               }
-              header("Location: ../../index.php?page=EditMyProfile");
+
+              if (isset($_SESSION['OSUID'])) {
+                $user_id = $_SESSION['OSUID'];
+                $_SESSION['UserID'] = $user_id;
+                $_SESSION['OneAllToken'] = $user_token;
+                if($Result = $db_conn ->query("Select Admin From Users Where UserID = '$user_id'")){
+                    $row = $Result->fetch_assoc();
+                    $_SESSION['Admin'] = $row['Admin'];
+                }
+
+                $LastLogin = time();
+                if($db_conn->query("UPDATE Users SET LastLogin = '$LastLogin' WHERE UserID = '$user_id'")){
+                  unset($_SESSION['OSUID']);
+                  header("Location: ../../index.php");
+                }
+              }else{
+                header("Location: ../../index.php?page=EditMyProfile");
+              }
             }else{
+             # echo "the Builder";
               $_SESSION['Linked'] = false;
-              header("Location: ../../index.php?page=EditMyProfile");
             }
           }/*end of sucessfull link */
           elseif ($data->plugin->data->action == 'unlink_identity')

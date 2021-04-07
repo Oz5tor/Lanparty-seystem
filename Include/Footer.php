@@ -9,28 +9,35 @@
         <div class="col-sm-12 col-md-6">
             <!-- Adresse og kontakt -->
             <div class="col-lg-6 hidden-xs hidden-sm hidden-md" id="LanCMSfooter_contact">
-                <h2>Adresse</h2>
+                <h2>Event Adresse</h2>
                 <address>
                     Hillerødsholmskolen <br>
                     Hillerødsholmsallé 2 <br>
                     3400 Hillerød
                 </address>
                 <h2>Kontakt</h2>
-                <p>Bestyrelsen kan kontaktes på <a href="mailto:best@hlpf.dk">best@hlpf.dk</a>.<br> Ellers henviser vi til vores <a href="?page=Kontakt">kontaktside</a>.</p>
+                <p>Bestyrelsen kan kontaktes på <a href="mailto:bestyrelsen@hlpf.dk">bestyrelsen@hlpf.dk</a>.</p>
             </div>
             <!-- Generelle links -->
             <div class="col-lg-6">
-                <h2>Nyttige links</h2>
+                <!--<h2>Nyttige links</h2>
                 <ul id="LanCMSfooter_links">
-                    <li><a href="#">Regler</a></li>
-                    <li><a href="#">Konkurrencer</a></li>
-                    <li><a href="#">Kantinen</a></li>
+					<li><a href="#">Regler</a></li>
+                     <li><a href="#">Konkurrencer</a></li>
+                    <li><a href="#">Kantinen</a></li> -->
+                    <h2>Politikker</h2>
+                    <ul id="LanCMSfooter_links">
+                        <li><a target="_blank" href="?page=Bruger Betingelser" title="Læs bruger betingelser her">Bruger Betingelser</li>
+                        <li><a target="_blank" href="?page=Privatlivspolitik for Hovedstadens LanParty Forening">Privatlivspolitik</a></li>
+                        <li><a target="_blank" href="?page=Cookies på denne side">Cookies</li>
+                    </ul>
                 </ul>
                 <!-- Sociale links -->
                 <h2>Social</h2>
-                <a href="#"><span class="fa fa-facebook fa-3x"></span></a>&nbsp;
-                <a href="#"><span class="fa fa-twitter fa-3x"></span></a>&nbsp;
-                <a href="#"><span class="fa fa-youtube fa-3x"></span></a>
+                <a href="https://www.facebook.com/HLParty" target="_blank"><span class="fa fa-facebook fa-3x"></span></a>&nbsp;
+                <!-- <a href="#"><span class="fa fa-twitter fa-3x"></span></a>&nbsp; -->
+                <a href="https://www.youtube.com/user/HLParty" target="_blank"><span class="fa fa-youtube fa-3x"></span></a>&nbsp;
+				<a href="https://www.twitch.tv/HLPartyDK" target="_blank"><span class="fa fa-twitch fa-3x"></span></a>
             </div>
         </div> <!-- outer col -->        
     </div> <!-- row -->

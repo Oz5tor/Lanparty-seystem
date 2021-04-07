@@ -4,6 +4,11 @@ body {
     overflow-x: none;
 }
 
+#header{
+    padding-top: 20px;
+    background-image: url(../Images/background.png);
+}
+
 hr { border: 1px solid #2060c0; }
 
 p { word-wrap: break-word; }

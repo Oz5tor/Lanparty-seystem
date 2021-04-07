@@ -55,11 +55,11 @@ if(!isset($_SESSION['UserToken']) && !isset($_SESSION['UserID'])){
         <input type="email" class="form-control" required id="Email" placeholder="Workshop@santa.chrismas"
                value="<?php if(isset($Email)){ echo $Email;} ?>"  name="Email">
       </div>
-
+        
       <div class="form-group col-lg-3">
         <label class="control-label" for="Birthday">F&oslash;dselsdag:*</label>
-        <input type="text" readonly required class="form-control birthdayPicker" placeholder="dd-mm-yyyy" id="Birthday" value="<?php if(isset($Birthday)){ echo $Birthday;} ?>"
-               name="Birthday" title="dd-mm-yyyy" data-date-format="dd-mm-yyyy">
+        <input id="Birthday" class="form-control birthday " type="text" readonly required data-target="#Birthday" placeholder="dd-mm-yyyy" data-toggle="datetimepicker"  value="<?php if(isset($Birthday)){ echo date('d-m-Y',strtotime($Birthday));} ?>"
+               name="Birthday">
       </div>
       <div class="form-group col-lg-3">
         <label class="control-label" for="Username">Brugernavn:*</label>
@@ -158,7 +158,7 @@ if(!isset($_SESSION['UserToken']) && !isset($_SESSION['UserID'])){
       </div>
       <?php if($page != 'EditMyProfile'){ ?>
       <div class="form-group form-inline col-lg-3">
-            <label for="ToS">*Brugerbetinelser: </label>
+            <label for="ToS"><a target="_blank" href="?page=Bruger Betingelser" title="Læs bruger betingelser her">*Bruger Betingelser:</a></label>
             <input type="checkbox" id="ToS" value="1" required name="ToS">
       </div>
       <?php } ?>
@@ -213,9 +213,7 @@ if(!isset($_SESSION['UserToken']) && !isset($_SESSION['UserID'])){
       </script>
       <div class="form-group col-lg-12">
         <label class="control-label" for="Bio">Profil tekst:</label>
-        <textarea id="PublicTinyMCE" class="form-control" rows="5" name="Bio" id="Bio">
-        <?php if(isset($Bio)){echo $Bio;} ?>
-        </textarea>
+        <textarea id="PublicTinyMCE" class="form-control" rows="5" name="Bio" id="Bio"><?php if(isset($Bio)){echo trim($Bio);} ?></textarea>
       </div>
       <div class="form-group col-xs-12 col-sm-5 col-md-6 col-lg-3">
         <?php
@@ -232,17 +230,6 @@ if(!isset($_SESSION['UserToken']) && !isset($_SESSION['UserID'])){
       <div class="form-group col-xs-12 col-sm-5 col-md-6 col-lg-3">
         <!-- href="index.php?action=LogOut" -->
         <a id="CancleUser" onclick="window.location.href = 'index.php?action=LogOut'" class="btn btn-warning">Fortryd oprettelse</a>
-         <script type="text/javascript">
-            /* Replace #your_callback_uri# with the url to your own callback script */
-          var your_callback_script = 'http://<?php echo $ROOTURL; ?>Include/oneall_hlpf/oneall_callback_handler.php';
-          /* Embeds the buttons into the oa_social_link_container */
-          var _oneall = _oneall || [];
-          //_oneall.push(['social_link', 'set_providers', ['facebook', 'Google', 'Battlenet', 'Steam', 'Twitch']]);
-          _oneall.push(['social_link', 'set_providers', ['facebook', 'Discord', 'Battlenet', 'Steam', 'Twitch']]);
-          _oneall.push(['social_link', 'set_callback_uri', your_callback_script]);
-          _oneall.push(['social_link', 'set_user_token', <?php echo $_SESSION['OneAllToken']; ?>]);
-          _oneall.push(['social_link', 'attach_onclick_popup_ui', 'CancleUser']);
-        </script>
       </div>
       <?php
       }
@@ -257,7 +244,7 @@ if(!isset($_SESSION['UserToken']) && !isset($_SESSION['UserID'])){
         <div id="oa_social_link_container" class="form-group col-lg-12"></div>
         <script type="text/javascript">
           /* Replace #your_callback_uri# with the url to your own callback script */
-          var your_callback_script = 'http://<?php echo $ROOTURL; ?>Include/oneall_hlpf/oneall_callback_handler.php';
+          var your_callback_script = 'https://<?php echo $ROOTURL; ?>Include/oneall_hlpf/oneall_callback_handler.php';
           /* Dynamically add the user_token of the currently logged in user. */
           /* Leave the field blank in case the user has no user_token yet. */
           var user_token = '<?php echo $_SESSION['OneAllToken']; ?>';
