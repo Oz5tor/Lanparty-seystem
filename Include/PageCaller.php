@@ -50,7 +50,7 @@ elseif (! empty( $page ) ) {
             include_once("ShowNewsLetter.php");
             break;
         case "Mailtest":
-            include_once("class/SendMail.php");
+            include_once("class/MailGunSendMail.php");
             break;
         case "Buy":
             include_once("Include/OrderTicket/ChooseSeat.php");
