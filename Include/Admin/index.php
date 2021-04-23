@@ -53,14 +53,6 @@ require_once("class/GetUsernameFromID.php");
         echo "list-group-item col-xl-2 col-lg-2 col-md-4 col-sm-6 col-xs-12'>
                 <span class='badge'>".$row[$key]."</span>$value</li></a>";
       }
-      while(list($key, $value) = each($adminTabs)) {
-        echo "<a href='?page=Admin&subpage=$key#admin_menu'><li class='";
-        if($subpage == $key) {
-          echo "active ";
-        }
-        echo "list-group-item col-xl-2 col-lg-2 col-md-4 col-sm-6 col-xs-12'>
-                <span class='badge'>".$row[$key]."</span>$value</li></a>";
-      }
       ?>
     </ul>
   </div>
