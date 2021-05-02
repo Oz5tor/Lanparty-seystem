@@ -23,6 +23,7 @@ $Mailsend = 0;
 
             MailGunSender($From, $To, $Subject, $HTML, $Key);
             $_SESSION['MsgForUser'] = 'Vi har sendt dig en code som du bedet indtaste i "Verificerings kode" feltet, HUSK!! at tjekke din spam mappe';
+            $_SESSION["MsgForUserType"] = "";
             $Mailsend = 1;
         } // Insert of Verification code + send of mail
      } // Select OSU from DB Users
