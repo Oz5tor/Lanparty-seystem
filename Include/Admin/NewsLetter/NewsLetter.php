@@ -9,11 +9,7 @@ if($action != '') {
       break;
     case 'New':
       $NewOrEditNewsLetter = true;
-      break;
-    case 'Send':
-      require_once("class/SendMail.php");
-      $LetterResult = $db_conn->query("SELECT * FROM NewsLetter
-                                        WHERE LetterID = '$URLID'");
+      break;     
       $Lettercount = $LetterResult->num_rows;
       if($Lettercount == 1) {
         $LetterRow = $LetterResult->fetch_assoc();
@@ -23,7 +19,7 @@ if($action != '') {
         Users.NewsLetter FROM Users WHERE Users.NewsLetter = 1");
         while($NewsRow = $NewsResult->fetch_assoc()) {
           // Send mail
-          echo SendMail($NewsRow["Email"],$NewsRow["FullName"],$Title,$Body,$_GLOBAL);
+          #echo SendMail($NewsRow["Email"],$NewsRow["FullName"],$Title,$Body,$_GLOBAL);
           echo "<hr>";
         }// End of Users that want news
         // update news letter to be sent querry
@@ -43,7 +39,7 @@ if(isset($NewOrEditNewsLetter) && $NewOrEditNewsLetter != false){
   include_once("Include/Admin/NewsLetter/NewOrEditNewsLetter.php");
 }else{
  // create the Lsit over pages
-$result = $db_conn->query("SELECT * FROM NewsLetter ORDER BY SentDate DESC, LetterID DESC");
+$result = $db_conn->query("SELECT * FROM NewsLetter ORDER BY LetterID DESC");
 ?>
 <a style="display:block;" href="?page=Admin&subpage=NewsLetter&action=New#admin_menu" alt="Nyt Nyhedsbrev" type="button" class="text-center btn btn-info">
   Nyt Nyhedsbrev
@@ -66,10 +62,10 @@ $result = $db_conn->query("SELECT * FROM NewsLetter ORDER BY SentDate DESC, Lett
       <td class="text-center"><?= $row['Subject'] ?></td>
       <td class="text-center"><?= TorGetUserName($row['Author'], $db_conn); ?></td>
       <?php if($row['SentDate'] == '0') { ?>
-        <td class="text-center"><a href="?page=Admin&subpage=NewsLetter&action=Send&id=<?= $row['LetterID']; ?>#admin_menu" class="btn btn-success"onclick="confirm('Er du sikker på du vil sende nyhedbrevet')">Udsend</a></td>
+        <td class="text-center"><span class="btn btn-success">Ikke Udsendt</span></td>
       <?php } else { ?>
         <td class="text-center">
-        <?= '<span class="btn disabled btn-danger">'.date('d.m.Y',$row['SentDate']).'</span>'; ?>
+        <?= '<span class="btn disabled btn-danger">'.date('d.m.Y |h:i|',$row['SentDate']).'</span>'; ?>
       </td>
       <?php
       } ?>
