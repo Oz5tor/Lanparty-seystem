@@ -22,14 +22,12 @@ function MailGunSender($From, $To, $Subject, $HTML, $Key){
     curl_close($curl);
     return $response;
 }
-    $text       = "Dette er en test 1..2..3.. <br/> Jeg gik mig en gang over sø og land, <b> der mødte jeg en gamel mand</b>";
-    $From       = "HLParty <bestyrelsen@hlpf.dk>";
-    $To         = "torsoya@gmail.com";
-    $Subject    = "Dette er en test 1..2..3..4..";
-    //echo $PlainMail  = strip_tags($text);
-    $HTML       = $text;
-    $Key = "YXBpOmYxMWIzNzY1OWQ1NDdlOWU0Nzk1MWIzZTBlYjY3NWQ3LWY4NzdiZDdhLWYzMjBhM2Q2";
-
-
-echo MailGunSender($From, $To, $Subject, $HTML, $Key);
+#    $text       = "Dette er en test 1..2..3.. <br/> Jeg gik mig en gang over sø og land, <b> der mødte jeg en gamel mand</b>";
+#    $From       = "HLParty <bestyrelsen@hlpf.dk>";
+#    $To         = "torsoya@gmail.com";
+#    $Subject    = "Dette er en test 1..2..3..4..";
+#    //echo $PlainMail  = strip_tags($text);
+#    $HTML       = $text;
+#    $Key = "YXBpOmYxMWIzNzY1OWQ1NDdlOWU0Nzk1MWIzZTBlYjY3NWQ3LWY4NzdiZDdhLWYzMjBhM2Q2";
+#echo MailGunSender($From, $To, $Subject, $HTML, $Key);
 ?>
