@@ -24,7 +24,7 @@
       <a class="btn btn-info" style="margin-bottom: 10px;" href="">Min billet</a>
       <a class="btn btn-primary" style="margin-bottom: 10px;" href="?page=EditMyProfile">Ret min profil</a>
       <a class="btn btn-danger" style="margin-bottom: 10px;" href="?action=LogOut">Logud</a>
-  <?php if($_SESSION['Admin'] == 1){ ?> 
+  <?php if(isset($_SESSION['Admin'])){ ?> 
       <a class="btn btn-warning" style="margin-bottom: 10px;" href="?page=Admin">Admin</a>
       <?php } ?>
       <p>

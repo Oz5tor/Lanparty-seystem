@@ -2,7 +2,7 @@
     <div class="row LanCMSequal">
       <div class="hidden-xs col-lg-5 col-md-6 col-sm-5 col-xs-12" id="LanCMSLogo" style="display: inherit;"><img class="img-responsive" src="Images/logo.png"></div>
       <div class="hidden-xs hidden-sm hidden-md col-lg-2 col-xs-12 text-center" id="LanCMScountdown">
-      <h3 class="btn btn-primary">Log Ind Med ---></h3>
+      <?php if(!isset($_SESSION["UserID"])){ ?><h3 class="btn btn-primary">Log Ind Med ---></h3> <?php } ?>
       </div>
       <div class="col-lg-5 col-md-6 col-sm-7 col-xs-12 " id="LanCMSLogin" style="max-height:81px">
         <?php
