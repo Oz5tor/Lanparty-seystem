@@ -1,7 +1,7 @@
 <?php
 if(isset($_POST["Login"])){
   if($_POST["Login"] != 'Logind'){
-    require_once("class/SendMail.php");
+    #require_once("class/SendMail.php");
     $username = $_POST['Username'];
     $email    = $_POST['email'];
     $zipcode  = $_POST['Zipcode'];
@@ -26,7 +26,7 @@ if(isset($_POST["Login"])){
       $msg = str_replace('$nick',$nick,$msg);
       $msg = str_replace('$newpass',$newpass,$msg);
 
-      SendMail($to,$toname,$subject,$msg,$_GLOBAL);
+      #SendMail($to,$toname,$subject,$msg,$_GLOBAL);
       $db_conn->query("UPDATE Users SET PW = '$newhash' WHERE UserID = '$PassResetID'");
       //header("Location: index.php");
     }
