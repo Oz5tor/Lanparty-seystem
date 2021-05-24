@@ -158,7 +158,7 @@ if(!isset($_SESSION['UserToken']) && !isset($_SESSION['UserID'])){
       </div>
       <?php if($page != 'EditMyProfile'){ ?>
       <div class="form-group form-inline col-lg-3">
-            <label for="ToS"><a target="_blank" href="#" title="Læs betingelser i vores Privatlivspolitk & Cookies, links til disse kan findes i bunden af siden">*Bruger Betingelser:</a></label>
+            <label for="ToS"><a title="Læs betingelser i vores Privatlivspolitk & Cookies, links til disse kan findes i bunden af siden">*Bruger Betingelser:</a></label>
             <input type="checkbox" id="ToS" value="1" required name="ToS">
       </div>
       <?php } ?>
