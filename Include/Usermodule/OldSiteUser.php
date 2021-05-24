@@ -1,4 +1,7 @@
 <?php
+if(isset($_SESSION["UserID"])){
+    header("Location: index.php");
+}
 require_once("class/MailGunSendMail.php");
 require_once("class/GetUsernameFromID.php");
 $Mailsend = 0;
@@ -54,7 +57,12 @@ $Mailsend = 0;
 
 <div class="row LanCMSequal">
     <div class="LanCMScontentbox col-lg-6 col-md-12 col-sm-12 col-xs-12">
-    Beskrivelse af hvad det betyder at linke din sociale profil med din gamgle HLPart.dk bruger
+    <?php
+         $result = $db_conn->query("SELECT * From Pages WHERE PageTitle = 'Bruger Migrering'");
+         $row = $result->fetch_assoc();
+         echo $row["Content"];
+    ?>
+    <!-- Beskrivelse af hvad det betyder at linke din sociale profil med din gamgle HLPart.dk bruger -->
     </div>
     <div class="LanCMScontentbox col-lg-6 col-md-12 col-sm-12 col-xs-12">
     <?php
