@@ -1,5 +1,5 @@
 <?php
-require_once("class/SendMail.php");
+//require_once("class/SendMail.php");
 require_once("class/GetUsernameFromID.php");
 
 $event = $db_conn->query("SELECT EventID FROM Event
@@ -45,7 +45,7 @@ if (isset($_SESSION['BuyingTicketSingle'])) {
   $msg = str_replace('$price', $_SESSION['Cart'][0]['Price'], $msg);
   $msg = str_replace('$antal', $_SESSION['Cart'][0]['Quantity'], $msg);
 
-  SendMail($email, $FullName, 'Billet kvittering - HLParty', $msg, $_GLOBAL);
+  //SendMail($email, $FullName, 'Billet kvittering - HLParty', $msg, $_GLOBAL);
 
 } elseif (isset($_SESSION['BuyingTicketMulti'])) {
   //
@@ -89,7 +89,7 @@ if (isset($_SESSION['BuyingTicketSingle'])) {
   $msg = str_replace('$price', $priceTotal, $msg);
   $msg = str_replace('$antal', $ticketTotal, $msg);
   // Add the whole cart to the email at some point. It's not important. Just make the mail work.
-  SendMail($userresult['Email'], $userresult['FullName'], 'Billet kvittering - HLParty', $msg, $_GLOBAL);
+  //SendMail($userresult['Email'], $userresult['FullName'], 'Billet kvittering - HLParty', $msg, $_GLOBAL);
 }
 unset($_SESSION['invoice_number'], $_SESSION['payPalSuccess'], $_SESSION['Cart']);
 // Fucking magic...

@@ -6,6 +6,7 @@ ob_start();
 session_start();
 #$_SESSION['Admin'] = 1;
 #$_SESSION['UserID'] = 736;
+#$_SESSION['UserID'] = 2318;
 #session_destroy();
 date_default_timezone_set ('Europe/Copenhagen');
 require_once("Include/CoreParts/DBconn.php");

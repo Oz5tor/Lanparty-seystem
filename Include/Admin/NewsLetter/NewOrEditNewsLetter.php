@@ -33,6 +33,12 @@ if(isset($_POST['Save'])){
   while($ReciverEmail = $ReciversSTMT->fetch()) {
     $Recivers[] .= $email;
   }
+  #$Recivers[] .= "torsoya@gmail.com";
+  #$Recivers[] .= "bestyrelsen@hlpf.dk";
+  #$Recivers[] .= "tos@hlpf.dk";
+  #$Recivers[] .= "tors2_@hotmail.com";
+  
+
   # ==========================
   if($NewsLetterStatement->execute()){
     # IF sucessfull inserted into Database continue with doing more stuff.
@@ -65,7 +71,7 @@ if(isset($_GET['action']) && ( ($_GET['action'] == 'Edit') || ($_GET['action'] =
   $action = $db_conn->real_escape_string($_GET['action']);
   $result = $db_conn->query("SELECT Subject, Body, SentDate FROM NewsLetter WHERE LetterID = '$URLID'");
   $row = $result->fetch_assoc();
-  if( ($action == 'Edit') && ($row['SentDate'] > 0) ){
+  if(($action == 'Edit') && ($row['SentDate'] > 0) ){
     $LetterExist = 0;
     //echo '<b><p class="text-center"> Det valgte nyheds brev kan ikke redigers, da det er blevet udsendt</p></b>';
    # header("Location: index.php?page=Admin&subpage=NewsLetter#admin_menu"); // back to newsletter list
@@ -102,8 +108,7 @@ if ($Sending == 0) {
     </div>
   </form>
   <?php
-  }
-  
+  } 
 }
 ?>
 
