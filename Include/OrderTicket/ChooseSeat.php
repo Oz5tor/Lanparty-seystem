@@ -96,7 +96,7 @@ if (isset($_POST['checkoutCart']) AND !empty($_POST['checkoutCart'])) {
   if (count($json) == 1) {
     // Only one seat chosen...
     $seat = preg_replace("(cart-item-)", "", $json[0]);
-    $query = "INSERT INTO Tickets (UserID, EventID, SeatNumber, OrderedDate, TransactionCode) VALUES (" . $_SESSION['UserID'] . ", " . $eventID . ", " . $seat . ", " . $temptime.", $TransActionCode )";
+    $query = "INSERT INTO Tickets (UserID, EventID, SeatNumber, OrderedDate, TransactionCode) VALUES (" . $_SESSION['UserID'] . ", " . $eventID . ", " . $seat . ", " . $temptime.", '$TransActionCode' )";
     if (!$db_conn->query($query)) {
       $_SESSION['MsgForUser'] = "Fejl ved resevering af sæde...";
       header("Location: index.php?page=Buy");
