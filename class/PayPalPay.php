@@ -1,5 +1,5 @@
 <?php
-require_once 'class/PaypalConfig.php';
+require_once 'class/PayPalConfig.php';
 // use
 use PayPal\Api\Payment;
 use PayPal\Api\PaymentExecution;
@@ -47,14 +47,14 @@ else{
       if(isset($_SESSION["BuyingTicketSingle"]) && $_SESSION["BuyingTicketSingle"] == 1 OR
          isset($_SESSION["BuyingTicketMulti"]) && $_SESSION["BuyingTicketMulti"] == 1){
         $_SESSION['payPalSuccess'] = $sucess;
-        require_once("Include/ORderTicket/PayPalConfirmation.php");
+        require_once("Include/OrderTicket/PayPalConfirmation.php");
       }
        echo '<div class="LanCMScontentborder">';
        echo '<p>Betaling Gemmenført, du vil blive sendt til forsiden om 5 sekunder...</p>';
        echo '<p><a href="index.php">Klik her for at komme til forsiden</a></p>';
-      # aecho '<pre>';
-      # echo print_r($result);
-      # echo '</pre>';
+       #echo '<pre>';
+       #echo print_r($result);
+       #echo '</pre>';
        echo '</div>';
       $retunto = $_GET['returnto'];
     echo "
@@ -65,7 +65,7 @@ else{
       </script>
       ";
     }catch(Exception $ex){
-      $data = json_decode($ex->getData());
+      $data = json_decode($ex->getData);
       echo $data->message;
       echo '<a href="index.php">Klik her for at komme tilbage til hvor du var</a>';
 

@@ -43,7 +43,7 @@ elseif (! empty( $page ) ) {
         /*case "Paypal":
             include_once("class/PayPalCheckout.php");
             break;*/
-        case "Paypalpay":
+        case "PayPalPay":
             include_once("class/PayPalPay.php");
             break;
         case "NewsLetter":

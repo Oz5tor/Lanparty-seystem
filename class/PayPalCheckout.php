@@ -72,8 +72,8 @@ function PayPalCheckOut($Cart, $DBCONN, $returnto ,$invoiceID, $ROOTURL){
     ->setInvoiceNumber($invoiceID);
 
   $redirectUrls = new RedirectUrls();
-  $redirectUrls->setReturnUrl("http://".$ROOTURL."/index.php?page=Paypalpay&success=true&returnto=$returnto")
-    ->setCancelUrl("http://".$ROOTURL."/index.php?page=Paypalpay&success=false");
+  $redirectUrls->setReturnUrl("http://".$ROOTURL."index.php?page=PayPalPay&success=true&returnto=$returnto")
+    ->setCancelUrl("http://".$ROOTURL."index.php?page=PayPalPay&success=false");
 
   $payment = new Payment();
   $payment->setIntent('sale')
@@ -95,7 +95,7 @@ function PayPalCheckOut($Cart, $DBCONN, $returnto ,$invoiceID, $ROOTURL){
 
 
     $_SESSION['invoice_number'] = $invoiceID;
-    //echo $payment->getApprovalLink();
+    echo $payment->getApprovalLink();
     header("Location: ". $payment->getApprovalLink());
   }catch (Exception $ex){
     echo '<pre>';
