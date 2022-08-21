@@ -23,8 +23,8 @@
                     <li role="separator" class="divider"></li>
                     <li><a href="?page=Kiosk">Kantinen tilbyder</a></li>
                     <li role="separator" class="divider"></li>
-                    <li><a href="?page=Yderligere_information">Yderliger information</a></li>
-                    <li><a href="?page=Find_Os">Find Os</a></li>
+                    <li><a href="?page=Yderligere information">Yderliger information</a></li>
+                    <li><a href="?page=Find Os">Find Os</a></li>
                     <li><a href="?page=Huskeliste">Huskeliste</a></li>
                   </ul>
                 </li>
