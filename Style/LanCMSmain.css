@@ -4,11 +4,6 @@ body {
     overflow-x: none;
 }
 
-#oa_social_login_container{
-    max-height: 25px;
-    overflow: hidden;
-}
-
 #header{
     padding-top: 20px;
     background-image: url(../Images/background.png);
@@ -146,6 +141,7 @@ textarea.LanCMSseatmap-gen {
   float: left;
   margin-right: 5px;
 }
+
 /* ========== Temp styles  =============== */
 @-moz-document url-prefix() {
   fieldset { display: table-cell; }

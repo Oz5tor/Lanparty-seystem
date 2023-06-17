@@ -76,7 +76,7 @@ $config = array(
     | with start and final /
     |
     */
-    'upload_dir' => '/Lanparty-seystem/Images/',
+    'upload_dir' => '/Images/',
     /*
     |--------------------------------------------------------------------------
     | relative path from filemanager folder to upload folder
