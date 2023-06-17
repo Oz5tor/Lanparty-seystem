@@ -20,9 +20,9 @@ $Mailsend = 0;
             $Key        = $_GLOBAL['MailgunKey'];
             $VCode      = md5(($Email.time()));
             $HTML       = "Hej $Username, Her er en Verificerings kode: $VCode, for din bruger";
-            $To         = "bestyrelsen@hlpf.dk"; # change to  $Email when moving off sandbox
+            $To         = $Email; # change to  $Email when moving off sandbox
             $From       = $_GLOBAL['SendMailFrom'];
-            $Subject    = "Dette er en kode test 1..2..3..4..";
+            $Subject    = "HLParty.dk Konto - Genaktiverings Kode";
 
             MailGunSender($From, $To, $Subject, $HTML, $Key);
             $_SESSION['MsgForUser'] = 'Vi har sendt dig en code som du bedet indtaste i "Verificerings kode" feltet, HUSK!! at tjekke din spam mappe';
@@ -31,7 +31,7 @@ $Mailsend = 0;
         } // Insert of Verification code + send of mail
      } // Select OSU from DB Users
      else{
-        $_SESSION['MsgForUser'] = 'Der blev ikke funde nogne bruger der matched' ;
+        $_SESSION['MsgForUser'] = 'Der blev ikke fundet nogne bruger der matched' ;
          #echo "ingen bruger fundet der passes";
          $Mailsend = 0;
      }
@@ -94,7 +94,7 @@ $Mailsend = 0;
                 var your_callback_script = 'https://<?php echo $ROOTURL; ?>Include/oneall_hlpf/oneall_callback_handler.php';
                 /* Embeds the buttons into the container oa_social_login_container */
                 var _oneall = _oneall || [];
-                _oneall.push(['social_link', 'set_providers', ['facebook', 'Battlenet', 'Discord', 'Twitch', 'Steam']]);
+                _oneall.push(['social_link', 'set_providers', ['Battlenet', 'Discord', 'Twitch', 'Steam']]);
                 _oneall.push(['social_link', 'set_callback_uri', your_callback_script]);
                 _oneall.push(['social_link', 'do_render_ui', 'oa_social_login_container']);
                 </script>
