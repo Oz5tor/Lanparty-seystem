@@ -1,5 +1,5 @@
 <?php
-require_once 'class/PayPalConfig.php';
+require_once 'class/PaypalConfig.php';
 // use
 use PayPal\Api\Payment;
 use PayPal\Api\PaymentExecution;
@@ -9,14 +9,26 @@ if($sucess == 'false'){ // if false
  echo '<p>Betaling fejled/annuleret</p>';
   if(isset($_SESSION["BuyingMembership"])){
     unset($_SESSION["BuyingMembership"]);
+    unset($_SESSION['invoice_number']);
   }
-  echo "
+  if(isset($_SESSION["Cart"])){ # IF purches of ticket Cancled
+    $CancledSeat = $_SESSION["Cart"][0]["Desc"];
+    $CancledSeat = explode("Sæde #",$CancledSeat);
+    $DropSeatReserved = $CancledSeat['1'];
+    $eventID = $_GLOBAL["EventID"];
+    $db_conn->query("DELETE FROM Tickets WHERE EventID = '$eventID' && SeatNumber = '$DropSeatReserved'");
+    unset($_SESSION['Cart']);
+    unset($_SESSION['BuyingTicketSingle']);
+    unset($_SESSION['invoice_number']);
+
+  }
+  /*echo "
       <script type='text/javascript'> setTimeout(
         function() {
             window.location = 'index.php';
         }, 5000);
       </script>
-      ";
+      ";*/
 }
 else{
   // extra check start
@@ -48,6 +60,9 @@ else{
          isset($_SESSION["BuyingTicketMulti"]) && $_SESSION["BuyingTicketMulti"] == 1){
         $_SESSION['payPalSuccess'] = $sucess;
         require_once("Include/OrderTicket/PayPalConfirmation.php");
+        unset($_SESSION['Cart']);
+        unset($_SESSION['invoice_number']);
+        unset($_SESSION['payPalSuccess']);
       }
        echo '<div class="LanCMScontentborder">';
        echo '<p>Betaling Gemmenført, du vil blive sendt til forsiden om 5 sekunder...</p>';
@@ -57,15 +72,15 @@ else{
        #echo '</pre>';
        echo '</div>';
       $retunto = $_GET['returnto'];
-    echo "
+    /*echo "
       <script type='text/javascript'> setTimeout(
         function() {
             window.location = '$retunto';
         }, 5000);
       </script>
-      ";
+      ";*/
     }catch(Exception $ex){
-      $data = json_decode($ex->getData);
+      $data = json_decode($ex->getData());
       echo $data->message;
       echo '<a href="index.php">Klik her for at komme tilbage til hvor du var</a>';
 

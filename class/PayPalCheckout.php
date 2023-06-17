@@ -23,7 +23,7 @@ $cart[] = $tempItem;*/
 
 function PayPalCheckOut($Cart, $DBCONN, $returnto ,$invoiceID, $ROOTURL){
   // get the basic paypal api config and DBconn.php
-  require_once("class/PayPalConfig.php");
+  require_once("class/PaypalConfig.php");
 
   $total = 0;
   // get the total price
@@ -72,8 +72,8 @@ function PayPalCheckOut($Cart, $DBCONN, $returnto ,$invoiceID, $ROOTURL){
     ->setInvoiceNumber($invoiceID);
 
   $redirectUrls = new RedirectUrls();
-  $redirectUrls->setReturnUrl("http://".$ROOTURL."index.php?page=PayPalPay&success=true&returnto=$returnto")
-    ->setCancelUrl("http://".$ROOTURL."index.php?page=PayPalPay&success=false");
+  $redirectUrls->setReturnUrl("http://".$ROOTURL."/index.php?page=Paypalpay&success=true&returnto=$returnto")
+    ->setCancelUrl("http://".$ROOTURL."/index.php?page=Paypalpay&success=false");
 
   $payment = new Payment();
   $payment->setIntent('sale')
@@ -87,15 +87,15 @@ function PayPalCheckOut($Cart, $DBCONN, $returnto ,$invoiceID, $ROOTURL){
     $paymentID = $payment->id;
     // transaction code = $invoiceid;
     $tempUser = $_SESSION['UserID'];
-    #require_once 'Include/CoreParts/DBconn.php';
+    //require_once 'Include/DBconn.php';
     $DBCONN->query("INSERT INTO Transactions_PayPal
-                      (UserID, TrarnsactionCode, Completed, PaymentID, CompletedTime)
+                      (UserID,TransactionCode, Completed, PaymentID, CompletedTime)
                       VALUES
                       ('$tempUser','$invoiceID','0','$paymentID','NULL')");
 
 
     $_SESSION['invoice_number'] = $invoiceID;
-    echo $payment->getApprovalLink();
+    //echo $payment->getApprovalLink();
     header("Location: ". $payment->getApprovalLink());
   }catch (Exception $ex){
     echo '<pre>';

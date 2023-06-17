@@ -28,6 +28,7 @@
                     <h2>Politikker</h2>
                     <ul id="LanCMSfooter_links">
                         <li><a target="_blank" href="?page=Privatlivspolitik for Hovedstadens LanParty Forening">Privatlivspolitik</a></li>
+                        <li><a target="_blank" href="?page=Handelsebetingelser">Handelsebetingelser</a></li>
                         <li><a target="_blank" href="?page=Cookies på denne side">Cookies</a></li>
                     </ul>
                 </ul>
