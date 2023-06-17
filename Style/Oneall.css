@@ -1,0 +1,500 @@
+/* Base */
+* {
+	-webkit-user-select: none;
+	-khtml-user-select: none;
+	-moz-user-select: none;
+	-o-user-select: none;
+}
+
+.clear {
+	clear: both;
+}
+
+.plugin {
+	margin: 0;
+	padding: 0 0 20px 0;
+	background-color: transparent;
+	font-size: 12px;
+	color: #333;
+	font-family: Tahoma, Kalimati, Verdana, "Bitstream Vera Sans", "DejaVu Sans", Geneva, Arial, Helvetica, Sans-serif;
+}
+
+.plugin #content {
+	overflow: hidden;
+}
+
+.plugin #providers {
+	float: left;
+	position: relative;
+}
+
+.plugin #providers .providers_group {
+	float: left;
+}
+
+.plugin #providers .providers_group.hidden {
+	display: none;
+}
+
+.plugin #providers .providers_group .providers_block {
+	overflow: hidden;
+	clear: both;
+	padding: 0 20px;
+}
+
+.plugin #providers.providers_unpaginated .providers_group .providers_block {
+	padding: 0 !important;
+}
+
+.plugin #providers .providers_group .providers_block .providers_row {
+	clear: both;
+}
+
+.plugin #providers .providers_group .scroll {
+	height: 100%;
+	min-height: 100%;
+	cursor: pointer;
+	position: absolute;
+	width: 20px;
+	bottom: 0;
+	top: 0;
+}
+
+.plugin #ie #providers .providers_group .scroll {
+	top: 30% !important;
+}
+
+.plugin #providers .providers_group .scroll.scroll_left {
+	left: 0;
+}
+
+.plugin #providers .providers_group .scroll.scroll_right {
+	right: 0;
+}
+
+.plugin #providers .providers_group .scroll div {
+	position: relative;
+	background: url("/img/api/themes/assets/arrows_lr.png") no-repeat scroll 0 50% transparent;
+	height: 100%;
+	margin: 0 auto !important;
+}
+
+.plugin #ie #providers .providers_group .scroll div {
+	margin-top: 0 !important;
+}
+
+.plugin #providers .providers_group .scroll.scroll_right div {
+	background-position: -50px 50%;
+}
+
+.plugin #providers .providers_group .scroll.scroll_right:hover div {
+	background-position: -10px 50%;
+}
+
+.plugin #providers .providers_group .scroll.scroll_left div {
+	background-position: -130px 50%;
+}
+
+.plugin #providers .providers_group .scroll.scroll_left:hover div {
+	background-position: -90px 50%;
+}
+
+.plugin #providers .provider {
+	float: left;
+	outline: 0 none;
+}
+
+.plugin #providers .provider .button {
+	cursor: pointer;
+	display: block;
+	margin: 0 auto;
+	position: relative;
+	z-index: 9998;
+	outline: 0 none;
+	opacity:0.9;
+	border-radius: 2px;
+}
+
+.plugin #providers .provider .button .tick {
+	display: inline-block;
+	position: absolute;
+	height: 16px;
+	width: 16px;
+	z-index: 9999;
+}
+
+.plugin #providers .provider .name {
+	color: #555;
+	text-align: center;
+	font-size: 11px;
+	line-height: 14px;
+	margin: 1px 0 2px;
+	width:64px;
+}
+
+.plugin #providers .provider_linked .button .tick {
+	background: url("/img/api/themes/assets/tick.png") no-repeat 0 0 transparent;
+}
+
+.plugin .footer {
+	margin-top: 5px;
+	font-size: 10px;
+	position: fixed;
+	left: 6px;
+	right: 0;
+	bottom: 0;
+	line-height: 16px;
+}
+
+.plugin .footer #message {
+	display: none;
+	cursor: pointer;
+}
+
+.plugin .footer #message.notice {
+	color: #000;
+}
+
+.plugin .footer #message.error {
+	color: #ff0000;
+}
+
+.plugin .footer #branding {
+	color: #666;
+}
+
+.plugin .footer #branding .company-service,
+.plugin .footer #branding .company-service a {
+	color: #3366CC;
+	text-decoration: none;
+}
+
+.plugin .footer #branding .company-service a:hover{
+	text-decoration: underline;
+}
+
+/* Custom */
+.plugin #providers .provider {
+	width: 76px !important;
+	padding: 3px 0 12px;
+}
+
+.plugin #providers .provider .name {
+	line-height: 16px;
+	height: 16px;
+	margin: 0 auto;
+}
+
+.plugin #providers .provider .button .tick {
+	right: -5px;
+	top: -3px;
+}
+
+.plugin #providers .provider .button {
+	width: 64px;
+	height: 64px;
+	background-image: url("/img/api/themes/iconsets/flat_w64_h64_w_b_v1.png");
+	background-repeat: no-repeat;
+	opacity: 0.85;
+	background-position: -500px -500px;	
+}
+
+@media only screen and (min--moz-device-pixel-ratio: 2),
+only screen and (-o-min-device-pixel-ratio: 2/1),
+only screen and (-webkit-min-device-pixel-ratio: 2),
+only screen and (min-device-pixel-ratio: 2) {
+    .plugin #providers .provider .button {
+       	background-image: url("/img/api/themes/iconsets/flat_w128_h128_w_b_v1.png");
+       	background-size: 64px;
+    }
+}
+
+.plugin #providers .provider .button:hover{
+	opacity:1;
+}
+
+/* Buttons */
+.plugin #providers .provider #button_amazon {
+	background-position: 0 -79px;
+	background-color: #FF9900;
+}
+
+.plugin #providers .provider #button_aol {
+	background-position: 0 -237px;
+	background-color: #000000;
+}
+
+.plugin #providers .provider #button_blogger {
+	background-position: 0 -395px;
+	background-color: #F57D00;
+}
+
+}
+.plugin #providers .provider #button_deviantart {
+	background-position: 0 -553px;
+	background-color: #4B5;
+}
+
+.plugin #providers .provider #button_digg {
+	background-position: 0 -711px;
+	background-color: #14589E;
+}
+
+.plugin #providers .provider #button_disqus {
+	background-position: 0 -869px;
+	background-color: #36D794;
+}
+
+.plugin #providers .provider #button_draugiem {
+	background-position: 0 -1027px;
+	background-color: #FF6600;
+}
+
+.plugin #providers .provider #button_dribbble {
+	background-position: 0 -1185px;
+	background-color: #EA4C89;
+}
+
+.plugin #providers .provider #button_facebook {
+	background-position: 0 -1975px;
+	background-color: #4267B2;
+}
+
+.plugin #providers .provider #button_flickr {
+	background-position: 0 -2133px;
+	background-color: #0063DB;
+}
+
+.plugin #providers .provider #button_foursquare {
+	background-position: 0 -2291px;
+	background-color: #2398C9;
+}
+
+.plugin #providers .provider #button_github {
+	background-position: 0 -2449px;
+	background-color: #4183C4;
+}
+
+.plugin #providers .provider #button_googleplus {
+	background-position: 0 -2765px;
+	background-color: #D14836;
+}
+
+.plugin #providers .provider #button_instagram {
+	background-position: 0 -2923px;
+	background-color: #3F729B;
+}
+
+.plugin #providers .provider #button_linkedin {
+	background-position: 0 -3081px;
+	background-color: #007FB1;
+}
+
+.plugin #providers .provider #button_livejournal {
+	background-position: 0 -3239px;
+	background-color: #195397;
+}
+
+.plugin #providers .provider #button_mailru {
+	background-position: 0 -3397px;
+	background-color: #134785;
+}
+
+.plugin #providers .provider #button_myspace {
+	background-position: 0 -3713px;
+	background-color: #008DDE;
+}
+
+.plugin #providers .provider #button_netlog {
+	background-position: 0 -3871px;
+	background-color: #000000;
+}
+
+.plugin #providers .provider #button_odnoklassniki {
+	background-position: 0 -4029px;
+	background-color: #E77924;
+}
+
+.plugin #providers .provider #button_openid {
+	background-position: 0 -4187px;
+	background-color: #F7931E;
+}
+
+.plugin #providers .provider #button_paypal {
+	background-position: 0 -4345px;
+	background-color: #1F356F;
+}
+
+.plugin #providers .provider #button_pinterest {
+	background-position: 0 -4503px;
+	background-color: #CB2027;
+}
+
+.plugin #providers .provider #button_reddit {
+	background-position: 0 -4661px;
+	background-color: #FF4500;
+}
+
+.plugin #providers .provider #button_skyrock {
+	background-position: 0 -4819px;
+	background-color: #009AFF;
+}
+
+.plugin #providers .provider #button_spotify {
+	background-position: 0 -4977px;
+	background-color: #80B719;
+}
+
+.plugin #providers .provider #button_stackexchange {
+	background-position: 0 -5135px;
+	background-color: #1F5196;
+}
+
+.plugin #providers .provider #button_steam {
+	background-position: 0 -5293px;
+	background-color: #000000;
+}
+
+.plugin #providers .provider #button_tencentqq {
+	background-position: 0 -5451px;
+	background-color: #000;
+}
+
+.plugin #providers .provider #button_tumblr {
+	background-position: 0 -5609px;
+	background-color: #29364A;
+}
+
+.plugin #providers .provider #button_twitch {
+	background-position: 0 -5767px;
+	background-color: #6441A5;
+}
+
+.plugin #providers .provider #button_twitter {
+	background-position: 0 -5925px;
+	background-color: #00ACED;
+}
+
+.plugin #providers .provider #button_typepad {
+	background-position: 0 -6083px;
+	background-color: #000;
+}
+
+.plugin #providers .provider #button_verisign {
+	background-position: 0 -6241px;
+	background-color: #FFC10C;
+}
+
+.plugin #providers .provider #button_viadeo {
+	background-position: 0 -6399px;
+	background-color: #F4982B;
+}
+
+.plugin #providers .provider #button_vimeo {
+	background-position: 0 -6557px;
+	background-color: #44BBFF;
+}
+
+.plugin #providers .provider #button_vine {
+	background-position: 0 -6715px;
+	background-color: #00A47A;
+}
+
+.plugin #providers .provider #button_vk {
+	background-position: 0 -6873px;
+	background-color: #45668E;
+}
+
+.plugin #providers .provider #button_vkontakte {
+	background-position: 0 -7031px;
+	background-color: #45668E;
+}
+
+.plugin #providers .provider #button_windowslive {
+	background-position: 0 -7189px;
+	background-color: #2f2f2f;
+}
+
+.plugin #providers .provider #button_wordpress {
+	background-position: 0 -7347px;
+	background-color: #21759B
+}
+
+.plugin #providers .provider #button_yahoo {
+	background-position: 0 -7663px;
+	background-color: #731A8B;
+}
+
+.plugin #providers .provider #button_youtube {
+	background-position: 0 -7821px;
+	background-color: #FF0000;
+}
+
+.plugin #providers .provider #button_battlenet {
+	background-position: 0 -7979px;
+	background-color: #000000;
+}
+
+.plugin #providers .provider #button_pinterest {
+	background-position: 0 -4503px;
+	background-color: #CB2027;
+}
+
+.plugin #providers .provider #button_pixelpin {
+	background-position: 0 -11296px;
+	background-color: #28265a;
+}
+
+.plugin #providers .provider #button_storage {
+	background-position: 0 -8298px;
+	background-color: #717171;
+}
+
+.plugin #providers .provider #button_xing {
+	background-position: 0 -7504px;
+	background-color: #135353;
+}
+
+.plugin #providers .provider #button_meetup {
+	background-position: 0 -10036px;
+	background-color: #ED1C40;
+}
+
+.plugin #providers .provider #button_line {
+	background-position: 0 -10191px;
+	background-color: #5cbb2b;
+}
+
+.plugin #providers .provider #button_soundcloud {
+	background-position: 0 -10348px;
+	background-color: #FF7200;
+}
+
+.plugin #providers .provider #button_discord {
+	background-position: 0 -10506px;
+	background-color: #7289DA;
+}
+
+.plugin #providers .provider #button_weibo {
+	background-position: 0 -9404px;
+	background-color: #CB2123;
+}
+
+.plugin #providers .provider #button_patreon {
+	background-position: 0 -10822px;
+	background-color: #F45647;
+}
+.plugin #providers .provider #button_mixer {
+	background-position: 0 -10982px;
+	background-color: #05193d;
+}
+
+.plugin #providers .provider #button_google {
+	background-position: 0 -11219px;
+    background-color: #eee;
+}
+
+.plugin #providers .provider #button_apple {
+	background-position: 0 -11455px;
+    background-color: #000;
+}

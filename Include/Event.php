@@ -44,7 +44,7 @@
         <hr> <!-- HORIZONTAL LINE -->
         <div>
           <p><b>Start tidspunkt:</b> <?php echo date("d/m/y - H:i:s",$eventrows['StartDate']); ?>. <b>Slut tidspunkt:</b> <?php echo date("d/m/y - H:i:s",$eventrows['EndDate']); ?></p>
-          <p><b>Adresse:</b> <?php echo $eventrows['Location']; ?> <a href="?page=Find_Os">Se Map</a></p>
+          <p><b>Adresse:</b> <?php echo $eventrows['Location']; ?> <a href="?page=Find Os">Se Map</a></p>
           <p><b>Internet/LAN: </b> <?php echo $eventrows['Network']; ?></p>
           <p><b>Regler: </b> <a href="?page=Regler">Læs dem her</a></p>
           <hr> <!-- HORIZONTAL LINE -->

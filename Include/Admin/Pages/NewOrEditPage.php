@@ -35,7 +35,7 @@ if(isset($_POST['Save'])){
   <form class="form-group" method="post" action="">
     <div class="form-group col-lg-6">
       <label class="control-label" for="Title">Title:</label>
-      <input required class="form-control" type="text" name="Title" id="Title" size="255" value="<?php if(isset($pageExist)){echo $row['PageTitle'];} ?>" maxlength="255"/> &nbsp;&nbsp;
+      <input required class="form-control" type="text" name="Title" id="Title" size="50" value="<?php if(isset($pageExist)){echo $row['PageTitle'];} ?>" maxlength="50"/> &nbsp;&nbsp;
     </div>
     <div class="form-group form-inline col-lg-3">
       <label for="Admin">Admin Side:</label>

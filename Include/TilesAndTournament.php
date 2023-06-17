@@ -27,13 +27,13 @@
 <!-- Menu tiles start -->
         <div class="row">
             <div class="col-xs-6 col-md-3 col-sm-3 LanCMSmargin_botom">
-                <a href="index.php?page=Competitions" class="">
-                  <img class="img-responsive img-thumbnail center-block" src="Images/games/turneringer.jpg">
+                <a href="index.php?page=OSU" class="">
+                  <img class="img-responsive img-thumbnail center-block" src="Images/UserMigration.jpg">
                 </a>    
             </div>
             <div class="col-xs-6 col-md-3 col-sm-3 LanCMSmargin_botom">
-                <a href="#" class="">
-                  <img class="img-responsive img-thumbnail center-block" src="Images/games/turneringer.jpg">
+                <a target="_blank" href="https://dgi.dk" class="">
+                  <img class="img-responsive img-thumbnail center-block" src="Images/DGI-Tile.jpg">
                 </a>    
             </div>
             <div class="col-xs-6 col-md-3 col-sm-3 LanCMSmargin_botom">

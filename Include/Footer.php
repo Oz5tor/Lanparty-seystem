@@ -27,9 +27,9 @@
                     <li><a href="#">Kantinen</a></li> -->
                     <h2>Politikker</h2>
                     <ul id="LanCMSfooter_links">
-                        <li><a target="_blank" href="?page=Bruger Betingelser" title="Læs bruger betingelser her">Bruger Betingelser</li>
                         <li><a target="_blank" href="?page=Privatlivspolitik for Hovedstadens LanParty Forening">Privatlivspolitik</a></li>
-                        <li><a target="_blank" href="?page=Cookies på denne side">Cookies</li>
+                        <li><a target="_blank" href="?page=Handelsebetingelser">Handelsebetingelser</a></li>
+                        <li><a target="_blank" href="?page=Cookies på denne side">Cookies</a></li>
                     </ul>
                 </ul>
                 <!-- Sociale links -->

@@ -16,7 +16,10 @@
    
    external_filemanager_path:"JS/filemanager/",
    filemanager_title:"Responsive Filemanager" ,
-   external_plugins: { "filemanager" : "JS/filemanager/plugin.min.js"}
+   external_plugins: { "filemanager" : "JS/filemanager/plugin.min.js"},
+   image_class_list: [
+    {title: 'img-responsive', value: 'img-responsive'}
+   ]
  });
 
 
@@ -30,6 +33,9 @@
    ],
    toolbar1: "undo redo | bold italic underline | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | styleselect",
    toolbar2: "link unlink anchor | image media | forecolor backcolor",
+   image_class_list: [
+    {title: 'img-responsive', value: 'img-responsive'}
+   ]
  });
 
 </script>

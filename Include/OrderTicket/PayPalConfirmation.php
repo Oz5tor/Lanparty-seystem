@@ -1,5 +1,6 @@
 <?php
-require_once("class/SendMail.php");
+#require_once("class/SendMail.php");
+require_once("class/MailGunSendMail.php");
 require_once("class/GetUsernameFromID.php");
 
 $event = $db_conn->query("SELECT EventID FROM Event
@@ -15,9 +16,26 @@ if (isset($_SESSION['BuyingTicketSingle'])) {
   //
   // Magic on a single buyer
   //
+
+    $GetTicketTypeIDprice = $_SESSION['Cart'][0]['Price'];
+    $tempYear = date("Y");
+    $tempUserID  = $_SESSION['UserID'];
+    $TempEventID = $_GLOBAL["EventID"];
+    $IsUserMember = $db_conn->query("SELECT ID FROM UserMembership WHERE UserID = '$tempUserID' AND `Year` = '$tempYear'")->fetch_assoc();
+    if(!empty($IsUserMember)){
+        # == user is member during purches
+        $TempTickType = "Medlem";
+    }else{
+        # == useris not member during pruches
+        $TempTickType = "Ikke-medlem";
+    }
+    $GetTicketTypeID = $db_conn->query("SELECT * FROM TicketPrices WHERE EventID = '$TempEventID' AND Price = '$GetTicketTypeIDprice' AND `Type` = '$TempTickType'")->fetch_assoc();
+    $priceGroupID = $GetTicketTypeID['TicketPriceID'];
+    
   unset($_SESSION['BuyingTicketSingle']);
   $query = "UPDATE Tickets
       SET Tickets.TransactionCode = '" . $db_conn->real_escape_string($_SESSION['invoice_number']) . "'
+      , TicketPriceID = '$priceGroupID'
       WHERE Tickets.UserID = " . $_SESSION['UserID'] .
       " AND Tickets.EventID = " . $eventID .
       " AND Tickets.SeatNumber = " . $db_conn->real_escape_string(substr($_SESSION['Cart'][0]['Desc'], -3));
@@ -34,18 +52,39 @@ if (isset($_SESSION['BuyingTicketSingle'])) {
 
   $userresult = $db_conn->query("SELECT FullName, Username, Email From Users
       WHERE UserID = " . $_SESSION['UserID'])->fetch_assoc();
-  $query = "SELECT Message FROM MailMesseges WHERE MessegesID = 3";
+  $query = "SELECT Message FROM MailMesseges WHERE MessegesID = 2";
   $mailResult = $db_conn->query($query)->fetch_assoc();
   $msg = $mailResult['Message'];
+  # ================= Send Mail prep ===========
+
   $FullName = $userresult['FullName'];
   $username = $userresult['Username'];
   $email = $userresult['Email'];
-  $msg = str_replace('$firstName', $FullName, $msg);
-  $msg = str_replace('$username', $username, $msg);
-  $msg = str_replace('$price', $_SESSION['Cart'][0]['Price'], $msg);
-  $msg = str_replace('$antal', $_SESSION['Cart'][0]['Quantity'], $msg);
+  $EventName = $_GLOBAL['EventName'];
+  $MailSeat = substr($_SESSION['Cart'][0]['Desc'], -3);
+  $invoice_number = $_SESSION["invoice_number"];
+  $EventDate = $db_conn->query("SELECT * FROM `Event` WHERE EventID = '$eventID' LIMIT 1")->fetch_assoc();
+  #print_r($EventDate);
+  $EventDate = date('d/m/y', $EventDate['StartDate']);
 
-  SendMail($email, $FullName, 'Billet kvittering - HLParty', $msg, $_GLOBAL);
+  $msg = str_replace('$Username', $username, $msg);
+  $msg = str_replace('$Fullname', $FullName, $msg);
+  $msg = str_replace('$TicketCost', $GetTicketTypeIDprice, $msg);
+  $msg = str_replace('$Seat', $MailSeat, $msg);
+  $msg = str_replace('$EventName', $EventName, $msg);
+  $msg = str_replace('$EventDate', $EventDate, $msg);
+  $msg = str_replace('$Invoice', $invoice_number, $msg);
+
+  echo "<hr/>".$msg."<hr/>";
+
+  # =============================
+    $Key        = $_GLOBAL['MailgunKey'];
+    #$HTML       = $Body;#Insert body from Newsletter
+    #$To         = "torsoya@gmail.com";#define this when calling the functions instead of here for newsletters
+    $From       = $_GLOBAL['SendMailFrom'];
+    $Subject    = "Bekræftelses af betaling for deltagelse ved $EventName";#Insert Subject from Newsletter
+    $Sending = 1;
+    MailGunSender($From, $email, $Subject, $msg, $Key);
 
 } elseif (isset($_SESSION['BuyingTicketMulti'])) {
   //
@@ -89,7 +128,7 @@ if (isset($_SESSION['BuyingTicketSingle'])) {
   $msg = str_replace('$price', $priceTotal, $msg);
   $msg = str_replace('$antal', $ticketTotal, $msg);
   // Add the whole cart to the email at some point. It's not important. Just make the mail work.
-  SendMail($userresult['Email'], $userresult['FullName'], 'Billet kvittering - HLParty', $msg, $_GLOBAL);
+  #SendMail($userresult['Email'], $userresult['FullName'], 'Billet kvittering - HLParty', $msg, $_GLOBAL);
 }
 unset($_SESSION['invoice_number'], $_SESSION['payPalSuccess'], $_SESSION['Cart']);
 // Fucking magic...

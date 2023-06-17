@@ -44,7 +44,7 @@ require_once("class/GetUsernameFromID.php");
       if( $result -> num_rows ) {
         $row = $result->fetch_assoc();
       }
-      while(list($key, $value) = each($adminTabs)) {
+      foreach ($adminTabs as $key => $value) {
         echo "<a href='?page=Admin&subpage=$key#admin_menu'><li class='";
         if($subpage == $key) {
           echo "active ";

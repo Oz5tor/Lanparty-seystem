@@ -7,7 +7,7 @@ if (!empty($action) AND $action == "LogOut") {
     exit(); // No need for data grinding when you know where they are going.
 }
 
-if(!empty($_SESSION['UserToken']) & ($page != 'Bruger Betingelser')){
+if(!empty($_SESSION['UserToken']) & ($page != 'Privatlivspolitik for Hovedstadens LanParty Forening') & ($page != 'Cookies på denne side')){
     include_once("Include/Usermodule/EditOrRegister.php");
 }
 elseif (! empty( $page ) ) {
@@ -50,7 +50,7 @@ elseif (! empty( $page ) ) {
             include_once("ShowNewsLetter.php");
             break;
         case "Mailtest":
-            include_once("class/SendMail.php");
+            include_once("class/MailGunSendMail.php");
             break;
         case "Buy":
             include_once("Include/OrderTicket/ChooseSeat.php");

@@ -1,7 +1,7 @@
 <div class="row">
     <div class="col-lg-12 LanCMScontentbox">
         <?php
-          $result = $db_conn->query("SELECT * From Pages WHERE PageTitle = '$page'");
+          $result = $db_conn->query("SELECT * From Pages WHERE PageTitle = '$page' && Online = '1' ");
           //print_r($result);
 
           if( $result -> num_rows ){
