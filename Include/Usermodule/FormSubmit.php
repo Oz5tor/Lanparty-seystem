@@ -10,6 +10,7 @@ if(trim($_POST['Email']) == '')     {$RegErroMSG[] .='Email'; $FormAOKAY = 1;}
 if(trim($_POST['Birthday']) == '')  {$RegErroMSG[] .='Fødselsdag'; $FormAOKAY = 1;}
 if(trim($_POST['Username']) == '')  {$RegErroMSG[] .='Brugernavn'; $FormAOKAY = 1;}
 
+
 if($page != 'EditMyProfile'){
   if($_POST['Password'] == '')  {$RegErroMSG[] .='Kodeord'; $FormAOKAY = 1;}
   if($_POST['CPassword'] == '') {$RegErroMSG[] .='Bekræft kodeord'; $FormAOKAY = 1;}
@@ -72,7 +73,7 @@ if(isset($_SESSION['UserID'])){
 $PreffereredUsername    = trim($_POST['Username']);
 $FullName               = trim($_POST['FullName']);
 $Birthday               = trim($_POST['Birthday']);
-$revBirthday            = date('Y-m-d,',strtotime($Birthday));
+$revBirthday       = date('Y-m-d,',strtotime($Birthday));
 $Address                = trim($_POST['Address']);
 $Zipcode                = trim($_POST['Zipcode']);
 $NewClan                = $db_conn->real_escape_string(trim($_POST['NewClan']));
