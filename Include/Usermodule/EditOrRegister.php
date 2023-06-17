@@ -251,7 +251,7 @@ if(!isset($_SESSION['UserToken']) && !isset($_SESSION['UserID'])){
           //var user_token = 'bf7d64a9-94d4-4f77-92d8-c64e982e682a';
           /* Embeds the buttons into the oa_social_link_container */
           var _oneall = _oneall || [];
-          _oneall.push(['social_link', 'set_providers', ['facebook', 'Discord', 'Battlenet', 'Steam', 'Twitch']]);
+          _oneall.push(['social_link', 'set_providers', ['Discord', 'Battlenet', 'Steam', 'Twitch']]);
           _oneall.push(['social_link', 'set_callback_uri', your_callback_script]);
           _oneall.push(['social_link', 'set_user_token', user_token]);
           _oneall.push(['social_link', 'do_render_ui', 'oa_social_link_container']);
