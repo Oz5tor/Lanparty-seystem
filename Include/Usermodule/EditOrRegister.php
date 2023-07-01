@@ -72,11 +72,11 @@ if(!isset($_SESSION['UserToken']) && !isset($_SESSION['UserID'])){
       ?>
       <div class="form-group col-lg-3">
         <label class="control-label" for="Password">Kodeord:*</label>
-        <input type="password" required class="form-control" pattern=".{4,18}" title="4 til 18 karaktere" id="Password" placeholder="Kodeord"  name="Password">
+        <input type="password" required class="form-control" pattern=".{4,255}" title="4 til 255 karaktere" id="Password" placeholder="Kodeord"  name="Password">
       </div>
       <div class="form-group col-lg-3">
         <label class="control-label" for="CPassword">Bekr&aelig;ft Kodeord:*</label>
-        <input type="password" required class="form-control" pattern=".{4,18}" title="4 til 18 karaktere" id="CPassword" placeholder="Gentag Kodeord"  name="CPassword">
+        <input type="password" required class="form-control" pattern=".{4,255}" title="4 til 255 karaktere" id="CPassword" placeholder="Gentag Kodeord"  name="CPassword">
       </div>
       <?php
       }
@@ -158,7 +158,7 @@ if(!isset($_SESSION['UserToken']) && !isset($_SESSION['UserID'])){
       </div>
       <?php if($page != 'EditMyProfile'){ ?>
       <div class="form-group form-inline col-lg-3">
-            <label for="ToS"><a title="Læs betingelser i vores Privatlivspolitk & Cookies, links til disse kan findes i bunden af siden">*Bruger Betingelser:</a></label>
+            <label for="ToS"><a href="index.php?page=Bruger Betingelser" target="_blank" title="Læs betingelser i vores Privatlivspolitk & Cookies, links til disse kan findes i bunden af siden">*Bruger Betingelser:</a></label>
             <input type="checkbox" id="ToS" value="1" required name="ToS">
       </div>
       <?php } ?>
