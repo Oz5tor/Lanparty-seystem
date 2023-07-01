@@ -7,8 +7,8 @@ use PayPal\Auth\OAuthTokenCredential;
 
 $PaypalAPI = new ApiContext(
   new OAuthTokenCredential(
-    'ASWbwU7rVz7cqxLeRK33j4M73jcjnwNpJwvWK0Y2K99oq1-TvC3HZLiYI0YIy6N3zbbYKvrK22wVcggT',
-    'EHWPV38yhmpJP5xjeubHM63zwK-0BuY24o_zk8j4LVxsxrhgs5VajIQ_PtOrE1Bh2In3AhEMj3XWEonk'
+    'AeBUx9pLgauQGZOr7IbkiFuozV9Tnyzd6e7VW9vaGb1WoE45H5LApcvhkHMkitFt2RVKnN2lvJjzsEHM', # Client ID
+    'EN5hLpumCxzZ6G4hCe-J7eiQ9-IBwVmxFseEK96Q6gKchn_uJbuyk7mbvimp7bxo731MZMTOg82ShyVA'  # Secrect Key
   )
 );
 
