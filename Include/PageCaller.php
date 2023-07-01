@@ -7,7 +7,7 @@ if (!empty($action) AND $action == "LogOut") {
     exit(); // No need for data grinding when you know where they are going.
 }
 
-if(!empty($_SESSION['UserToken']) & ($page != 'Privatlivspolitik for Hovedstadens LanParty Forening') & ($page != 'Cookies på denne side')){
+if(!empty($_SESSION['UserToken']) & ($page != 'Privatlivspolitik for Hovedstadens LanParty Forening') & ($page != 'Cookies på denne side' & ($page != 'Bruger Betingelser'))){
     include_once("Include/Usermodule/EditOrRegister.php");
 }
 elseif (! empty( $page ) ) {
