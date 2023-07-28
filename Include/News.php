@@ -1,5 +1,6 @@
 <?php
-	$news_sql = "SELECT News.Title, News.Content FROM News";
+	$Showtime = time();
+	$news_sql = "SELECT News.Title, News.Content FROM News Where Online = '1' AND PublishDate <= '$Showtime'";
 	$news_result = mysqli_query($db_conn, $news_sql) or die (mysqli_error($db_conn));
 	$total_records = mysqli_num_rows($news_result); // Total number of data
 	$scroll_page = 5; // Number of pages to be scrolled
