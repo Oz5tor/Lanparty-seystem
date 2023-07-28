@@ -26,6 +26,14 @@
         buttons: {showClose: true}
     });
    });
+   $(function() {
+    $('.News-DatePicker').datetimepicker({
+        locale: 'da',
+        format: 'DD-MM-YYYY HH:mm',
+        ignoreReadonly: true,
+        buttons: {showClose: true}
+    });
+   });
 
 </script>
 <!-- ==================== -->
