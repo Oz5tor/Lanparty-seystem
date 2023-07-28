@@ -17,19 +17,22 @@ require_once("class/GetUsernameFromID.php");
   <div id="admin_menu" class="col-lg-12 col-sm-12 LanCMScontentbox LanCMSadminmenu">
     <ul class="list-group">
       <?php
+      #event id from grobal
+      $tabsEventID = $_GLOBAL['EventID'];
       $adminTabs= [
         // File-name  =>  Writen ON the site.
         // For links  =>  What the users see.
         // key        =>  Value
         // Change the order here, and you cange it on the site.
-        "Users"       => "Brugere",
-        "Pages"       => "Side Redigering",
-        "News"        => "Nyheder",
-        "NewsLetter"  => "Nyheds Brev",
-        "Event"       => "Arrangementer",
+        "Users"        => "Brugere",
+        "Pages"        => "Side Redigering",
+        "News"         => "Nyheder",
+        "NewsLetter"   => "Nyheds Brev",
+        "Event"        => "Arrangementer",
+        "Tickets"      => "Biletter",
         "Competitions" =>  "Konkurrencer",
-        "Seatmap"     => "Seatmaps",
-        "Sponsors"    => "Sponsore",
+        "Seatmap"      => "Seatmaps",
+        "Sponsors"     => "Sponsore",
       ];
       $result = $db_conn->query( "SELECT
         ( SELECT COUNT(*) FROM Users WHERE Inactive = 0  ) as Users,
@@ -37,8 +40,9 @@ require_once("class/GetUsernameFromID.php");
         ( SELECT COUNT(*) FROM Pages ) as Pages,
         ( SELECT COUNT(*) FROM NewsLetter ) as NewsLetter,
         ( SELECT COUNT(*) FROM Event ) as Event,
+        ( SELECT COUNT(*) FROM Tickets WHERE EventID = '$tabsEventID' ) as Tickets,
         ( SELECT COUNT(*) FROM Sponsors ) as Sponsors,
-        ( SELECT COUNT(*) FROM Competitions ) as Competitions,
+        ( SELECT COUNT(*) FROM Competitions WHERE EventID = '$tabsEventID' ) as Competitions,
         ( SELECT COUNT(*) FROM Seatmap ) as Seatmap
       ");
       if( $result -> num_rows ) {
