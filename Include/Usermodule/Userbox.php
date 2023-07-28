@@ -15,7 +15,7 @@
     $Userbox_HasTicket = 0;
 
     if(isset($_GLOBAL['EventID'])){
-      $checkSeat = $db_conn->query("SELECT SeatNumber FROM tickets WHERE RevokeDate IS NULL AND EventID = '".$_GLOBAL['EventID']."' AND UserID = '".$_SESSION['UserID']."' ");
+      $checkSeat = $db_conn->query("SELECT SeatNumber FROM tickets WHERE RevokeDate IS NULL AND EventID = '".$_GLOBAL['EventID']."' AND UserID = '".$_SESSION['UserID']."' AND TransActionCode != ''  ");
       if($checkSeat -> num_rows){
         $Myseat = $checkSeat->fetch_assoc();
         #echo $Myseat["SeatNumber"];
