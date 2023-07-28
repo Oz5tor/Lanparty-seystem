@@ -33,7 +33,7 @@
   </div>
   <div class="col-lg-10 col-md-10 col-sm-10 col-xs-10">
     <div class="row">
-      <a class="btn btn-primary" role="button" href="?page=EditMyProfile">Ret min profil</a>
+      <a class="btn btn-primary" role="button" href="?page=EditMyProfile">Min profil</a>
     <?php if(isset($_SESSION['Admin']) && ($_SESSION['Admin'] == 1)){ ?> 
       <a class="btn btn-warning" role="button" href="?page=Admin">Admin</a>
     <?php } ?>
