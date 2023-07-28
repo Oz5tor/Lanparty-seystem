@@ -87,6 +87,21 @@ if(isset($_POST['Save'])) {
           $db_conn->query("INSERT INTO Crew (EventID, Username, GroupID)
                                       VALUES ('$tempID', '$Username', '$CrewGroup')");
         }
+        if(isset($_POST['Poster']['name']) && ($_POST['Poster']['name'] == '') ){
+          #do nothing
+        }else{
+
+          # Poster
+          if($_FILES['Poster']['error'] != 4){
+            $AllowedFileTypeArray = array('jpg','png','gif');
+            $Poster = ImageUploade('Poster','Images/EventPoster',$AllowedFileTypeArray);
+          }elseif(isset($EventExist)){ $Poster = $row['Poster']; }else{ $Poster = 'noposter.png';}
+
+          $db_conn->query("UPDATE Event SET Poster = '$Poster' WHERE EventID = '$tempID'");
+        }
+        
+
+
       }else{
         // edit Query
 
@@ -300,7 +315,7 @@ if(isset($_POST['Save'])) {
   <!-- =================================================================== -->
   <div class=" col-lg-6">
     <label class="control-label" for="Poster">Poster</label>
-    <input class="" type="file" <?php if(isset($SaleHasStarted)){echo 'disabled';} ?> id="Poster" name="Poster">
+    <input class="" type="file" id="Poster" name="Poster">
     &nbsp;
   </div>
   <!-- =================== List of useres there can become crew ======================= -->
