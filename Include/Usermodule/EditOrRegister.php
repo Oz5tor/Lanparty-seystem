@@ -58,8 +58,7 @@ if(!isset($_SESSION['UserToken']) && !isset($_SESSION['UserID'])){
         
       <div class="form-group col-lg-3">
         <label class="control-label" for="Birthday">F&oslash;dselsdag:*</label>
-        <input id="Birthday" class="form-control birthday " type="text" readonly required data-target="#Birthday" placeholder="dd-mm-yyyy" data-toggle="datetimepicker"  value="<?php if(isset($Birthday)){ echo date('d-m-Y',strtotime($Birthday));} ?>"
-               name="Birthday">
+        <input id="Birthday" class="form-control birthday " type="text" readonly required data-target="#Birthday" placeholder="dd-mm-yyyy" data-toggle="datetimepicker"  value="<?php if(isset($Birthday)){ echo date('d-m-Y',strtotime($Birthday));} ?>" name="Birthday">
       </div>
       <div class="form-group col-lg-3">
         <label class="control-label" for="Username">Brugernavn:*</label>
@@ -265,6 +264,7 @@ if(!isset($_SESSION['UserToken']) && !isset($_SESSION['UserID'])){
     <?php 
     if(isset($_SESSION['UserID'])){
     ?>
+    <!-- become member of org start -->
     <div id="" class="form-group col-lg-12">
       <hr>
       <?php
