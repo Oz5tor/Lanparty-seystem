@@ -39,7 +39,7 @@
   <div class="row">
     <!-- Basic info -->
     <div class="col-lg-12">
-      <div class="col-lg-9">
+      
         <h1><?php echo $eventrows['Title']; ?></h1>
         <hr> <!-- HORIZONTAL LINE -->
         <div>
@@ -102,69 +102,25 @@
               ?>
             </div>
           </div><!-- Tickets prices end -->
-          <br>
           <hr> <!-- HORIZONTAL LINE -->
-          <!-- Seat map (Patricks magic) -->
-          <h2 class="hidden-sm hidden-xs">Pladsoversigt</h2>
-          <div id="generated-seat-map-legend" class="col-lg-12 hidden-sm hidden-xs"></div>
-          <br>
-          <div id="map" class="col-lg-12 hidden-sm hidden-xs">
-            <div id="generated-seat-map"></div>
-          </div>
-          
-          <div>
-            <script src="JS/seat-charts/jquery.seat-charts.min.js"></script>
-            <script type="text/javascript">
-            $(document).ready(function() {
-              var sc = $('#generated-seat-map').seatCharts({
-                map: [<?php seatmap_generation($fullString, $width) ?>],
-                seats: {
-                  A: { classes: 'seatStyle_Arkade' },
-                  s: { classes: 'seatStyle_Stage' },
-                  c: { classes: 'seatStyle_Crew' },
-                  k: { classes: 'seatStyle_Kiosk' }
-                },
-                legend : {
-                  node  : $('#generated-seat-map-legend'),
-                  items : [
-                    [ 'a', 'available', 'Fri plads' ],
-                    [ 'c', 'unavailable', 'Crew plads'],
-                    [ 's', 'unavailable', 'Scene / Storskærm'],
-                    [ 'A', 'unavailable', 'Arkade'],
-                    [ 'k', 'unavailable', 'Kiosk'],
-                    [ 'a', 'unavailable', 'Optaget' ]
-                  ]
-                }
-              });
-              // Make all these seats unavailable.
-              // Unless you want people to buy them, ofcourse.
-              sc.find('A.available').status('unavailable');
-              sc.find('c.available').status('unavailable');
-              sc.find('s.available').status('unavailable');
-              sc.find('k.available').status('unavailable');
-            });
-            </script>
-          </div><!-- Seat Map end -->
         </div>
       </div><!-- Basic info end -->
       <!-- Poster -->
+    </div>
+    <div class="row">
       <div class="col-lg-3">
         <?php
         echo '<img class="img-responsive" src="Images/EventPoster/'.$eventrows['Poster'].'">';
         ?>
       </div><!-- Poster -->
-      <div class="col-lg-3">
+      <div class="col-lg-9">
         <!-- Organizers -->
-        <h4>Arrangør</h4>
-        <p>
-          HLParty arrangeres af foreningen Hovedstadens LanParty Forening. Foreningen er en folkeoplysende forening, godkendt i Hillerød kommune. Foreningens formål er (uddrag af vedtægter):
-          <blockquote class="LanCMSsmallerquote">
-            <i>Foreningens formål er at samle unge mennesker, primært i hovedstadsområdet, med interesse for computere og IT, for derved at medvirke til at styrke medlemmernes sociale kompetencer, skabe kontakt på tværs af kommunegrænser, etnicitet, køn og alder og styrke medlemmernes almennyttige IT kundskaber til glæde for den enkelte, såvel som for samfundet.</i>
-            <small>Hovedstadens LANParty Forening</small>
-          </blockquote>
-          Overskud fra et arrangement går til drift af foreningen (f.eks. webhotel, vedligeholdelse og nyinkøb af servere, switche, netværkskabler mv.), samt til at sikre fremtidige arrangementer.
-        </p>
-        <p>Læs mere om foreningen bag HLParty på adressen <a href="https://hlpf.dk" target="_blank">https://hlpf.dk</a>.</p>
+        <?php
+          $orginizorTxt = $db_conn->query("SELECT * FROM Pages Where PageID = '17' LIMIT 1");
+          if($row = $orginizorTxt->fetch_assoc()){
+            echo $row["Content"];
+          }
+        ?>
       </div>
     </div><!-- end of first div row -->
   </div>
