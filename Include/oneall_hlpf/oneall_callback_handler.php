@@ -12,9 +12,9 @@ if ( ! empty ($_POST['connection_token']))
     $token = $_POST['connection_token'];
 
     // Your Site Settings
-    $site_subdomain = 'topper-tordk';
-    $site_public_key = '679f7a14-2083-41d0-9944-9d6b2643ec10';
-    $site_private_key = '0a29a223-c956-4504-9a3d-fe3c15c5382c';
+    $site_subdomain = 'hlpartydk';
+    $site_public_key = '2e9934c7-803e-478d-bd25-6f8316c75ffa';
+    $site_private_key = 'd14043c0-61ec-4753-bfe1-648729a39fa4';
 
     // API Access domain
     $site_domain = $site_subdomain.'.api.oneall.com';
