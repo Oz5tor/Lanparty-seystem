@@ -1,46 +1,30 @@
 <?php
-require 'class/PayPalCheckout.php';
-# ==================================
+
 $eventPrice = 0;
-$TransActionCode = uniqid();
-$UserID = $_SESSION["UserID"];
-$Year = date('Y');
-# ==================================
+
 if (!isset($_SESSION['UserID'])) {
   $_SESSION['MsgForUser'] = "Du skal være logget ind for at se denne side.";
   header("Location: index.php");
   exit;
 }
-# ==================================
-# Prepare Event Querry object for future use
+
+require 'class/PayPalCheckout.php';
 $eventID = $_GLOBAL["EventID"];
 $event = $db_conn->query("SELECT e.EventID, e.Seatmap, e.Title FROM Event as e WHERE EventID = '$eventID' ORDER BY e.EventID DESC LIMIT 1")->fetch_assoc();
-# ==================================
 
-$temptime = time();
-$IsMember = $db_conn->query("SELECT * FROM UserMembership WHERE UserID = '$UserID' AND `Year` = '$Year' ");
-if ($IsMember->fetch_assoc()) {
-  #check if theres any active member prices
-  $TicketPrice = $db_conn->query("SELECT * FROM TicketPrices WHERE EventID = '$eventID' AND `Type` = 'Medlem' AND $temptime BETWEEN StartTime AND EndTime");
-  if ($Crersult = $TicketPrice->fetch_assoc()) {
-    $eventPrice = $Crersult['Price'];
-    $ticketPriceID = $Crersult['TicketPriceID'];
-    #echo $eventPrice; # Check echo
-  }
+# SQL if more than only member tickets is avaible else use active none memberprice
+$OnlyOneTypeActive = $db_conn->query("SELECT * FROM TicketPrices WHERE ". time() ." BETWEEN StartTime AND EndTime")->num_rows;
+
+if($OnlyOneTypeActive == 1){
+    $query = "SELECT * FROM TicketPrices WHERE TicketPrices.EventID = " . $event['EventID'] . " AND TicketPrices.Type = 'Medlem' AND " .
+    time() . " BETWEEN TicketPrices.StartTime AND TicketPrices.EndTime";
 }else{
-  #Check if theres any active none-member prices
-  $TicketPrice = $db_conn->query("SELECT * FROM TicketPrices WHERE EventID = '$eventID' AND `Type` = 'Ikke-Medlem' AND $temptime BETWEEN StartTime AND EndTime");
-  #print_r($TicketPrice->fetch_assoc());
-  if ($Crersult = $TicketPrice->fetch_assoc()) {
-    $eventPrice = $Crersult['Price'];
-    $ticketPriceID = $Crersult['TicketPriceID'];
-   #echo $eventPrice; # Check echo
-  }else{
-    $_SESSION['MsgForUser'] = "Der er ingen ikke-medlems biletter til salg i øjeblikket. meld dig ind is foreningen eller få et medlem til at inkludere dig i deres bestilling";   
-  }
+    $query = "SELECT * FROM TicketPrices WHERE TicketPrices.EventID = " . $event['EventID'] . " AND TicketPrices.Type = 'Ikke-medlem' AND " .
+    time() . " BETWEEN TicketPrices.StartTime AND TicketPrices.EndTime";
 }
-# =====================================================
-# Reading the submitted cart
+$result = $db_conn->query($query)->fetch_assoc();
+$eventPrice = $result['Price'];
+
 if (isset($_POST['checkoutCart']) AND !empty($_POST['checkoutCart'])) {
   /*
     STEP TWO - WHO SITS WHERE?
@@ -49,7 +33,6 @@ if (isset($_POST['checkoutCart']) AND !empty($_POST['checkoutCart'])) {
   $json = json_decode($_POST['checkoutCart']);
   if (count($json) > $_GLOBAL['g_max_seats_selection']) {
     // Hacker detected! Terminate!
-    # If user selects too many seats.
     $_SESSION['MsgForUser'] = "Du har valgt " . count($json) .
         " sæder, men vi tillader kun at vælge " .
         $_GLOBAL['g_max_seats_selection'] . " sæder.";
@@ -57,7 +40,11 @@ if (isset($_POST['checkoutCart']) AND !empty($_POST['checkoutCart'])) {
     exit;
   } else {
     // How many seats does the current seatmap have?
-    $query = "SELECT Seatmap.Seats FROM Seatmap INNER JOIN Event ON Event.Seatmap = Seatmap.SeatmapID WHERE Event.EventID = " . $event['EventID'];
+    $query = "SELECT Seatmap.Seats
+        FROM Seatmap
+        INNER JOIN Event
+          ON Event.Seatmap = Seatmap.SeatmapID
+        WHERE Event.EventID = " . $event['EventID'];
     $seats = $db_conn->query($query)->fetch_assoc();
     for ($i=0; $i < count($json); $i++) {
       $seatNumber = preg_replace("(cart-item-)", "", $json[$i]);
@@ -67,9 +54,11 @@ if (isset($_POST['checkoutCart']) AND !empty($_POST['checkoutCart'])) {
         header("Location: index.php?page=Buy");
         exit;
       } else {
-        $query = "SELECT count(Tickets.SeatNumber) AS seats FROM Tickets WHERE Tickets.EventID = " . $event['EventID'] . " 
-                                                                          AND Tickets.SeatNumber = " . $db_conn->real_escape_string($seatNumber) . "
-                                                                          AND Tickets.RevokeDate IS NULL";
+        $query = "SELECT count(Tickets.SeatNumber) AS seats
+            FROM Tickets
+            WHERE Tickets.EventID = " . $event['EventID'] . "
+              AND Tickets.SeatNumber = " . $db_conn->real_escape_string($seatNumber) . "
+              AND Tickets.RevokeDate IS NULL";
         $checkSeatNumber = $db_conn->query($query)->fetch_assoc();
         if ($checkSeatNumber['seats'] >= 1) {
           $_SESSION['MsgForUser'] = "Sæde " . $seatNumber . " er optaget.";
@@ -78,9 +67,11 @@ if (isset($_POST['checkoutCart']) AND !empty($_POST['checkoutCart'])) {
         } // else { Everything is okay. }
       }
     }
-  }// end of seat selction check...
-  # ======================================================
-  $query = "SELECT Tickets.UserID FROM Tickets WHERE Tickets.EventID = ".$eventID. " AND Tickets.UserID = ". $_SESSION['UserID'] . " AND Tickets.RevokeDate IS NULL";
+  }
+  $query = "SELECT Tickets.UserID FROM Tickets
+      WHERE Tickets.EventID = ". $event['EventID'] .
+      " AND Tickets.UserID = ". $_SESSION['UserID'] .
+      " AND Tickets.RevokeDate IS NULL";
   $result = $db_conn->query($query);
   if ($result -> num_rows) {
     // User has a ticket.
@@ -96,34 +87,83 @@ if (isset($_POST['checkoutCart']) AND !empty($_POST['checkoutCart'])) {
   if (count($json) == 1) {
     // Only one seat chosen...
     $seat = preg_replace("(cart-item-)", "", $json[0]);
-    $query = "INSERT INTO Tickets (UserID, EventID, SeatNumber, OrderedDate, TransactionCode) VALUES (" . $_SESSION['UserID'] . ", " . $eventID . ", " . $seat . ", " . $temptime.", '$TransActionCode' )";
+
+    # TEST OF ADDING TicketPriceID before paypal start
+    $query_userMember = $db_conn->query("SELECT UserMembership.UserID FROM UserMembership WHERE UserID = " . $_SESSION['UserID'] . " AND UserMembership.Year = " . date("Y"))->num_rows;
+    if ($query_userMember == 1) {
+      $query_TicketPrice = $db_conn->query("SELECT * FROM TicketPrices WHERE TicketPrices.EventID = " . $event['EventID'] . " AND TicketPrices.Type = 'Medlem' AND " . time() . " BETWEEN TicketPrices.StartTime AND TicketPrices.EndTime");
+      
+      if ($row = $query_TicketPrice->fetch_assoc()) {
+        
+        $ticketPrice = $row['Price'];
+        $TicketPriceID = $row['TicketPriceID'];
+      }
+    }else {
+      $query_TicketPrice = $db_conn->query("SELECT * FROM TicketPrices WHERE TicketPrices.EventID = " . $event['EventID'] . " AND TicketPrices.Type = 'ikke-medlem' AND " . time() . " BETWEEN TicketPrices.StartTime AND TicketPrices.EndTime");
+
+      if ($row = $query_TicketPrice->fetch_assoc()) {
+        $ticketPrice = $row['Price'];
+        $TicketPriceID = $row['TicketPriceID'];
+      }
+    }
+    # TEST OF ADDING TicketPriceID before paypal End
+    
+
+
+    $query = "INSERT INTO Tickets (UserID, EventID, SeatNumber, OrderedDate, TicketPriceID)
+        VALUES (" . $_SESSION['UserID'] . ", " . $eventID . ", " . $seat . ", " . time() . "," .$TicketPriceID. ")";
     if (!$db_conn->query($query)) {
       $_SESSION['MsgForUser'] = "Fejl ved resevering af sæde...";
       header("Location: index.php?page=Buy");
       exit;
-    }else{
-      $Cart[] = [
-        'Price' => $eventPrice,
-        'Quantity' => 1,
-        'Currency' => 'DKK',
-        'Name' => "Billet til " . $event['Title'],
-        'Desc' => "Sæde #" . $seat
-      ];
-      $_SESSION['BuyingTicketSingle'] = 1;
-      $_SESSION['Cart'] = $Cart;
-      PayPalCheckOut($Cart, $db_conn, "index.php?page=Buy&subpage=PaypalConfirm", $TransActionCode, $ROOTURL);
     }
+    /*
+      SINGLE TICKET
+    */
+    $ticketPrice = 0;
+    $query = "SELECT UserMembership.UserID FROM UserMembership WHERE UserID = " . $_SESSION['UserID'] . " AND UserMembership.Year = " . date("Y");
+    if ($db_conn->query($query)->num_rows) {
+      $query = "SELECT * FROM TicketPrices WHERE TicketPrices.EventID = " . $event['EventID'] . " AND TicketPrices.Type = 'Medlem' AND " . time() . " BETWEEN TicketPrices.StartTime AND TicketPrices.EndTime";
+      if ($ticket = $db_conn->query($query)->fetch_assoc()) {
+        $ticketPrice = $ticket['Price'];
+      } else {
+        $_SESSION['MsgForUser'] = "Fejl kode: 0x000D0011";
+        $query = "DELETE FROM Tickets WHERE UserID = '" . $_SESSION['UserID'] . "' AND OrderedDate IS NOT NULL AND RevokeDate = NULL";
+        $db_conn->query($query);
+        header("Location: index.php?page=Buy");
+        exit;
+      }
+    } else {
+      $query = "SELECT * FROM TicketPrices WHERE TicketPrices.EventID = " . $event['EventID'] . " AND TicketPrices.Type = 'Ikke-medlem' AND " . time() . " BETWEEN TicketPrices.StartTime AND TicketPrices.EndTime";
+      if ($ticket = $db_conn->query($query)->fetch_assoc()) {
+        $ticketPrice = $ticket['Price'];
+      } else {
+        $_SESSION['MsgForUser'] = "Fejl kode: 0x000D0012";
+        $query = "DELETE FROM Tickets WHERE UserID = '" . $_SESSION['UserID'] . "' AND OrderedDate IS NOT NULL AND RevokeDate = NULL";
+        $db_conn->query($query);
+        header("Location: index.php?page=Buy");
+        exit;
+      }
+    }
+    $Cart[] = [
+      'Price' => $ticketPrice,
+      'Quantity' => 1,
+      'Currency' => 'DKK',
+      'Name' => "Billet til " . $event['Title'],
+      'Desc' => "Sæde #" . $seat
+    ];
+    $_SESSION['BuyingTicketSingle'] = 1;
+    $_SESSION['Cart'] = $Cart;
+    PayPalCheckOut($Cart, $db_conn, "index.php?page=Buy&subpage=PaypalConfirm", uniqid(), $ROOTURL);
   } else {
     /*
       MULTIPLE SEATS SELECTED
     */
     sort($json);
-    $timeNow = $temptime;
+    $timeNow = time();
     for ($i=0; $i < count($json); $i++) {
       $query = "INSERT INTO Tickets (UserID, EventID, SeatNumber, OrderedDate)
           VALUES (" . $_SESSION['UserID'] . ", " . $event['EventID'] . ", " . substr($json[$i], -3) . ", " . $timeNow . ")";
-      print_r($query);
-      echo "<br/>";
       $db_conn->query($query);
     }
 ?>
@@ -159,7 +199,7 @@ function checkName() {
 }
 </script>
 <?php
-  } # end of Multiple seat
+  }
 } elseif (isset($_POST['nameForSeat']) AND !empty($_POST['nameForSeat'])) {
   /*
     STEP THREE - CONFIRMATION AND FINAL CHECK BEFORE PAYPAL
@@ -207,7 +247,7 @@ function checkName() {
           " AND Tickets.EventID = " . $event['EventID'] .
           " AND Tickets.RevokeDate IS NULL";
       $db_conn->query($query);
-      #header("Location: index.php?page=Buy");
+      header("Location: index.php?page=Buy");
       exit;
     }
     // Check if the users already have tickets...
@@ -230,7 +270,7 @@ function checkName() {
           " AND Tickets.EventID = " . $event['EventID'] .
           " AND Tickets.RevokeDate IS NULL";
       $db_conn->query($query);
-      #header("Location: index.php?page=Buy");
+      header("Location: index.php?page=Buy");
       exit;
     }
     echo "<pre>";
@@ -296,9 +336,6 @@ function checkName() {
 ?>
 
 <div class="LanCMScontentbox row">
-  <div class="col-lg-12">
-      <?php require_once("Include/MsgUser.php"); ?>
-  </div>
   <div id="map" class="col-lg-9 col-md-12 col-sm-12 col-xs-12">
     <div id="Seatmap"></div>
   </div>
@@ -310,7 +347,8 @@ function checkName() {
       <p>Total pris: <span id="Seatmap-Total">0</span>,-</p>
       <p><i><small>
         Prisen er vejledende og kan variere alt efter om du er medlem af foregningen.
-        Den endelige pris vil blive vist hos PayPal før du betaler.
+        Den endelige pris vil blive vist hos PayPal før du betaler. <br/><br/>
+        Ved Køb Acceptere man også <a target="_blank" href="?page=Handelsebetingelser">Handelsebetingelser</a>
       </small></i></p>
       <button id="CheckoutButton" class="btn btn-default" onclick="checkoutButton()">Køb &raquo;</button>
     </div>
