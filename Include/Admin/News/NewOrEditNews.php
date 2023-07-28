@@ -7,7 +7,7 @@ if(isset($_POST['Save'])){ // is the form submitted
   // gather up the information
     $Title          = $db_conn->real_escape_string($_POST['title']);
     $Content        = $db_conn->real_escape_string($_POST['AdminTinyMCE']);
-    $PublishDate    = $db_conn->real_escape_string($_POST['publishdate']);
+    $PublishDate    = $db_conn->real_escape_string($_POST['News-DatePicker']);
     echo $PublishDate    = strtotime($PublishDate);
     if(isset($_POST['Online'])){ $Online = 1; }else{ $Online = 0;}
     $LastEidtedID   = $_SESSION['UserID'];
@@ -46,8 +46,8 @@ if($action == 'Edit'){
     <div class="form-group col-lg-3">
       <label class="control-label" for="publishdate">Offenligørelses dato:</label>
       <div class="input-group">
-        <input type="text" class="form-control form_datetime datetimepicker1" id="publishdate" name="publishdate" value="" data-target="#publishdate" data-toggle="datetimepicker">
-        <div class="input-group-addon">&#x1f4c5;</div>
+             <input id="News-DatePicker" class="form-control News-DatePicker" type="text" data-target="#News-DatePicker" readonly data-toggle="datetimepicker" value="<?php if(isset($OutPuplishDate)){echo $OutPuplishDate;}?>" name="News-DatePicker">
+             <div class="input-group-addon">&#x1f4c5;</div>
       </div>
     </div>
     <div class="form-group form-inline col-lg-3">
