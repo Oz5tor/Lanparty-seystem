@@ -2,6 +2,11 @@
 if(isset($_SESSION["UserID"])){
     header("Location: index.php");
 }
+
+if(isset($_GET['subpage']) && ($_GET['subpage'] == 'link')){
+ #echo "link virker";
+ require_once("Include/Usermodule/OsuUrlLink.php");
+}else {
 require_once("class/MailGunSendMail.php");
 require_once("class/GetUsernameFromID.php");
 $Mailsend = 0;
@@ -19,7 +24,21 @@ $Mailsend = 0;
         
             $Key        = $_GLOBAL['MailgunKey'];
             $VCode      = md5(($Email.time()));
-            $HTML       = "Hej $Username, Her er en Verificerings kode: $VCode, for din bruger";
+            $HTML       = "
+            Hej $Username.
+            <br/>
+            <br/>
+            Du er ved at overføre en brugerprofil på vores hjemmeside.<br>
+            Verificeringskoden til overførsel af din konto er:<br>
+            <b>$VCode</b><br>
+            <br>
+            Du kan også fortsætte overførslen af din konto ved at klikke på dette link:<br>
+            <a href='$ROOTURL/index.php?page=OSU&subpage=link&username=$Username&code=$VCode'>Bekræft genaktivering</a><br>
+            <br>
+            //Mvh<br>
+            <br>
+            HLPF<br>
+                          ";
             $To         = $Email; # change to  $Email when moving off sandbox
             $From       = $_GLOBAL['SendMailFrom'];
             $Subject    = "HLParty.dk Konto - Genaktiverings Kode";
@@ -56,7 +75,7 @@ $Mailsend = 0;
 ?>
 
 <div class="row LanCMSequal">
-    <div class="LanCMScontentbox col-lg-6 col-md-12 col-sm-12 col-xs-12">
+    <div class="LanCMScontentbox col-lg-8 col-md-12 col-sm-12 col-xs-12">
     <?php
          $result = $db_conn->query("SELECT * From Pages WHERE PageTitle = 'Bruger Migrering'");
          $row = $result->fetch_assoc();
@@ -64,7 +83,7 @@ $Mailsend = 0;
     ?>
     <!-- Beskrivelse af hvad det betyder at linke din sociale profil med din gamgle HLPart.dk bruger -->
     </div>
-    <div class="LanCMScontentbox col-lg-6 col-md-12 col-sm-12 col-xs-12">
+    <div class="LanCMScontentbox col-lg-4 col-md-12 col-sm-12 col-xs-12">
     <?php
     if (isset($_SESSION['MsgForUser']) && $Mailsend == 0) { ?>
             <div class="alert alert-dismissible alert-danger col-lg-12 col-md-8 col-sm-12 col-xs-12">
@@ -136,4 +155,8 @@ $Mailsend = 0;
         </div>
     </div>
 </div>
+<?php
+}
+?>
+
 
