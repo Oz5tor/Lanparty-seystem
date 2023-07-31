@@ -27,7 +27,7 @@ if (isset($_SESSION['BuyingTicketSingle'])) {
         $TempTickType = "Medlem";
     }else{
         # == useris not member during pruches
-        $TempTickType = "Ikke-medlem";
+        $TempTickType = "ikke-medlem";
     }
     $GetTicketTypeID = $db_conn->query("SELECT * FROM TicketPrices WHERE EventID = '$TempEventID' AND Price = '$GetTicketTypeIDprice' AND `Type` = '$TempTickType'")->fetch_assoc();
     $priceGroupID = $GetTicketTypeID['TicketPriceID'];
@@ -93,13 +93,13 @@ if (isset($_SESSION['BuyingTicketSingle'])) {
   unset($_SESSION['BuyingTicketMulti']);
   // For every item in cart, set transaction code.
   for ($i=0; $i < count($_SESSION['Cart']); $i++) {
-    $username = substr($_SESSION['Cart'][$i]['Desc'], 15);
-    $usernameID = GetIDFromUsername($username, $db_conn);
+     $username = substr($_SESSION['Cart'][$i]['Desc'], 15);
+     $usernameID = GetIDFromUsername($username, $db_conn);
     $seat = substr($_SESSION['Cart'][$i]['Desc'], 7, 3);
     $query = "UPDATE Tickets
         SET Tickets.TransactionCode = '" . $db_conn->real_escape_string($_SESSION['invoice_number']) . "'" .
       " WHERE Tickets.UserID = " . $usernameID .
-        " AND Tickets.TransactionCode IS NULL AND Tickets.EventID = " . $eventID .
+        " AND Tickets.TransactionCode = '' AND Tickets.EventID = " . $eventID .
         " AND Tickets.SeatNumber = " . $db_conn->real_escape_string($seat);
     $db_conn->query($query);
     // If the payment was unsuccessful, set revoke date.
@@ -111,10 +111,23 @@ if (isset($_SESSION['BuyingTicketSingle'])) {
           " AND Tickets.TransactionCode = " . $db_conn->real_escape_string($_SESSION['invoice_number']);
       $db_conn->query($query);
     }
+
+    /*
+    ## NEW SEND MAIL (Send mail to buyer with all tickets and single ticket copy to each friend)
+    if($usernameID == $_SESSION['UserID']){
+        # Send Mail with all Tickets
+    }else{
+        # Send mail with ticket to friend
+    }
+
+    */
   }
+
+
+  # ============== Rework multiticket send mail Needed ============
   $userresult = $db_conn->query("SELECT FullName, Username, Email From Users
       WHERE UserID = " . $_SESSION['UserID'])->fetch_assoc();
-  $mailResult = $db_conn->query("SELECT Message FROM MailMesseges WHERE MessegesID = 5")->fetch_assoc();
+  $mailResult = $db_conn->query("SELECT Message FROM MailMesseges WHERE MessegesID = 1")->fetch_assoc();
   $msg = $mailResult['Message'];
   $username = $userresult['Username'];
   $msg = str_replace('$fullName', $userresult['FullName'], $msg);
@@ -129,6 +142,10 @@ if (isset($_SESSION['BuyingTicketSingle'])) {
   $msg = str_replace('$antal', $ticketTotal, $msg);
   // Add the whole cart to the email at some point. It's not important. Just make the mail work.
   #SendMail($userresult['Email'], $userresult['FullName'], 'Billet kvittering - HLParty', $msg, $_GLOBAL);
+  
+  # ============== Rework multiticket send mail Needed ============
+
+
 }
 unset($_SESSION['invoice_number'], $_SESSION['payPalSuccess'], $_SESSION['Cart']);
 // Fucking magic...

@@ -19,7 +19,7 @@ if($OnlyOneTypeActive == 1){
     $query = "SELECT * FROM TicketPrices WHERE TicketPrices.EventID = " . $event['EventID'] . " AND TicketPrices.Type = 'Medlem' AND " .
     time() . " BETWEEN TicketPrices.StartTime AND TicketPrices.EndTime";
 }else{
-    $query = "SELECT * FROM TicketPrices WHERE TicketPrices.EventID = " . $event['EventID'] . " AND TicketPrices.Type = 'Ikke-medlem' AND " .
+    $query = "SELECT * FROM TicketPrices WHERE TicketPrices.EventID = " . $event['EventID'] . " AND TicketPrices.Type = 'ikke-medlem' AND " .
     time() . " BETWEEN TicketPrices.StartTime AND TicketPrices.EndTime";
 }
 $result = $db_conn->query($query)->fetch_assoc();
@@ -134,7 +134,7 @@ if (isset($_POST['checkoutCart']) AND !empty($_POST['checkoutCart'])) {
         exit;
       }
     } else {
-      $query = "SELECT * FROM TicketPrices WHERE TicketPrices.EventID = " . $event['EventID'] . " AND TicketPrices.Type = 'Ikke-medlem' AND " . time() . " BETWEEN TicketPrices.StartTime AND TicketPrices.EndTime";
+      $query = "SELECT * FROM TicketPrices WHERE TicketPrices.EventID = " . $event['EventID'] . " AND TicketPrices.Type = 'ikke-medlem' AND " . time() . " BETWEEN TicketPrices.StartTime AND TicketPrices.EndTime";
       if ($ticket = $db_conn->query($query)->fetch_assoc()) {
         $ticketPrice = $ticket['Price'];
       } else {
@@ -162,7 +162,7 @@ if (isset($_POST['checkoutCart']) AND !empty($_POST['checkoutCart'])) {
     sort($json);
     $timeNow = time();
     for ($i=0; $i < count($json); $i++) {
-      $query = "INSERT INTO Tickets (UserID, EventID, SeatNumber, OrderedDate)
+      $query = "INSERT INTO Tickets (BuyersID, EventID, SeatNumber, OrderedDate)   # Need re-Think to avoide next user submit step where multiple tickets has same user
           VALUES (" . $_SESSION['UserID'] . ", " . $event['EventID'] . ", " . substr($json[$i], -3) . ", " . $timeNow . ")";
       $db_conn->query($query);
     }
@@ -220,7 +220,7 @@ function checkName() {
     // Same name was used twice
     $_SESSION['MsgForUser'] = "En person kan ikke have to sæder...";
     // Remove the resevation, so the user can pick the seats again.
-    $query = "DELETE FROM Tickets WHERE Tickets.UserID = " . $_SESSION['UserID'] .
+    $query = "DELETE FROM Tickets WHERE Tickets.BuyersID = " . $_SESSION['UserID'] .
         " AND Tickets.EventID = " . $event['EventID'] .
         " AND Tickets.RevokeDate IS NULL AND Tickets.TransactionCode IS NULL";
     $db_conn->query($query);
@@ -231,7 +231,7 @@ function checkName() {
     // Check if the users exist...
     $naughtyUsers = [];
     foreach ($arr as $key => $value) {
-      $query = "SELECT Username FROM Users WHERE Username = '" . $value . "'";
+      $query = "SELECT Username FROM Users WHERE Username = '" . $value . "' AND OneallUserToken != '' AND Inactive != '1'";
       $result = $db_conn->query($query);
       if (!$result -> num_rows) {
         $naughtyUsers[] = $value;
@@ -266,7 +266,7 @@ function checkName() {
         $_SESSION['MsgForUser'] = $_SESSION['MsgForUser'] . $naughtyUsers[$i] . " ";
       }
       // Remove the resevation, so the user can pick the seats again.
-      $query = "DELETE FROM Tickets WHERE Tickets.UserID = " . $_SESSION['UserID'] .
+      $query = "DELETE FROM Tickets WHERE Tickets.BuyersID = " . $_SESSION['UserID'] .
           " AND Tickets.EventID = " . $event['EventID'] .
           " AND Tickets.RevokeDate IS NULL";
       $db_conn->query($query);
@@ -278,9 +278,31 @@ function checkName() {
     print_r($arr);
     echo "</pre>";
     foreach ($arr as $key => $value) {
+
+      $tempUserID2 = GetIDFromUsername($value, $db_conn);
+
+      # TEST OF ADDING TicketPriceID before paypal start
+      $query_userMember = $db_conn->query("SELECT UserMembership.UserID FROM UserMembership WHERE UserID = " . $tempUserID2 . " AND UserMembership.Year = " . date("Y"))->num_rows;
+      if ($query_userMember == 1) {
+        $query_TicketPrice = $db_conn->query("SELECT * FROM TicketPrices WHERE TicketPrices.EventID = " . $_GLOBAL['EventID'] . " AND TicketPrices.Type = 'Medlem' AND " . time() . " BETWEEN TicketPrices.StartTime AND TicketPrices.EndTime");
+        
+        if ($row = $query_TicketPrice->fetch_assoc()) {
+          $ticketPrice = $row['Price'];
+          $TicketPriceID = $row['TicketPriceID'];
+        }
+      }else {
+        $query_TicketPrice = $db_conn->query("SELECT * FROM TicketPrices WHERE TicketPrices.EventID = " . $_GLOBAL['EventID'] . " AND TicketPrices.Type = 'ikke-medlem' AND " . time() . " BETWEEN TicketPrices.StartTime AND TicketPrices.EndTime");
+
+        if ($row = $query_TicketPrice->fetch_assoc()) {
+          $ticketPrice = $row['Price'];
+          $TicketPriceID = $row['TicketPriceID'];
+        }
+      }
+      # TEST OF ADDING TicketPriceID before paypal End
+
       $query = "UPDATE Tickets SET Tickets.UserID = " . GetIDFromUsername($value, $db_conn) .
-        " WHERE Tickets.UserID = " . $_SESSION['UserID'] .
-          " AND Tickets.RevokeDate IS NULL AND Tickets.TransactionCode IS NULL AND Tickets.SeatNumber = " . $key;
+        ", TicketPriceID = '$TicketPriceID' WHERE Tickets.BuyersID = " . $_SESSION['UserID'] .
+          " AND Tickets.RevokeDate IS NULL AND Tickets.TransactionCode = '' AND Tickets.SeatNumber = " . $key;
           //$_SESSION['SQL'] = $query;
       $db_conn->query($query);
     }
@@ -300,7 +322,7 @@ function checkName() {
         }
       } else {
         $query = "SELECT TicketPrices.Price FROM TicketPrices WHERE TicketPrices.EventID = " . $event['EventID'] .
-            " AND TicketPrices.Type = 'Ikke-medlem' AND " . time() . " BETWEEN TicketPrices.StartTime AND TicketPrices.EndTime";
+            " AND TicketPrices.Type = 'ikke-medlem' AND " . time() . " BETWEEN TicketPrices.StartTime AND TicketPrices.EndTime";
         if ($ticket = $db_conn->query($query)->fetch_assoc()) {
           $ticketPrice = $ticket['Price'];
         } else {
