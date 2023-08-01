@@ -1,3 +1,5 @@
+<div class="container">
+<div class="col-lg-12 LanCMSflex LanCMScontentbox">
 <?php
 require_once 'class/PaypalConfig.php';
 // use
@@ -64,13 +66,13 @@ else{
         unset($_SESSION['invoice_number']);
         unset($_SESSION['payPalSuccess']);
       }
-       echo '<div class="LanCMScontentborder">';
+       #echo '<div class="LanCMScontentborder">';
        echo '<p>Betaling Gemmenført, du vil blive sendt til forsiden om 5 sekunder...</p>';
        echo '<p><a href="index.php">Klik her for at komme til forsiden</a></p>';
        #echo '<pre>';
        #echo print_r($result);
        #echo '</pre>';
-       echo '</div>';
+       #echo '</div>';
       $retunto = $_GET['returnto'];
     /*echo "
       <script type='text/javascript'> setTimeout(
@@ -88,4 +90,5 @@ else{
   }
 }
 ?>
-
+  </div>
+</div>

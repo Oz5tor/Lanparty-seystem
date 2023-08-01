@@ -243,7 +243,7 @@ function checkName() {
         $_SESSION['MsgForUser'] = $_SESSION['MsgForUser'] . $naughtyUsers[$i] . " ";
       }
       // Remove the resevation, so the user can pick the seats again.
-      $query = "DELETE FROM Tickets WHERE Tickets.UserID = " . $_SESSION['UserID'] .
+      $query = "DELETE FROM Tickets WHERE Tickets.BuyersID = " . $_SESSION['UserID'] .
           " AND Tickets.EventID = " . $event['EventID'] .
           " AND Tickets.RevokeDate IS NULL";
       $db_conn->query($query);
