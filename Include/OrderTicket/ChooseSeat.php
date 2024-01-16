@@ -26,6 +26,62 @@ $result = $db_conn->query($query)->fetch_assoc();
 $eventPrice = $result['Price'];
 
 if (isset($_POST['checkoutCart']) AND !empty($_POST['checkoutCart'])) {
+  # =======================================
+  # Discount Code AVG code Start
+
+
+  if (isset($_POST['discontcode']) AND !empty($_POST['discontcode'])) {
+    $DiscountCodes = $db_conn->real_escape_string(trim($_POST['discontcode']));
+    $CodesArr = explode(',', $DiscountCodes);
+    $CodesArr = array_unique($CodesArr);
+    print_r($CodesArr);
+    #print_r($CodesArr);
+    $CodesDontExist = 0;
+    foreach ($CodesArr as $code => $value) { // Check if codes exists in Table
+      $query = "SELECT * FROM discountcodes WHERE Code = '$value' limit 1";
+      $Cresult = $db_conn->query($query);
+      #print_r($Cresult);
+      #echo $row_cnt = $Cresult->num_rows;
+      if ($Cresult->num_rows == 0) {
+        $CodesDontExist = 1;
+      }
+    }
+    #echo '$CodesDontExist: '.$CodesDontExist;
+    if ($CodesDontExist == 0) {
+      $UsedCodes = array();
+      $TotalDiscount = 0;
+
+      foreach ($CodesArr as $code => $value) {
+        $query = "SELECT * FROM discountcodes WHERE Code = '$value' limit 1";
+        $CodeFetch = $db_conn->query($query)->fetch_assoc();
+
+        $LimitUse   = $CodeFetch['LimitUse'];
+        $Used       = $CodeFetch['Used'];
+        $Amount     = $CodeFetch['Amount'];
+        
+        if ($LimitUse > $Used) {
+          // Discount valid
+          $TotalDiscount = $TotalDiscount+$Amount;
+          $json = json_decode($_POST['checkoutCart']);
+          $avgDiscount = $TotalDiscount / count($json);
+          $UsedCodes[] .= $value;
+        }else {
+          // Discount not valid
+          $_SESSION['MsgForUser'] = "En eller flere af dine koder er ikke gyldig";
+          header("Location: index.php?page=Buy");
+          exit;
+        }
+      }
+      $avgDiscount2 = round($avgDiscount, 0);
+      //print_r($avgDiscount2);
+      $_SESSION['UsedCodes'] = $UsedCodes;
+      $_SESSION['avgDiscount'] = $avgDiscount2;
+    }
+    
+  # Discount Code AVG code End
+  # =======================================
+  }
+  
   /*
     STEP TWO - WHO SITS WHERE?
   */
@@ -146,7 +202,7 @@ if (isset($_POST['checkoutCart']) AND !empty($_POST['checkoutCart'])) {
       }
     }
     $Cart[] = [
-      'Price' => $ticketPrice,
+      'Price' => $ticketPrice-$_SESSION['avgDiscount'],
       'Quantity' => 1,
       'Currency' => 'DKK',
       'Name' => "Billet til " . $event['Title'],
@@ -167,6 +223,7 @@ if (isset($_POST['checkoutCart']) AND !empty($_POST['checkoutCart'])) {
       $db_conn->query($query);
     }
 ?>
+<?php # ======================================================= ?>
 <div class="LanCMScontentbox row col-lg-12">
   <h1>Hvem skal side hvor?</h1>
   <p>Skriv brugernanvet på den person der skal side på den enkelte plads.</p>
@@ -332,7 +389,7 @@ function checkName() {
         }
       }
       $cart[] = [
-        'Price' => $ticketPrice,
+        'Price' => $ticketPrice-$_SESSION['avgDiscount'],
         'Quantity' => 1,
         'Currency' => 'DKK',
         'Name' => "Billet til " . $event['Title'],
@@ -367,7 +424,12 @@ function checkName() {
       <h4>Dit valg (<span id="Seatmap-Counter">0</span>)</h4>
       <ul id="Seatmap-Cart-Items"></ul>
       <p>Total pris: <span id="Seatmap-Total">0</span>,-</p>
-      <p><i><small>
+      <p>Kampange kode: 
+<form id="hiddenForm" class="" action="" method="POST">
+        <input name="discontcode" class="show" type="text">
+      </p>
+      <p><i>
+      <small>
         Prisen er vejledende og kan variere alt efter om du er medlem af foregningen.
         Den endelige pris vil blive vist hos PayPal før du betaler. <br/><br/>
         Ved Køb Acceptere man også <a target="_blank" href="?page=Handelsebetingelser">Handelsebetingelser</a>
@@ -376,7 +438,7 @@ function checkName() {
     </div>
   </div>
 </div>
-<form id="hiddenForm" class="hidden" action="" method="POST">
+
   <input type="hidden" id="checkoutCart" name="checkoutCart" class="hidden">
 </form>
 <script src="JS/seat-charts/jquery.seat-charts.min.js"></script>
@@ -499,6 +561,7 @@ function checkoutButton() {
   }
   var json = JSON.stringify(arr);
   document.getElementById('checkoutCart').value = json;
+  document.getElementById('discontcode').value = json;
   document.getElementById('hiddenForm').submit();
 }
 </script>

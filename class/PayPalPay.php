@@ -58,13 +58,26 @@ else{
       if(isset($_SESSION["BuyingMembership"]) && $_SESSION["BuyingMembership"] == 1){
         require_once("Include/Usermodule/AddMembertoDB.php");
       }
+
       if(isset($_SESSION["BuyingTicketSingle"]) && $_SESSION["BuyingTicketSingle"] == 1 OR
          isset($_SESSION["BuyingTicketMulti"]) && $_SESSION["BuyingTicketMulti"] == 1){
         $_SESSION['payPalSuccess'] = $sucess;
         require_once("Include/OrderTicket/PayPalConfirmation.php");
+        if (isset($_SESSION['UsedCodes'])) {
+          foreach ($_SESSION['UsedCodes'] as $key => $value) {
+            $query = "SELECT * FROM discountcodes WHERE Code = '$value' limit 1";
+            $CodeFetch = $db_conn->query($query)->fetch_assoc();
+            $NewUsed = $CodeFetch['Used'] +1; 
+            if ($db_conn->query("UPDATE `discountcodes` SET `Used` = '$NewUsed' WHERE `Code` ='$value'")) {
+              #echo "<br>Bøh";
+            }
+          }
+        }
         unset($_SESSION['Cart']);
         unset($_SESSION['invoice_number']);
         unset($_SESSION['payPalSuccess']);
+        unset($_SESSION['avgDiscount']);
+        unset($_SESSION['UsedCodes']);
       }
        #echo '<div class="LanCMScontentborder">';
        echo '<p>Betaling Gemmenført, du vil blive sendt til forsiden om 5 sekunder...</p>';
@@ -78,7 +91,7 @@ else{
       <script type='text/javascript'> setTimeout(
         function() {
             window.location = '$retunto';
-        }, 5000);
+        }, 10000);
       </script>
       ";*/
     }catch(Exception $ex){
