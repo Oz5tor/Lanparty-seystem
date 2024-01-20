@@ -104,9 +104,20 @@
           </div><!-- Tickets prices end -->
           <hr> <!-- HORIZONTAL LINE -->
         </div>
-      </div><!-- Basic info end -->
-      <!-- Poster -->
+      </div><!-- Basic info end -->      
     </div>
+    <!-- Poster -->
+    <!-- Contnt creators start -->
+          <!-- Organizers -->
+          <?php
+            $orginizorTxt = $db_conn->query("SELECT * FROM Pages Where PageID = '21' AND `Online` = '1' LIMIT 1");
+            if($row = $orginizorTxt->fetch_assoc()){
+              echo '<div class="row"><div class="col-lg-9">';
+              echo $row["Content"];
+              echo '</div></div><hr />';
+            }
+          ?>
+      <!-- Contnt creators end -->
     <div class="row">
       <div class="col-lg-3">
         <?php
