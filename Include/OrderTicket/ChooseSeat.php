@@ -424,7 +424,7 @@ function checkName() {
       <h4>Dit valg (<span id="Seatmap-Counter">0</span>)</h4>
       <ul id="Seatmap-Cart-Items"></ul>
       <p>Total pris: <span id="Seatmap-Total">0</span>,-</p>
-      <p>Kampange kode: 
+      <p><small><i>Kampange kode (du kan bruge flere koder ved brug at seperare med komma(,) fx.: kode1,kode2,kode3):</i></small>
 <form id="hiddenForm" class="" action="" method="POST">
         <input name="discontcode" class="show" type="text">
       </p>
