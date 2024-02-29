@@ -1,4 +1,11 @@
 <?php
+
+# Check for Module Rights
+if (!isset($_SESSION["Competitions"]) && $_SESSION["Competitions"] != 1 ) {
+  $_SESSION['MsgForUser'] = "du har ikke adgang til modulet GLHF :P";
+  header("Location: index.php?page=Admin");
+}
+
 # EventID, #GameID, #CompStart, SignupOpen, SignupClose, #MaxSignups, #TeamSize, BracketsLink, DescText, ¤Online
 if($action != ''){
   if(isset($_GET['id']) && $_GET['id'] != ''){
@@ -23,6 +30,7 @@ if (isset($newOrEdit) && $newOrEdit != '') {
   include_once("Include/Admin/Competitions/CreateNewGame.php");
 }
 else {
+  
   
 function ChallongeStarted ($ApiKey, $ChallongeLink){
 $curl = curl_init();
@@ -86,10 +94,6 @@ if($response == "[]"){
     $GameName = $db_conn->query("SELECT * FROM CompetitionGames WHERE GameID = '$TempGameID'");
     $GName = $GameName->fetch_assoc();
     # Get Matching Game Image from DB END
-        
-  #echo 'CompStart'.$Comps['CompStart'].'<br>';
-  #echo 'SignupClose'.$Comps['SignupClose'].'<br>';
-  #echo 'SignupOpen'.$Comps['SignupOpen'].'<br>';
     ?>
     
     <tr>
@@ -114,9 +118,9 @@ if($response == "[]"){
         <?php echo $Comps['TeamSize']; ?>
       </td>
       <td>
-        <?php if(time() >= $Comps['SignupClose'] ){ ?>
+        <?php if($Comps['SignupClose'] >= time()){ ?>
         <button class="disabled btn btn-danger">Lukket</button>
-        <?php }else if(time() >= $Comps['SignupOpen']  ) { ?>
+        <?php }else if(time() >= $Comps['SignupOpen']) { ?>
         <button class="disabled btn btn-success">Åben</button>
         <?php } ?>
       </td>
@@ -151,7 +155,7 @@ if($response == "[]"){
                   </div>
                 
                 <?php
-                  $Akey  = $_GLOBAL['ChallongeApiKey'];
+                  $Akey = $_GLOBAL['ChallongeApiKey'];
                   $Link  = $Comps['BracketsLink'];
                   $Sub   = $_GLOBAL['ChallongeSubDomain'];
                   $ChallongeStarted = ChallongeStarted($Akey, $Sub.'-'.$Link);
@@ -167,10 +171,10 @@ if($response == "[]"){
                     <?php
                   }else {
                     ?>
-                    <div class="col-lg-3">
+                    <div class="col-lg-4">
                       <button class=" btn btn-primary">Send tilmelte hold til Challonge</button>
                     </div>
-                    <div class="col-lg-3">
+                    <div class="col-lg-4">
                       <button class=" btn btn-primary">Start Tunering i challonge systemet</button>
                     </div>
                     <?php
@@ -187,7 +191,7 @@ if($response == "[]"){
                 </div>
               </div>
               <!-- class="collapse" -->
-              <div id="Teams" class="collapse">
+              <div id="Teams">
               <div class="row">
                   <div class="col-lg-3">
                     <button class="btn btn-info" data-toggle="collapse" data-target="#teamx" >Static Team</button>
@@ -228,13 +232,13 @@ if($response == "[]"){
               </div> <!-- End of signed teams colapse -->
               
                   <?php
-                    #if((time() >= $Comps['CompStart']) && ($ChallongeStarted == true)){
+                    if((time() >= $Comps['CompStart']) && ($ChallongeStarted == true)){
                   ?>
                   <div class="row">
                     <iframe frameborder="0" class="col-lg-12" height="600" src="https://challonge.com/<?= $Comps['BracketsLink']; ?>/module?theme=7575&show_final_results=1"></iframe>
                   </div>
                   <?php
-                    #} // end if comp is started
+                    } // end if comp is started
                   ?>          
         </div>
       </td>

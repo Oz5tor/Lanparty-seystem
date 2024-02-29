@@ -1,4 +1,12 @@
-<?php $result = $db_conn->query(" SELECT * FROM Tickets WHERE EventID = '$tabsEventID' ");
+<?php
+# Check for Module Rights
+if (!isset($_SESSION["Tickets"]) && $_SESSION["Tickets"] != 1 ) {
+  $_SESSION['MsgForUser'] = "du har ikke adgang til modulet GLHF :P";
+  header("Location: index.php?page=Admin");
+}
+
+
+$result = $db_conn->query(" SELECT * FROM Tickets WHERE EventID = '$tabsEventID' ");
 
 #print_r($result->fetch_assoc());
 ?>

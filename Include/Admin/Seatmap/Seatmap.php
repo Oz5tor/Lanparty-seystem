@@ -1,4 +1,11 @@
 <?php
+
+# Check for Module Rights
+if (!isset($_SESSION["SeatMap"]) && $_SESSION["SeatMap"] != 1 ) {
+  $_SESSION['MsgForUser'] = "du har ikke adgang til modulet GLHF :P";
+  header("Location: index.php?page=Admin");
+}
+
 if (isset($action) && !empty($action)) {
   include 'Include/Admin/Seatmap/NewOrEditSeatmap.php';
 } else {

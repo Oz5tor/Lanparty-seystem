@@ -1,4 +1,11 @@
 <?php
+
+# Check for Module Rights
+if (!isset($_SESSION["Users"]) && $_SESSION["Users"] != 2 ) {
+  $_SESSION['MsgForUser'] = "du har ikke adgang til Bruger modulet GLHF :P";
+  header("Location: index.php?page=Admin");
+}
+
 if($action != ''){
   if(isset($_GET['id']) && $_GET['id'] != ''){
     $URLPageID = $db_conn->real_escape_string($_GET['id']);
