@@ -1,6 +1,7 @@
 <?php
 ob_start();
 session_set_cookie_params(['samesite' => 'None', 'secure' => true]); 
+ini_set('session.cookie_samesite', 'None');
 session_start();
 require_once("oneall_calls.php");
 require_once("../CoreParts/DBconn.php");
@@ -56,7 +57,7 @@ if ( ! empty ($_POST['connection_token']))
 
     // Extract data
     $data = $json->response->result->data;
-        
+    echo "oneall_callback_handler.php - 1";
     echo '<pre>';
     print_r($_SESSION);
     print_r($data);
@@ -70,7 +71,7 @@ if ( ! empty ($_POST['connection_token']))
         if ($data->plugin->data->status == 'success')
         {
           if (isset($_SESSION['OSUID'])) {
-            echo "bob1";
+            #echo "bob1";
             $OSUID = $_SESSION['OSUID'];
             $temptoken = $data->user->user_token;
             $_SESSION['OneAllToken'] = $data->user->user_token;
@@ -306,6 +307,7 @@ if ( ! empty ($_POST['connection_token']))
                         break;
                     }
                     header("Location: ../../index.php");
+                    echo "oneall_callback_handler.php - 2";
                     echo "<pre>";
                     print_r($data->user);
                     echo "</pre>";
@@ -317,6 +319,20 @@ if ( ! empty ($_POST['connection_token']))
                     if($Result = $db_conn ->query("Select Admin From Users Where UserID = '$user_id'")){
                         $row = $Result->fetch_assoc();
                         $_SESSION['Admin'] = $row['Admin'];
+                        if ($row['Admin'] == 1) {
+                          
+                          $access_querry = $db_conn->query("SELECT accesse.Module, accesse.ID, access_asign.FK_AccessID, access_asign.FK_UserID, Users.UserID, Users.Admin, Users.Username
+                                            FROM Users 
+                                            Inner Join access_asign On access_asign.FK_UserID = Users.UserID
+                                            Inner Join accesse On access_asign.FK_AccessID = accesse.ID
+                                            Where Users.UserID = '$user_id'");
+                          if ($access_querry) {
+                            while ($row = $access_querry->fetch_assoc()) {
+                              $modulename = $row['Module'];
+                              $_SESSION["$modulename"] = 1;
+                            }
+                          }                  
+                        }
                     }
 
                     $LastLogin = time();

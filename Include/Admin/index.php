@@ -30,9 +30,10 @@ require_once("class/GetUsernameFromID.php");
         "NewsLetter"   => "Nyheds Brev",
         "Event"        => "Arrangementer",
         "Tickets"      => "Biletter",
-        "Competitions" =>  "Konkurrencer",
+        "Competitions" => "Konkurrencer",
         "Seatmap"      => "Seatmaps",
         "Sponsors"     => "Sponsore",
+        "accesse"      => "Admin Adgange",
       ];
       $result = $db_conn->query( "SELECT
         ( SELECT COUNT(*) FROM Users WHERE Inactive = 0  ) as Users,
@@ -43,6 +44,7 @@ require_once("class/GetUsernameFromID.php");
         ( SELECT COUNT(*) FROM Tickets WHERE EventID = '$tabsEventID' ) as Tickets,
         ( SELECT COUNT(*) FROM Sponsors ) as Sponsors,
         ( SELECT COUNT(*) FROM Competitions WHERE EventID = '$tabsEventID' ) as Competitions,
+        ( SELECT COUNT(*) FROM accesse ) as accesse,
         ( SELECT COUNT(*) FROM Seatmap ) as Seatmap
       ");
       if( $result -> num_rows ) {
