@@ -154,3 +154,6 @@ Include/TestArea/Convert.php
 Include/TestArea/Convert.php
 Include/TestArea/curlTest.php
 Include/TestArea/Convert.php
+Include/TestArea/activeusercheck.php
+Include/TestArea/ActiveuserList.php
+Include/TestArea/uniqid.php
