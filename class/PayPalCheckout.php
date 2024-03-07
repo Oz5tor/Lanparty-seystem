@@ -21,7 +21,7 @@ $cart[] = $tempItem;*/
 # == Call of the funtions looks like this and req the checkout cart and a description
 #PayPalCheckOut($cart, $db_conn, 'index.php', $invoiceID);
 
-function PayPalCheckOut($Cart, $DBCONN, $returnto ,$invoiceID, $ROOTURL){
+function PayPalCheckOut($Cart, $DBCONN, $returnto ,$invoiceID, $ROOTURL, $UsedCodes){
   // get the basic paypal api config and DBconn.php
   require_once("class/PaypalConfig.php");
 
@@ -88,10 +88,18 @@ function PayPalCheckOut($Cart, $DBCONN, $returnto ,$invoiceID, $ROOTURL){
     // transaction code = $invoiceid;
     $tempUser = $_SESSION['UserID'];
     //require_once 'Include/DBconn.php';
-    $DBCONN->query("INSERT INTO Transactions_PayPal
+    if($UsedCodes == ''){
+      $DBCONN->query("INSERT INTO Transactions_PayPal
                       (UserID,TrarnsactionCode, Completed, PaymentID, CompletedTime)
                       VALUES
                       ('$tempUser','$invoiceID','0','$paymentID','NULL')");
+    }else{
+      $DBCONN->query("INSERT INTO Transactions_PayPal
+                      (UserID,TrarnsactionCode, Completed, PaymentID, CompletedTime, UsedCodes)
+                      VALUES
+                      ('$tempUser','$invoiceID','0','$paymentID','NULL', '$UsedCodes')");
+    }
+    
 
 
     $_SESSION['invoice_number'] = $invoiceID;
