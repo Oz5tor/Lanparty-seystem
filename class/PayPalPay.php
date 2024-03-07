@@ -7,6 +7,7 @@ use PayPal\Api\Payment;
 use PayPal\Api\PaymentExecution;
 // ======
 $sucess = $db_conn->real_escape_string($_GET['success']);
+$tempinvoiceID = $_SESSION['invoice_number'];
 if($sucess == 'false'){ // if false
  echo '<p>Betaling fejled/annuleret</p>';
   if(isset($_SESSION["BuyingMembership"])){
@@ -72,7 +73,12 @@ else{
               #echo "<br>Bøh";
             }
           }
+          
+
         }
+
+
+
         unset($_SESSION['Cart']);
         unset($_SESSION['invoice_number']);
         unset($_SESSION['payPalSuccess']);
