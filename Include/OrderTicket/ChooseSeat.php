@@ -8,6 +8,8 @@ if (!isset($_SESSION['UserID'])) {
   exit;
 }
 
+## Need another chek on if user has a valid ticket for event (user is returned to the seatmap/chosse seat after paypal)
+
 require 'class/PayPalCheckout.php';
 $eventID = $_GLOBAL["EventID"];
 $event = $db_conn->query("SELECT e.EventID, e.Seatmap, e.Title FROM Event as e WHERE EventID = '$eventID' ORDER BY e.EventID DESC LIMIT 1")->fetch_assoc();
@@ -210,7 +212,16 @@ if (isset($_POST['checkoutCart']) AND !empty($_POST['checkoutCart'])) {
     ];
     $_SESSION['BuyingTicketSingle'] = 1;
     $_SESSION['Cart'] = $Cart;
-    PayPalCheckOut($Cart, $db_conn, "index.php?page=Buy&subpage=PaypalConfirm", uniqid(), $ROOTURL);
+
+    ##
+
+    $tempinvoiceID = $_SESSION['invoice_number'];
+    $usedcodes = "";
+    foreach ($_SESSION['UsedCodes'] as $key => $value) {
+      $usedcodes .= $value.',';
+    }
+
+    PayPalCheckOut($Cart, $db_conn, "index.php?page=Buy&subpage=PaypalConfirm", uniqid(), $ROOTURL, $usedcodes);
   } else {
     /*
       MULTIPLE SEATS SELECTED
@@ -398,7 +409,13 @@ function checkName() {
     }
     $_SESSION['BuyingTicketMulti'] = 1;
     $_SESSION['Cart'] = $cart;
-    PayPalCheckOut($cart, $db_conn, "index.php?page=Buy&subpage=PaypalConfirm", uniqid(), $ROOTURL);
+
+    $usedcodes = "";
+    foreach ($_SESSION['UsedCodes'] as $key => $value) {
+      $usedcodes .= $value.',';
+    }
+
+    PayPalCheckOut($cart, $db_conn, "index.php?page=Buy&subpage=PaypalConfirm", uniqid(), $ROOTURL, $usedcodes);
   }
 } else {
   /*
