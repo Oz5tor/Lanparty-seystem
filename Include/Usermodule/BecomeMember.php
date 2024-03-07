@@ -19,6 +19,6 @@ $Membership['Desc']    = "Medlemskab for $year";
 $_SESSION["BuyingMembership"] = 1;
 $cart = array();
 $cart[] = $Membership;
-PayPalCheckOut($cart, $db_conn, 'index.php?page=EditMyProfile', uniqid(), $ROOTURL);
+PayPalCheckOut($cart, $db_conn, 'index.php?page=EditMyProfile', uniqid(), $ROOTURL, '');
 }
 ?>
