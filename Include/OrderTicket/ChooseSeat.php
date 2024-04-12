@@ -36,6 +36,15 @@ if (isset($_POST['checkoutCart']) AND !empty($_POST['checkoutCart'])) {
     $DiscountCodes = $db_conn->real_escape_string(trim($_POST['discontcode']));
     $CodesArr = explode(',', $DiscountCodes);
     $CodesArr = array_unique($CodesArr);
+
+    $CodesArrCount = count($CodesArr);
+
+    if ($CodesArrCount > $_GLOBAL['MaxDicountCodes']) {
+      $_SESSION['MsgForUser'] = "Der er brugt flere Rabbat koder en tilladt";
+          header("Location: index.php?page=Buy");
+          exit;    
+    }
+
     print_r($CodesArr);
     #print_r($CodesArr);
     $CodesDontExist = 0;
@@ -441,10 +450,40 @@ function checkName() {
       <h4>Dit valg (<span id="Seatmap-Counter">0</span>)</h4>
       <ul id="Seatmap-Cart-Items"></ul>
       <p>Total pris: <span id="Seatmap-Total">0</span>,-</p>
-      <p><small><i>Kampange kode (du kan bruge flere koder ved brug at seperare med komma(,) fx.: kode1,kode2,kode3):</i></small>
+
+      <!-- Discount code HTML start -->
+
+      <?php 
+      if ($_GLOBAL["MaxDicountCodes"] != 0) {
+        
+        switch (true) {
+          case $_GLOBAL["MaxDicountCodes"] == 1:
+            echo "<p><small><i>Kampange kode (Der kan kun bruges EN kode per order):</i></small>";
+            break;
+            case $_GLOBAL["MaxDicountCodes"] >= 2:
+              echo "<p><small><i>Kampange kode (du kan bruge flere koder ved brug at seperare med komma(,) fx.: kode1,kode2,kode3):</i></small>";
+              break;
+          default:
+            # code...
+            //Do nothing
+            break;
+        }
+
+      }
+      ?>
+
+      
 <form id="hiddenForm" class="" action="" method="POST">
-        <input name="discontcode" class="show" type="text">
+        <?php 
+          if($_GLOBAL["MaxDicountCodes"] >= 1) {
+            ?>
+            <input name="discontcode" class="show" type="text">
+            <?php
+          }
+        ?>
+        
       </p>
+      <!-- Discount code HTML end -->
       <p><i>
       <small>
         Prisen er vejledende og kan variere alt efter om du er medlem af foregningen.

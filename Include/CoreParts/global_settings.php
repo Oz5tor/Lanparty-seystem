@@ -6,6 +6,8 @@ while($row = $result->fetch_assoc()) {
   $_GLOBAL[$row['Name']] = $row['Setting'];
 }
 
+
+
 $now = time();
 
 $query2 = "Select * from Event Where StartDate >= $now LIMIT 1";
