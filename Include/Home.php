@@ -46,19 +46,29 @@ while ($Newsrow = $GetNews->fetch_assoc()) {
        <h4 style="float:left"><?php echo $LatestNewsSet[2]['Title'];?></h4>
        <h6 style="float:right"><?php echo date('d.M Y',$LatestNewsSet[2]['Publish']);?></h6>
        <hr style=" clear:both">
-        <?php echo $LatestNewsSet[2]['Content']; ?>
+        <?php #echo substr($LatestNewsSet[2]['Content'], 0,350).'.....'; ?>
+        
+        <p><a href='?page=Nyhed&id=<?php echo $LatestNewsSet[2]['ID'];  ?>'>Læs hele nyhedden her...</a></p>
+        <hr/>
+        
     </div>
     <div class="col-lg-4 col-xs-12 col-sm-12 col-md-6 LanCMScontentbox img-thumbnail">
        <h4 style="float:left"><?php echo $LatestNewsSet[3]['Title'];?></h4>
        <h6 style="float:right"><?php echo date('d.M Y',$LatestNewsSet[3]['Publish']);?></h6>
        <hr style=" clear:both">
-       <?php echo $LatestNewsSet[3]['Content']; ?>
+       <?php #echo substr($LatestNewsSet[3]['Content'], 0,350).'.....'; ?>
+        
+        <p><a href='?page=Nyhed&id=<?php echo $LatestNewsSet[3]['ID'];  ?>'>Læs hele nyhedden her...</a></p>
+        <hr/>
     </div>
     <div class="col-lg-4 col-xs-12 col-sm-12 col-md-6 LanCMScontentbox img-thumbnail">
        <h4 style="float:left"><?php echo $LatestNewsSet[4]['Title'];?></h4>
        <h6 style="float:right"><?php echo date('d.M Y',$LatestNewsSet[4]['Publish']);?></h6>
        <hr style=" clear:both">
-       <?php echo $LatestNewsSet[4]['Content']; ?>
+       <?php #echo substr($LatestNewsSet[4]['Content'], 0,350).'.....'; ?>
+        
+        <p><a href='?page=Nyhed&id=<?php echo $LatestNewsSet[4]['ID'];  ?>'>Læs hele nyhedden her...</a></p>
+        <hr/>
     </div>
 </div>
 <hr>
