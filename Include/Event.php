@@ -50,7 +50,9 @@
           <hr> <!-- HORIZONTAL LINE -->
           <div>
             <!-- Tickets prices -->
+            <?php if(isset($_SESSION['UserID'])){ ?>
             <h2>Billet Priser <a href="?page=Buy" class="btn btn-primary">Køb billet her &raquo;</a></h2>
+            <?php } ?>
             <div class="row">
               <?php
               // Get distinct types //
