@@ -3,8 +3,8 @@
 $eventPrice = 0;
 
 if (!isset($_SESSION['UserID'])) {
-  $_SESSION['MsgForUser'] = "Du skal være logget ind for at se denne side.";
-  header("Location: index.php");
+  $_SESSION['MsgForUser'] = "Du skal være logget ind for at kunne vælge pladser og købe billet(er)";
+  header("Location: index.php?page=Event");
   exit;
 }
 
@@ -45,7 +45,6 @@ if (isset($_POST['checkoutCart']) AND !empty($_POST['checkoutCart'])) {
           exit;    
     }
 
-    print_r($CodesArr);
     #print_r($CodesArr);
     $CodesDontExist = 0;
     foreach ($CodesArr as $code => $value) { // Check if codes exists in Table
@@ -253,12 +252,16 @@ if (isset($_POST['checkoutCart']) AND !empty($_POST['checkoutCart'])) {
       $seat = preg_replace("(cart-item-)", "", $json[$i]);
 ?>
     <div class="form-group col-lg-3 col-md-4 col-sm-6 col-xs-12">
-      <label class="control-label" for="<?= $seat ?>">Sæde #<?= $seat ?></label>
-      <input class="form-control" id="<?= $seat ?>" type="text">
+      <label class="control-label" for="<?= $seat ?>">Brugernavn for Plads #<?= $seat ?></label>
+      <input required class="form-control" id="<?= $seat ?>" type="text">
     </div>
 <?php } // end for loop ?>
   </div>
+  <form id="CancelMultiOrder" action="" method="POST">
+  <input class="btn btn-danger" type="submit" value="&laquo; Fortyd og gå tilbage til Plads valg" id="CancelButton" name="CancelButton">
   <button onclick="checkName()" class="btn btn-primary">Næste &raquo;</button>
+  </form>
+  
   <form id="setNamesForSeats" class="hidden" action="" method="POST">
     <input type="hidden" id="nameForSeat" name="nameForSeat">
   </form>
@@ -426,6 +429,14 @@ function checkName() {
 
     PayPalCheckOut($cart, $db_conn, "index.php?page=Buy&subpage=PaypalConfirm", uniqid(), $ROOTURL, $usedcodes);
   }
+} elseif (isset($_POST['CancelButton'])) {
+  # Delete rows in Tickets with Currunt EventID and User sessions ID (UserID == BuyersID)
+  $tempuser = $_SESSION['UserID'];
+  $tmepEventID = $_GLOBAL['EventID'];
+
+  $db_conn->query("DELETE FROM Tickets WHERE EventID = '$tmepEventID' AND BuyersID = '$tempuser'");
+  header("Location: Index.php?page=Buy");
+  exit;
 } else {
   /*
     STEP ONE - CHOOSE SEATS
