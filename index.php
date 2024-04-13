@@ -39,9 +39,11 @@ require_once("Include/CoreParts/global_settings.php");
     </header>
     <?php
     if (isset($_SESSION['MsgForUser'])) {
+        echo '&nbsp;';
         include_once 'Include/MsgUser.php';
-    }
+    }else{echo '&nbsp;';}
     ?>
+    
     <div class="container">
     <?php require_once("Include/PageCaller.php"); ?>
     </div>
