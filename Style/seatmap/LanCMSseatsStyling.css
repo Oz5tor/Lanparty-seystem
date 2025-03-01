@@ -84,6 +84,13 @@ div.seatStyle_Stage.unavailable {
   color: grey;
   cursor: default;
 }
+
+div.seatStyle_locked.available,
+div.seatStyle_locked.unavailable {
+  background-color: rgb(144, 144, 141);
+  color: black;
+}
+
 div.seatStyle_Arkade.available,
 div.seatStyle_Arkade.unavailable {
   background-color: pink;

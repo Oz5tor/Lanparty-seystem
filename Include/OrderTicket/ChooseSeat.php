@@ -435,7 +435,7 @@ function checkName() {
   $tmepEventID = $_GLOBAL['EventID'];
 
   $db_conn->query("DELETE FROM Tickets WHERE EventID = '$tmepEventID' AND BuyersID = '$tempuser'");
-  header("Location: Index.php?page=Buy");
+  header("Location: index.php?page=Buy");
   exit;
 } else {
   /*
@@ -528,7 +528,8 @@ $(document).ready(function() {
         A: { classes: 'seatStyle_Arkade' },
         s: { classes: 'seatStyle_Stage' },
         c: { classes: 'seatStyle_Crew' },
-        k: { classes: 'seatStyle_Kiosk' }
+        k: { classes: 'seatStyle_Kiosk' },
+        L: { classes: 'seatStyle_locked' }
       },
       legend : {
         node  : $('#Seatmap-Legend'),
@@ -540,6 +541,7 @@ $(document).ready(function() {
           [ 's', 'unavailable', 'Scene / Storskærm'],
           [ 'A', 'unavailable', 'Arkade'],
           [ 'k', 'unavailable', 'Kiosk'],
+          [ 'L', 'unavailable', 'Låst plads'],
         ]
       },
       click: function () {
@@ -593,6 +595,7 @@ $(document).ready(function() {
   sc.find('c.available').status('unavailable');
   sc.find('s.available').status('unavailable');
   sc.find('k.available').status('unavailable');
+  sc.find('L.available').status('unavailable');
   <?php
     $query = "SELECT Tickets.SeatNumber FROM Tickets WHERE Tickets.EventID = " . $event['EventID'];
   ?>
