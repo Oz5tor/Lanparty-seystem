@@ -27,8 +27,8 @@
 <!-- Menu tiles start -->
         <div class="row">
             <div class="col-xs-6 col-md-3 col-sm-3 LanCMSmargin_botom">
-                <a href="index.php?page=OSU" class="">
-                  <img class="img-responsive img-thumbnail center-block" src="Images/UserMigration.jpg">
+                <a href="https://forms.microsoft.com/Pages/ResponsePage.aspx?id=ZyRwTj_LeUKj--0yTi0_NFAWiFSpY2VPr5OC4NRFmOxUN1dXTUVQVFBDOUFTUkoyUlUzVUU4V1kxRiQlQCN0PWcu" target="_blank" class="">
+                  <img class="img-responsive img-thumbnail center-block" src="Images/Blivfriivilllig-2.jpg">
                 </a>    
             </div>
             <div class="col-xs-6 col-md-3 col-sm-3 LanCMSmargin_botom">
