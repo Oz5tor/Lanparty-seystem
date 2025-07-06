@@ -1,5 +1,5 @@
 <?php
-
+require_once("class/ChallongeClassLib.php");
 # Check for Module Rights
 if (!isset($_SESSION["Competitions"]) && $_SESSION["Competitions"] != 1 ) {
   $_SESSION['MsgForUser'] = "du har ikke adgang til modulet GLHF :P";
