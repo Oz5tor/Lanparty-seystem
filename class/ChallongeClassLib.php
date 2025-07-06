@@ -1,4 +1,7 @@
 <?php
+
+## OBS!!! needs converted top API v2 ##
+## https://transparent-pen-8a5.notion.site/Game-Integration-Guide-c43c1525ee364ee7acc7df1bba72f2cb ##
 # ================================================
 # Author: Tor Soya (Torsoya@gmail.com).
 # Created 6.March 2017
@@ -10,7 +13,7 @@ class ChallongeFunctions{
   function ChallongeCurlPost($params, $what){
     $data_json = json_encode($params);
     $ch = curl_init();
-    curl_setopt($ch, CURLOPT_URL,'https://oz5tor:dkijyzF3VeQdBxxX713xO6UzofqGbAfjN2jdWHlb@api.challonge.com/v1/'.$what.'.json');
+    curl_setopt($ch, CURLOPT_URL,'https://oz5tor:dkijyzF3VeQdBxxX713xO6UzofqGbAfjN2jdWHlb@api.challonge.com/v2/'.$what.'.json');
     curl_setopt($ch, CURLOPT_HTTPHEADER, array('Content-Type: application/json','Content-Length: ' . strlen($data_json)));
     curl_setopt($ch, CURLOPT_CUSTOMREQUEST, 'POST');
     curl_setopt($ch, CURLOPT_POSTFIELDS,$data_json);
@@ -56,7 +59,7 @@ class ChallongeFunctions{
   # $what = tournaments
   # $atributes = ?subdomain=hlpf
   function ChallongeShowStuff($apiKey, $what ,$atributes){
-    $atributes = $apiKey.'@api.challonge.com/v1/'.$what.'.json/'.$atributes;
+    $atributes = $apiKey.'@api.challonge.com/v2/'.$what.'.json/'.$atributes;
     return ChallongeFunctions::ChallongeCurlGet($atributes);
   }
   # ================================================
@@ -64,7 +67,7 @@ class ChallongeFunctions{
     $curl = curl_init();
 
     curl_setopt_array($curl, array(
-      CURLOPT_URL => "https://api.challonge.com/v1/tournaments?".$api_key."&".$att,
+      CURLOPT_URL => "https://api.challonge.com/v2/tournaments?".$api_key."&".$att,
       CURLOPT_RETURNTRANSFER => true,
       CURLOPT_ENCODING => "",
       CURLOPT_MAXREDIRS => 10,
@@ -94,7 +97,7 @@ class ChallongeFunctions{
   }*/
   # ================================================
   function ChallongeUpdateTournament($apiKey, $what, $params){
-    $url = $apiKey.'@api.challonge.com/v1/'.$what.'.json/';
+    $url = $apiKey.'@api.challonge.com/v2/'.$what.'.json/';
     return ChallongeFunctions::ChallongeCurlPut($url, $params);
   }
 }
