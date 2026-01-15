@@ -25,6 +25,7 @@ if(isset($_POST['Save'])){ // is the form submitted
                   Values('$Title', '$Content', '$LastEidtedID', '$LastEidtedID', '$LastEditedDate', '$LastEditedDate',  '$PublishDate', '$Online')");
   }
   header("location: index.php?page=Admin&subpage=News#admin_menu");
+  
 }
 
 if($action == 'Edit'){
