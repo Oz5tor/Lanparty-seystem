@@ -198,10 +198,10 @@ if($FormAOKAY == 0){ // For sucessfull filled
 
         $token = $_SESSION['UserToken'];
         if($db_conn->query("INSERT INTO `Users`(Username, FullName, ZipCode, Birthdate, Created, Email, Bio, Admin,
-                             Address, PW, Phone, OneallUserToken, $profileURLCol, NewsLetter, ClanID, ProfileIMG)
+                             Address, PW, Phone, OneallUserToken, $profileURLCol, NewsLetter, ClanID, ProfileIMG, LastLogin)
                              VALUES
                              ('$Username','$FullName','$Zipcode', '$revBirthday','$CreateTime','$Email', '$Bio','0',
-                              '$Address','$PW','$Phone','$token','$profileURL', '$NewsLetter','$finalClan', '$PictureName')"))
+                              '$Address','$PW','$Phone','$token','$profileURL', '$NewsLetter','$finalClan', '$PictureName', '0')"))
         {
 
             if($result = $db_conn ->query("Select Users.UserID, Users.Admin From Users Where Users.Username = '$Username' AND Inactive = '0'")){
@@ -226,6 +226,9 @@ if($FormAOKAY == 0){ // For sucessfull filled
             }else{echo 'find ny bruger fejled';}
         }else {
             echo 'opret fejled';
+            echo "<pre>";
+            echo "ERROR: Could not able to execute $sql. " . mysqli_error($db_conn);
+            echo "</pre>";
         }
     }
 // if formOKAY end
