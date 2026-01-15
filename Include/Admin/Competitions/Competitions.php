@@ -118,11 +118,25 @@ if($response == "[]"){
         <?php echo $Comps['TeamSize']; ?>
       </td>
       <td>
-        <?php if($Comps['SignupClose'] >= time()){ ?>
-        <button class="disabled btn btn-danger">Lukket</button>
-        <?php }else if(time() >= $Comps['SignupOpen']) { ?>
-        <button class="disabled btn btn-success">Åben</button>
-        <?php } ?>
+        <?php
+           switch (true) {
+             case (time() < $Comps['SignupOpen']):
+               ?>
+               <button class="disabled btn btn-warning">Åbner: <?php echo date("d M Y - H:i", $Comps['SignupOpen']); ?></button>
+               <?php
+               break;
+             case (time() >= $Comps['SignupOpen'] && time() <= $Comps['SignupClose']):
+               ?>
+               <button class="btn btn-success">Åben indtil: <?php echo date("d M Y - H:i", $Comps['SignupClose']); ?></button>
+               <?php
+               break;
+             case (time() > $Comps['SignupClose']):
+               ?>
+               <button class="disabled btn btn-danger">Lukket siden: <?php echo date("d M Y - H:i", $Comps['SignupClose']); ?></button>
+               <?php
+               break;
+           }
+        ?>
       </td>
       <td>
         <?php if($Comps['online'] == 0){ ?>
