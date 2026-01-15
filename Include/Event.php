@@ -50,9 +50,12 @@
           <hr> <!-- HORIZONTAL LINE -->
           <div>
             <!-- Tickets prices -->
-            <?php if(isset($_SESSION['UserID'])){ ?>
-            <h2>Billet Priser <a href="?page=Buy" class="btn btn-primary">Køb billet her &raquo;</a></h2>
-            <?php } ?>
+            <?php # if(isset($_SESSION['UserID'])){ ?>
+            
+            <h2>Billet Priser </h2>
+            <a href="?page=Buy" class="btn btn-primary">Køb billet her &raquo;</a>
+            
+            <?php #} ?>
             <div class="row">
               <?php
               // Get distinct types //
@@ -129,7 +132,7 @@
       <div class="col-lg-9">
         <!-- Organizers -->
         <?php
-          $orginizorTxt = $db_conn->query("SELECT * FROM Pages Where PageID = '17' LIMIT 1");
+          $orginizorTxt = $db_conn->query("SELECT * FROM Pages Where PageID = '18' LIMIT 1");
           if($row = $orginizorTxt->fetch_assoc()){
             echo $row["Content"];
           }
